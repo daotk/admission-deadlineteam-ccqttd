@@ -1,0 +1,24 @@
+/*--------------------------header---------------------------------*/
+.header {
+	width: 92%;
+	margin: 0 auto;
+	height:117px; 
+	min-height: 20px;
+	background-image:url('../images/PageTop_BG.gif');
+	background-size:100% 100%;
+   
+}
+
+/*----------------------footer-------------------------*/
+.footer{
+	width: 92%;
+	margin: 0 auto;
+	height: 90px;
+	min-height: 20px;
+	background-image: url('../images/PageTop_BG.gif');
+	background-size:100% 100%;
+}
+.content{
+	width: 92%;
+	margin: 0 auto;
+}
