@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<context:property-placeholder location="classpath:application.properties" />
+	
+	
+ 	<context:component-scan base-package="deadlineteam.admission.quantritudien" />
+ 	
+ 	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/template/**" location="/template/" />
+	<resources mapping="/images/**" location="/images/" />
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/css/**" location="/css/" />
+	<resources mapping="/ckeditor/**" location="/ckeditor/" />
+	<resources mapping="/page/**" location="/page/" />
+	
+
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory	 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+		 <!-- Tiles configuration -->
+	 
+	    <beans:bean id="tilesConfigurer"
+	        class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	        <beans:property name="definitions">
+	            <beans:list>
+	                <beans:value>/WEB-INF/tiles/tiles-definitions.xml</beans:value>
+	            </beans:list>
+	        </beans:property>
+	    </beans:bean>
+
+	
+
+	<beans:bean id="dataSource"  
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+        <beans:property name="driverClassName" value="${db.driver}" />  
+        <beans:property name="url" value="${db.url}" />  
+        <beans:property name="username" value="${db.username}" />  
+        <beans:property name="password" value="${db.password}" />
+    </beans:bean>  
+  
+    <beans:bean id="sessionFactory"  
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">  
+        <beans:property name="dataSource" ref="dataSource" />  
+        <beans:property name="packagesToScan" value="deadlineteam.admission.quantritudien.domain"></beans:property>  
+       
+        <beans:property name="hibernateProperties">  
+            <beans:props>  
+                <beans:prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.impl.FSDirectoryProvider</beans:prop>
+                <beans:prop key="hibernate.search.default.indexBase">E:/tmp/lucene/indexes</beans:prop> 
+                <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>   
+                <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>  
+                <beans:prop key="hibernate.connection.useUnicode">true</beans:prop>
+            	<beans:prop key="hibernate.connection.characterEncoding">UTF-8</beans:prop>
+            	<beans:prop key="hibernate.connection.charSet">UTF-8</beans:prop>
+            </beans:props>  
+        </beans:property>
+    </beans:bean>  
+  	     
+    <beans:bean id="hibernateTransactionManager"  
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+        <beans:property name="sessionFactory" ref="sessionFactory" />  
+    </beans:bean> 
+     
+     
+     
+</beans:beans>

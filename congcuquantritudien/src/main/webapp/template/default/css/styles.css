@@ -1,0 +1,102 @@
+/*custom font for text*/
+@import url(http://fonts.googleapis.com/css?family=Nunito);
+/*Basic reset*/
+/*Basic reset*/
+	* {margin: 0; padding: 0;}
+
+	body, html {
+		background: #eeeeee;
+		font-family: arial;
+		height: 100%;
+	}
+.menu ul {
+ 	list-style: none;	
+}
+
+.navigation li a{
+	color: #e2e2e2;
+		text-decoration: none;
+		font-size: 14px;
+		line-height: 27px;
+		display: block;
+		padding: 0 15px;
+		margin-top: 10px;
+		/*transition for smooth hover animation*/
+		transition: all 0.15s;
+}
+.navigation li:hover {
+	background: #576689;
+	border-right: 3px solid #ffffff;
+}
+
+
+.navigation li.active {
+	background-color: #576689;
+	color: #ffffff;
+	border-right: 4px solid #ffffff;
+}
+
+h3 {
+		font-size: 16px;
+		line-height: 34px;
+		padding: 0 10px;
+		background: #122144;
+		color: #f4f5f6;
+		cursor: pointer;
+		/*background: linear-gradient(#003040, #002535);*/
+		
+}
+
+h3:hover {
+	text-shadow: 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+
+
+.logoutbutton{
+	width:60px;
+	height:100%;
+	float: left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.logoutbutton:hover{
+	width:60px;
+	height:100%;
+    background-color: #0099cc;
+	float: left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.changepassbutton{
+	width:89px;
+	height:100%;
+	float: left;
+	border-right: 1px solid #546181;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.changepassbutton:hover{
+	width:89px;
+	float: left;
+	height:100%;
+	background-color: #0099cc;
+	border-right: 1px solid #546181;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.viewprofilebutton{
+	width:auto;
+	height:100%;
+	float: left;
+	padding-right: 20px;
+	border-right: 1px solid #546181;
+}
+.viewprofilebutton:hover{
+	width:auto;
+	height:100%;
+	float: left;
+	background-color: #0099cc;
+	padding-right: 20px;
+	border-right: 1px solid #546181;
+}
