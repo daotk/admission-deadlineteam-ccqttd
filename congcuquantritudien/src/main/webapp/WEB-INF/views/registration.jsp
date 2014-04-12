@@ -57,7 +57,7 @@ font-style: italic;
         <hr>
         <p class="error">${error}<p>
         <p class="success">${message}<p>
-      	<a href="home" id="login">Đăng nhập!</a>
+      	<a href="./" id="login">Đăng nhập!</a>
 
         <button class="button" type="submit"  name="actionsubmit" value="register">Gửi</button>
      </form:form>

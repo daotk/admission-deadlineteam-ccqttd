@@ -113,7 +113,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> deleteList(int page,int UserID){
 		   Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-	                "from Questionmanagement where DeleteStatus = 1");
+	                "from Questionmanagement where DeleteStatus = 1 and DeleteBy ="+UserID);
 		   Setting settings = getSetting(UserID);
 	         q.setFirstResult(page * settings.getRecordDelete()); 
 	         q.setMaxResults(settings.getRecordDelete());
@@ -139,7 +139,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> savelist(int page,int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0 and AnswerBy = 1");
+	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0 and AnswerBy = "+UserID);
 		 Setting settings = getSetting(UserID);
 	         q.setFirstResult(page * settings.getRecordTemp()); 
 	         q.setMaxResults(settings.getRecordTemp());
@@ -193,7 +193,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> repliedList(int page, int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-	                "from Questionmanagement where Status = 3 AND DeleteStatus = 0");
+	                "from Questionmanagement where Status = 3 AND DeleteStatus = 0 and AnswerBy ="+UserID);
 		 Setting settings = getSetting(UserID);
 	         q.setFirstResult(page * settings.getRecordRepied()); 
 	         q.setMaxResults(settings.getRecordRepied());
