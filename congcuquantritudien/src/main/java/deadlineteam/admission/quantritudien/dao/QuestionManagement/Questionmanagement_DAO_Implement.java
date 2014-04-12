@@ -139,7 +139,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> savelist(int page,int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0");
+	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0 and AnswerBy = 1");
 		 Setting settings = getSetting(UserID);
 	         q.setFirstResult(page * settings.getRecordTemp()); 
 	         q.setMaxResults(settings.getRecordTemp());

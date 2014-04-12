@@ -1156,7 +1156,7 @@ input[type="color"]:focus,
 
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 4px 0 0;
+  margin: 2px 0 0;
   margin-top: 1px \9;
   *margin-top: 0;
   line-height: normal;
@@ -4952,7 +4952,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .pagination {
-  margin: 20px 0;
+  margin: -4px 0;
 }
 
 .pagination ul {

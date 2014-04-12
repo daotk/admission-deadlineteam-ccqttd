@@ -92,125 +92,146 @@
 <body>
 <tiles:insertDefinition name="defaultTemplate">
     <tiles:putAttribute name="body">
-        <div id="loading"> </div>
+        <div id="loading"></div>
         <div class="body">
         	<table style="height: 100%;width: 100%;border-collapse: collapse;">
-        		<!--  TEST DEMO -->
         		<tr style="height: 100%; width: 100%;">
-				<td style="background-color: #ffffff; width: 350px; height:100%;" valign="top">				
+        			<!-- List question is saved -->
+					<td style="background-color: #ffffff; width: 350px; height:100%;" valign="top">				
+						<!-- search form -->
 						<form id="quick-search" method="post" action="dsluutam">
-					   		<feildset class="search-bar">
+						   	<feildset class="search-bar">
 								<label >
-						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
+									<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
 								</label>
-					   		</feildset>
-					 </form>
-					 <div style="padding: 5px;">
-					  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
-					  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px;" />Xóa</span>
-				  		<div id="container-pop" ">
-							<a class="popup-link-1" style="text-decoration: none;">
-							<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
-							<!-- <b>Cấu hình</b></a>  -->
-						</div>
-				  	</div>
-				  	<div class="popup-box" id="popup-box-1"><div class="close">X</div><div class="top">
-						<form method="post" action="dsluutam" style="text-align: center;">
-					    	<label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label>
-					    	<input style="width: 180px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input>
-							</br>
-							<label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label>
-							<input style="width: 180px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input>
-							<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; ">Thay đổi</button>
-					   	</form>
-						</div></div>
-						<div id="blackout"></div>
-					        	
-					   </div>
-						<div class="list-question-content">
-						<!-- load list of question -->
-						<c:if test="${not empty savequestionlist}">
-						<c:forEach var="Questionmanagement" items="${savequestionlist}" >
-						<div class="check"><input id="${Questionmanagement.ID}" name="check_${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
-						<a href="${pageContext.request.contextPath}/dsluutam?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
-							<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
-
-								<div class="row1">	
-										<div class="list-email">${Questionmanagement.questionEmail}</div>
-										<div class="list-date">
-											<fmt:formatDate value="${Questionmanagement.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
-										</div>
-								</div>						
-								<div class="row3">
-									<c:set var="string1" value="${Questionmanagement.question}"/>
-									${fn:substring(string1,0, 50)}
-								</div>
+						   	</feildset>
+						 </form>
+						 <!-- end search form -->
+						 
+						<!-- select form -->
+						<div style="padding: 5px;">
+						  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
+					  		
+					  		<!-- configuration -->
+					  		<div id="container-pop">
+								<a class="popup-link-1" style="text-decoration: none;"/>
+								<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
 							</div>
-							</a>
-						</c:forEach>
-						</c:if>
+							<!-- end configuration -->
+						</div>
+						<!-- end select form -->
+						  
+						<!-- configuration pop-up -->  
+					  	<div class="popup-box" id="popup-box-1"><div class="close">X</div>
+					  		<div class="top">
+								<form method="post" action="dsluutam" style="text-align: center;">
+						    		<label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label>
+						    		<input style="width: 180px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input>
+									<br>
+									<label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label>
+									<input style="width: 180px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input>
+									<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; ">Thay đổi</button>
+						   		</form>
+							</div>
+						</div>
+						<div id="blackout"></div>
+						<!-- end configuration pop-up -->
+						
+						<!-- load list of question -->   	
+						<div style="height: 489px">
+							<div class="list-question-content">
+								<c:if test="${not empty savequestionlist}">
+									<c:forEach var="Questionmanagement" items="${savequestionlist}" >
+										<div class="check"><input id="${Questionmanagement.ID}" name="check_${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
+										<a href="${pageContext.request.contextPath}/dsluutam?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
+											<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
+												<div class="row1">	
+													<div class="list-email">${Questionmanagement.questionEmail}</div>
+													<div class="list-date">
+														<fmt:formatDate value="${Questionmanagement.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
+													</div>
+												</div>						
+												<div class="row3">
+													<c:set var="string1" value="${Questionmanagement.question}"/>
+													${fn:substring(string1,0, 50)}
+												</div>
+											</div>
+										</a>
+									</c:forEach>
+								</c:if>
+							</div>
+						</div>
 						<!-- end load list of question -->
 						
-						</div>
+						<!-- paging -->
 						<div id="paginator"></div>
-				</td>
-				<!-- Cot thu 3 -->
-				<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">
-				<c:if test="${not empty error}">
-					<p class="error">${error}<p>
-				</c:if>	
-				<c:if test="${not empty message}">
-        			<p class="success">${message}<p>
-        		</c:if>	
-					<form:form method="post" action="" commandName="questionmanagements">
-					<c:if test="${not empty questionmanagements.title}">
-						<div id="questionarea">
-							<div id="question-info">
-								<span style="float:left;">Người hỏi: </span>
-								<span style="margin-left: 5px;">${questionmanagements.questionBy} &lt;${questionmanagements.questionEmail}&gt;</span>
-								
-								<!-- Ngày lưu câu trả lời -->
-								<span style="float: right;">
-									<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
-								</span>
-								<span style="float:right; margin-right: 5px;"> - Ngày trả lời: </span>
-								<!-- end ngày lưu câu trả lời -->
-								
-								<span style="float: right;margin-right: 3px;">
-									<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
-								</span>
-								<span style="float:right; margin-right: 5px;">Ngày nhận câu hỏi: </span>
-								
-							</div>
-							<div id="question-content">${questionmanagements.question}</div>
-						</div>
+						<!-- end paging -->
+					</td>
 					
-						<div id="answerarea">
-							<span id="answer">TRẢ LỜI:</span>
-							<div id="answer-content">
-								<form:textarea path="Answer" name="editor1" id="editor1" rows="5" cols="10"></form:textarea>
-			            		<script>
-			                		// Replace the <textarea id="editor1"> with a CKEditor
-			                		// instance, using default configuration.
-			                		CKEDITOR.replace( 'editor1' );
-			                		CKEDITOR.config.resize_enabled = false;
-			                		CKEDITOR.config.removePlugins = 'elementspath';
-			                		CKEDITOR.config.entities = false;
-			                		CKEDITOR.config.htmlEncodeOutput = false;
-			            		</script>
-							</div>
-						</div>
-					
-						<div style="width: 100%;height:35px;padding-top: 20px;">
-								<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
-								<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">LƯU</button>
-								<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">GỬI</button>
-						</div>
-					</c:if>								
-					</form:form>
-				</td>
-				<!-- ---------------------------------------------- -->		
-        </tr>
+					<!-- Detail of question is saved -->
+					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">
+						<c:if test="${not empty error}">
+							<p class="error">${error}<p>
+						</c:if>	
+						<c:if test="${not empty message}">
+		        			<p class="success">${message}<p>
+		        		</c:if>	
+						<form:form method="post" action="" commandName="questionmanagements">
+							<c:if test="${not empty questionmanagements.title}">
+								<div id="questionarea">
+								
+									<!-- Question info -->
+									<div id="question-info">
+										<!-- questioner by -->
+										<span style="float:left;">Người hỏi: </span>
+										<span style="margin-left: 5px;">${questionmanagements.questionBy} &lt;${questionmanagements.questionEmail}&gt;</span>
+										
+										<!-- Replied date -->
+										<span style="float: right;">
+											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
+										</span>
+										<span style="float:right; margin-right: 5px;"> - Ngày trả lời: </span>
+										
+										<!-- Recieve date -->
+										<span style="float: right;margin-right: 3px;">
+											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
+										</span>
+										<span style="float:right; margin-right: 5px;">Ngày nhận câu hỏi: </span>
+										
+									</div>
+									<!-- end question info -->
+									
+									<!-- Question content -->
+									<div id="question-content">${questionmanagements.question}</div>
+									<!-- end question content -->
+									
+								</div>
+								
+								<div id="answerarea">
+									<span id="answer">TRẢ LỜI:</span>
+									<div id="answer-content">
+										<form:textarea path="Answer" name="editor1" id="editor1" rows="5" cols="10"></form:textarea>
+					            		<script>
+					                		CKEDITOR.replace( 'editor1' );
+					                		CKEDITOR.config.resize_enabled = false;
+					                		CKEDITOR.config.removePlugins = 'elementspath';
+					                		CKEDITOR.config.entities = false;
+					                		CKEDITOR.config.htmlEncodeOutput = false;
+					            		</script>
+									</div>
+								</div>
+								
+								<!-- Button -->
+								<div style="width: 100%;height:35px;padding-top: 20px;">
+										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
+										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">LƯU</button>
+										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">GỬI</button>
+								</div>
+							</c:if>								
+						</form:form>
+					</td>
+				</tr>
         	</table>
         </div>
     </tiles:putAttribute>
