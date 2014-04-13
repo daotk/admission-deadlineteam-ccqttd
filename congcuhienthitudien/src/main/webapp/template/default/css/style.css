@@ -1,6 +1,6 @@
 /*--------------------------header---------------------------------*/
 .header {
-	width: 92%;
+	width: 75%;
 	margin: 0 auto;
 	height:117px; 
 	min-height: 20px;
@@ -11,14 +11,15 @@
 
 /*----------------------footer-------------------------*/
 .footer{
-	width: 92%;
+	width: 75%;
 	margin: 0 auto;
 	height: 90px;
 	min-height: 20px;
 	background-image: url('../images/PageTop_BG.gif');
 	background-size:100% 100%;
 }
+/*---------------------content----------------------*/
 .content{
-	width: 92%;
+	width: 75%;
 	margin: 0 auto;
 }

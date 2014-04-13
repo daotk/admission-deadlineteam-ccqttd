@@ -63,7 +63,6 @@
        
         <beans:property name="hibernateProperties">  
             <beans:props>  
-               
                 <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>   
                 <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>  
                 <beans:prop key="hibernate.connection.useUnicode">true</beans:prop>

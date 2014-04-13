@@ -1041,8 +1041,7 @@ legend small {
 label,
 input,
 button,
-select,
-textarea {
+select{
   font-size: 14px;
   font-weight: normal;
   line-height: 20px;
@@ -1061,7 +1060,6 @@ label {
 }
 
 select,
-textarea,
 input[type="text"],
 input[type="password"],
 input[type="datetime"],
@@ -1100,7 +1098,6 @@ textarea {
   height: auto;
 }
 
-textarea,
 input[type="text"],
 input[type="password"],
 input[type="datetime"],
@@ -1984,8 +1981,6 @@ legend + .control-group {
 table {
   max-width: 100%;
   background-color: transparent;
-  border-collapse: collapse;
-  border-spacing: 0;
 }
 
 .table {
