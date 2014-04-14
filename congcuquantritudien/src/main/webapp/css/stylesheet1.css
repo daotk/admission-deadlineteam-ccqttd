@@ -797,4 +797,39 @@ div.tabcontents
     font-weight: 300;
 
  	cursor: pointer;
- }     
+ }  
+ #user-grid{
+	
+	width: 60%;
+	height: 100%;
+	margin-left: 10px;
+	float: left;
+	margin-top: 10px;
+
+}
+#user-detail{
+	
+	width: 32%;
+	padding-top: 10px;
+	border: 1px dashed;
+	float: left;
+	background: #ffffff;
+	margin-top: 10px;
+}
+#tableUser{
+	background: #ffffff;
+	margin-top: 2px;
+	border-collapse: collapse;
+	width: 98%;
+}
+#tableUser, th, td
+{
+	border: 1px solid black;
+	padding: 2px;
+	font-size: 10pt;
+}
+#tableUser, th{
+	text-align: left;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}   

@@ -38,29 +38,48 @@ font-style: italic;
 </head>
 <body>
 
-  <div id="register-box">
-	<div id=logo></div>
-    <div class="header"><h2>Đăng kí tài khoản</h2></div>
-    <form:form  method="post" commandName="users" cssClass="cau_hoi1">
-        <form:input path="FullName" type="text"  placeholder="Họ tên"/>
-       	<form:errors path="FullName" cssClass="error" />
-		<form:input path="UserName" type="text" placeholder="Tên đăng nhập"/>
-		<form:errors path="UserName" cssClass="error" />
-		<form:input path="Password" type="password" placeholder="Mật khẩu"/>
-		<form:errors path="Password" cssClass="error" />
-		<form:input path="ConfirmPassword"  type="password" placeholder="Xác nhận mật khẩu"/>
-		<form:errors path="ConfirmPassword" cssClass="error" />
-		<form:input path="Email" type="text" placeholder="Địa chỉ email"/>
-		<form:errors path="Email" cssClass="error" />	
-		<input type="capcha" name="capcha" placeholder="Nhập dãy số bên cạnh" required="" id="tra_loi1"/>
-      	<input type="cauhoi" id="cau_hoi1" onselect="return false" onmousedown="return false" />
-        <hr>
-        <p class="error">${error}<p>
-        <p class="success">${message}<p>
-      	<a href="./" id="login">Đăng nhập!</a>
+  <table style="width: 100%; height: 667px; margin: 0; padding: 0;">
+ 
+	 <tr>
+	 	<td id="login-header">
+	 		<img src="images/logoDL.png" style="margin: 0; padding: 0; margin-right: 4px; float: left;" />
+	 		<a href="login" id="login">Đăng nhập</a>
+	 	</td>
+	 </tr>
+ 	 <tr>
+	 	<td id="login-content" ">
+			 <div id="register-box">
 
-        <button class="button" type="submit"  name="actionsubmit" value="register">Gửi</button>
-     </form:form>
-  </div>
+		    <div class="header"><h2 style="margin-bottom: 0;">Đăng kí tài khoản</h2></div>
+		    <form:form  method="post" commandName="users" cssClass="cau_hoi1">
+		        <form:input path="FullName" type="text"  placeholder="Họ tên"/>
+		       	<form:errors path="FullName" cssClass="error" />
+				<form:input path="UserName" type="text" placeholder="Tên đăng nhập"/>
+				<form:errors path="UserName" cssClass="error" />
+				<form:input path="Password" type="password" placeholder="Mật khẩu"/>
+				<form:errors path="Password" cssClass="error" />
+				<form:input path="ConfirmPassword"  type="password" placeholder="Xác nhận mật khẩu"/>
+				<form:errors path="ConfirmPassword" cssClass="error" />
+				<form:input path="Email" type="text" placeholder="Địa chỉ email"/>
+				<form:errors path="Email" cssClass="error" />	
+				<input type="capcha" name="capcha" placeholder="Nhập dãy số bên cạnh" required="" id="tra_loi1"/>
+		      	<input type="cauhoi" id="cau_hoi1" onselect="return false" onmousedown="return false" />
+		        <hr>
+		        <p class="error">${error}<p>
+		        <p class="success">${message}<p>
+		      	<a href="home" id="login">Đăng nhập!</a>
+		
+		        <button class="button" type="submit"  name="actionsubmit" value="register">GỬI</button>
+		     </form:form>
+		  </div>
+	 	</td>
+	 </tr>
+	 	 <tr>
+	 	<td id="login-footer">
+	 
+	 		<p id="copyright">Copyright © 2014 by DeadlineTeam</p>
+	 	</td>
+	 </tr>
+ </table>
 </body>
 </html>

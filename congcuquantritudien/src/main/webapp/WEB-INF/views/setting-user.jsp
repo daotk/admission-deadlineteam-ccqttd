@@ -80,13 +80,13 @@
 			    	<input style="width: 220px; height: 30px; margin-left: 5px; margin-top: 5px; " type="text" value="${fullName}"  disabled></input>
 					</br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 48px; padding-left: 10px;">Tài khoản:</label>
-					<input style="width: 220px; height: 30px; display: inline; margin-left: 5px; margin-top: 5px;" type="text"  value="${userName}" disabled ></input>
+					<input style="width: 220px; height: 30px; display: inline; margin-left: 3px; margin-top: 5px;" type="text"  value="${userName}" disabled ></input>
 					</br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 73px; padding-left: 10px;">Email:</label>
-					<input style="width: 220px; height: 30px; display: inline; margin-left: 5px; margin-top: 5px;" type="text" value="${email}" disabled></input>
+					<input style="width: 220px; height: 30px; display: inline; margin-left: 1px; margin-top: 5px;" type="text" value="${email}" disabled></input>
 					</br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 70px; padding-left: 10px;">Quyền:</label>
-					<input style="width: 220px; height: 30px; display: inline; margin-left: 5px; margin-top: 5px;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
+					<input style="width: 220px; height: 30px; display: inline; margin-left: -1px; margin-top: 5px;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
 					</br>
 					
 					</br>
