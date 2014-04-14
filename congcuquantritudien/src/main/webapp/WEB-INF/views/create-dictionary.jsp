@@ -4,7 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
-	<title>Home</title>
+	<title>Tạo câu hỏi</title>
+	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<script src="ckeditor/ckeditor.js"></script>
 </head>

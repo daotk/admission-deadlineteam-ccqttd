@@ -9,6 +9,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 	<title>Danh sách chưa trả lời</title>
 	
 	<!-- CSS -->

@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 <title>404 - File or directory not found.</title>
 <style type="text/css">
 <!--

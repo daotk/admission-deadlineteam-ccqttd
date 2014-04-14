@@ -5,6 +5,7 @@
 <html>
 <head>
 	<title>Thay đổi mật khẩu</title>
+	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<script src="ckeditor/ckeditor.js"></script>
 <style>

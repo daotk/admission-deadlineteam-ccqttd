@@ -8,8 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <html>
 <head>
-	<title>Home</title>
-	
+	<title>Bộ từ điển có sẵn</title>
+	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<script src="ckeditor/ckeditor.js"></script>

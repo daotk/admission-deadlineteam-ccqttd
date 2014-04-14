@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Đăng nhập</title>
+<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
+<title>Đăng kí tài khoản</title>
 <style>
 .error {
 color: #ff0000;
