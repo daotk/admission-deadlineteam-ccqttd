@@ -160,6 +160,14 @@ public class HomeController {
 					int number = (i+1) + ((page-1)*record) ;
 					list.get(i).setID(number);
 				}
+				int noOfPages;
+				if(list.size()%record==0){
+					noOfPages= list.size()/record;
+				}else{
+					noOfPages= (list.size()/record)+1;
+				}
+				model.addAttribute("noOfPages",noOfPages );
+				
 				model.addAttribute("curentkeyword", actionsubmit);
 				model.addAttribute("listdictionary", list);
 			}
