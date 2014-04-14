@@ -68,3 +68,16 @@ h2 {
     background-position:15px 0px;
     background-repeat:no-repeat;
 }
+
+/*********MESSAGE*********/
+.error {
+		color: #ff0000;
+		font-style: italic;
+		}
+.success {
+	color: #666666;
+	padding: 17px 24px 19px 38px;
+	margin-top: 200px;
+	margin-left: 20%;
+	font-size: 14px;
+}

@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import deadlineteam.admission.hienthitudien.service.DictionaryService;
 import deadlineteam.admission.hienthitudien.validate.SendquestionValidate;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import deadlineteam.admission.hienthitudien.domain.Setting;
 import deadlineteam.admission.hienthitudien.domain.Dictionary;
@@ -42,6 +44,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home( 
 			@RequestParam(value = "record", required = false, defaultValue= "10")int record,
@@ -102,40 +105,37 @@ public class HomeController {
 			@RequestParam(value = "checkboxdata", required = false, defaultValue= "0") String checkboxdata,
 			Model model,HttpSession session, BindingResult bindingResult){
 		
-		SendquestionValidate sendquestion = new SendquestionValidate();
-		sendquestion.validate(questionmanagement, bindingResult);
-		
 		int record = Integer.parseInt(session.getAttribute("Record").toString());
 		if(actionsubmit.equals("register")){
-			
-				if(questionmanagement.getTitle() != "" && questionmanagement.getQuestion() !="" &&
-						questionmanagement.getQuestionBy() != "" && questionmanagement.getQuestionEmail() != ""){
-					if(checkemail(questionmanagement.getQuestionEmail())){
-						RestTemplate restTemplate = new RestTemplate();
-						String result = restTemplate.postForObject("http://localhost:8080/quantritudien/api/question", questionmanagement, String.class);
-						if(result.equals("Issuccess")){
-							model.addAttribute("message","CÃ¢u há»�i Ä‘Ã£ Ä‘Æ°á»£c gá»­i");
-						}else{
-							if(result.equals("Emailinvalid")){
-								model.addAttribute("message","Email khÃ´ng há»£p lá»‡");
+			SendquestionValidate sendquestion = new SendquestionValidate();
+			sendquestion.validate(questionmanagement, bindingResult);
+			  if (bindingResult.hasErrors()){
+					List<Dictionary> listDictionary = DictionaryService.getalldictionary(page, record);
+					model.addAttribute("listdictionary",listDictionary);
+					model.addAttribute("question",questionmanagement);
+					
+		        	 return "home";
+		        }else {
+						if(checkemail(questionmanagement.getQuestionEmail())){
+							RestTemplate restTemplate = new RestTemplate();
+							String result = restTemplate.postForObject("http://localhost:8080/quantritudien/api/question", questionmanagement, String.class);
+							if(result.equals("Issuccess")){
+								model.addAttribute("message","Câu hỏi đã được gủi thành công.");
 							}else{
-								if(result.equals("Inputenough")){
-									model.addAttribute("message","Vui lÃ²ng nháº­p Ä‘áº§y Ä‘á»§ thÃ´ng tin");
+								if(result.equals("Emailinvalid")){
+									model.addAttribute("error","Email không hợp lệ");
+								}else{
+									if(result.equals("Inputenough")){
+										model.addAttribute("error","Vui lòng nhập đầy đủ thông tin");
+									}
 								}
 							}
+						}else{
+							model.addAttribute("error","Email không hợp lệ");
 						}
-						
-					}else{
-						model.addAttribute("message","Email khÃ´ng há»£p lá»‡");
-					}
-					
-				}else{
-					model.addAttribute("message","Vui lÃ²ng nháº­p Ä‘áº§y Ä‘á»§ thÃ´ng tin");
-				}
-			
-				model.addAttribute("question", new Questionmanagement());	
-				return "home";
-			
+					model.addAttribute("question", new Questionmanagement());	
+					return "home";
+		        }
 		}else{
 			if(actionsubmit.equals("settingrecord")){
 				if(setting !="0"){
@@ -160,6 +160,7 @@ public class HomeController {
 					int number = (i+1) + ((page-1)*record) ;
 					list.get(i).setID(number);
 				}
+				/*
 				int noOfPages;
 				if(list.size()%record==0){
 					noOfPages= list.size()/record;
@@ -167,17 +168,13 @@ public class HomeController {
 					noOfPages= (list.size()/record)+1;
 				}
 				model.addAttribute("noOfPages",noOfPages );
-				
+				*/	
 				model.addAttribute("curentkeyword", actionsubmit);
 				model.addAttribute("listdictionary", list);
-			}
-			
-			
+				model.addAttribute("question", new Questionmanagement());	
+				return "home";
+			}	
 		}
-		model.addAttribute("question", new Questionmanagement());	
-		return "home";
-		
-		
 	}
 	
 }

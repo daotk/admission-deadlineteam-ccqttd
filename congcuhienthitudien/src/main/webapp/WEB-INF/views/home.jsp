@@ -154,30 +154,44 @@
 					<div style="float: left; width: 100%;display: block;">
 						<div style="width: 100%; height: 8%; float: left;">
 						<span style="font-size: 13pt; font-weight: bold; margin-left: 20px; color:rgb(100,150,200);">Gửi câu hỏi của bạn!</span>
+						
 						</div>
 					<div style="width: 100%; margin-left: 125px;">
-					<table >
-						<TBODY>							
-							<form:form commandName ="question" id ="newquestion">
+					<c:if test="${not empty message}">
+							<span class="success">${message}</span>
+						</c:if>
+						<c:if test="${not empty error}">
+							<span class="error">${error}</span>
+						</c:if>	
+					<table >						
+							<form:form commandName ="question" id ="newquestion" action="" method="post">
 								<tr>
 									<td><span>Họ tên của bạn</span></td>
 									<td><form:input path="QuestionBy" type="text" style="width: 550px; height: 25px; font-size: 10pt; margin-top: 10px;margin-left: 15px;"  placeholder="Họ tên của bạn!"/></td>
-									<td><form:errors path="QuestionBy"/></td>
+								</tr>
+								<tr>
+									<td colspan="2"><form:errors path="QuestionBy" cssClass="error"/></td>
 								</tr>
 								<tr>
 									<td><span>Email của bạn</span></td>
 									<td><form:input path ="QuestionEmail" type="text" style="width: 550px; height: 25px; font-size: 10pt; margin-top: 10px;margin-left: 15px;" placeholder="Email của bạn!"/></td>
-									<td><form:errors path="QuestionEmail"/></td>
+								</tr>
+								<tr>
+									<td><form:errors path="QuestionEmail" cssClass="error"/></td>
 								</tr>
 								<tr>
 									<td><span>Tiêu đề câu hỏi của bạn</span></td>
 									<td><form:input path ="Title" type="text" style="width: 550px; height: 25px; font-size: 10pt; margin-top: 10px;margin-left: 15px;" placeholder="Title của bạn!"/></td>
-									<td><form:errors path="Title"/></td>
+								</tr>
+								<tr>
+									<td><form:errors path="Title" cssClass="error"/></td>
 								</tr>
 								<tr>
 									<td><span>Nội dung câu hỏi của bạn</span></td>
-									<td rowspan="6"><form:textarea path ="Question" type="text" style="width: 550px; height: 200px; font-size: 10pt;margin-left: 15px;  margin-top: 10px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
-									<td><form:errors path="Question"/></td>
+									<td><form:textarea path ="Question" type="text" style="width: 550px; height: 200px; font-size: 10pt;margin-left: 15px;  margin-top: 10px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
+								</tr>
+								<tr>
+									<td><form:errors path="Question" cssClass="error" /></td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
@@ -194,7 +208,7 @@
 								<tr>
 									<td>&nbsp;</td>
 								</tr>
-								<div>${message}</div>
+								
 								<tr>
 									<td>&nbsp;</td>
 									<td><button class="button" type="submit"  name="actionsubmit" value="register" style="margin-top: 2%; float: right;">Gửi câu hỏi</button></td>
@@ -204,7 +218,6 @@
 									<td>&nbsp;</td>
 								</tr>
 							</form:form>
-						</TBODY>
 					</table>						
 					</div>
 					<!-- End send question -->

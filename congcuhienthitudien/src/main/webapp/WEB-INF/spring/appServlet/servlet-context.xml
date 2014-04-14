@@ -62,7 +62,9 @@
         <beans:property name="packagesToScan" value="deadlineteam.admission.hienthitudien.domain"></beans:property>  
        
         <beans:property name="hibernateProperties">  
-            <beans:props>  
+            <beans:props>
+            	<beans:prop key="hibernate.search.default.directory_provider">deadlineteam.admission.hienthitudien.util.ExFSDirectoryProvider</beans:prop>
+				<beans:prop key="hibernate.search.default.indexBase">classpath:/index</beans:prop>
                 <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>   
                 <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>  
                 <beans:prop key="hibernate.connection.useUnicode">true</beans:prop>
