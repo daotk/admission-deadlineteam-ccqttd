@@ -18,4 +18,6 @@ public interface Users_DAO {
 	public int UpdateSettingSaved(int UserId, int Record, int Pagin);
 	public int UpdateSettingReplied(int UserId, int Record, int Pagin);
 	public int UpdateSettingDelete(int UserId, int Record, int Pagin);
+	public List<Users> getUserDetail(int ID);
+	public int UpdateStatusUser(int UserId, int Authorization);
 }

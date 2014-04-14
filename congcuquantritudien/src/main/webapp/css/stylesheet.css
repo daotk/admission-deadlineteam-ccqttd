@@ -4,8 +4,10 @@ body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	/*background: url('http://www.studio-dk.nl/code/loginbg.jpg') no-repeat center center fixed;*/
-	background: url('../images/background.jpg') no-repeat center center fixed;
+	background: #2c406e;
 	background-size: cover;
+	padding: 0;
+	margin: 0;
 }
 #logo{
 	width: 200px;
@@ -16,14 +18,21 @@ body {
 	background: url('../images/logo.png') no-repeat center;
 }
 #login-box, #register-box {
-	border-top: 2px solid #3498db;
-	width: 380px;
-	padding: 20px;
-	margin: 60px auto;
+	border-top: 2px solid #365395;
+	width: 350px;
+	padding: 20px;	
 	background-color: #FFFFFF;
 	border-radius: 10px;
 	box-shadow: 
 			0 3px 10px 1px rgba(0, 0, 0, 0.7);
+}
+#login-box{
+	margin: 60px auto;
+	margin-top: -135px;
+}
+#register-box{
+	margin: 5px auto 5px auto;
+
 }
 .header {
 	padding-bottom: 5px;
@@ -31,10 +40,11 @@ body {
 	border-bottom: 1px solid #eee;
 }
 .header h2 {
-	text-align: center;
+	text-align: left;
 	margin-bottom: 22px;
 	font-size: 28px;
-	color: #3498db;
+	font-weight: 600;
+	color: #415b97;
 }
 hr {
   border: 0;
@@ -86,17 +96,30 @@ input[type="cauhoi"]{
 }
 
 
-#register, #login {
+#register, #login{
   float: right;
   text-decoration: none;
-  color: #333333;
+  color: #fff;
+  padding-top: 10px;
+  padding-right: 10px;
+  font-weight: 400;
 }
+
+#copyright{
+  float: right;
+  text-decoration: none;
+  color: #fff;
+  padding-right: 10px;
+  font-weight: 400;
+}
+
 #register:hover, #login:hover {
   text-decoration: underline;
 }
 .button {
   margin-top:10px;
-  width: 100%;
+  width: 40%;
+  font-weight:  500;
   height: auto;
   display: inline-block;
   cursor: pointer;
@@ -104,7 +127,8 @@ input[type="cauhoi"]{
   border: 0 solid #018dc4;
   font-size: 14px;
   color: rgba(255,255,255,0.9);
-  background: #3498db;
+  background: #365395;
+  border-radius: 5px;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
@@ -113,5 +137,21 @@ input[type="cauhoi"]{
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-
+#login-header{
+	width: 100%; 
+	height: 50px; 
+	background: #2c406e;
+	
+}
+#login-content{
+	height: 100%;
+	width: 100%;
+	background: #dde8fa;
+}
+#login-footer{
+	width: 100%; 
+	height: 30px; 
+	background: #2c406e;
+	
+}
 	

@@ -17,9 +17,10 @@
 		<ul class="navigation" id="second">
 			<li><a href="taocauhoi">Tạo câu hỏi</a></li>
 			<li><a href="#">Tạo index</a></li>
-			<c:if test="${not empty isAdmin}">
-				<li><a href="#">Cấu hình</a></li>
-			</c:if>
+			<!-- <c:if test="${not empty isAdmin}">
+				
+			</c:if> --> 
+			<li><a href="cauhinh">Cấu hình</a></li>
 			<li><a href="#">Trợ giúp</a></li>
 		</ul>
 	</div>	

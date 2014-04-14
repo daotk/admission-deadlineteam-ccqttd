@@ -103,7 +103,18 @@ public class Users_DAO_Implement implements Users_DAO {
 		 int result= q.executeUpdate();
 		return result;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Users> getUserDetail(int ID) {
+		return getCurrentSession().createQuery(" from Users where ID ="+ID).list();
+	}
+	public int UpdateStatusUser(int UserId, int Authorization){
+		String sqlstring = "update Users set Authorization = :authorization where ID = "+UserId;
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		 q.setParameter("authorization", Authorization);
+		 int result= q.executeUpdate();
+		return result;
+	}
 }
 
 

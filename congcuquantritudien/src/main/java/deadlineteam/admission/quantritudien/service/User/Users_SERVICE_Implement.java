@@ -120,6 +120,12 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	public int UpdateSettingDelete(int UserId, int Record, int Pagin){
 		return usersDAO.UpdateSettingDelete(UserId, Record, Pagin);
 	}
+	public List<Users> getUserDetail(int ID){
+		return usersDAO.getUserDetail(ID);
+	}
+	public int UpdateStatusUser(int UserId, int Authorization){
+		return usersDAO.UpdateStatusUser(UserId, Authorization);
+	}
 }
 
 	

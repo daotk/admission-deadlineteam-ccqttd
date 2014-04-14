@@ -14,9 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.soap.SAAJResult;
 
+import org.hibernate.internal.util.config.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +44,7 @@ import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 
 
 
+import deadlineteam.admission.quantritudien.util.SendMail;
 import deadlineteam.admission.quantritudien.bean.UsersBean;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
@@ -199,6 +204,12 @@ public class UserController {
 		session.invalidate();
 	    return "redirect:/";
 	}
+	//Xử lý khi nhấp login
+		@RequestMapping(value="/login", method=RequestMethod.GET)
+		public String login(HttpSession session) {
+			session.invalidate();
+		    return "redirect:/";
+		}
 		
 	//Xử lý khi nhấp chang pass
 	@RequestMapping(value="/changepass", method=RequestMethod.GET)
@@ -245,4 +256,161 @@ public class UserController {
 		}	
 		return new ModelAndView("view-profile", "users", userService.getUser(UserID));
 	}
+	
+		//implement when call setting page - user setting default
+		@RequestMapping(value="/cauhinh", method=RequestMethod.GET)
+		public String settinguser(
+				@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
+				HttpSession session, Model model) {
+			
+			if(session.getValue("login") == null){
+				model.addAttribute("error", "Bạn chưa đăng nhập");
+				return "redirect:/";
+			}else{
+				//User ID
+
+				if(Id==0){
+					//Get List Question
+					List<Users> listUser= userService.getAllUsers();
+					model.addAttribute("listUser", listUser);
+					List<Users> getUser = userService.getUserDetail(1);
+					model.addAttribute("fullName", getUser.get(0).getFullName());
+					model.addAttribute("userName", getUser.get(0).getUserName());
+					model.addAttribute("email", getUser.get(0).getEmail());
+					model.addAttribute("authorization", getUser.get(0).getAuthorization());
+					model.addAttribute("listUser2", new Users());
+				}else{
+					//Get List Question
+					session.setAttribute("Id", Id);
+					List<Users> listUser= userService.getAllUsers();
+					
+					model.addAttribute("listUser", listUser);
+					List<Users> getUser = userService.getUserDetail(Id);
+					
+					Users test = new Users();
+					test.setFullName(getUser.get(0).getFullName());
+					model.addAttribute("listUser2", test);
+					
+					model.addAttribute("fullName", getUser.get(0).getFullName());
+					model.addAttribute("userName", getUser.get(0).getUserName());
+					model.addAttribute("email", getUser.get(0).getEmail());
+					model.addAttribute("authorization", getUser.get(0).getAuthorization());
+					//session.setAttribute("fullName",getUser.get(0).getFullName());
+				}
+				
+				
+			
+				return "setting-user";
+			}
+		
+		
+		}
+		//implement when register submit
+		@RequestMapping(value = "/cauhinh", method = RequestMethod.POST)
+		public String cauhinhpost( 	
+				@RequestParam String actionsubmit ,
+				@RequestParam(value = "authorization", required = false, defaultValue= "0") String authorization, 
+				@ModelAttribute("listUser2") Users user,
+				Model model,
+				HttpSession session) {		
+
+				if(actionsubmit.equals("change")){
+					if(!authorization.equals("0")){
+						int num = Integer.parseInt(authorization);
+						int Id = Integer.parseInt(session.getAttribute("Id").toString());
+						//userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
+						
+						userService.UpdateStatusUser(Id, num);
+						
+						List<Users> listUser= userService.getAllUsers();
+						model.addAttribute("listUser", listUser);
+						List<Users> getUser = userService.getUserDetail(Id);
+						model.addAttribute("fullName", getUser.get(0).getFullName());
+						model.addAttribute("userName", getUser.get(0).getUserName());
+						model.addAttribute("email", getUser.get(0).getEmail());
+						model.addAttribute("authorization", getUser.get(0).getAuthorization());
+						
+					
+						
+						Users test = new Users();
+						test.setFullName(getUser.get(0).getFullName());
+						model.addAttribute("listUser2", test);
+						
+						model.addAttribute("message","Thay đổi cấu hình thành công!");
+					}
+				}
+				
+				return "setting-user";
+		}
+		//implement when call setting page - user setting default
+		
+			@Value("${db.driver}")
+	        private String driver;
+			@Value("${db.url}")
+	        private String url;
+			@Value("${db.username}")
+	        private String username;
+			@Value("${db.password}")
+	        private String password;
+		 
+				@RequestMapping(value="/cauhinhhethong", method=RequestMethod.GET)
+				
+				public String settingsystem(
+						HttpSession session, Model model) {
+
+					model.addAttribute("driver", driver);
+					model.addAttribute("url", url);
+					model.addAttribute("username", username);
+					model.addAttribute("password", password);
+					return "setting-system";
+				
+				}
+				//implement when register submit
+				@RequestMapping(value = "/cauhinhhethong", method = RequestMethod.POST)
+				public String cauhinhhethongpost( 	
+						@RequestParam String actionsubmit ,
+						@RequestParam(value = "username", required = false, defaultValue= "0") String username, 
+						@RequestParam(value = "password", required = false, defaultValue= "0") String password, 
+						@RequestParam(value = "url", required = false, defaultValue= "0") String url, 
+						@RequestParam(value = "driver", required = false, defaultValue= "0") String driver, 
+						@ModelAttribute("listUser") Users user,
+						Model model,
+						HttpSession session) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
+					if(actionsubmit.equals("change")){
+						CrunchifyUpdateConfig test = new CrunchifyUpdateConfig();
+						test.Test(driver,username,password, url);
+						model.addAttribute("driver", driver);
+						model.addAttribute("url", url);
+						model.addAttribute("username", username);
+						model.addAttribute("password", password);
+						model.addAttribute("message", "Thay đổi cấu hình thành công!");
+					}
+					
+						
+					return "setting-system";
+				}
+		
+				@RequestMapping(value="/cauhinhmail", method=RequestMethod.GET)
+				public String settingmail(
+						HttpSession session, Model model) {
+
+					return "setting-mail";
+				
+				}
+				//implement when register submit
+				@RequestMapping(value = "/cauhinhmail", method = RequestMethod.POST)
+				public String cauhinhmailpost( 	
+						@RequestParam String actionsubmit ,
+						
+						@ModelAttribute("listUser") Users user,
+						Model model,
+						HttpSession session) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
+					if(actionsubmit.equals("change")){
+						
+						model.addAttribute("message", "Thay đổi cấu hình thành công!");
+					}
+					
+						
+					return "setting-mail";
+				}
 }
