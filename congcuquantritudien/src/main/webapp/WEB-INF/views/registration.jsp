@@ -38,7 +38,7 @@ font-style: italic;
 </head>
 <body>
 
-  <table style="width: 100%; height: 667px; margin: 0; padding: 0;">
+  <table style="width: 100%; height: 640px; margin: 0; padding: 0;">
  
 	 <tr>
 	 	<td id="login-header">
