@@ -25,10 +25,10 @@
 			if(page != null){
 				var options = {
 				currentPage: page,
-				totalPages: 10,
+				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages:3,
+				 numberOfPages:10,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -38,10 +38,10 @@
 		}else{
 			var options = {
 				currentPage: 1,
-				totalPages: 10,
+				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages:3,
+				 numberOfPages:10,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;

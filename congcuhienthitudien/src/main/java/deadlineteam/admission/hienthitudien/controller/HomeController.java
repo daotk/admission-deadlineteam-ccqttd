@@ -43,22 +43,38 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
+	public String home( 
 			@RequestParam(value = "record", required = false, defaultValue= "10")int record,
 			@RequestParam(value = "page", required = false, defaultValue= "1")int page,HttpSession session,Locale locale, Model model) {
 		DictionaryService.createIndex();
-		session.setAttribute("Record", record);
-		model.addAttribute("testrecord", "");
-		model.addAttribute("curentkeyword", "");
-		List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
-		model.addAttribute("curentrecord",record);
-		for(int i = 0; i< list.size();i++){
-			int number = (i+1) + ((page-1)*record) ;
-			list.get(i).setID(number);
+		if(session.getValue("Record")==null){
+			session.setAttribute("Record", record);
+			model.addAttribute("testrecord", "");
+			model.addAttribute("curentkeyword", "");
+			List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
+			model.addAttribute("curentrecord",record);
+			for(int i = 0; i< list.size();i++){
+				int number = (i+1) + ((page-1)*record) ;
+				list.get(i).setID(number);
+			}
+			
+			model.addAttribute("listdictionary", list);
+			model.addAttribute("noOfPages", DictionaryService.totalPage(record));
+			model.addAttribute("question", new Questionmanagement());
+		}else{
+			int newrecord = Integer.parseInt(session.getAttribute("CurrentRecord").toString());
+			List<Dictionary> list = DictionaryService.getalldictionary(page-1, newrecord);
+			model.addAttribute("testrecord",newrecord);
+			for(int i = 0; i< list.size();i++){
+				int number = (i+1) + ((page-1)*newrecord) ;
+				list.get(i).setID(number);
+			}
+			
+			model.addAttribute("listdictionary", list);
+			model.addAttribute("noOfPages", DictionaryService.totalPage(newrecord));
+			model.addAttribute("question", new Questionmanagement());
 		}
 		
-		model.addAttribute("listdictionary", list);
-		model.addAttribute("question", new Questionmanagement());
 		return "home";
 	}
 	private boolean checkemail(String email){
@@ -98,41 +114,46 @@ public class HomeController {
 						RestTemplate restTemplate = new RestTemplate();
 						String result = restTemplate.postForObject("http://localhost:8080/quantritudien/api/question", questionmanagement, String.class);
 						if(result.equals("Issuccess")){
-							model.addAttribute("message","Câu hỏi đã được gửi");
+							model.addAttribute("message","CÃ¢u há»�i Ä‘Ã£ Ä‘Æ°á»£c gá»­i");
 						}else{
 							if(result.equals("Emailinvalid")){
-								model.addAttribute("message","Email không hợp lệ");
+								model.addAttribute("message","Email khÃ´ng há»£p lá»‡");
 							}else{
 								if(result.equals("Inputenough")){
-									model.addAttribute("message","Vui lòng nhập đầy đủ thông tin");
+									model.addAttribute("message","Vui lÃ²ng nháº­p Ä‘áº§y Ä‘á»§ thÃ´ng tin");
 								}
 							}
 						}
 						
 					}else{
-						model.addAttribute("message","Email không hợp lệ");
+						model.addAttribute("message","Email khÃ´ng há»£p lá»‡");
 					}
 					
 				}else{
-					model.addAttribute("message","Vui lòng nhập đầy đủ thông tin");
+					model.addAttribute("message","Vui lÃ²ng nháº­p Ä‘áº§y Ä‘á»§ thÃ´ng tin");
 				}
 			
-			
+				model.addAttribute("question", new Questionmanagement());	
+				return "home";
 			
 		}else{
 			if(actionsubmit.equals("settingrecord")){
 				if(setting !="0"){
 					session.setAttribute("Record", Integer.parseInt(setting));
+					session.setAttribute("CurrentRecord", Integer.parseInt(setting));
 					int newrecord = Integer.parseInt(session.getAttribute("Record").toString());
 					model.addAttribute("curentrecord",newrecord);
-					List<Dictionary> list = DictionaryService.getalldictionary(page-1, newrecord);
+					List<Dictionary> list = DictionaryService.getalldictionary(0, newrecord);
 					for(int i = 0; i< list.size();i++){
-						int number = (i+1) + ((page-1)*record) ;
+						int number = (i+1) + ((page-1)*newrecord) ;
 						list.get(i).setID(number);
 					}
 					model.addAttribute("listdictionary", list);
 					model.addAttribute("testrecord", newrecord);
+					model.addAttribute("noOfPages", DictionaryService.totalPage(newrecord));
 				}
+				model.addAttribute("question", new Questionmanagement());	
+				return "home";
 			}else{
 				List<Dictionary> list = DictionaryService.searchIdex(actionsubmit);
 				for(int i = 0; i< list.size();i++){
@@ -147,6 +168,7 @@ public class HomeController {
 		}
 		model.addAttribute("question", new Questionmanagement());	
 		return "home";
+		
 		
 	}
 	

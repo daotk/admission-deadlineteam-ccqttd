@@ -11,4 +11,5 @@ public interface DictionaryService {
 	public List<Dictionary> searchIdex(String keyword);
 	public void updatequestion(Dictionary dictionary);
 	public void deleteUser(Dictionary dictionary);
+	public int totalPage(int record);
 }

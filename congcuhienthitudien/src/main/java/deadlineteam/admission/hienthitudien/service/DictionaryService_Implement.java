@@ -42,4 +42,13 @@ public class DictionaryService_Implement implements DictionaryService {
 	public void deleteUser(Dictionary dictionary){
 		 DictionaryDAO.deleteUser(dictionary);
 	}
+	
+	public int totalPage(int record){
+		List<Dictionary> dictionary = DictionaryDAO.getall();
+		if(dictionary.size()%record==0){
+			return dictionary.size()/record;
+		}else{
+			return (dictionary.size()/record)+1;
+		}
+	}
 }
