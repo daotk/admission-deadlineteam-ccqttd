@@ -9,7 +9,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Home</title>
+<link href="./images/logo-browser.ico" rel="shortcut icon" type="image/x-icon" />  
+	<title>Hỏi - Đáp</title>
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link rel="stylesheet" href="css/styles.css"/>
@@ -163,7 +164,7 @@
 							<c:if test="${not empty error}">
 								<span class="error">${error}</span>
 							</c:if>	
-							<table style="width: 90%;">						
+							<table style="width: 90%; float: left;">						
 								<form:form commandName ="question" id ="newquestion" action="./" method="post">
 									<tr>
 										<td style="width: 25%;"><span style="font-size: 80%;">Họ tên của bạn</span></td>
