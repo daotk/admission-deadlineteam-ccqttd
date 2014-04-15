@@ -113,7 +113,13 @@ public class HomeController {
 					List<Dictionary> listDictionary = DictionaryService.getalldictionary(page, record);
 					model.addAttribute("listdictionary",listDictionary);
 					model.addAttribute("question",questionmanagement);
-					
+					List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
+					for(int i = 0; i< list.size();i++){
+						int number = (i+1) + ((page-1)*record) ;
+						list.get(i).setID(number);
+					}
+					model.addAttribute("noOfPages", DictionaryService.totalPage(record));
+					model.addAttribute("listdictionary", list);
 		        	 return "home";
 		        }else {
 						if(checkemail(questionmanagement.getQuestionEmail())){

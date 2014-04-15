@@ -182,7 +182,7 @@
 										<td style="font-size: 80%; margin-left: 10px;"><form:errors path="QuestionEmail" style="margin-left: 10px;" cssClass="error"/></td>
 									</tr>
 									<tr>
-										<td><span valign="top" style="font-size: 80%;">Nội dung câu hỏi của bạn</span></td>
+										<td valign="top"><span  style="font-size: 80%;">Nội dung câu hỏi của bạn</span></td>
 										<td><form:textarea path ="Question" type="text" style="width: 90%; height: 200px; font-size: 10pt; margin-left: 10px;  margin-top: 10px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
 									</tr>
 									<tr>
