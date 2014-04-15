@@ -121,6 +121,13 @@ public class HomeController {
 							String result = restTemplate.postForObject("http://localhost:8080/quantritudien/api/question", questionmanagement, String.class);
 							if(result.equals("Issuccess")){
 								model.addAttribute("message","Câu hỏi đã được gủi thành công.");
+								List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
+								for(int i = 0; i< list.size();i++){
+									int number = (i+1) + ((page-1)*record) ;
+									list.get(i).setID(number);
+								}
+								model.addAttribute("noOfPages", DictionaryService.totalPage(record));
+								model.addAttribute("listdictionary", list);
 							}else{
 								if(result.equals("Emailinvalid")){
 									model.addAttribute("error","Email không hợp lệ");
@@ -145,12 +152,14 @@ public class HomeController {
 					model.addAttribute("curentrecord",newrecord);
 					List<Dictionary> list = DictionaryService.getalldictionary(0, newrecord);
 					for(int i = 0; i< list.size();i++){
-						int number = (i+1) + ((page-1)*newrecord) ;
+						int number = (i+1) + ((0)*newrecord) ;
 						list.get(i).setID(number);
 					}
 					model.addAttribute("listdictionary", list);
 					model.addAttribute("testrecord", newrecord);
 					model.addAttribute("noOfPages", DictionaryService.totalPage(newrecord));
+					model.addAttribute("currentPage", 1);
+					
 				}
 				model.addAttribute("question", new Questionmanagement());	
 				return "home";

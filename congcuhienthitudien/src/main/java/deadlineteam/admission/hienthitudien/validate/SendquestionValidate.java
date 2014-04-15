@@ -16,7 +16,7 @@ public class SendquestionValidate implements Validator{
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "QuestionBy", "fullnameuser.required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "QuestionEmail", "emailuser.required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "Title", "titleusers.required");
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "Question", "content.required");
 		
 	}

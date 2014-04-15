@@ -89,7 +89,7 @@
 						<!-- Setting -->
 						<div id="setting" style="width: 30%; float: left; height: 100%;">
 							<div style="height: 100%; float: right;">
-								<form method="post">
+								<form method="post" action="./">
 									<div style="width: 70%; float: left; height: 100%;">
 										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; float: left; margin-top: 5%;">Số lượng </span>
 										<c:if test="${empty testrecord}">
@@ -104,6 +104,7 @@
 										<button class="button" type="submit"  name="actionsubmit" value="settingrecord" style="float: left;margin-top: 3%;border-radius: 3;"> Thay đổi</button>
 									</div>
 								</form>
+								<div>${noOfPages}</div>
 							</div>
 						</div>
 						<!-- End setting -->
@@ -164,7 +165,7 @@
 							<span class="error">${error}</span>
 						</c:if>	
 					<table >						
-							<form:form commandName ="question" id ="newquestion" action="" method="post">
+							<form:form commandName ="question" id ="newquestion" action="./" method="post">
 								<tr>
 									<td><span>Họ tên của bạn</span></td>
 									<td><form:input path="QuestionBy" type="text" style="width: 550px; height: 25px; font-size: 10pt; margin-top: 10px;margin-left: 15px;"  placeholder="Họ tên của bạn!"/></td>
@@ -179,13 +180,8 @@
 								<tr>
 									<td><form:errors path="QuestionEmail" cssClass="error"/></td>
 								</tr>
-								<tr>
-									<td><span>Tiêu đề câu hỏi của bạn</span></td>
-									<td><form:input path ="Title" type="text" style="width: 550px; height: 25px; font-size: 10pt; margin-top: 10px;margin-left: 15px;" placeholder="Title của bạn!"/></td>
-								</tr>
-								<tr>
-									<td><form:errors path="Title" cssClass="error"/></td>
-								</tr>
+								
+								
 								<tr>
 									<td><span>Nội dung câu hỏi của bạn</span></td>
 									<td><form:textarea path ="Question" type="text" style="width: 550px; height: 200px; font-size: 10pt;margin-left: 15px;  margin-top: 10px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
