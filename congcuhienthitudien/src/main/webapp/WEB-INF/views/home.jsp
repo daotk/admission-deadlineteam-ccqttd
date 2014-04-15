@@ -71,15 +71,15 @@
 					<!-- search and setting -->					
 					<div id="tfheader" style="width: 100%;float: left;display: block; margin-top: 10px;">
 						<!-- Search -->
-						<div id="search" style="width: 70%; height:100%; float: left;">
+						<div id="search" style="width: 65%; height:100%; float: left;">
 							<form id="tfnewsearch" method="post" action="">
 								<label>
 									<span style="margin-left: 5%;">Tìm kiếm: </span>
 									<c:if test="${empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 83%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 75%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
 									</c:if>
 						 			<c:if test="${not empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 550px; margin-left: 14px; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 75%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
 									</c:if>
 								</label>
 							</form>
@@ -87,24 +87,24 @@
 						<!-- End search -->
 						
 						<!-- Setting -->
-						<div id="setting" style="width: 30%; float: left; height: 100%;">
+						<div id="setting" style="width: 35%; float: left; height: 100%;">
 							<div style="height: 100%; float: right;">
 								<form method="post" action="./">
-									<div style="width: 70%; float: left; height: 100%;">
-										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; float: left; margin-top: 5%;">Số lượng </span>
+									<div style="width: 75%; float: left; height: 100%;">
+										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%; float: left; margin-top: 5%;">Số lượng </span>
 										<c:if test="${empty testrecord}">
-											<input name ="setting" type="text" style="width: 22%; height: 50%; font-size: 10pt; margin-top: 2%; margin-left: 2%; float: left;"  placeholder="10"/>
+											<input name ="setting" type="text" style="width: 22%; height: 50%; font-size: 80%; margin-top: 2%; float: left;"  placeholder="10"/>
 										</c:if>
 										<c:if test="${not empty testrecord}">
-											<input name ="setting" type="text" style="width: 22%; height: 50%; font-size: 10pt; margin-top: 2%; margin-left: 2%; float: left;"  placeholder="10" value ="${testrecord}"/>
+											<input name ="setting" type="text" style="width: 22%; height: 50%; font-size: 80%; margin-top: 2%; margin-left: 1%; float: left;"  placeholder="10" value ="${testrecord}"/>
 										</c:if>
-										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; float: left; margin-top: 5%; margin-left: 2%;"> câu hỏi 1 trang</span>
+										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%; float: left; margin-top: 5%; margin-left: 1%;"> câu hỏi 1 trang</span>
 									</div>
-									<div style="width: 30%; float: left; height: 100%">
+									<div style="width: 25%; float: left; height: 100%">
 										<button class="button" type="submit"  name="actionsubmit" value="settingrecord" style="float: left;margin-top: 3%;border-radius: 3;"> Thay đổi</button>
 									</div>
 								</form>
-								<div>${noOfPages}</div>
+								
 							</div>
 						</div>
 						<!-- End setting -->
@@ -154,70 +154,57 @@
 					<!-- Send question -->
 					<div style="float: left; width: 100%;display: block;">
 						<div style="width: 100%; height: 8%; float: left;">
-						<span style="font-size: 13pt; font-weight: bold; margin-left: 20px; color:rgb(100,150,200);">Gửi câu hỏi của bạn!</span>
-						
+							<span style="font-size: 13pt; font-weight: bold; margin-left: 20px; color:rgb(100,150,200);">Gửi câu hỏi của bạn!</span>
 						</div>
-					<div style="width: 100%; margin-left: 125px;">
-					<c:if test="${not empty message}">
-							<span class="success">${message}</span>
-						</c:if>
-						<c:if test="${not empty error}">
-							<span class="error">${error}</span>
-						</c:if>	
-					<table >						
-							<form:form commandName ="question" id ="newquestion" action="./" method="post">
-								<tr>
-									<td><span>Họ tên của bạn</span></td>
-									<td><form:input path="QuestionBy" type="text" style="width: 550px; height: 25px; font-size: 10pt; margin-top: 10px;margin-left: 15px;"  placeholder="Họ tên của bạn!"/></td>
-								</tr>
-								<tr>
-									<td colspan="2"><form:errors path="QuestionBy" cssClass="error"/></td>
-								</tr>
-								<tr>
-									<td><span>Email của bạn</span></td>
-									<td><form:input path ="QuestionEmail" type="text" style="width: 550px; height: 25px; font-size: 10pt; margin-top: 10px;margin-left: 15px;" placeholder="Email của bạn!"/></td>
-								</tr>
-								<tr>
-									<td><form:errors path="QuestionEmail" cssClass="error"/></td>
-								</tr>
-								
-								
-								<tr>
-									<td><span>Nội dung câu hỏi của bạn</span></td>
-									<td><form:textarea path ="Question" type="text" style="width: 550px; height: 200px; font-size: 10pt;margin-left: 15px;  margin-top: 10px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
-								</tr>
-								<tr>
-									<td><form:errors path="Question" cssClass="error" /></td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-								</tr>
-								
-								<tr>
-									<td>&nbsp;</td>
-									<td><button class="button" type="submit"  name="actionsubmit" value="register" style="margin-top: 2%; float: right;">Gửi câu hỏi</button></td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-								</tr>
-							</form:form>
-					</table>						
+						<div style="width: 90%; margin-left: 10%;">
+							<c:if test="${not empty message}">
+								<span class="success">${message}</span>
+							</c:if>
+							<c:if test="${not empty error}">
+								<span class="error">${error}</span>
+							</c:if>	
+							<table style="width: 90%;">						
+								<form:form commandName ="question" id ="newquestion" action="./" method="post">
+									<tr>
+										<td style="width: 25%;"><span style="font-size: 80%;">Họ tên của bạn</span></td>
+										<td><form:input path="QuestionBy" type="text" style="width: 90%; height: 25px; font-size: 10pt; margin-top: 10px; margin-left: 10px;"  placeholder="Họ tên của bạn!"/></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td style="font-size: 80%;"><form:errors path="QuestionBy" style="margin-left: 10px;" cssClass="error"/></td>
+									</tr>
+									<tr>
+										<td><span style="font-size: 80%;">Email của bạn</span></td>
+										<td><form:input path ="QuestionEmail" type="text" style="width: 90%; height: 25px; font-size: 10pt; margin-top: 10px; margin-left: 10px;" placeholder="Email của bạn!"/></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td style="font-size: 80%; margin-left: 10px;"><form:errors path="QuestionEmail" style="margin-left: 10px;" cssClass="error"/></td>
+									</tr>
+									<tr>
+										<td><span valign="top" style="font-size: 80%;">Nội dung câu hỏi của bạn</span></td>
+										<td><form:textarea path ="Question" type="text" style="width: 90%; height: 200px; font-size: 10pt; margin-left: 10px;  margin-top: 10px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td style="font-size: 80%;"><form:errors path="Question" style="margin-left: 10px;" cssClass="error" /></td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td><button class="button" type="submit"  name="actionsubmit" value="register" style="margin-top: 2%; float: right;">Gửi câu hỏi</button></td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+									</tr>
+								</form:form>
+						</table>						
+						</div>
 					</div>
 					<!-- End send question -->
-					</div>
 				</td>
 			</tr>
 		</table>
