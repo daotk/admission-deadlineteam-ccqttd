@@ -101,23 +101,24 @@
 					<td style="background-color: #ffffff; width: 350px; height:100%;" valign="top">				
 						<!-- search form -->
 						<form id="quick-search" method="post" action="dsluutam">
-						   	<feildset class="search-bar">
+						   	<fieldset class="search-bar">
 								<label >
 									<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
 								</label>
-						   	</feildset>
+						   	</fieldset>
 						 </form>
 						 <!-- end search form -->
 						 
 						<!-- select form -->
 						<div style="padding: 5px;">
-						  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+						  	<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
 						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 					  		
 					  		<!-- configuration -->
 					  		<div id="container-pop">
-								<a class="popup-link-1" style="text-decoration: none;"/>
-								<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+								<a class="popup-link-1" style="text-decoration: none;">
+									<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+								</a>
 							</div>
 							<!-- end configuration -->
 						</div>
@@ -140,7 +141,7 @@
 						<!-- end configuration pop-up -->
 						
 						<!-- load list of question -->   	
-						<div style="height: 489px">
+						<div style="height: 480px">
 							<div class="list-question-content">
 								<c:if test="${not empty savequestionlist}">
 									<c:forEach var="Questionmanagement" items="${savequestionlist}" >

@@ -80,9 +80,9 @@
 		  if (event) {
 		    var charCode = (event.which) ? event.which : event.keyCode;
 		    if (charCode != 190 && charCode > 31 && 
-		       (charCode < 48 || charCode > 57) && 
-		       (charCode < 96 || charCode > 105) && 
-		       (charCode < 37 || charCode > 40) && 
+		       charCode < 48 || charCode > 57) && 
+		       charCode < 96 || charCode > 105) && 
+		       charCode < 37 || charCode > 40) && 
 		        charCode != 110 && charCode != 8 && charCode != 46 )
 		       return false;
 		  }
@@ -102,24 +102,25 @@
 					<td style="background-color: #ffffff; width: 350px; height:100%;" valign="top">	
 						<!-- search form -->			
 						<form id="quick-search" method="post" action="home" class="timkiem">
-					   		<feildset class="search-bar">
+					   		<fieldset class="search-bar">
 								<label >
 						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
 						 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>"> 
 								</label>
-					   		</feildset>
+					   		</fieldset>
 					  	</form>
 					  	<!-- end search -->
 				  	
 					  	<!-- Select form -->
 					  	<div style="padding: 5px;">
-						  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+						  	<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
 						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>
 					  		
 					  		<!-- configuration -->
 					  		<div id="container-pop">
-								<a class="popup-link-1" style="text-decoration: none;"/>
-								<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+								<a class="popup-link-1" style="text-decoration: none;">
+									<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+								</a>
 							</div>
 							<!-- end configuration -->
 					  	</div>
@@ -143,7 +144,7 @@
 						<!-- end configuration pop-up -->
 					
 						<!-- load list of question -->  
-						<div style="height: 489px">      	
+						<div style="height: 480px">      	
 							<div class="list-question-content">
 								<c:if test="${not empty listquestionmanagement}">
 									<c:forEach var="Questionmanagement" items="${listquestionmanagement}" >
@@ -157,9 +158,9 @@
 															<fmt:formatDate value="${Questionmanagement.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
 														</div>								
 													</div>								
-													<div class="row3">
+													<div class="row3" style="text-align: justify;">
 														<c:set var="string1" value="${Questionmanagement.question}"/>
-														${fn:substring(string1,0, 45)}
+														${fn:substring(string1,0, 50)}
 													</div>
 												</div>
 											</a>
@@ -186,7 +187,7 @@
 		        			<c:if test="${not empty message1}">
 		        				<p class="success">${message1}<p>
 		        			</c:if>	
-							<c:if test="${not empty questionmanagements.title}">
+							<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 								
 									<!-- Question info -->

@@ -49,7 +49,25 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	}
 	
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page, int UserID) {
-        return QuestionmanagementDAO.getQuestionmanagementbyPage(page,UserID);
+		List<Questionmanagement> list = QuestionmanagementDAO.getQuestionmanagementbyPage(page,UserID);
+		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+		
+		for(int i=0;i< list.size();i++){
+			shortlist.add(i, list.get(list.size()-1-i));
+		}
+		List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
+		Setting settings = getSetting(UserID);
+		int begin = page*settings.getRecordNotRep();
+		int end = begin + settings.getRecordNotRep();
+		if(end>shortlist.size()){
+			end = shortlist.size();
+		}
+		int l=0;
+		for(int k = begin; k< end;k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
 	
 	}	
 	public int updateAnswerbyId(int Id,String Answer){	

@@ -824,7 +824,7 @@ div.tabcontents
 }
 #tableUser, th, td
 {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	padding: 2px;
 	font-size: 10pt;
 }

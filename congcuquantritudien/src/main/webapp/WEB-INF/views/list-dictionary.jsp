@@ -91,13 +91,14 @@
 				       		 
 				       		<!-- select form -->
 							<div style="padding: 5px;">
-								<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+								<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
 								<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 						  		
 						  		<!-- configuration -->
 						  		<div id="container-pop">
-									<a class="popup-link-1" style="text-decoration: none;"/>
-									<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+									<a class="popup-link-1" style="text-decoration: none;">
+										<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+									</a>
 								</div>
 								<!-- end configuration -->
 					  		</div>
@@ -128,6 +129,7 @@
 											<a href="${pageContext.request.contextPath}/botudien?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
 													<div class="row1">
+														<div class="list-email">Tên người đưa vào</div>
 														<!-- create date -->	
 														<div class="list-date">
 															<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />
