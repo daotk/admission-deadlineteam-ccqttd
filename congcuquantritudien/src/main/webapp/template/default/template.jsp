@@ -9,11 +9,11 @@
     body {
     	font-family: Segoe UI,Tahoma,Arial,Verdana;
     	font-size: 12px;
+    	overflow: hidden;
         margin:0px;
         padding:0px;
         height:100%;
 
-        overflow:hidden;
     }
     .page {
     	width:98%;
@@ -21,7 +21,7 @@
     	margin: 0 auto;
         min-height:100%;
         position:relative;
-       
+       overflow: hidden;
     }
     .header {
     	height:4%;
@@ -36,6 +36,7 @@
             padding-bottom:20px; /* Height of the footer element */
             overflow:hidden;
             width: 100%;
+            overflow: hidden;
     }
      
     .menu {
@@ -48,6 +49,7 @@
  
     .body {
         margin:0px 0px 0px 180px;
+        overflow: hidden;
     }
      
     .footer {

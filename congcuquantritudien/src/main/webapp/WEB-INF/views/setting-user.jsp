@@ -39,7 +39,7 @@
 		</ul>
 
 		<div id="user-grid">
-			 <table id="tableUser">
+			 <table id="tableUser" style="margin-left: 3%;">
             <tr>
                 <th>Tên người dùng</th>
                 <th>Tài khoản</th>
@@ -48,8 +48,7 @@
                 <th>Sửa</th>
             </tr>
            <c:forEach var="User" items="${listUser}" >
-            <tr>
-					<div style="width: 100%;">						
+            <tr style="width: 100%;">					
 								<td>
 									<div>${User.fullName}</div>
 								</td>
@@ -62,7 +61,7 @@
 								<td>
 									<div>${User.authorization}</div>
 								</td>
-								<td style="text-align: center; width: 30px;" >
+								<td style="text-align: center; width: 30px;">
 										<a href="${pageContext.request.contextPath}/cauhinh?topic=${User.ID}" style="text-decoration: none;">
 										<img src="images/pen.png" /></a>
 								</td>
@@ -74,24 +73,24 @@
  			
  			<form:form method="post" action="" commandName="listUser2" style="text-align: left;">
 				<c:if test="${not empty listUser2.fullName}">
-				<div id="user-detail">
- 					<h3 style="background: none repeat scroll 0 0 #143066;">Phân quyền người dùng</h3>
+				<div id="user-detail" style="margin-left: 3%; margin-top: 1%;">
+ 					<h3 style="background: #f5f3f3;">Phân quyền người dùng</h3>
 			    	<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 10px; padding-left: 10px;">Tên người dùng:</label>
 			    	<input style="width: 220px; height: 30px; margin-left: 5px; margin-top: 5px; " type="text" value="${fullName}"  disabled></input>
-					</br>
+					<br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 48px; padding-left: 10px;">Tài khoản:</label>
 					<input style="width: 220px; height: 30px; display: inline; margin-left: 3px; margin-top: 5px;" type="text"  value="${userName}" disabled ></input>
-					</br>
+					<br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 73px; padding-left: 10px;">Email:</label>
 					<input style="width: 220px; height: 30px; display: inline; margin-left: 1px; margin-top: 5px;" type="text" value="${email}" disabled></input>
-					</br>
+					<br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 70px; padding-left: 10px;">Quyền:</label>
 					<input style="width: 220px; height: 30px; display: inline; margin-left: -1px; margin-top: 5px;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
-					</br>
+					<br>
 					
-					</br>
-					<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; margin: -10px 0 12px 42%; ">Thay đổi</button>
-					</br>
+					<br>
+					<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; margin: 0 0 25px 66%; ">Thay đổi</button>
+					<br>
 					<b style="font-size: 10pt; margin-left: 10px; margin-bottom: 5px;">${message}</b>
 				</div>
 				</c:if>		

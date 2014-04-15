@@ -14,12 +14,9 @@
 			<li id="dsdaxoa"><a href="dsdaxoa">Danh sách đã xóa</a></li>
 		</ul>
 		<h3>Tiện ích</h3>
-		<ul class="navigation" id="second">
+		<ul class="navigation" id="fist">
 			<li><a href="taocauhoi">Tạo câu hỏi</a></li>
 			<li><a href="#">Tạo index</a></li>
-			<!-- <c:if test="${not empty isAdmin}">
-				
-			</c:if> --> 
 			<li><a href="cauhinh">Cấu hình</a></li>
 			<li><a href="#">Trợ giúp</a></li>
 		</ul>

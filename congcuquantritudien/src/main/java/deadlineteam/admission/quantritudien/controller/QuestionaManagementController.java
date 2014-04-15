@@ -83,9 +83,9 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				for(int i=0;i < ListQuestion.size();i++){
-					if(ListQuestion.get(i).getQuestion().length() >=50){
+					if(ListQuestion.get(i).getQuestion().length() >= 60){
 						String abc = ListQuestion.get(i).getQuestion().toString();
-						ListQuestion.get(i).setQuestion(abc.substring(0, 45)+ "...");
+						ListQuestion.get(i).setQuestion(abc.substring(0, 50)+ "...");
 					}
 				}
 				model.addAttribute("listquestionmanagement", ListQuestion);

@@ -55,7 +55,7 @@
 				pageUrl: function(type, page, current){
 					return "?page="+page;
 				}
-			}
+			};
 			$('#paginator').bootstrapPaginator(options);    
 		}else{
 			var options = {
@@ -68,7 +68,7 @@
 				pageUrl: function(type, page, current){
 					return "?page="+page;
 				}
-			}
+			};
 			$('#paginator').bootstrapPaginator(options); 
 		}
 		return false;
@@ -80,9 +80,9 @@
 		  if (event) {
 		    var charCode = (event.which) ? event.which : event.keyCode;
 		    if (charCode != 190 && charCode > 31 && 
-		       (charCode < 48 || charCode > 57) && 
-		       (charCode < 96 || charCode > 105) && 
-		       (charCode < 37 || charCode > 40) && 
+		       charCode < 48 || charCode > 57) && 
+		       charCode < 96 || charCode > 105) && 
+		       charCode < 37 || charCode > 40) && 
 		        charCode != 110 && charCode != 8 && charCode != 46 )
 		       return false;
 		  }
@@ -95,7 +95,7 @@
     <tiles:putAttribute name="body">
         <div id="loading"> </div>
         <div class="body">
-        	<table style="height: 100%;width: 100%;border-collapse: collapse;">
+        	<table style="height: 100%;width: 100%">
         		<tr style="height: 100%;width: 100%">
 					<td style="background-color: #ffffff;width: 350px; height:100%" valign="top">
 						<!-- search form -->
@@ -111,8 +111,8 @@
 						 
 						<!-- select form --> 
 						<div style="padding: 5px;">
-						  	<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
-						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px;" />Xóa</span>
+						  	<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Chọn tất cả</span>
+						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 					  		
 					  		<!-- configuration -->
 					  		<div id="container-pop">
@@ -123,24 +123,34 @@
 							<!-- end configuration -->
 					  	</div>
 					  	<!-- end select form -->
+					  	
+					  	<!-- Configuration pop-up -->
 					  	<div class="popup-box" id="popup-box-1">
-					  		<div class="close">X</div>
+					  		<div class="close"><img src="images/close.png" style="border: 0; margin-right: 4px; margin-top: 0px;" /></div>
 					  		<div class="top">
-								<form method="post" action="dsdaxoa" style="text-align: center;">
-							    	<label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label>
-							    	<input style="width: 180px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input>
-									<br>
-									<label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label>
-									<input style="width: 180px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input>
-									<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; ">Thay đổi</button>
-							   	</form>
+					  			<form method="post" action="dsdaxoa" style="text-align: center;">
+					  			<table>
+					  				<tr>
+					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
+					  					<td><input style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+					  				</tr>
+					  				<tr>
+					  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
+					  					<td><input style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+					  				</tr>
+					  				<tr>
+					  					<td></td>
+					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px;">Thay đổi</button></td>
+					  				</tr>
+					  			</table>
+					  			</form>
 							</div>
 						</div>
 						<div id="blackout"></div>
 						<!-- end configuration pop-up -->        	
 						
 						<!-- load list of question -->
-						<div style="height: 480px;">
+						<div style="height: 81%;">
 							<div class="list-question-content">
 									
 								<c:forEach var="Questionmanagement" items="${deletequestionlist}">

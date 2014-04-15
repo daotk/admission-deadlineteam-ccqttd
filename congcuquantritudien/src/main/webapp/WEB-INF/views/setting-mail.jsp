@@ -32,32 +32,41 @@
     <tiles:putAttribute name="body">
         <div id="loading"> </div>
         <div class="body">
-      	<ul class="tabbed" data-persist="true" style="width: 100%;">
-	            <li><a href="cauhinh" >Cấu hình người dùng</a></li>
-	            <li><a href="cauhinhhethong" >Cấu hình hệ thống</a></li>
-	            <li><a href="cauhinhmail" class="active">Cấu hình mail</a></li>
-		</ul>
+	      	<ul class="tabbed" data-persist="true" style="width: 100%;">
+		            <li><a href="cauhinh" >Cấu hình người dùng</a></li>
+		            <li><a href="cauhinhhethong" >Cấu hình hệ thống</a></li>
+		            <li><a href="cauhinhmail" class="active">Cấu hình mail</a></li>
+			</ul>
 
-		
  			<form method="post" action=""  style="text-align: left;">
-			    	<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 10px; padding-left: 10px;">Tên đăng nhập:</label>
-			    	<input style="width: 320px; height: 30px; margin-left: 5px; margin-top: 5px; " type="text" name="usernamemail" value="${usernamemail}"  ></input>
-					</br>
-					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 48px; padding-left: 10px;">Mật khẩu:</label>
-					<input style="width: 320px; height: 30px; display: inline; margin-left: 5px; margin-top: 5px;" type=text  name="passwordmail" value="${passwordmail}"  ></input>
-					</br>
-					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 73px; padding-left: 10px;">Host:</label>
-					<input style="width: 320px; height: 30px; display: inline; margin-left: 6px; margin-top: 5px;" type="text" name="host" value="${host}" ></input>
-					</br>
-					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 73px; padding-left: 10px;">Port:</label>
-					<input style="width: 320px; height: 30px; display: inline; margin-left: 10px; margin-top: 5px;" type="text" name="port" value="${port}" ></input>
-					</br>
-					</br>
-					<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; margin: -10px 0 12px 16%; ">Thay đổi</button>
-					<b style="font-size: 10pt; margin-left: 10px; margin-bottom: 5px;">${message}</b>
+ 				<table style="margin-left: 2%; margin-top: 2%;">
+ 					<tr>
+ 						<td><label style="width: 160px; font-size: 10pt;">Tên đăng nhập:</label></td>
+ 						<td><input style="width: 320px; height: 30px; margin-top: 4%;" type="text" name="usernamemail" value="${usernamemail}"  ></input></td>
+ 					</tr>
+ 					<tr>
+ 						<td><label style="width: 160px; font-size: 10pt;">Mật khẩu:</label></td>
+ 						<td><input style="width: 320px; height: 30px; margin-top: 4%;" type=text  name="passwordmail" value="${passwordmail}"  ></input></td>
+ 					</tr>
+ 					<tr>
+ 						<td><label style="width: 160px; font-size: 10pt;">Host:</label></td>
+ 						<td><input style="width: 320px; height: 30px; margin-top: 4%;" type="text" name="host" value="${host}" ></input></td>
+ 					</tr>
+ 					<tr>
+ 						<td><label style="width: 160px; font-size: 10pt;">Port:</label></td>
+ 						<td><input style="width: 320px; height: 30px; margin-top: 4%;" type="text" name="port" value="${port}" ></input></td>
+ 					</tr>
+ 					<tr>
+ 						<td></td>
+ 						<td><b style="font-size: 10pt;float: left;">${message}</b></td>
+ 					</tr>
+ 					<tr>
+ 						<td></td>
+ 						<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: right;">Thay đổi</button></td>
+ 					</tr>
+				</table>
 			</form>
- 		
- 		
+ 		</div>
     </tiles:putAttribute>
 </tiles:insertDefinition>
 </body>
