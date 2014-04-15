@@ -71,6 +71,21 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
+		
+		 <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+		 <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+		
+		
 		
 		<!-- CGLIB is required to process @Configuration classes -->
 		<dependency>
@@ -209,13 +224,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
-		 <!-- Java Mail API -->
-	    <dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>mail</artifactId>
-		    <version>1.4.3</version>
-	    </dependency>
+	
 	     <!-- Hibernate search -->
 	    <dependency>
             <groupId>org.hibernate</groupId>
@@ -234,8 +243,12 @@
 			<artifactId>commons-net</artifactId>
 			<version>2.2</version>
 		</dependency>
-            
-		
+         <!-- Configuration -->   
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.9</version>
+		</dependency>
 	</dependencies>
 	
     <build>

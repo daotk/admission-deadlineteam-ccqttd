@@ -377,8 +377,8 @@ public class UserController {
 						Model model,
 						HttpSession session) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
 					if(actionsubmit.equals("change")){
-						CrunchifyUpdateConfig test = new CrunchifyUpdateConfig();
-						test.Test(driver,username,password, url);
+						CrunchifyUpdateConfig config = new CrunchifyUpdateConfig();
+						config.ConfigSystem(driver,username,password, url);
 						model.addAttribute("driver", driver);
 						model.addAttribute("url", url);
 						model.addAttribute("username", username);
@@ -390,10 +390,24 @@ public class UserController {
 					return "setting-system";
 				}
 		
+				@Value("${mail.host}")
+		        private String host;
+				@Value("${mail.port}")
+		        private String port;
+				@Value("${mail.username}")
+		        private String usernamemail;
+				@Value("${mail.password}")
+		        private String passwordmail;
+				
 				@RequestMapping(value="/cauhinhmail", method=RequestMethod.GET)
 				public String settingmail(
 						HttpSession session, Model model) {
 
+					model.addAttribute("host", host);
+					model.addAttribute("port", port);
+					model.addAttribute("usernamemail", usernamemail);
+					model.addAttribute("passwordmail", passwordmail);
+					
 					return "setting-mail";
 				
 				}
@@ -401,12 +415,20 @@ public class UserController {
 				@RequestMapping(value = "/cauhinhmail", method = RequestMethod.POST)
 				public String cauhinhmailpost( 	
 						@RequestParam String actionsubmit ,
-						
+						@RequestParam(value = "usernamemail", required = false, defaultValue= "0") String usernamemail, 
+						@RequestParam(value = "passwordmail", required = false, defaultValue= "0") String passwordmail, 
+						@RequestParam(value = "host", required = false, defaultValue= "0") String host, 
+						@RequestParam(value = "port", required = false, defaultValue= "0") String port, 
 						@ModelAttribute("listUser") Users user,
 						Model model,
 						HttpSession session) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
 					if(actionsubmit.equals("change")){
-						
+						CrunchifyUpdateConfig config = new CrunchifyUpdateConfig();
+						config.ConfigMail(host, port, usernamemail, passwordmail);
+						model.addAttribute("host", host);
+						model.addAttribute("port", port);
+						model.addAttribute("usernamemail", usernamemail);
+						model.addAttribute("passwordmail", passwordmail);
 						model.addAttribute("message", "Thay đổi cấu hình thành công!");
 					}
 					

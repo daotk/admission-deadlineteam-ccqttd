@@ -37,14 +37,14 @@
 	            <li><a href="cauhinhhethong" >Cấu hình hệ thống</a></li>
 	            <li><a href="cauhinhmail" class="active">Cấu hình mail</a></li>
 		</ul>
-			<p>${message}<p>
+
 		
  			<form method="post" action=""  style="text-align: left;">
 			    	<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 10px; padding-left: 10px;">Tên đăng nhập:</label>
-			    	<input style="width: 320px; height: 30px; margin-left: 5px; margin-top: 5px; " type="text" name="user" value="${user}"  ></input>
+			    	<input style="width: 320px; height: 30px; margin-left: 5px; margin-top: 5px; " type="text" name="usernamemail" value="${usernamemail}"  ></input>
 					</br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 48px; padding-left: 10px;">Mật khẩu:</label>
-					<input style="width: 320px; height: 30px; display: inline; margin-left: 5px; margin-top: 5px;" type="text"  name="pass" value="${pass}"  ></input>
+					<input style="width: 320px; height: 30px; display: inline; margin-left: 5px; margin-top: 5px;" type=text  name="passwordmail" value="${passwordmail}"  ></input>
 					</br>
 					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 73px; padding-left: 10px;">Host:</label>
 					<input style="width: 320px; height: 30px; display: inline; margin-left: 6px; margin-top: 5px;" type="text" name="host" value="${host}" ></input>
@@ -54,6 +54,7 @@
 					</br>
 					</br>
 					<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; margin: -10px 0 12px 16%; ">Thay đổi</button>
+					<b style="font-size: 10pt; margin-left: 10px; margin-bottom: 5px;">${message}</b>
 			</form>
  		
  		

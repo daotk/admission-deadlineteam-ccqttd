@@ -3,17 +3,23 @@ package deadlineteam.admission.quantritudien.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
@@ -33,6 +39,10 @@ public class QuestionaManagementController {
 
 	@Autowired
 	private Questionmanagement_SERVICE QuestionmanagementService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	
 	@Autowired
 	private Dictionary_SERVICE DictionaryService;
@@ -161,12 +171,38 @@ public class QuestionaManagementController {
 						String email = session.getAttribute("email").toString();
 						String title = session.getAttribute("title").toString();
 						String body = questionmanagement.getAnswer();
-						SendMail  send = new SendMail(email, title, body);
-						send.send();
+						
+						MimeMessage mimeMessage = mailSender.createMimeMessage();
+						
+						try {
+							
+							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+							 message.setTo(email);
+							 message.setSubject(title);
+							 message.setText(body, true);
+							// sends the e-mail
+							mailSender.send(mimeMessage);
+							
+							List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+							model.addAttribute("listquestionmanagement", ListQuestion1);
+							QuestionmanagementService.UpdateAnwserBy(Id, login);
+							model.addAttribute("message", "Bạn đã gửi mail thành công.");
+						} catch (MessagingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							model.addAttribute("message", "Bạn đã gủi mail thất bại.");
+						}
+						
+						
+						
+						/*SendMail  send = new SendMail(email, title, body);
+						//send.send();
+						
+						
 						List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
 						model.addAttribute("listquestionmanagement", ListQuestion1);
 						QuestionmanagementService.UpdateAnwserBy(Id, login);
-						model.addAttribute("message", "Bạn đã gửi mail thành công.");
+						model.addAttribute("message", "Bạn đã gửi mail thành công.");*/
 					}
 				}
 			}else{
