@@ -14,6 +14,12 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link rel="stylesheet" href="css/styles.css"/>
+	<!-- Java Script -->
+	<script src='js/jquery.min.js' type='text/javascript'></script>
+	
+	<!-- Setting pop box -->
+	<script src='js/popbox.js' type='text/javascript'></script>
+	
 	<!-- Paging -->
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
@@ -97,21 +103,37 @@
 							</form>
 						</div>
 						<!-- End search -->						
-						<div id="setting" style="height: 100%;">
-							<form method="post" action="./">
-										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%; margin-top: 5%;">Số lượng </span>
-										<c:if test="${empty testrecord}">
-											<input name ="setting" type="text" style="width: 5%; height: 50%; font-size: 80%; "  placeholder="10" onkeypress="return isNumberKey(event)"/>
-										</c:if>
-										<c:if test="${not empty testrecord}">
-											<input name ="setting" type="text" style="width: 5%; height: 50%; font-size: 80%;"  value ="${testrecord}" onkeypress="return isNumberKey(event)"/>
-										</c:if>
-										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%;"> câu hỏi 1 trang</span>
-										<button class="button" type="submit"  name="actionsubmit" value="settingrecord" style="border-radius: 3;">Thay đổi</button>
-								</form>
-							
+								<!-- configuration -->
+					  		<div id="container-pop">
+								<a class="popup-link-1" style="text-decoration: none;">
+									<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+								</a>
+							</div>
+							<!-- end configuration -->
+					  
+					  	<!-- end select form -->
+				  	
+					  	<!-- configuration pop-up -->
+					  	<div class="popup-box" id="popup-box-1">
+					  		<div class="close"><img src="images/close.png" style="border: 0; margin-right: 4px; margin-top: 0px" /></div>
+					  		<div class="top">
+					  		<form method="post" action="./" style="text-align: center;">
+					  			<table>
+					  				<tr>
+					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
+					  					<td><input style="width: 220px; height: 30px; display: inline;" type="text" name="setting" placeholder="${testrecord}"  value ="${testrecord}" onkeypress="return isNumberKey(event)"></input></td>
+					  				</tr>
+					  				<tr>
+					  					<td></td>
+					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="settingrecord" style="height: 35px;">Thay đổi</button></td>
+					  				</tr>
+					  			</table>
+					  			</form>
+							</div>
 						</div>
-						<!-- End setting -->						
+						<div id="blackout"></div>
+						<!-- end configuration pop-up -->
+					
 					</div>	
 					
 					<c:if test="${not empty note}">
