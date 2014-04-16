@@ -138,9 +138,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	public List<Questionmanagement> savelist(int page,int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0 and AnswerBy = "+UserID);
-		 Setting settings = getSetting(UserID);
-	         q.setFirstResult(page * settings.getRecordTemp()); 
-	         q.setMaxResults(settings.getRecordTemp());
+		
 	         return (List<Questionmanagement>) q.list();	
 	}
 	public Questionmanagement savequestion(int Id){

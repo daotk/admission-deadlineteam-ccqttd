@@ -96,7 +96,36 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 			return QuestionmanagementDAO.savequestion(Id);
 		}
 		public List<Questionmanagement> savelist(int page, int UserID){
-			return QuestionmanagementDAO.savelist(page, UserID);
+			List<Questionmanagement> list= QuestionmanagementDAO.savelist(page, UserID);
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				shortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			
+			
+			List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
+			 Setting settings = getSetting(UserID);
+			 int begin = page* settings.getRecordNotRep();
+			 int end = begin + settings.getRecordNotRep();
+			if(end > shortlist.size()){
+				end = shortlist.size();
+			}
+			int l = 0;
+			for(int k = begin; k < end; k++){
+				newlist.add(l, shortlist.get(k));
+				l++;
+			}
+			return newlist;
 		}
 	/*
 	 * 	Author: Phu Ta
