@@ -19,7 +19,6 @@ import org.hibernate.search.annotations.Store;
 public class Questionmanagement {
 
 	private Integer ID;
-	private String Title;
 	private String Question;
 	private String QuestionBy;
 	private String QuestionEmail;
@@ -37,13 +36,6 @@ public class Questionmanagement {
 	}
 	public void setID(Integer iD) {
 		ID = iD;
-	}
-
-	public String getTitle() {
-		return Title;
-	}
-	public void setTitle(String title) {
-		Title = title;
 	}
 
 	public String getQuestion() {

@@ -41,6 +41,12 @@ import deadlineteam.admission.hienthitudien.domain.Questionmanagement;
 public class HomeController {
 	@Autowired
 	private DictionaryService DictionaryService;
+	
+	/*
+	 * examble : http://localhost:8080/congcuquantri/
+	 */
+	private static final String url = "http://10.11.27.11:8080/congcuquantritudien/";
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -52,6 +58,7 @@ public class HomeController {
 		DictionaryService.createIndex();
 		if(session.getValue("Record")==null){
 			session.setAttribute("Record", record);
+			session.setAttribute("CurrentRecord",record);
 			model.addAttribute("testrecord", "");
 			model.addAttribute("curentkeyword", "");
 			List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
@@ -120,11 +127,13 @@ public class HomeController {
 					}
 					model.addAttribute("noOfPages", DictionaryService.totalPage(record));
 					model.addAttribute("listdictionary", list);
+					model.addAttribute("testrecord", record);
+					
 		        	 return "home";
 		        }else {
 						if(checkemail(questionmanagement.getQuestionEmail())){
 							RestTemplate restTemplate = new RestTemplate();
-							String result = restTemplate.postForObject("http://localhost:8080/quantritudien/api/question", questionmanagement, String.class);
+							String result = restTemplate.postForObject(url+"api/question", questionmanagement, String.class);
 							if(result.equals("Issuccess")){
 								model.addAttribute("message","Câu hỏi đã được gủi thành công.");
 								List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
@@ -151,7 +160,8 @@ public class HomeController {
 		        }
 		}else{
 			if(actionsubmit.equals("settingrecord")){
-				if(setting !="0"){
+				int intSetting = Integer.parseInt(setting);
+				if(intSetting > 0){
 					session.setAttribute("Record", Integer.parseInt(setting));
 					session.setAttribute("CurrentRecord", Integer.parseInt(setting));
 					int newrecord = Integer.parseInt(session.getAttribute("Record").toString());
@@ -166,6 +176,9 @@ public class HomeController {
 					model.addAttribute("noOfPages", DictionaryService.totalPage(newrecord));
 					model.addAttribute("currentPage", 1);
 					
+				}else{
+					model.addAttribute("note", "Bạn phải nhập số lớn hơn 0");
+					model.addAttribute("testrecord", intSetting);
 				}
 				model.addAttribute("question", new Questionmanagement());	
 				return "home";
@@ -175,15 +188,7 @@ public class HomeController {
 					int number = (i+1) + ((page-1)*record) ;
 					list.get(i).setID(number);
 				}
-				/*
-				int noOfPages;
-				if(list.size()%record==0){
-					noOfPages= list.size()/record;
-				}else{
-					noOfPages= (list.size()/record)+1;
-				}
-				model.addAttribute("noOfPages",noOfPages );
-				*/	
+	
 				model.addAttribute("curentkeyword", actionsubmit);
 				model.addAttribute("listdictionary", list);
 				model.addAttribute("question", new Questionmanagement());	

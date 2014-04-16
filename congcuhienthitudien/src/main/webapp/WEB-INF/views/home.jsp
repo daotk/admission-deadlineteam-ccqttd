@@ -61,6 +61,17 @@
 	    });
 	}); // end ready
 </script>
+<!-- LIMIT TExt filed to accept only numbers as input -->
+	<script>
+	 function isNumberKey(evt)
+     {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+           return false;
+
+        return true;
+     }
+	</script>
 
 </head>
 <body>
@@ -70,10 +81,10 @@
 			<tr> 
 				<td style="background-color: #ffffff; width: 350px; height:100%" valign="top">
 					<!-- search and setting -->					
-					<div id="tfheader" style="width: 100%;float: left;display: block; margin-top: 10px;">
+					<div id="tfheader" style="width: 100%;display: block; margin-top: 10px;">
 						<!-- Search -->
-						<div id="search" style="width: 65%; height:100%; float: left;">
-							<form id="tfnewsearch" method="post" action="">
+						<div id="search" style="width: 65%; height:100%;float: left">
+							<form id="tfnewsearch" method="post" action="./">
 								<label>
 									<span style="margin-left: 5%;">Tìm kiếm: </span>
 									<c:if test="${empty curentkeyword}">
@@ -85,38 +96,31 @@
 								</label>
 							</form>
 						</div>
-						<!-- End search -->
-						
-						<!-- Setting -->
-						<div id="setting" style="width: 35%; float: left; height: 100%;">
-							<div style="height: 100%; float: right;">
-								<form method="post" action="./">
-									<div style="width: 75%; float: left; height: 100%;">
-										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%; float: left; margin-top: 5%;">Số lượng </span>
+						<!-- End search -->						
+						<div id="setting" style="height: 100%;">
+							<form method="post" action="./">
+										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%; margin-top: 5%;">Số lượng </span>
 										<c:if test="${empty testrecord}">
-											<input name ="setting" type="text" style="width: 22%; height: 50%; font-size: 80%; margin-top: 2%; float: left;"  placeholder="10"/>
+											<input name ="setting" type="text" style="width: 5%; height: 50%; font-size: 80%; "  placeholder="10" onkeypress="return isNumberKey(event)"/>
 										</c:if>
 										<c:if test="${not empty testrecord}">
-											<input name ="setting" type="text" style="width: 22%; height: 50%; font-size: 80%; margin-top: 2%; margin-left: 1%; float: left;"  placeholder="10" value ="${testrecord}"/>
+											<input name ="setting" type="text" style="width: 5%; height: 50%; font-size: 80%;"  value ="${testrecord}" onkeypress="return isNumberKey(event)"/>
 										</c:if>
-										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%; float: left; margin-top: 5%; margin-left: 1%;"> câu hỏi 1 trang</span>
-									</div>
-									<div style="width: 25%; float: left; height: 100%">
-										<button class="button" type="submit"  name="actionsubmit" value="settingrecord" style="float: left;margin-top: 3%;border-radius: 3;"> Thay đổi</button>
-									</div>
+										<span style="font-family: Arial, Helvetica, sans-serif; font-size: 80%;"> câu hỏi 1 trang</span>
+										<button class="button" type="submit"  name="actionsubmit" value="settingrecord" style="border-radius: 3;">Thay đổi</button>
 								</form>
-								
-							</div>
+							
 						</div>
-						<!-- End setting -->
-						
-						
+						<!-- End setting -->						
 					</div>	
-
+					
+					<c:if test="${not empty note}">
+						<center><span class="error">${note}</span></center>
+					</c:if>
 					<!-- list question -->
 					<div style="float: left; width: 100%;display: block;">
 						<!-- title -->
-						<div style="height: 3%;float: left; width: 100%; margin-top: 2px;">
+						<div style="height: 3%;float: left; width: 100%;">
 							<p style="font-size: 13pt; font-weight: bold; margin-left: 20px;color:rgb(100,150,200);">Hỏi - đáp</p>
 						</div>
 						
@@ -159,10 +163,10 @@
 						</div>
 						<div style="width: 90%; margin-left: 10%;">
 							<c:if test="${not empty message}">
-								<span class="success">${message}</span>
+								<center><span class="success">${message}</span></center>
 							</c:if>
 							<c:if test="${not empty error}">
-								<span class="error">${error}</span>
+								<center><span class="error">${error}</span></center>
 							</c:if>	
 							<table style="width: 90%; float: left;">						
 								<form:form commandName ="question" id ="newquestion" action="./" method="post">

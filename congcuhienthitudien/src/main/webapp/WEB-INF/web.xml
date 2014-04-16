@@ -29,6 +29,11 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+     <error-page>
+          <error-code>404</error-code>
+          <location>/WEB-INF/views/404Page.jsp</location>
+     </error-page>
+	
 	
 <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
