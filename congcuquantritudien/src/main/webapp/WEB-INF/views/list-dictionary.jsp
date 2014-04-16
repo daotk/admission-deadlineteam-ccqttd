@@ -8,26 +8,28 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <html>
 <head>
-	<title>Bộ từ điển có sẵn</title>
-	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<!-- CSS -->
 	<link href="css/stylesheet1.css" rel="stylesheet" />
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<script src="ckeditor/ckeditor.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.css"/>
+	
+	<!-- Java Script -->
+	<script src='js/jquery.min.js' type='text/javascript'></script>
+	
+	<!-- CK Editor -->
 	<script src="ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
-	 <script src="js/bootstrap.min.js" type="text/javascript"></script>
-	 <script src="js/bootstrap-paginator.js"></script>
-	<script src="js/listview.js"></script>
-	<script src="js/tab-nav.js"></script>
 	
-	<!-- Setting pop box -->
-	<script src='js/popbox.js' type='text/javascript'></script>
-	
+	<!-- Paging -->
+    <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="js/bootstrap-paginator.js"></script>
+		
 	<!-- Control Check box -->
 	<script src='js/checkbox.js' type='text/javascript'></script>
-	
-		<!--For Loading -->
+	<!-- Setting pop box -->
+	<script src='js/popbox.js' type='text/javascript'></script>
+	<!--For Loading -->
 	<script>
 	$(window).bind("load", function() {
 		$('#loading').fadeOut(2000);
@@ -37,6 +39,7 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
+		var noOfDisplay = '${noOfDisplay}';
 		var page = location.search.split("page=")[1];
 			if(page != null){
 				var options = {
@@ -44,7 +47,7 @@
 				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages:3,
+				 numberOfPages: noOfDisplay,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -57,7 +60,7 @@
 				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages:3,
+				 numberOfPages: noOfDisplay,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -65,19 +68,17 @@
 			}
 			$('#paginator').bootstrapPaginator(options); 
 		}
-	return false;
-	});
-</script>
-
-<!-- LIMIT TExt filed to accept only numbers as input -->
+		return false;
+		});
+	</script>
 	<script>
 	function isNumber(event) {
 		  if (event) {
 		    var charCode = (event.which) ? event.which : event.keyCode;
 		    if (charCode != 190 && charCode > 31 && 
-		       charCode < 48 || charCode > 57) && 
-		       charCode < 96 || charCode > 105) && 
-		       charCode < 37 || charCode > 40) && 
+		       (charCode < 48 || charCode > 57) && 
+		       (charCode < 96 || charCode > 105) && 
+		       (charCode < 37 || charCode > 40) && 
 		        charCode != 110 && charCode != 8 && charCode != 46 )
 		       return false;
 		  }
@@ -114,42 +115,32 @@
 				       		 
 				       		<!-- select form -->
 							<div style="padding: 5px;">
-								<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
+								<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
 								<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 						  		
 						  		<!-- configuration -->
 						  		<div id="container-pop">
-									<a class="popup-link-1" style="text-decoration: none;">
-										<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
-									</a>
+									<a class="popup-link-1" style="text-decoration: none;"/>
+									<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
 								</div>
 								<!-- end configuration -->
 					  		</div>
 					  		<!-- end select form -->
 					  		
 					  		<!-- configuration pop-up -->
-					  		<div class="popup-box" id="popup-box-1">
-					  		<div class="close"><img src="images/close.png" style="border: 0; margin-right: 4px; margin-top: 0px" /></div>
-					  		<div class="top">
-					  			<form method="post" action="botudien" style="text-align: center;">
-					  			<table>
-					  				<tr>
-					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-					  					<td><input style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
-					  				</tr>
-					  				<tr>
-					  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
-					  					<td><input style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
-					  				</tr>
-					  				<tr>
-					  					<td></td>
-					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px;">Thay đổi</button></td>
-					  				</tr>
-					  			</table>
-					  			</form>
+					  		<div class="popup-box" id="popup-box-1"><div class="close">X</div>
+					  			<div class="top">
+									<form method="post" action="botudien 	" style="text-align: center;">
+							    		<label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label>
+							    		<input style="width: 180px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input>
+										<br>
+										<label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label>
+										<input style="width: 180px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input>
+										<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; ">Thay đổi</button>
+							   		</form>
+								</div>
 							</div>
-						</div>
-						<div id="blackout"></div>
+							<div id="blackout"></div>
 						    <!-- end configuration pop-up -->
 						    
 				       		<!-- load list of question -->
@@ -161,7 +152,6 @@
 											<a href="${pageContext.request.contextPath}/botudien?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
 													<div class="row1">
-														<div class="list-email">Tên người đưa vào</div>
 														<!-- create date -->	
 														<div class="list-date">
 															<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />
@@ -182,12 +172,13 @@
 						</div>
 							
 		                <!-- Paging -->
-						<div id="paginator" style="position: absolute;"></div>
+						<div id="paginator" ></div>
 					  	<!-- end paging -->
 					</td>
 				
 					<!-- Detail -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">
+						
 						<form:form method="post" action="" commandName="diction">
 							<c:if test="${not empty error}">
 								<p class="error">${error}<p>
