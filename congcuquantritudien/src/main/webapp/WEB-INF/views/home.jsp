@@ -168,7 +168,7 @@
 													</div>								
 													<div class="row3" style="text-align: justify;">
 														<c:set var="string1" value="${Questionmanagement.question}"/>
-														${fn:substring(string1,0, 50)}
+														${fn:substring(string1,0, 55)}
 													</div>
 												</div>
 											</a>

@@ -100,7 +100,7 @@
 					<!-- List question is replied -->
 					<td style="background-color: #ffffff;width: 350px; height:100%" valign="top">
 						<!-- search form -->
-						<form id="quick-search" method="post" action="home">
+						<form id="quick-search" method="post" action="dsdatraloi">
 					   		<fieldset class="search-bar">
 								<label >
 						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
@@ -187,7 +187,7 @@
 							<c:if test="${not empty message}">
 			        			<p class="success">${message}</p>
 			        		</c:if>
-							<c:if test="${not empty questionmanagements.title}">
+							<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 								
 									<!-- Question date info -->

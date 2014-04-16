@@ -157,11 +157,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		return removequestion;
 	}
 	@Override
-	public int update(int Id,String Anwser, String Title, String Question){
-		String sqlstring = "update Dictionary set Anwser = :anwser,  Title = :title, Question =:question where ID = :Id ";
+	public int update(int Id,String Anwser,  String Question){
+		String sqlstring = "update Dictionary set Anwser = :anwser, Question =:question where ID = :Id ";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("anwser", Anwser);
-		 q.setParameter("title", Title);
+		
 		 q.setParameter("question", Question);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();

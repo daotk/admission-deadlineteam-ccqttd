@@ -14,7 +14,6 @@ public class DictionaryValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "Title", "title.required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "Question", "question.required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "Anwser", "anwser.required");
 	}

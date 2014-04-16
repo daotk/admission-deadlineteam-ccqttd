@@ -26,7 +26,6 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		Date date = new Date();
 		Questionmanagement questionmanagement = QuestionmanagementDAO.getQuestionmanagementbyIDToCopy(Id);
 		Dictionary dictionary = new Dictionary();
-		dictionary.setTitle(questionmanagement.getTitle());
 		dictionary.setQuestion(questionmanagement.getQuestion());
 		dictionary.setCreateBy(2);
 		dictionary.setAnwser(questionmanagement.getAnswer());
@@ -103,8 +102,8 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public Dictionary removequestion(int Id){
 		return DictionaryDAO.removequestion(Id);
 	}
-	public int update(int Id,String Anwser, String Title, String Question){
-		return DictionaryDAO.update(Id, Anwser, Title, Question);
+	public int update(int Id,String Anwser,  String Question){
+		return DictionaryDAO.update(Id, Anwser, Question);
 	}
 	public int busystatusupdate(int Id){
 		return DictionaryDAO.busystatusupdate(Id);

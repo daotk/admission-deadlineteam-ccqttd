@@ -23,7 +23,7 @@ public interface Dictionary_DAO {
 	public int remove(int Id);
 	public int restore(int Id);
 	public int delete(int Id);
-	public int update(int Id,String Anwser, String Title, String Question);
+	public int update(int Id,String Anwser, String Question);
 	public void addDictionaryAnswer(String title, String question, String answer);
 	//public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby, Date CreateDate, int status, int deletestatus);
 	public int busystatusupdate(int Id);

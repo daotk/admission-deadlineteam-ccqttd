@@ -44,6 +44,7 @@ import deadlineteam.admission.quantritudien.bean.UsersBean;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.DictionaryRestful;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
+import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 import deadlineteam.admission.quantritudien.service.Dictionary.Dictionary_SERVICE;
 import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionmanagement_SERVICE;
@@ -66,6 +67,9 @@ public class DictionaryController {
 	
 	@Autowired
 	private Dictionary_SERVICE DictionaryService;
+	
+	private int check = 47;
+	private int get = 44;
 
 	private static final Logger logger = LoggerFactory.getLogger(DictionaryController.class);
 	
@@ -97,17 +101,26 @@ public class DictionaryController {
 			@ModelAttribute("createQaA") Dictionary diction,
 			Model model,
 			HttpSession session) {
+		int page =Integer.parseInt(session.getAttribute("Page").toString());
 		if(actionsubmit.equals("save")){
 			int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
 			model.addAttribute("dictionary",Id);
 			if(session.getAttribute("Id") !="0"){
-				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getTitle(), diction.getQuestion());
+				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 				int restart = DictionaryService.busystatus(Id);
-				int page =Integer.parseInt(session.getAttribute("Page").toString());
+			
 				List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
 				model.addAttribute("Avaiable", Avaiable);
 			}
 		}
+		List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
+		for(int i=0;i < Avaiable.size();i++){
+			if(Avaiable.get(i).getQuestion().length() >= check){
+				String abc = Avaiable.get(i).getQuestion().toString();
+				Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+			}
+		}
+		model.addAttribute("Avaiable", Avaiable);
 		return "list-dictionary";
 	}
 	
@@ -143,13 +156,21 @@ public class DictionaryController {
 			int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
 			model.addAttribute("dictionary",Id);
 			if(session.getAttribute("Id") !="0"){
-				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getTitle(), diction.getQuestion());
+				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 				int restart = DictionaryService.busystatus(Id);
 				List<Dictionary> remove= DictionaryService.removelist(page-1);
 				model.addAttribute("removelist", remove);
 				
 			}
 		}
+		List<Dictionary> remove= DictionaryService.removelist(page-1);
+		for(int i=0;i < remove.size();i++){
+			if(remove.get(i).getQuestion().length() >= check){
+				String abc = remove.get(i).getQuestion().toString();
+				remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+			}
+		}
+		model.addAttribute("removelist", remove);
 		return "list-dictionary-down";
 	}
 	
@@ -159,15 +180,37 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 	if(session.getValue("login") == null){
 		return "redirect:/";
 	}else{
 		if(Id==0){
+			int UserId = Integer.parseInt(session.getAttribute("UserId").toString());
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
 			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
+			for(int i=0;i < Avaiable.size();i++){
+				if(Avaiable.get(i).getQuestion().length() >= check){
+					String abc = Avaiable.get(i).getQuestion().toString();
+					Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("Avaiable", Avaiable);
 			model.addAttribute("diction", new Dictionary());
+			
+			Setting setting = userService.getSetting(UserId);
+			
+			int numOfRecord = setting.getRecordDictionary();
+			int numOfPagin = setting.getPaginDisplayDictionary();
+			
+			model.addAttribute("numOfRecord", ""+numOfRecord);
+			model.addAttribute("numOfPagin", ""+numOfPagin);
+
+			
+			model.addAttribute("curentOfPage",page);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserId));
+			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+			
 			model.addAttribute("curentOfPage", page);
 			return "list-dictionary";
 			
@@ -176,11 +219,31 @@ public class DictionaryController {
 			session.setAttribute("Page",page );	
 			
 			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);			
+			for(int i=0;i < Avaiable.size();i++){
+				if(Avaiable.get(i).getQuestion().length() >= check){
+					String abc = Avaiable.get(i).getQuestion().toString();
+					Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("Avaiable", Avaiable);				
 			Dictionary available = DictionaryService.availablequestion(Id);
 			Users newusername = DictionaryService.getusername(available.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			model.addAttribute("diction", available);
+			
+			Setting setting = userService.getSetting(UserID);
+			
+			int numOfRecord = setting.getRecordDictionary();
+			int numOfPagin = setting.getPaginDisplayDictionary();
+			
+			model.addAttribute("numOfRecord", ""+numOfRecord);
+			model.addAttribute("numOfPagin", ""+numOfPagin);
+
+			
+			model.addAttribute("curentOfPage",page);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+			
 			model.addAttribute("curentOfPage", page);
 			if( available.getBusyStatus()== 1){
 				model.addAttribute("busystatus",null);
@@ -195,10 +258,14 @@ public class DictionaryController {
 	@RequestMapping(value = "/botudien", method = RequestMethod.POST)
 	public String botudienpost( 	
 			@RequestParam String actionsubmit , 
+			@RequestParam(value = "checkboxdata", required = false, defaultValue= "0") String checkboxdata, 
+			@RequestParam(value = "change-items", required = false, defaultValue= "0") String changeitems, 
+			@RequestParam(value = "change-pagin", required = false, defaultValue= "0") String changepagin, 
 			@ModelAttribute("dictionary") Dictionary diction,
 			Model model,
 			HttpSession session) {
 			//get page
+			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected			
 			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
@@ -213,6 +280,16 @@ public class DictionaryController {
 				if(session.getAttribute("Id") !="0"){
 					// Processing restore question
 					int result = DictionaryService.upload(Id);	
+					if(result > 0){
+						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);			
+						for(int i=0;i < Avaiable1.size();i++){
+							if(Avaiable1.get(i).getQuestion().length() >= check){
+								String abc = Avaiable1.get(i).getQuestion().toString();
+								Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						model.addAttribute("Avaiable", Avaiable1);
+					}
 					Dictionary newdictionary = DictionaryService.getinformation(Id);
 					
 					DictionaryRestful dicrestful = new DictionaryRestful();
@@ -247,12 +324,52 @@ public class DictionaryController {
 						int result = DictionaryService.delete(Id);
 						DictionaryService.updatedelete(Id, userID);
 						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);
+						for(int i=0;i < Avaiable1.size();i++){
+							if(Avaiable1.get(i).getQuestion().length() >= check){
+								String abc = Avaiable1.get(i).getQuestion().toString();
+								Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
 						model.addAttribute("Avaiable", Avaiable1);
 						model.addAttribute("message","Câu hỏi đã được xóa");
 					}					
-				}			
+				}else{
+					if(actionsubmit.equals("change")){
+						if(!changeitems.equals("0")){
+							int numOfRecord = Integer.parseInt(changeitems);
+							int numOfPagin = Integer.parseInt(changepagin);
+							userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
+					
+							model.addAttribute("numOfRecord",changeitems);
+							model.addAttribute("numOfPagin",changepagin);
+							
+							Setting setting = userService.getSetting(UserID);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+							
+							List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);
+							for(int i=0;i < Avaiable1.size();i++){
+								if(Avaiable1.get(i).getQuestion().length() >= check){
+									String abc = Avaiable1.get(i).getQuestion().toString();
+									Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							model.addAttribute("Avaiable", Avaiable1);
+							model.addAttribute("message","Thay đổi cấu hình thành công.");
+	
+						}
+					}else{
+					// Tim kiem
+					}
+				}
 			}			
 			List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);
+			for(int i=0;i < Avaiable1.size();i++){
+				if(Avaiable1.get(i).getQuestion().length() >= check){
+					String abc = Avaiable1.get(i).getQuestion().toString();
+					Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("Avaiable", Avaiable1);	
 			model.addAttribute("dictionary", new Dictionary());
 			model.addAttribute("curentOfPage", page);		
@@ -273,6 +390,12 @@ public class DictionaryController {
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
 			List<Dictionary> delete= DictionaryService.deletelist(page-1);
+			for(int i=0;i < delete.size();i++){
+				if(delete.get(i).getQuestion().length() >= check){
+					String abc = delete.get(i).getQuestion().toString();
+					delete.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("deletelist", delete);
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
@@ -282,6 +405,12 @@ public class DictionaryController {
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			List<Dictionary> deletelist= DictionaryService.deletelist(page-1);	
+			for(int i=0;i < deletelist.size();i++){
+				if(deletelist.get(i).getQuestion().length() >= check){
+					String abc = deletelist.get(i).getQuestion().toString();
+					deletelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("deletelist", deletelist);
 			
 			Dictionary delete = DictionaryService.question(Id);
@@ -308,6 +437,12 @@ public class DictionaryController {
 			//Load deleted-question list of page that is selected
 			
 			List<Dictionary> deletelist= DictionaryService.deletelist(page);
+			for(int i=0;i < deletelist.size();i++){
+				if(deletelist.get(i).getQuestion().length() >= check){
+					String abc = deletelist.get(i).getQuestion().toString();
+					deletelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("deletelist", deletelist);
 			
 			model.addAttribute("dictionary", new Dictionary());
@@ -321,6 +456,12 @@ public class DictionaryController {
 					// Processing restore question
 					int result = DictionaryService.restore(Id);
 					List<Dictionary> dele= DictionaryService.deletelist(page-1);
+					for(int i=0;i < dele.size();i++){
+						if(dele.get(i).getQuestion().length() >= check){
+							String abc = dele.get(i).getQuestion().toString();
+							dele.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
 					model.addAttribute("deletelist", dele);
 					model.addAttribute("message", "Câu hỏi đã được khôi phục");
 				}						
@@ -341,6 +482,12 @@ public class DictionaryController {
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
 			List<Dictionary> remove= DictionaryService.removelist(page-1);
+			for(int i=0;i < remove.size();i++){
+				if(remove.get(i).getQuestion().length() >= check){
+					String abc = remove.get(i).getQuestion().toString();
+					remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("removelist", remove);
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
@@ -350,6 +497,12 @@ public class DictionaryController {
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			List<Dictionary> remove= DictionaryService.removelist(page-1);	
+			for(int i=0;i < remove.size();i++){
+				if(remove.get(i).getQuestion().length() >= check){
+					String abc = remove.get(i).getQuestion().toString();
+					remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("removelist", remove);
 			
 			Dictionary removequestion = DictionaryService.removequestion(Id);
@@ -391,6 +544,17 @@ public class DictionaryController {
 				if(session.getAttribute("Id") !="0"){
 					// Processing restore question
 					int result = DictionaryService.upload(Id);
+					if(result >0){
+						List<Dictionary> remove1= DictionaryService.removelist(page-1);
+						for(int i=0;i < remove1.size();i++){
+							if(remove1.get(i).getQuestion().length() >= check){
+								String abc = remove1.get(i).getQuestion().toString();
+								remove1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						model.addAttribute("removelist", remove1);
+						
+					}
 					Dictionary newdictionary = DictionaryService.getinformation(Id);
 					DictionaryRestful dicrestful = new DictionaryRestful();
 					dicrestful.setID(Id);
@@ -431,7 +595,7 @@ public class DictionaryController {
 						model.addAttribute("dictionary",Id);
 						if(session.getAttribute("Id") !="0"){
 							// Processing restore question
-							int result = DictionaryService.update(Id, diction.getAnwser(), diction.getTitle(), diction.getQuestion());
+							int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 						
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}	
@@ -460,6 +624,12 @@ public class DictionaryController {
 			session.setAttribute("Page",page );
 		
 			List<Dictionary> Recent= DictionaryService.recentlist(page-1);
+			for(int i=0;i < Recent.size();i++){
+				if(Recent.get(i).getQuestion().length() >= check){
+					String abc = Recent.get(i).getQuestion().toString();
+					Recent.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("Recentlist", Recent);
 
 			model.addAttribute("diction", new Dictionary());
@@ -470,7 +640,13 @@ public class DictionaryController {
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 
-			List<Dictionary> recentlist= DictionaryService.recentlist(page-1);			
+			List<Dictionary> recentlist= DictionaryService.recentlist(page-1);	
+			for(int i=0;i < recentlist.size();i++){
+				if(recentlist.get(i).getQuestion().length() >= check){
+					String abc = recentlist.get(i).getQuestion().toString();
+					recentlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("Recentlist", recentlist);			
 			Dictionary recent = DictionaryService.recentquestion(Id);
 			model.addAttribute("diction", recent);
@@ -493,6 +669,12 @@ public class DictionaryController {
 			//Load deleted-question list of page that is selected
 
 			List<Dictionary> recentlist= DictionaryService.recentlist(page);
+			for(int i=0;i < recentlist.size();i++){
+				if(recentlist.get(i).getQuestion().length() >= check){
+					String abc = recentlist.get(i).getQuestion().toString();
+					recentlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				}
+			}
 			model.addAttribute("Recentlist", recentlist);			
 			model.addAttribute("dictionary", new Dictionary());
 			model.addAttribute("curentOfPage", page);
@@ -505,7 +687,12 @@ public class DictionaryController {
 					// Processing restore question
 					int result = DictionaryService.remove(Id);
 					List<Dictionary> rece= DictionaryService.recentlist(page-1);
-					
+					for(int i=0;i < rece.size();i++){
+						if(rece.get(i).getQuestion().length() >= check){
+							String abc = rece.get(i).getQuestion().toString();
+							rece.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
 					model.addAttribute("Recentlist", rece);
 					
 					Dictionary newdictionary = DictionaryService.getinformation(Id);
@@ -549,6 +736,7 @@ public class DictionaryController {
 			@ModelAttribute("createQaA") Dictionary dictionary,
 			Model model,
 			HttpSession session, BindingResult result) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+		int userID = Integer.parseInt(session.getAttribute("login").toString());// get ID
 		
 		DictionaryValidator validator = new DictionaryValidator();
 		validator.validate(dictionary, result);	     
@@ -558,8 +746,8 @@ public class DictionaryController {
         }else {
         	if(actionsubmit.equals("save")){
 							
-				dictionary.setCreateBy(1);
-				dictionary.setAnwserBy(1);
+				dictionary.setCreateBy(userID);
+				dictionary.setAnwserBy(userID);
 				Date now = new Date();
 				dictionary.setCreateDate(now);
 				dictionary.setStatus(1);

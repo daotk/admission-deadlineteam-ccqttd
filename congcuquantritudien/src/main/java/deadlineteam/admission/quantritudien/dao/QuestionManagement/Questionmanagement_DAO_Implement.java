@@ -59,9 +59,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page , int UserID) {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 1 AND DeleteStatus = 0");
-	         Setting settings = getSetting(UserID);
-	         q.setFirstResult(page * settings.getRecordNotRep()); 
-	         q.setMaxResults(settings.getRecordNotRep());
+	         
 	         return (List<Questionmanagement>) q.list();
 	}
 	@SuppressWarnings("unchecked")
@@ -250,7 +248,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 			org.apache.lucene.search.Query luceneQuery = qb	
 					.bool()
 					
-					.should(qb.phrase().onField("Title").andField("Answer").andField("Question").sentence(keyword).createQuery())
+					.should(qb.phrase().onField("Answer").andField("Question").sentence(keyword).createQuery())
 					.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
 					.must( qb.keyword().onField("Status").matching("2").createQuery() ).not()
 					.must( qb.keyword().onField("Status").matching("3").createQuery() ).not()
@@ -263,24 +261,39 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 			if( Status.equals("2")){
 				org.apache.lucene.search.Query luceneQuery = qb	
 						.bool()
-						.should(qb.phrase().onField("Title").andField("Answer").andField("Question").sentence(keyword).createQuery())
+						.should(qb.phrase().onField("Answer").andField("Question").sentence(keyword).createQuery())
 						.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
 						.must( qb.keyword().onField("Status").matching("3").createQuery() ).not()
 						.must( qb.keyword().onField("Status").matching("1").createQuery() ).not()
-						.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery() ).not()
+						
 						.createQuery();
 				org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Questionmanagement.class);
 				List<Questionmanagement> result = hibQuery.list();
 				return result;
 			}else{
+				if( Status.equals("3")){
 					org.apache.lucene.search.Query luceneQuery = qb	
 							.bool()
-							.should(qb.phrase().onField("Title").andField("Answer").andField("Question").sentence(keyword).createQuery())
+							.should(qb.phrase().onField("Answer").andField("Question").sentence(keyword).createQuery())
+							.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
+							.must( qb.keyword().onField("Status").matching("1").createQuery() ).not()
+							.must( qb.keyword().onField("Status").matching("2").createQuery() ).not()
+							
+							.createQuery();
+					org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Questionmanagement.class);
+					List<Questionmanagement> result = hibQuery.list();
+					return result;
+				}else{
+					org.apache.lucene.search.Query luceneQuery = qb	
+							.bool()
+							.should(qb.phrase().onField("Answer").andField("Question").sentence(keyword).createQuery())
 							.must( qb.keyword().onField("DeleteStatus").matching("0").createQuery()).not()
 							.createQuery();
 					org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Questionmanagement.class);
 					List<Questionmanagement> result = hibQuery.list();
 					return result;
+				}
+					
 			}
 		}
 

@@ -188,7 +188,7 @@
 		        			<p class="success">${message}<p>
 		        		</c:if>	
 						<form:form method="post" action="" commandName="questionmanagements">
-							<c:if test="${not empty questionmanagements.title}">
+							<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 								
 									<!-- Question info -->

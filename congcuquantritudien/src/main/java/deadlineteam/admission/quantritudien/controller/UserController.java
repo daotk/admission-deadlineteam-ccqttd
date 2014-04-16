@@ -114,7 +114,12 @@ public class UserController {
 				session.setAttribute("login",userService.getIdbyUsername(user.getUserName()));
 				int UserID = Integer.parseInt(session.getAttribute("login").toString());
 				List<Questionmanagement> ListQuestion=  QuestionmanagementService.getQuestionmanagementbyPage(0,UserID);
-				
+				for(int i=0;i < ListQuestion.size();i++){
+					if(ListQuestion.get(i).getQuestion().length() >= 47){
+						String abc = ListQuestion.get(i).getQuestion().toString();
+						ListQuestion.get(i).setQuestion(abc.substring(0, 44)+ ".....");
+					}
+				}
 				
 				//model trả về
 				Setting setting = userService.getSetting(UserID);

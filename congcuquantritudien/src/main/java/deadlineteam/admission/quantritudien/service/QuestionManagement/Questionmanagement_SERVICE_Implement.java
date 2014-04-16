@@ -1,6 +1,7 @@
 package deadlineteam.admission.quantritudien.service.QuestionManagement;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +31,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		// TODO Auto-generated method stub
 		List<Questionmanagement> list = QuestionmanagementDAO.getListQuestionmanagement();
 		List<Questionmanagement> newlisst = new ArrayList<Questionmanagement>();
-		int count = 0;
-		for(int i = 0; i<list.size();i++){
-			// find keyword by Titile
-			if(list.get(i).getTitle().contains(keyword)){
-				newlisst.add(count,list.get(i));
-				count++;
-				break;
-			}else{
-				//find keyword by Question
-				if(list.get(i).getQuestion().contains(keyword));
-					newlisst.add(count,list.get(i));
-					count++;
-			}// end find
-			
-		}// end for
+		
 		return newlisst;
 	}
 	
@@ -52,23 +39,24 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		List<Questionmanagement> list = QuestionmanagementDAO.getQuestionmanagementbyPage(page,UserID);
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
 		
-		for(int i=0;i< list.size();i++){
-			shortlist.add(i, list.get(list.size()-1-i));
-		}
+		for(int i = 0 ; i < list.size(); i++){
+			shortlist.add(i, list.get(list.size() - 1-i) );
+        }
+		
 		List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
-		Setting settings = getSetting(UserID);
-		int begin = page*settings.getRecordNotRep();
-		int end = begin + settings.getRecordNotRep();
-		if(end>shortlist.size()){
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordNotRep();
+		 int end = begin + settings.getRecordNotRep();
+		if(end > shortlist.size()){
 			end = shortlist.size();
 		}
-		int l=0;
-		for(int k = begin; k< end;k++){
+		int l = 0;
+		for(int k = begin; k < end; k++){
 			newlist.add(l, shortlist.get(k));
 			l++;
 		}
 		return newlist;
-	
+		
 	}	
 	public int updateAnswerbyId(int Id,String Answer){	
 		return QuestionmanagementDAO.updateAnswerbyId(Id,Answer);
@@ -191,7 +179,17 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 							result= (totalRecord/settings.getRecordDelete())+1;
 						}
 					}else{
-						result = 0;
+						if(status ==5){
+							if( totalRecord % settings.getRecordDelete() ==0){
+								result= totalRecord/settings.getRecordDictionary();
+							}else{
+								result= totalRecord/settings.getRecordDictionary()+1;
+							}
+							
+						}else{
+							result = 0;	
+						}
+						
 					}
 				}
 			}

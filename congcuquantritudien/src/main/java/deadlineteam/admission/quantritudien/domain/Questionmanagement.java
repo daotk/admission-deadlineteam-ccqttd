@@ -27,8 +27,7 @@ public class Questionmanagement {
 	@DocumentId
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer ID;
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
-	private String Title;
+	
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String Question;
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
@@ -61,12 +60,7 @@ public class Questionmanagement {
 		ID = iD;
 	}
 
-	public String getTitle() {
-		return Title;
-	}
-	public void setTitle(String title) {
-		Title = title;
-	}
+	
 
 	public String getQuestion() {
 		return Question;

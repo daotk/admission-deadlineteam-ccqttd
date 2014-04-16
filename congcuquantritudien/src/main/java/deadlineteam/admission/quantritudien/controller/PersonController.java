@@ -37,7 +37,6 @@ public class PersonController {
 		if(checkquestion(question) == true ){
 			if(checkemail(question.getQuestionEmail())){
 				Questionmanagement createquestion = new Questionmanagement();
-				createquestion.setTitle(question.getTitle());
 				createquestion.setQuestion(question.getQuestion());
 				createquestion.setQuestionBy(question.getQuestionBy());
 				createquestion.setQuestionEmail(question.getQuestionEmail());
@@ -57,7 +56,7 @@ public class PersonController {
 		return  message;
 	}
 	private boolean checkquestion(Questionmanagement question){
-		if(question.getTitle() != "" && question.getQuestion() !="" &&
+		if( question.getQuestion() !="" &&
 				question.getQuestionBy() != "" && question.getQuestionEmail() != ""){
 			return true;
 		}else{

@@ -12,7 +12,6 @@ import javax.persistence.Table;
 public class DictionaryBean {
 
 	private Integer ID;
-	private String Title;
 	private String Question;
 	private Integer CreateBy;
 	private String Anwser;
@@ -29,12 +28,6 @@ public class DictionaryBean {
 	}
 	public void setID(Integer iD) {
 		ID = iD;
-	}
-	public String getTitle() {
-		return Title;
-	}
-	public void setTitle(String title) {
-		Title = title;
 	}
 	public String getQuestion() {
 		return Question;

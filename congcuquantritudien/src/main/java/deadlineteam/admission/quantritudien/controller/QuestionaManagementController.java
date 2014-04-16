@@ -46,6 +46,9 @@ public class QuestionaManagementController {
 	
 	@Autowired
 	private Dictionary_SERVICE DictionaryService;
+	
+	private int check = 47;
+	private int get = 44;
 
 	private static final Logger logger = LoggerFactory.getLogger(QuestionaManagementController.class);
 	
@@ -73,6 +76,12 @@ public class QuestionaManagementController {
 				
 				//Get List Question
 				List<Questionmanagement> ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
+				for(int i=0;i < ListQuestion.size();i++){
+					if(ListQuestion.get(i).getQuestion().length() >= check){
+						String abc = ListQuestion.get(i).getQuestion().toString();
+						ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
 				model.addAttribute("listquestionmanagement", ListQuestion);
 				
 				Setting setting = userService.getSetting(UserId);
@@ -82,13 +91,7 @@ public class QuestionaManagementController {
 				
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
-				for(int i=0;i < ListQuestion.size();i++){
-					if(ListQuestion.get(i).getQuestion().length() >= 60){
-						String abc = ListQuestion.get(i).getQuestion().toString();
-						ListQuestion.get(i).setQuestion(abc.substring(0, 50)+ "...");
-					}
-				}
-				model.addAttribute("listquestionmanagement", ListQuestion);
+				
 				
 				model.addAttribute("curentOfPage",page);
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserId));
@@ -115,6 +118,12 @@ public class QuestionaManagementController {
 					
 					Questionmanagement questionmanagement = QuestionmanagementService.getQuestionmanagementbyID(Id);
 					List<Questionmanagement> ListQuestion= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+					for(int i=0;i < ListQuestion.size();i++){
+						if(ListQuestion.get(i).getQuestion().length() >= check){
+							String abc = ListQuestion.get(i).getQuestion().toString();
+							ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
 					model.addAttribute("questionmanagements", questionmanagement);
 					Setting setting = userService.getSetting(UserID);
 					
@@ -135,7 +144,7 @@ public class QuestionaManagementController {
 					}	
 						
 					session.setAttribute("email",questionmanagement.getQuestionEmail());
-					session.setAttribute("title",questionmanagement.getTitle());
+					
 					return "home";
 						
 			}
@@ -172,9 +181,17 @@ public class QuestionaManagementController {
 				if(session.getAttribute("Id") !="0"){
 					//xu ly luu cau tra loi va gui mail
 					int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
-					if(result>0){			
+					if(result>0){
+						List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+						for(int i=0;i < ListQuestion1.size();i++){
+							if(ListQuestion.get(i).getQuestion().length() >= check){
+								String abc = ListQuestion1.get(i).getQuestion().toString();
+								ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						model.addAttribute("listquestionmanagement", ListQuestion1);
 						String email = session.getAttribute("email").toString();
-						String title = session.getAttribute("title").toString();
+						String title = "Trả lời câu hỏi tuyển sinh";
 						String body = questionmanagement.getAnswer();
 						
 						MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -184,12 +201,12 @@ public class QuestionaManagementController {
 							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 							 message.setTo(email);
 							 message.setSubject(title);
+							 
 							 message.setText(body, true);
 							// sends the e-mail
 							mailSender.send(mimeMessage);
 							
-							List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
-							model.addAttribute("listquestionmanagement", ListQuestion1);
+							
 							QuestionmanagementService.UpdateAnwserBy(Id, login);
 							model.addAttribute("message", "Bạn đã gửi mail thành công.");
 						} catch (MessagingException e) {
@@ -200,14 +217,6 @@ public class QuestionaManagementController {
 						
 						
 						
-						/*SendMail  send = new SendMail(email, title, body);
-						//send.send();
-						
-						
-						List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
-						model.addAttribute("listquestionmanagement", ListQuestion1);
-						QuestionmanagementService.UpdateAnwserBy(Id, login);
-						model.addAttribute("message", "Bạn đã gửi mail thành công.");*/
 					}
 				}
 			}else{
@@ -220,6 +229,12 @@ public class QuestionaManagementController {
 						int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
 						if(result>0){			
 							List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+							for(int i=0;i < ListQuestion1.size();i++){
+								if(ListQuestion.get(i).getQuestion().length() >= check){
+									String abc = ListQuestion1.get(i).getQuestion().toString();
+									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
 							model.addAttribute("listquestionmanagement", ListQuestion1);
 							QuestionmanagementService.UpdateAnwserBy(Id, login);
 							model.addAttribute("message", "Bạn đã lưu thành công.");
@@ -239,7 +254,14 @@ public class QuestionaManagementController {
 							if(result>0){
 								QuestionmanagementService.UpdateDelete(Id, login);
 								model.addAttribute("message1", "Bạn đã xóa thành công.");
-								
+								List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+								for(int i=0;i < ListQuestion1.size();i++){
+									if(ListQuestion.get(i).getQuestion().length() >= check){
+										String abc = ListQuestion1.get(i).getQuestion().toString();
+										ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+								model.addAttribute("listquestionmanagement", ListQuestion1);
 								
 							}
 						}
@@ -251,6 +273,12 @@ public class QuestionaManagementController {
 							
 							model.addAttribute("message", "Đã xóa.");
 							List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+							for(int i=0;i < ListQuestion1.size();i++){
+								if(ListQuestion.get(i).getQuestion().length() >= check){
+									String abc = ListQuestion1.get(i).getQuestion().toString();
+									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
 							model.addAttribute("listquestionmanagement", ListQuestion1);
 						}else{
 	
@@ -267,7 +295,13 @@ public class QuestionaManagementController {
 									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 									
-									List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage(page-1, UserID);
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+									for(int i=0;i < ListQuestion1.size();i++){
+										if(ListQuestion.get(i).getQuestion().length() >= check){
+											String abc = ListQuestion1.get(i).getQuestion().toString();
+											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
 									model.addAttribute("message","Thay đổi cấu hình thành công.");
 			
@@ -276,6 +310,12 @@ public class QuestionaManagementController {
 							//xu ly tim kiem
 							model.addAttribute("message",actionsubmit);
 							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"1");
+							for(int i=0;i < list.size();i++){
+								if(list.get(i).getQuestion().length() >= check){
+									String abc = list.get(i).getQuestion().toString();
+									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
 							model.addAttribute("listquestionmanagement", list);
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
@@ -307,7 +347,14 @@ public class QuestionaManagementController {
 			if(Id==0){
 				session.setAttribute("Id",0);
 				session.setAttribute("Page",page );
+				
 				List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+				for(int i=0;i < savelist.size();i++){
+					if(savelist.get(i).getQuestion().length() >= check){
+						String abc = savelist.get(i).getQuestion().toString();
+						savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
 				Setting setting = userService.getSetting(UserID);
 				
 				int numOfRecord = setting.getRecordTemp();
@@ -335,6 +382,12 @@ public class QuestionaManagementController {
 				session.setAttribute("Page",page );
 				Questionmanagement save = QuestionmanagementService.savequestion(Id);
 				List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+				for(int i=0;i < savelist.size();i++){
+					if(savelist.get(i).getQuestion().length() >= check){
+						String abc = savelist.get(i).getQuestion().toString();
+						savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
 				Setting setting = userService.getSetting(UserID);
 				
 				int numOfRecord = setting.getRecordTemp();
@@ -349,7 +402,7 @@ public class QuestionaManagementController {
 				model.addAttribute("questionmanagements", save);
 				model.addAttribute("savequestionlist", savelist);
 				session.setAttribute("email",save.getQuestionEmail());
-				session.setAttribute("title",save.getTitle());
+				
 				//check is admin
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
@@ -393,10 +446,16 @@ public class QuestionaManagementController {
 					int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
 					if(result>0){
 						List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+						for(int i=0;i < savelist.size();i++){
+							if(savelist.get(i).getQuestion().length() >= check){
+								String abc = savelist.get(i).getQuestion().toString();
+								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
 						model.addAttribute("savequestionlist", savelist);
 						model.addAttribute("anwser",questionmanagement.getAnswer());
 						String email = session.getAttribute("email").toString();
-						String title = session.getAttribute("title").toString();
+						String title = "Trả lời câu hỏi tuyển sinh";
 						String body = questionmanagement.getAnswer();
 						SendMail  send = new SendMail(email, title, body);
 						send.send();				
@@ -415,6 +474,12 @@ public class QuestionaManagementController {
 							model.addAttribute("message","Lưu thành công");
 							QuestionmanagementService.UpdateAnwserBy(Id, login);
 							List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+							for(int i=0;i < savelist.size();i++){
+								if(savelist.get(i).getQuestion().length() >= check){
+									String abc = savelist.get(i).getQuestion().toString();
+									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
 							model.addAttribute("savequestionlist", savelist);
 						}
 					}	
@@ -433,6 +498,12 @@ public class QuestionaManagementController {
 								QuestionmanagementService.UpdateDelete(Id, login);
 								model.addAttribute("message","Xóa thành công");
 								List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+								for(int i=0;i < savelist.size();i++){
+									if(savelist.get(i).getQuestion().length() >= check){
+										String abc = savelist.get(i).getQuestion().toString();
+										savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
 								model.addAttribute("savequestionlist", savelist);
 							}
 						}
@@ -443,6 +514,12 @@ public class QuestionaManagementController {
 							QuestionmanagementService.deleteall(checkboxdata,login);
 							model.addAttribute("message", "Đã xóa.");
 							List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage(page-1, UserID);
+							for(int i=0;i < ListQuestion1.size();i++){
+								if(ListQuestion1.get(i).getQuestion().length() >= check){
+									String abc = ListQuestion1.get(i).getQuestion().toString();
+									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
 							model.addAttribute("savequestionlist", ListQuestion1);
 						}else{
 							if(actionsubmit.equals("change")){
@@ -459,6 +536,12 @@ public class QuestionaManagementController {
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayTemp());
 									
 									List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+									for(int i=0;i < savelist.size();i++){
+										if(savelist.get(i).getQuestion().length() >= check){
+											String abc = savelist.get(i).getQuestion().toString();
+											savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
 									model.addAttribute("savequestionlist", savelist);
 									model.addAttribute("message","Thay đổi cấu hình thành công.");
 			
@@ -466,8 +549,15 @@ public class QuestionaManagementController {
 							}else{
 							//xu ly tim kiem
 							model.addAttribute("message",actionsubmit);
-							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"1");
-							model.addAttribute("listquestionmanagement", list);
+							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"2");
+							for(int i=0;i < list.size();i++){
+								if(list.get(i).getQuestion().length() >= check){
+									String abc = list.get(i).getQuestion().toString();
+									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							model.addAttribute("savequestionlist", list);
+							
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
 						}
@@ -494,6 +584,12 @@ public class QuestionaManagementController {
 				session.setAttribute("Id", "0");
 				session.setAttribute("Page",page );
 				List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(page-1, UserID);
+				for(int i=0;i < Deletequestionlist.size();i++){
+					if(Deletequestionlist.get(i).getQuestion().length() >= check){
+						String abc = Deletequestionlist.get(i).getQuestion().toString();
+						Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
 				model.addAttribute("replylust", Deletequestionlist);
 				Setting setting = userService.getSetting(UserID);
 				int numOfRecord = setting.getRecordRepied();
@@ -521,6 +617,12 @@ public class QuestionaManagementController {
 				session.setAttribute("Page",page );
 				Questionmanagement delete = QuestionmanagementService.repliedquestion(Id);
 				List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(page-1, UserID);
+				for(int i=0;i < Deletequestionlist.size();i++){
+					if(Deletequestionlist.get(i).getQuestion().length() >= check){
+						String abc = Deletequestionlist.get(i).getQuestion().toString();
+						Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
 				Users username = QuestionmanagementService.getusername(login);
 				model.addAttribute("username",username.getFullName());
 				
@@ -579,6 +681,12 @@ public class QuestionaManagementController {
 						QuestionmanagementService.UpdateDelete(Id, login);
 						model.addAttribute("message","Xóa thành công");
 						List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(page-1, UserID);
+						for(int i=0;i < Deletequestionlist.size();i++){
+							if(Deletequestionlist.get(i).getQuestion().length() >= check){
+								String abc = Deletequestionlist.get(i).getQuestion().toString();
+								Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
 						model.addAttribute("replylust", Deletequestionlist);
 					}
 				}
@@ -590,7 +698,7 @@ public class QuestionaManagementController {
 						model.addAttribute("mess",Id);
 						Dictionary newdic = new Dictionary();
 						Questionmanagement question = QuestionmanagementService.repliedquestion(Id);
-						newdic.setTitle(question.getTitle());
+						
 						newdic.setAnwser(question.getAnswer());
 						newdic.setQuestion(question.getQuestion());
 						newdic.setCreateBy(login);
@@ -603,6 +711,12 @@ public class QuestionaManagementController {
 						DictionaryService.AddDictionary(newdic);
 						QuestionmanagementService.TransferToDictionary(Id, login);
 						List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(page-1, UserID);
+						for(int i=0;i < Deletequestionlist.size();i++){
+							if(Deletequestionlist.get(i).getQuestion().length() >= check){
+								String abc = Deletequestionlist.get(i).getQuestion().toString();
+								Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
 						model.addAttribute("replylust", Deletequestionlist);
 						model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
 					}else{
@@ -627,6 +741,12 @@ public class QuestionaManagementController {
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 									
 									List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(page-1, UserID);
+									for(int i=0;i < Deletequestionlist.size();i++){
+										if(Deletequestionlist.get(i).getQuestion().length() >= check){
+											String abc = Deletequestionlist.get(i).getQuestion().toString();
+											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
 									model.addAttribute("replylust", Deletequestionlist);
 									model.addAttribute("message","Thay đổi cấu hình thành công.");
 			
@@ -634,17 +754,21 @@ public class QuestionaManagementController {
 							}else{
 							//xu ly tim kiem
 							model.addAttribute("message",actionsubmit);
-							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"1");
-							model.addAttribute("listquestionmanagement", list);
+							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"3");
+							for(int i=0;i < list.size();i++){
+								if(list.get(i).getQuestion().length() >= check){
+									String abc = list.get(i).getQuestion().toString();
+									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							model.addAttribute("replylust", list);
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
 							
 						}
 					}
 				}
-			List<Questionmanagement> ListQuestion= QuestionmanagementService.repliedList(page-1, UserID);
-			model.addAttribute("listquestionmanagement", ListQuestion);
-			model.addAttribute("questionmanagements", new Questionmanagement());
+
 			return "list-replied";
 	}
 	
@@ -665,6 +789,12 @@ public class QuestionaManagementController {
 				session.setAttribute("Page",page );
 				List<Questionmanagement> Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
 				model.addAttribute("deletequestionlist", Deletequestionlist);
+				for(int i=0;i < Deletequestionlist.size();i++){
+					if(Deletequestionlist.get(i).getQuestion().length() >= check){
+						String abc = Deletequestionlist.get(i).getQuestion().toString();
+						Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
 				Setting setting = userService.getSetting(UserID);
 				
 				int numOfRecord = setting.getRecordDelete();
@@ -689,6 +819,12 @@ public class QuestionaManagementController {
 				session.setAttribute("Page",page );
 				Questionmanagement delete = QuestionmanagementService.deletequestion(Id);
 				List<Questionmanagement> Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+				for(int i=0;i < Deletequestionlist.size();i++){
+					if(Deletequestionlist.get(i).getQuestion().length() >= check){
+						String abc = Deletequestionlist.get(i).getQuestion().toString();
+						Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
 				Setting setting = userService.getSetting(UserID);
 				
 				int numOfRecord = setting.getRecordDelete();
@@ -743,6 +879,12 @@ public class QuestionaManagementController {
 					if(result>0){
 						model.addAttribute("message","Khôi phục thành công");
 						List<Questionmanagement> Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+						for(int i=0;i < Deletequestionlist.size();i++){
+							if(Deletequestionlist.get(i).getQuestion().length() >= check){
+								String abc = Deletequestionlist.get(i).getQuestion().toString();
+								Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
 						model.addAttribute("deletequestionlist", Deletequestionlist);
 					}
 				}					
@@ -762,6 +904,12 @@ public class QuestionaManagementController {
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 						
 						List<Questionmanagement> Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+						for(int i=0;i < Deletequestionlist.size();i++){
+							if(Deletequestionlist.get(i).getQuestion().length() >= check){
+								String abc = Deletequestionlist.get(i).getQuestion().toString();
+								Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
 						model.addAttribute("deletequestionlist", Deletequestionlist);
 						model.addAttribute("message","Thay đổi cấu hình thành công.");
 
@@ -769,8 +917,15 @@ public class QuestionaManagementController {
 				}else{
 				//xu ly tim kiem
 				model.addAttribute("message",actionsubmit);
-				List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"1");
-				model.addAttribute("listquestionmanagement", list);
+				List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"4");
+				for(int i=0;i < list.size();i++){
+					if(list.get(i).getQuestion().length() >= check){
+						String abc = list.get(i).getQuestion().toString();
+						list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
+				model.addAttribute("deletequestionlist", list);
+				
 				model.addAttribute("actionsubmit", actionsubmit);
 				}
 			}

@@ -24,7 +24,7 @@ public interface Dictionary_SERVICE {
 	public int delete(int Id);
 	public void addDictionaryAnswer(String title, String question, String answer);
 	public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby,Date CreateDate, int status, int deletestatus,int busystatus);
-	public int update(int Id,String Anwser, String Title, String Question);
+	public int update(int Id,String Anwser, String Question);
 	public int busystatusupdate(int Id);
 	public int busystatus(int Id);
 	public void AddDictionary(Dictionary dictionary);
