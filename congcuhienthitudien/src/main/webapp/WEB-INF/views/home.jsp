@@ -59,13 +59,15 @@
 		return false;
 		});
 	
-	$(document).ready(function() {
-	    $('#list_dictionary h2').click(function() {
-	        $(this).next('.answer').slideToggle(500);
-	        $(this).toggleClass('close');
-	 
-	    });
-	}); // end ready
+	
+</script>
+
+<script>
+$(document).ready(function() {
+    $('#list_dictionary h2').click(function() {
+    	$(this).next('.answer').fadeToggle(550);      
+    });
+}); // end ready
 </script>
 <!-- LIMIT TExt filed to accept only numbers as input -->
 	<script>
