@@ -27,7 +27,6 @@ public class Questionmanagement {
 	@DocumentId
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer ID;
-	
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String Question;
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
@@ -59,9 +58,6 @@ public class Questionmanagement {
 	public void setID(Integer iD) {
 		ID = iD;
 	}
-
-	
-
 	public String getQuestion() {
 		return Question;
 	}

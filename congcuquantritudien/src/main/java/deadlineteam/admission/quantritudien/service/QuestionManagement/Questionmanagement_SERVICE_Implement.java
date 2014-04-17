@@ -78,7 +78,36 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		return QuestionmanagementDAO.deletequestion(Id);
 	}
 	public List<Questionmanagement> deleteList(int page, int UserID){
-		return QuestionmanagementDAO.deleteList( page,  UserID);
+		List<Questionmanagement> list= QuestionmanagementDAO.deleteList(page, UserID);
+		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getDeleteDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getDeleteDate().compareTo(max)>0){
+					max = list.get(i).getDeleteDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+		
+		
+		
+		List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordDelete();
+		 int end = begin + settings.getRecordDelete();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
 		
 	}
 
@@ -115,8 +144,8 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 			
 			List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
 			 Setting settings = getSetting(UserID);
-			 int begin = page* settings.getRecordNotRep();
-			 int end = begin + settings.getRecordNotRep();
+			 int begin = page* settings.getRecordTemp();
+			 int end = begin + settings.getRecordTemp();
 			if(end > shortlist.size()){
 				end = shortlist.size();
 			}
@@ -166,7 +195,34 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	@Override
 	public List<Questionmanagement> repliedList(int page,int UserID ) {
 		// TODO Auto-generated method stub
-		return QuestionmanagementDAO.repliedList(page, UserID);
+		List<Questionmanagement> list = QuestionmanagementDAO.repliedList(page, UserID);
+		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getAnwserDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getAnwserDate().compareTo(max)>0){
+					max = list.get(i).getAnwserDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+	
+		List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordRepied();
+		 int end = begin + settings.getRecordRepied();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
 	}
 
 	@Override
@@ -178,7 +234,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	public int totalPageQuestiomanagement(int status, int UserID){
 		int result;
 		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
-		int totalRecord = listquestion.size();
+		int totalRecord = listquestion.size()-2;
 		Setting settings = getSetting(UserID);
 		if(status ==1){
 			if( totalRecord % settings.getRecordNotRep() ==0){

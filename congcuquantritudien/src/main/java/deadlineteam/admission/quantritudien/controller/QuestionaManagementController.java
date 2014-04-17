@@ -795,6 +795,7 @@ public class QuestionaManagementController {
 						Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
+				model.addAttribute("deletequestionlist", Deletequestionlist);
 				Setting setting = userService.getSetting(UserID);
 				
 				int numOfRecord = setting.getRecordDelete();

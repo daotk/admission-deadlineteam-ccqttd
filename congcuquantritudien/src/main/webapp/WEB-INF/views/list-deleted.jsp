@@ -161,7 +161,7 @@
 												<div class="row1">	
 													<div class="list-email">${Questionmanagement.questionEmail}</div>
 													<div class="list-date">
-														<fmt:formatDate value="${Questionmanagement.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
+														<fmt:formatDate value="${Questionmanagement.deleteDate}"  pattern="dd/MM/yyyy HH:mm" />
 													</div>
 												</div>
 												<div class="row3">
