@@ -62,7 +62,7 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: right;">Thay đổi</button></td>
+						<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: right; margin-right: 0;">Thay đổi</button></td>
 					</tr>				
 				</table>
 			</form>

@@ -34,8 +34,6 @@
 	$(window).bind("load", function() {
 		$('#loading').fadeOut(2000);
 	});
-	</script>
-		<!--config paging -->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
@@ -44,10 +42,10 @@
 			if(page != null){
 				var options = {
 				currentPage: page,
-				totalPages: 10,
+				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages: 3,
+				 numberOfPages: noOfDisplay,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -57,10 +55,10 @@
 		}else{
 			var options = {
 				currentPage: 1,
-				totalPages: 10,
+				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages: 3,
+				 numberOfPages:noOfDisplay,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -70,6 +68,7 @@
 		}
 		return false;
 		});
+	</script>
 	<script>
 	function isNumber(event) {
 		  if (event) {
@@ -113,7 +112,7 @@
 				       		 
 				       		 <!-- select form -->
 							<div style="padding: 5px;">
-								<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Chọn tất cả</span>
+								<span id="select_all" style="cursor: pointer;"><!-- img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px;" /-->Chọn tất cả</span>
 								<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 						  		
 						  		<!-- configuration -->
@@ -126,16 +125,25 @@
 					  		<!-- end select form -->
 					  		
 					  		<!-- configuration pop-up -->
-					  		<div class="popup-box" id="popup-box-1"><div class="close">X</div>
-					  			<div class="top">
-									<form method="post" action="botudien 	" style="text-align: center;">
-							    		<label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label>
-							    		<input style="width: 180px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input>
-										<br>
-										<label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label>
-										<input style="width: 180px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input>
-										<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; ">Thay đổi</button>
-							   		</form>
+					  		<div class="popup-box" id="popup-box-1">
+						  		<div class="close"><img src="images/close2.png" style="border: 0; margin-right: 5px; margin-top: 5px;" /></div>
+						  		<div class="top">
+						  			<form method="post" action="botudiendaxoa" style="text-align: center;">
+							  			<table>
+							  				<tr>
+							  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
+							  					<td><input style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+							  				</tr>
+							  				<tr>
+							  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
+							  					<td><input style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+							  				</tr>
+							  				<tr>
+							  					<td></td>
+							  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; margin-right: 0;">Thay đổi</button></td>
+							  				</tr>
+							  			</table>
+						  			</form>
 								</div>
 							</div>
 							<div id="blackout"></div>

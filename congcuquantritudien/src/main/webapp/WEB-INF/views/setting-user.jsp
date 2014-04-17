@@ -74,7 +74,7 @@
  			<form:form method="post" action="" commandName="listUser2" style="text-align: left;">
 				<c:if test="${not empty listUser2.fullName}">
 				<div id="user-detail" style="margin-left: 3%; margin-top: 1%;">
- 					<h3 style="background: #f5f3f3;">Phân quyền người dùng</h3>
+ 					<h3>Phân quyền người dùng</h3>
 			    	<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 10px; padding-left: 10px;">Tên người dùng:</label>
 			    	<input style="width: 220px; height: 30px; margin-left: 5px; margin-top: 5px; " type="text" value="${fullName}"  disabled></input>
 					<br>

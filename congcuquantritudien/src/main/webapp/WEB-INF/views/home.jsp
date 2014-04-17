@@ -113,7 +113,7 @@
 				  	
 					  	<!-- Select form -->
 					  	<div style="padding: 5px;">
-						  	<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
+						  	<span id="select_all" style="cursor: pointer;"><!-- img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" /-->Chọn tất cả</span>
 						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>
 					  		
 					  		<!-- configuration -->
@@ -128,7 +128,7 @@
 				  	
 					  	<!-- configuration pop-up -->
 					  	<div class="popup-box" id="popup-box-1">
-					  		<div class="close"><img src="images/close.png" style="border: 0; margin-right: 4px; margin-top: 0px" /></div>
+					  		<div class="close"><img src="images/close2.png" style="border: 0; margin-right: 5px; margin-top: 5px" /></div>
 					  		<div class="top">
 					  		<form method="post" action="home" style="text-align: center;">
 					  			<table>
@@ -142,7 +142,7 @@
 					  				</tr>
 					  				<tr>
 					  					<td></td>
-					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px;">Thay đổi</button></td>
+					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; margin-right: 0;">Thay đổi</button></td>
 					  				</tr>
 					  			</table>
 					  			</form>
