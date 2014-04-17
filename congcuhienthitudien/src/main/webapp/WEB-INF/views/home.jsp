@@ -87,31 +87,30 @@
 			<tr> 
 				<td style="background-color: #ffffff; width: 350px; height:100%" valign="top">
 					<!-- search and setting -->					
-					<div id="tfheader" style="width: 100%;display: block; margin-top: 10px;">
+					<div id="tfheader" style="width: 100%;display: block;height: 4%">
 						<!-- Search -->
-						<div id="search" style="width: 65%; height:100%;float: left">
+						<div id="search" style="width: 90%; height:100%;float: left">
 							<form id="tfnewsearch" method="post" action="./">
 								<label>
 									<span style="margin-left: 5%;">Tìm kiếm: </span>
 									<c:if test="${empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 75%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 80%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
 									</c:if>
 						 			<c:if test="${not empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 75%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 80%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
 									</c:if>
 								</label>
 							</form>
 						</div>
 						<!-- End search -->						
-								<!-- configuration -->
-					  		<div id="container-pop">
-								<a class="popup-link-1" style="text-decoration: none;">
-									<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
-								</a>
-							</div>
-							<!-- end configuration -->
-					  
-					  	<!-- end select form -->
+						
+						<!-- configuration -->
+					  	<div id="container-pop" style="width: 10%; height: 75%; margin-top: 14px; float: left;">
+							<a class="popup-link-1" style="text-decoration: none;">
+								<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+							</a>
+						</div>
+						<!-- end configuration -->
 				  	
 					  	<!-- configuration pop-up -->
 					  	<div class="popup-box" id="popup-box-1">
@@ -125,7 +124,7 @@
 					  				</tr>
 					  				<tr>
 					  					<td></td>
-					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="settingrecord" style="height: 35px;">Thay đổi</button></td>
+					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="settingrecord" style="height: 35px; float: right;">Thay đổi</button></td>
 					  				</tr>
 					  			</table>
 					  			</form>
@@ -139,6 +138,7 @@
 					<c:if test="${not empty note}">
 						<center><span class="error">${note}</span></center>
 					</c:if>
+					
 					<!-- list question -->
 					<div style="float: left; width: 100%;display: block;">
 						<!-- title -->
@@ -194,7 +194,7 @@
 								<form:form commandName ="question" id ="newquestion" action="./" method="post">
 									<tr>
 										<td style="width: 25%;"><span style="font-size: 80%;">Họ tên của bạn</span></td>
-										<td><form:input path="QuestionBy" type="text" style="width: 90%; height: 25px; font-size: 10pt; margin-top: 10px; margin-left: 10px;"  placeholder="Họ tên của bạn!"/></td>
+										<td><form:input path="QuestionBy" type="text" style="width: 90%; height: 25px; font-size: 10pt; margin-top: 4px; margin-left: 10px;"  placeholder="Họ tên của bạn!"/></td>
 									</tr>
 									<tr>
 										<td></td>
@@ -202,7 +202,7 @@
 									</tr>
 									<tr>
 										<td><span style="font-size: 80%;">Email của bạn</span></td>
-										<td><form:input path ="QuestionEmail" type="text" style="width: 90%; height: 25px; font-size: 10pt; margin-top: 10px; margin-left: 10px;" placeholder="Email của bạn!"/></td>
+										<td><form:input path ="QuestionEmail" type="text" style="width: 90%; height: 25px; font-size: 10pt; margin-top: 4px; margin-left: 10px;" placeholder="Email của bạn!"/></td>
 									</tr>
 									<tr>
 										<td></td>
@@ -210,7 +210,7 @@
 									</tr> 
 									<tr>
 										<td valign="top"><span  style="font-size: 80%;">Nội dung câu hỏi của bạn</span></td>
-										<td><form:textarea path ="Question" type="text" style="width: 90%; height: 200px; font-size: 10pt; margin-left: 10px;  margin-top: 10px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
+										<td><form:textarea path ="Question" type="text" style="width: 90%; height: 200px; font-size: 10pt; margin-left: 10px;  margin-top: 2px;" placeholder="Nội dung câu hỏi của bạn!"/></td>
 									</tr>
 									<tr>
 										<td></td>
@@ -221,7 +221,7 @@
 									</tr>
 									<tr>
 										<td>&nbsp;</td>
-										<td><button class="button" type="submit"  name="actionsubmit" value="register" style="margin-top: 2%; float: right;">Gửi câu hỏi</button></td>
+										<td><button class="button" type="submit"  name="actionsubmit" value="register" style="margin-top: 2%; float: right; margin-right: 8%;">Gửi câu hỏi</button></td>
 									</tr>
 									<tr>
 										<td>&nbsp;</td>

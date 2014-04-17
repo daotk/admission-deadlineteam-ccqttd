@@ -6,6 +6,7 @@
 	min-height: 20px;
 	background-image:url('../images/PageTop_BG.gif');
 	background-size:100% 100%;
+	overflow: hidden;
    
 }
 
@@ -17,9 +18,11 @@
 	min-height: 20px;
 	background-image: url('../images/PageTop_BG.gif');
 	background-size:100% 100%;
+	overflow: hidden;
 }
 /*---------------------content----------------------*/
 .content{
 	width: 75%;
 	margin: 0 auto;
+	overflow: hidden;
 }
