@@ -44,10 +44,10 @@
 			if(page != null){
 				var options = {
 				currentPage: page,
-				totalPages: noOfPages,
+				totalPages: 10,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages: noOfDisplay,
+				 numberOfPages: 3,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -57,10 +57,10 @@
 		}else{
 			var options = {
 				currentPage: 1,
-				totalPages: noOfPages,
+				totalPages: 10,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages: noOfDisplay,
+				 numberOfPages: 3,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -89,33 +89,32 @@
 <body>
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
-    	<div class="body">
+    	<div id="loading"> </div>
+        <div class="body">
         	<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%;width: 100%">
 					<td style="background-color: #ffffff;width: 30%; height:100%" valign="top">
 						<div id="second-sidebar">
-							<!-- Search form -->
+							<!-- search form -->
                    			<form id="quick-search" method="post" action="botudiencosan">
-	                   			<fieldset class="search-bar">
-	                   				<label>
-						 				<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm"> 
+				   				<fieldset class="search-bar">
+									<label >
+					 					<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm"> 
 									</label>
-								</fieldset>
+				   				</fieldset>
 				  			</form>
-				  			<!-- end form search -->
 				  			
-				  			<!-- Tab of dictionary -->
-					 		<ul class="tabbed" data-persist="true">
+				  			<!-- tab of dictionary -->
+						  	<ul class="tabbed" data-persist="true">
 					            <li><a href="botudien" class="active">Có sẵn</a></li>
 					            <li><a href="botudienhientai">Đã đăng</a></li>
 					            <li><a href="botudiendaha">Đã hạ</a></li>
 					            <li><a href="botudiendaxoa">Đã xóa</a></li>
-				       		</ul> 	 
-				       		<!-- end tabs of dictionary -->
+				       		 </ul>
 				       		 
-				       		<!-- select form -->
+				       		 <!-- select form -->
 							<div style="padding: 5px;">
-								<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+								<span id="select_all" style="cursor: pointer;"><img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Chọn tất cả</span>
 								<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 						  		
 						  		<!-- configuration -->
@@ -143,8 +142,8 @@
 							<div id="blackout"></div>
 						    <!-- end configuration pop-up -->
 						    
-				       		<!-- load list of question -->
-							<div class="list-question-content">
+						    <!-- load list of question -->
+							<div class="list-question-content" style="height: 86%">
 								<c:if test="${not empty Avaiable}">
 									<c:forEach var="Questionmanagement" items="${Avaiable}" >
 										<div style="width: 100%;">
@@ -169,13 +168,14 @@
 								</c:if>
 							</div>
 							<!-- end load list of question -->
-						</div>
 							
-		                <!-- Paging -->
-						<div id="paginator" ></div>
-					  	<!-- end paging -->
-					</td>
-				
+							<!-- Paging -->
+							<div id="paginator"></div>
+							<!-- end paging -->
+						</div>
+						
+					</td>	
+					
 					<!-- Detail -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">
 						
@@ -217,9 +217,11 @@
 								
 							</c:if>
 						</form:form>
-					</td>	      		
+					</td>
+					
+					      		
         		</tr>
-        	</table>        
+        	</table>         
         </div>
     </tiles:putAttribute>
 </tiles:insertDefinition>

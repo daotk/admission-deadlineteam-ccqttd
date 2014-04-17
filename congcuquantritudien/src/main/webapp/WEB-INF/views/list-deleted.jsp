@@ -152,7 +152,6 @@
 						<!-- load list of question -->
 						<div style="height: 81%;">
 							<div class="list-question-content">
-									
 								<c:forEach var="Questionmanagement" items="${deletequestionlist}">
 									<div style="width: 100%;">
 										<div class="check"><input id="check_${Questionmanagement.ID}" name="check_${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>

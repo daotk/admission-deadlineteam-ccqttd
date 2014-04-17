@@ -7,14 +7,14 @@
 	<div id="menus" class="menu">
 		<h3>Quản lý chung</h3>
 		<ul class="navigation" id="fist">
-			<li class="active" id="home"><a href="home">Danh sách chưa trả lời</a></li>
-			<li id="dsluutam"><a href="dsluutam">Danh sách lưu tạm</a></li>
-			<li id="dsdatraloi"><a href="dsdatraloi">Danh sách đã trả lời</a></li>
-			<li id="botudien"><a href="botudien">Bộ từ điển</a></li>
-			<li id="dsdaxoa"><a href="dsdaxoa">Danh sách đã xóa</a></li>
+			<li><a href="home">Danh sách chưa trả lời</a></li>
+			<li><a href="dsluutam">Danh sách lưu tạm</a></li>
+			<li><a href="dsdatraloi">Danh sách đã trả lời</a></li>
+			<li><a href="botudien">Bộ từ điển</a></li>
+			<li><a href="dsdaxoa">Danh sách đã xóa</a></li>
 		</ul>
 		<h3>Tiện ích</h3>
-		<ul class="navigation" id="fist">
+		<ul class="navigation" id="second">
 			<li><a href="taocauhoi">Tạo câu hỏi</a></li>
 			<li><a href="#">Tạo index</a></li>
 			<li><a href="cauhinh">Cấu hình</a></li>
