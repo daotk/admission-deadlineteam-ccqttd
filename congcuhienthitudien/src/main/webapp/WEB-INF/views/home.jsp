@@ -114,17 +114,17 @@
 				  	
 					  	<!-- configuration pop-up -->
 					  	<div class="popup-box" id="popup-box-1">
-					  		<div class="close"><img src="images/close.png" style="border: 0; margin-right: 4px; margin-top: 0px" /></div>
+					  		<div class="close"><img src="images/close1.png" style="border: 0; margin-right: 5px; margin-top: 5px" /></div>
 					  		<div class="top">
 					  		<form method="post" action="./" style="text-align: center;">
 					  			<table>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-					  					<td><input style="width: 220px; height: 30px; display: inline;" type="text" name="setting" placeholder="${testrecord}"  value ="${testrecord}" onkeypress="return isNumberKey(event)"></input></td>
+					  					<td><input style="width: 220px; height: 30px; display: inline; margin-top: 6%;" type="text" name="setting" placeholder="${testrecord}"  value ="${testrecord}" onkeypress="return isNumberKey(event)"></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td></td>
-					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="settingrecord" style="height: 35px; float: right;">Thay đổi</button></td>
+					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="settingrecord" style="float: right;">Thay đổi</button></td>
 					  				</tr>
 					  			</table>
 					  			</form>
