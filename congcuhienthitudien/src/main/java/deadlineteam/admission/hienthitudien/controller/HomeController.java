@@ -55,7 +55,6 @@ public class HomeController {
 	public String home( 
 			@RequestParam(value = "record", required = false, defaultValue= "10")int record,
 			@RequestParam(value = "page", required = false, defaultValue= "1")int page,HttpSession session,Locale locale, Model model) {
-		DictionaryService.createIndex();
 		if(session.getValue("Record")==null){
 			session.setAttribute("Record", record);
 			session.setAttribute("CurrentRecord",record);

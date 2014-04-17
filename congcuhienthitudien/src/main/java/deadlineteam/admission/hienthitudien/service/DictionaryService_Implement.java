@@ -29,9 +29,7 @@ public class DictionaryService_Implement implements DictionaryService {
 	public List<Dictionary> getalldictionary(int page, int record){
 		return DictionaryDAO.getalldictionary(page, record);
 	}
-	public void createIndex(){
-		DictionaryDAO.createIndex();
-	}
+
 	public List<Dictionary> searchIdex(String keyword){
 		
 		return DictionaryDAO.searchIdex(keyword);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -49,16 +50,7 @@ public class DictionaryDAO_Implement implements DictionaryDAO{
          q.setMaxResults(record);
          return (List<Dictionary>) q.list();
 	}
-	public void createIndex(){
-		
-		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
-		try {
-			fullTextSession.createIndexer().startAndWait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	public List<Dictionary> searchIdex(String keyword){
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
 		
@@ -81,9 +73,22 @@ public class DictionaryDAO_Implement implements DictionaryDAO{
 	}
 	public void updatequestion(Dictionary dictionary){
 		getCurrentSession().save(dictionary);
+		
+		FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.index(dictionary);
 	}
 	public void deleteUser(Dictionary dictionary){
 		if (dictionary != null)
 			getCurrentSession().delete(dictionary);
+		
+		FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Dictionary.class,dictionary.getID());
 	}
+	
+	
+	
+	
+	
+	
+	
 }
