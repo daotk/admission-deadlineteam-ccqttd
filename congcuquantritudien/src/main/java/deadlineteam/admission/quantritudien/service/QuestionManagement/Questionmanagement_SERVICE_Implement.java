@@ -1,5 +1,5 @@
 package deadlineteam.admission.quantritudien.service.QuestionManagement;
-
+import deadlineteam.admission.quantritudien.dao.Dictionary.Dictionary_DAO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import deadlineteam.admission.quantritudien.dao.QuestionManagement.Questionmanagement_DAO;
+import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
@@ -18,6 +19,8 @@ import deadlineteam.admission.quantritudien.domain.Users;
 public class Questionmanagement_SERVICE_Implement implements Questionmanagement_SERVICE{
 	@Autowired
 	private Questionmanagement_DAO QuestionmanagementDAO;
+	@Autowired
+	private Dictionary_DAO Dictionary_DAO;
 	
 	public List<Questionmanagement> getListQuestionmanagement() {
 		return QuestionmanagementDAO.getListQuestionmanagement();
@@ -234,6 +237,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	public int totalPageQuestiomanagement(int status, int UserID){
 		int result;
 		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+		
 		int totalRecord = listquestion.size()-2;
 		Setting settings = getSetting(UserID);
 		if(status ==1){
@@ -265,14 +269,49 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 						}
 					}else{
 						if(status ==5){
-							if( totalRecord % settings.getRecordDelete() ==0){
-								result= totalRecord/settings.getRecordDictionary();
+							List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(1);
+							int totaldictionary = list.size()-2;
+							if( totaldictionary % settings.getRecordDictionary() ==0){
+								result= totaldictionary/settings.getRecordDictionary();
 							}else{
-								result= totalRecord/settings.getRecordDictionary()+1;
+								result= totaldictionary/settings.getRecordDictionary()+1;
 							}
 							
 						}else{
-							result = 0;	
+							if(status ==6){
+								List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(2);
+								int totaldictionary = list.size()-2;
+								if( totaldictionary % settings.getRecordDictionary() ==0){
+									result= totaldictionary/settings.getRecordDictionary();
+								}else{
+									result= totaldictionary/settings.getRecordDictionary()+1;
+								}
+								
+							}else{
+								if(status ==7){
+									List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(3);
+									int totaldictionary = list.size()-2;
+									if( totaldictionary % settings.getRecordDictionary() ==0){
+										result= totaldictionary/settings.getRecordDictionary();
+									}else{
+										result= totaldictionary/settings.getRecordDictionary()+1;
+									}
+									
+								}else{
+									if(status ==8){
+										List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(4);
+										int totaldictionary = list.size()-2;
+										if( totaldictionary % settings.getRecordDictionary() ==0){
+											result= totaldictionary/settings.getRecordDictionary();
+										}else{
+											result= totaldictionary/settings.getRecordDictionary()+1;
+										}
+										
+									}else{
+										result = 0;
+									}
+								}
+							}
 						}
 						
 					}

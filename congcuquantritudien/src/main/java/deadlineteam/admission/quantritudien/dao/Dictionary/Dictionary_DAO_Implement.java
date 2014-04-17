@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import deadlineteam.admission.quantritudien.domain.Dictionary;
+import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 
 @Repository
@@ -27,13 +28,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	private static final int limitResultsPerPage = 5;
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Dictionary> availablelist(int page) {
+	public List<Dictionary> availablelist(int page , int UserID) {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where Status = 1 and DeleteStatus = 0");
-         
-         q.setFirstResult(page * limitResultsPerPage); 
-         q.setMaxResults(limitResultsPerPage);
+                "from Dictionary where Status = 1 and DeleteStatus = 0 and CreateBy ="+UserID);
+
          return (List<Dictionary>) q.list();
 	}
 

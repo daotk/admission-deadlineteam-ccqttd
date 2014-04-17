@@ -126,6 +126,9 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	public int UpdateStatusUser(int UserId, int Authorization){
 		return usersDAO.UpdateStatusUser(UserId, Authorization);
 	}
+	public int UpdateSettingDictionary(int UserId, int Record, int Pagin){
+		return usersDAO.UpdateSettingDictionary(UserId, Record, Pagin);
+	}
 }
 
 	

@@ -101,6 +101,7 @@ public class DictionaryController {
 			@ModelAttribute("createQaA") Dictionary diction,
 			Model model,
 			HttpSession session) {
+		int UserID =Integer.parseInt(session.getAttribute("login").toString());
 		int page =Integer.parseInt(session.getAttribute("Page").toString());
 		if(actionsubmit.equals("save")){
 			int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
@@ -109,11 +110,11 @@ public class DictionaryController {
 				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 				int restart = DictionaryService.busystatus(Id);
 			
-				List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
+				List<Dictionary> Avaiable= DictionaryService.availablelist(page-1,UserID);
 				model.addAttribute("Avaiable", Avaiable);
 			}
 		}
-		List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
+		List<Dictionary> Avaiable= DictionaryService.availablelist(page-1,UserID);
 		for(int i=0;i < Avaiable.size();i++){
 			if(Avaiable.get(i).getQuestion().length() >= check){
 				String abc = Avaiable.get(i).getQuestion().toString();
@@ -180,15 +181,17 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
+		
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 	if(session.getValue("login") == null){
 		return "redirect:/";
 	}else{
 		if(Id==0){
+			
 			int UserId = Integer.parseInt(session.getAttribute("UserId").toString());
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
-			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
+			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1,UserID);
 			for(int i=0;i < Avaiable.size();i++){
 				if(Avaiable.get(i).getQuestion().length() >= check){
 					String abc = Avaiable.get(i).getQuestion().toString();
@@ -203,13 +206,13 @@ public class DictionaryController {
 			int numOfRecord = setting.getRecordDictionary();
 			int numOfPagin = setting.getPaginDisplayDictionary();
 			
-			model.addAttribute("numOfRecord", ""+numOfRecord);
-			model.addAttribute("numOfPagin", ""+numOfPagin);
+			model.addAttribute("numOfRecord", ""+4);
+			model.addAttribute("numOfPagin", ""+4);
 
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserId));
-			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+			model.addAttribute("noOfPages", 4);
+			model.addAttribute("noOfDisplay", 2);
 			
 			model.addAttribute("curentOfPage", page);
 			return "list-dictionary";
@@ -218,7 +221,7 @@ public class DictionaryController {
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			
-			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);			
+			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1, UserID);			
 			for(int i=0;i < Avaiable.size();i++){
 				if(Avaiable.get(i).getQuestion().length() >= check){
 					String abc = Avaiable.get(i).getQuestion().toString();
@@ -268,7 +271,7 @@ public class DictionaryController {
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected			
-			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1);
+			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1, UserID);
 			model.addAttribute("Avaiable", Avaiable);	
 			model.addAttribute("dictionary", new Dictionary());
 			model.addAttribute("curentOfPage", page);	
@@ -281,7 +284,7 @@ public class DictionaryController {
 					// Processing restore question
 					int result = DictionaryService.upload(Id);	
 					if(result > 0){
-						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);			
+						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);			
 						for(int i=0;i < Avaiable1.size();i++){
 							if(Avaiable1.get(i).getQuestion().length() >= check){
 								String abc = Avaiable1.get(i).getQuestion().toString();
@@ -323,7 +326,7 @@ public class DictionaryController {
 						// Processing restore question
 						int result = DictionaryService.delete(Id);
 						DictionaryService.updatedelete(Id, userID);
-						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);
+						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);
 						for(int i=0;i < Avaiable1.size();i++){
 							if(Avaiable1.get(i).getQuestion().length() >= check){
 								String abc = Avaiable1.get(i).getQuestion().toString();
@@ -338,7 +341,7 @@ public class DictionaryController {
 						if(!changeitems.equals("0")){
 							int numOfRecord = Integer.parseInt(changeitems);
 							int numOfPagin = Integer.parseInt(changepagin);
-							userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
+							userService.UpdateSettingDictionary(UserID, numOfRecord, numOfPagin);
 					
 							model.addAttribute("numOfRecord",changeitems);
 							model.addAttribute("numOfPagin",changepagin);
@@ -347,7 +350,7 @@ public class DictionaryController {
 							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							
-							List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);
+							List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);
 							for(int i=0;i < Avaiable1.size();i++){
 								if(Avaiable1.get(i).getQuestion().length() >= check){
 									String abc = Avaiable1.get(i).getQuestion().toString();
@@ -363,7 +366,7 @@ public class DictionaryController {
 					}
 				}
 			}			
-			List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1);
+			List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);
 			for(int i=0;i < Avaiable1.size();i++){
 				if(Avaiable1.get(i).getQuestion().length() >= check){
 					String abc = Avaiable1.get(i).getQuestion().toString();

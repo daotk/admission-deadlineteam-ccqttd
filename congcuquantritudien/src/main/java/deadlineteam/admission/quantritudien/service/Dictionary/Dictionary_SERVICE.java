@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import deadlineteam.admission.quantritudien.domain.Dictionary;
+import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 
 public interface Dictionary_SERVICE {
 	public int AddDictionarybyID (int Id,int UserId);
-	public List<Dictionary> availablelist(int page) ;
+	public List<Dictionary> availablelist(int page, int UserID);
 	public Dictionary availablequestion(int Id);
 	public List<Dictionary> recentlist(int page);
 	public Dictionary recentquestion(int Id);
@@ -31,4 +32,5 @@ public interface Dictionary_SERVICE {
 	public void updateRemove(int Id, int userID);
 	public void updatedelete(int Id, int userID);
 	public Users getusername(int ID);
+	public Setting getSetting(int UserId);
 }

@@ -38,37 +38,38 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
+		var noOfDisplay = '${noOfDisplay}';
 		var page = location.search.split("page=")[1];
 			if(page != null){
 				var options = {
 				currentPage: page,
-				totalPages: noOfPages,
+				totalPages: 10,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages:3,
+				 numberOfPages: 3,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
 				}
-			}
+			};
 			$('#paginator').bootstrapPaginator(options);    
 		}else{
 			var options = {
 				currentPage: 1,
-				totalPages: noOfPages,
+				totalPages: 10,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages:3,
+				 numberOfPages: 3,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
 				}
-			}
+			};
 			$('#paginator').bootstrapPaginator(options); 
 		}
-	return false;
-	});
-</script>
+		return false;
+		});
+	</script>
 
 <!-- LIMIT TExt filed to accept only numbers as input -->
 	<script>

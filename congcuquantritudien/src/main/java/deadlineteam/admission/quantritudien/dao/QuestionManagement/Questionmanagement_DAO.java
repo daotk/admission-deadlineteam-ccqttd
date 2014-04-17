@@ -2,6 +2,7 @@ package deadlineteam.admission.quantritudien.dao.QuestionManagement;
 
 import java.util.List;
 
+import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
@@ -14,6 +15,7 @@ public interface Questionmanagement_DAO {
 	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record);
 	public int updateAnswerbyId(int Id,String Answer);
 	public Questionmanagement getQuestionmanagementbyIDToCopy(int Id);
+	public List<Dictionary> getListDictionarybyStatus(int status);
 	//delete question that is selected
 	public int delete(int Id);
 	//---------------------- Delete Page
@@ -60,6 +62,7 @@ public interface Questionmanagement_DAO {
 	public void UpdateDelete(int Id, int userid);
 	public void UpdateAnwserBy(int Id, int userid);
 	public Users getusername(int username);
+	
 	public Setting getSetting(int Id);
 	
 }

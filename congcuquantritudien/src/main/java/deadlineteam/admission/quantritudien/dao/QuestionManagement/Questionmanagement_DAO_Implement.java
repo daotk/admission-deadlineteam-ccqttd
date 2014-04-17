@@ -15,6 +15,7 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
@@ -215,6 +216,11 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status){
 		return getCurrentSession().createQuery(" from Questionmanagement where Status = "+status+" AND DeleteStatus =0").list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getListDictionarybyStatus(int status){
+		return getCurrentSession().createQuery(" from Dictionary where Status = "+status+" AND DeleteStatus =0").list();
 	}
 	
 	@SuppressWarnings("unchecked")

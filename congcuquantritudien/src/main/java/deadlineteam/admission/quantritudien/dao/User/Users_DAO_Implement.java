@@ -103,6 +103,14 @@ public class Users_DAO_Implement implements Users_DAO {
 		 int result= q.executeUpdate();
 		return result;
 	}
+	public int UpdateSettingDictionary(int UserId, int Record, int Pagin){
+		String sqlstring = "update Setting set RecordDictionary = :record, PaginDisplayDictionary = :pagin where UserID = "+UserId;
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		 q.setParameter("record", Record);
+		 q.setParameter("pagin", Pagin);
+		 int result= q.executeUpdate();
+		return result;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Users> getUserDetail(int ID) {

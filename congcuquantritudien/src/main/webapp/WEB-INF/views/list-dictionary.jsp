@@ -52,7 +52,7 @@
 				pageUrl: function(type, page, current){
 					return "?page="+page;
 				}
-			}
+			};
 			$('#paginator').bootstrapPaginator(options);    
 		}else{
 			var options = {
@@ -65,12 +65,11 @@
 				pageUrl: function(type, page, current){
 					return "?page="+page;
 				}
-			}
+			};
 			$('#paginator').bootstrapPaginator(options); 
 		}
 		return false;
 		});
-	</script>
 	<script>
 	function isNumber(event) {
 		  if (event) {
@@ -151,6 +150,7 @@
 											<a href="${pageContext.request.contextPath}/botudien?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
 													<div class="row1">
+													<div class="list-email">${Questionmanagement.createBy}</div>
 														<!-- create date -->	
 														<div class="list-date">
 															<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />

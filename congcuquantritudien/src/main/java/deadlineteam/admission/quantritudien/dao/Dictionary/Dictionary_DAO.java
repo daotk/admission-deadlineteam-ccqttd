@@ -9,7 +9,7 @@ import deadlineteam.admission.quantritudien.domain.Users;
 
 public interface Dictionary_DAO {	
 	public void  AddDictionary (Dictionary  dictionary);
-	public List<Dictionary> availablelist(int page);
+	public List<Dictionary> availablelist(int page , int UserID) ;
 	public Dictionary availablequestion(int Id);
 	public List<Dictionary> recentlist(int page);
 	public Dictionary recentquestion(int Id);

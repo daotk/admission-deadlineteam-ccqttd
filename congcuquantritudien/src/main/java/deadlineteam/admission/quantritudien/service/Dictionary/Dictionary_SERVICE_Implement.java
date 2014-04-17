@@ -1,5 +1,6 @@
 package deadlineteam.admission.quantritudien.service.Dictionary;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import deadlineteam.admission.quantritudien.dao.Dictionary.Dictionary_DAO;
 import deadlineteam.admission.quantritudien.dao.QuestionManagement.Questionmanagement_DAO;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
+import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 
 @Service
@@ -44,9 +46,36 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public void AddDictionary(Dictionary dictionary){
 		 DictionaryDAO.AddDictionary(dictionary);
 	}
-	public List<Dictionary> availablelist(int page) {
+	public List<Dictionary> availablelist(int page, int UserID) {
 		// TODO Auto-generated method stub
-		return DictionaryDAO.availablelist(page);
+		List<Dictionary> list=  DictionaryDAO.availablelist(page, UserID);
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}	
+		List<Dictionary> newlist = new ArrayList<Dictionary>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordDictionary();
+		 int end = begin + settings.getRecordDictionary();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
+		
 	}	
 	public Dictionary availablequestion(int Id) {
 		// TODO Auto-generated method stub
@@ -122,5 +151,8 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 	public Users getusername(int ID){
 		return DictionaryDAO.getusername(ID);
+	}
+	public Setting getSetting(int UserId){
+		return QuestionmanagementDAO.getSetting(UserId);
 	}
 }
