@@ -3,6 +3,7 @@ encoding//src/main/java/deadlineteam/admission/quantritudien/controller/Dictiona
 encoding//src/main/java/deadlineteam/admission/quantritudien/controller/PersonController.java=UTF-8
 encoding//src/main/java/deadlineteam/admission/quantritudien/controller/QuestionaManagementController.java=UTF-8
 encoding//src/main/java/deadlineteam/admission/quantritudien/controller/UserController.java=UTF-8
+encoding//src/main/java/deadlineteam/admission/quantritudien/util/ExFSDirectoryProvider.java=UTF-8
 encoding//src/main/resources/messages.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/create-dictionary.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/error/404.jsp=UTF-8

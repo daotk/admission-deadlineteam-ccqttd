@@ -68,6 +68,9 @@ public class DictionaryController {
 	@Autowired
 	private Dictionary_SERVICE DictionaryService;
 	
+	//url = http://localhost:8080/congcuquantri
+	private static final String url = "http://10.11.27.12:8080/congcuhienthitudien";
+	
 	private int check = 47;
 	private int get = 44;
 
@@ -302,7 +305,7 @@ public class DictionaryController {
 					
 					try{
 						RestTemplate restTemplate = new RestTemplate();
-						String result1 = restTemplate.postForObject("http://localhost:8080/hienthitudien/api/question", dicrestful, String.class);
+						String result1 = restTemplate.postForObject(url+"/api/question", dicrestful, String.class);
 						if(result1.equals("success")){
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}else{
@@ -566,7 +569,7 @@ public class DictionaryController {
 					
 					try{
 						RestTemplate restTemplate = new RestTemplate();
-						String result1 = restTemplate.postForObject("http://localhost:8080/hienthitudien/api/question", dicrestful, String.class);
+						String result1 = restTemplate.postForObject(url+"/api/question", dicrestful, String.class);
 						if(result1.equals("success")){
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}else{
@@ -706,7 +709,7 @@ public class DictionaryController {
 					dicrestful.setQuestion(newdictionary.getQuestion());
 					try{
 						RestTemplate restTemplate = new RestTemplate();
-						String result1 = restTemplate.postForObject("http://localhost:8080/hienthitudien/api/romovequestion", dicrestful, String.class);
+						String result1 = restTemplate.postForObject(url+"/api/romovequestion", dicrestful, String.class);
 						
 						if(result1.equals("remove is success")){
 							model.addAttribute("message", "Hạ câu hỏi thành công");
