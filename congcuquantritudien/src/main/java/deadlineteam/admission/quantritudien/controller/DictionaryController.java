@@ -206,13 +206,13 @@ public class DictionaryController {
 			int numOfRecord = setting.getRecordDictionary();
 			int numOfPagin = setting.getPaginDisplayDictionary();
 			
-			model.addAttribute("numOfRecord", ""+4);
-			model.addAttribute("numOfPagin", ""+4);
+			model.addAttribute("numOfRecord", ""+numOfRecord);
+			model.addAttribute("numOfPagin", ""+numOfPagin);
 
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", 4);
-			model.addAttribute("noOfDisplay", 2);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			
 			model.addAttribute("curentOfPage", page);
 			return "list-dictionary";
