@@ -116,8 +116,9 @@
 					  		
 						  		<!-- configuration -->
 						  		<div id="container-pop">
-									<a class="popup-link-1" style="text-decoration: none;"/>
-									<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+									<a class="popup-link-1" style="text-decoration: none;">
+										<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+									</a>
 								</div>
 								<!-- end configuration -->
 					  		</div>

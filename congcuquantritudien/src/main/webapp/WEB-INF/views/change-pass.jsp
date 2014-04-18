@@ -73,7 +73,7 @@ font-style: italic;
 						</tr>
 						<tr>
 							<td></td>
-							<td><button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="height: 35px; float: right;">LƯU</button></td>
+							<td><button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="height: 35px; float: right; margin-right: 0;">LƯU</button></td>
 						</tr>
 					</table>
 				</form:form>
