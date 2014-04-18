@@ -297,7 +297,7 @@ public class QuestionaManagementController {
 									
 									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( 0,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
-										if(ListQuestion.get(i).getQuestion().length() >= check){
+										if(ListQuestion1.get(i).getQuestion().length() >= check){
 											String abc = ListQuestion1.get(i).getQuestion().toString();
 											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
