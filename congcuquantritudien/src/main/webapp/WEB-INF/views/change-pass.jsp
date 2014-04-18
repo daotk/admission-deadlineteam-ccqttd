@@ -29,7 +29,7 @@ font-style: italic;
 				<form:form method="POST" commandName="users">
 					<table style="margin-left: 1%; margin-top: 1%;">
 						<tr>
-							<td><label style="float: left; font-size: 11pt;">Mật khẩu hiện tại:</label></td>
+							<td><label style="float: left; font-size: 10pt;">Mật khẩu hiện tại:</label></td>
 							<td>
 								<div style="float: left;">
 									<form:input path="Password" style="width: 300px; border-radius: 5px; height: 25px; padding-left: 5px;  color: #555555; border: 1px solid #cccccc; line-heigt: 1.428571429;"  type="password"/>
@@ -42,7 +42,7 @@ font-style: italic;
 							</td>
 						</tr>
 						<tr>
-							<td><label style="float: left; font-size: 11pt;">Mật khẩu mới:</label></td>
+							<td><label style="float: left; font-size: 10pt;">Mật khẩu mới:</label></td>
 							<td>
 								<div style="float: left;">
 									<form:input path="NewPassword" style="width: 300px; border-radius: 5px; height: 25px; padding-left: 5px; color: #555555; border: 1px solid #cccccc; line-heigt: 1.428571429;"  type="password"/>
@@ -55,7 +55,7 @@ font-style: italic;
 							</td>
 						</tr>
 						<tr>
-							<td><label style="float: left; font-size: 11pt;">Nhập lại mật khẩu:</label></td>
+							<td><label style="float: left; font-size: 10pt;">Nhập lại mật khẩu:</label></td>
 							<td>
 								<div style="float: left;">
 									<form:input path="NewPassword" style="width: 300px; border-radius: 5px; height: 25px; padding-left: 5px; color: #555555; border: 1px solid #cccccc; line-heigt: 1.428571429;"  type="password"/>

@@ -40,9 +40,9 @@
         		<form:form method="post" action="" commandName="createQaA">
 					<!-- Question content -->
 					<div id="answer" style="width: 95%; margin: 80px 0 0 15px;">
-						<span style="font-size: 12px; font-weight: normal;">Nội dung câu hỏi:</span>
+						<span style="font-size: 10pt; font-weight: normal;">Nội dung câu hỏi:</span>
 						<br>
-						<div style="width: 100%;">
+						<div style="width: 100%; font-size: 10pt;">
 							<form:textarea path="Question" cssClass="createQaA-question"></form:textarea>	
 							<form:errors path="Question" cssClass="error" />
 						</div>
@@ -50,7 +50,7 @@
 						
 					<!-- Answer content -->
 					<div id="answer" style="width: 95%; margin: 15px;">
-						<span style="font-size: 12px; font-weight: normal;">Nội dung câu trả lời:</span>
+						<span style="font-size: 10pt; font-weight: normal;">Nội dung câu trả lời:</span>
 						<div style="width: 100%;">
 							<form:textarea path="Anwser" style="width: 100%; margin: 0px;" cssClass="createQaA-answer" name="editor1" id="editor1" rows="10" cols="10"></form:textarea>
 				            <form:errors path="Anwser" cssClass="error" />

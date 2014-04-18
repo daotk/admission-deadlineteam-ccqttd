@@ -32,71 +32,103 @@
     <tiles:putAttribute name="body">
         <div id="loading"> </div>
         <div class="body">
-      	<ul class="tabbed" data-persist="true" style="width: 100%;">
-	            <li><a href="cauhinh" class="active">Cấu hình người dùng</a></li>
+      		<ul class="tabbed" data-persist="true" style="width: 100%;">
+	    		<li><a href="cauhinh" class="active">Cấu hình người dùng</a></li>
 	            <li><a href="cauhinhhethong">Cấu hình hệ thống</a></li>
 	            <li><a href="cauhinhmail">Cấu hình mail</a></li>
-		</ul>
+			</ul>
 
-		<div id="user-grid">
-			 <table id="tableUser" style="margin-left: 3%;">
-            <tr>
-                <th>Tên người dùng</th>
-                <th>Tài khoản</th>
-                <th>Email</th>
-                <th>Quyền</th>
-                <th>Sửa</th>
-            </tr>
-           <c:forEach var="User" items="${listUser}" >
-            <tr style="width: 100%;">					
-								<td>
-									<div>${User.fullName}</div>
-								</td>
-								<td>
-									<div>${User.userName}</div>
-								</td>
-								<td>
-									<div>${User.email}</div>
-								</td>
-								<td>
-									<div>${User.authorization}</div>
-								</td>
-								<td style="text-align: center; width: 30px;">
-										<a href="${pageContext.request.contextPath}/cauhinh?topic=${User.ID}" style="text-decoration: none;">
-										<img src="images/pen.png" /></a>
-								</td>
-            </tr>
-            </c:forEach>  
-            </table>
- 			</div>
- 			
- 			
+			<div id="user-grid">
+				<table id="tableUser" style="margin-left: 3%;">
+		            <tr>
+		                <th>Tên người dùng</th>
+		                <th>Tài khoản</th>
+		                <th>Email</th>
+		                <th>Quyền</th>
+		                <th>Sửa</th>
+		            </tr>
+		           	<c:forEach var="User" items="${listUser}" >
+		           		<tr style="width: 100%; font-size: 10pt;">					
+							<td>
+								<div>${User.fullName}</div>
+							</td>
+							<td>
+								<div>${User.userName}</div>
+							</td>
+							<td>
+								<div>${User.email}</div>
+							</td>
+							<td>
+								<div>${User.authorization}</div>
+							</td>
+							<td style="text-align: center; width: 30px;">
+								<a href="${pageContext.request.contextPath}/cauhinh?topic=${User.ID}" style="text-decoration: none;">
+									<img src="images/pen.png" />
+								</a>
+							</td>
+		            	</tr>
+		            </c:forEach>  
+	            </table>
+	 		</div>
+	 		
  			<form:form method="post" action="" commandName="listUser2" style="text-align: left;">
 				<c:if test="${not empty listUser2.fullName}">
-				<div id="user-detail" style="margin-left: 3%; margin-top: 1%;">
- 					<h3>Phân quyền người dùng</h3>
-			    	<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 10px; padding-left: 10px;">Tên người dùng:</label>
-			    	<input style="width: 220px; height: 30px; margin-left: 5px; margin-top: 5px; " type="text" value="${fullName}"  disabled></input>
-					<br>
-					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 48px; padding-left: 10px;">Tài khoản:</label>
-					<input style="width: 220px; height: 30px; display: inline; margin-left: 3px; margin-top: 5px;" type="text"  value="${userName}" disabled ></input>
-					<br>
-					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 73px; padding-left: 10px;">Email:</label>
-					<input style="width: 220px; height: 30px; display: inline; margin-left: 1px; margin-top: 5px;" type="text" value="${email}" disabled></input>
-					<br>
-					<label style="width: 160px; display: inline; font-size: 10pt; margin-right: 70px; padding-left: 10px;">Quyền:</label>
-					<input style="width: 220px; height: 30px; display: inline; margin-left: -1px; margin-top: 5px;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
-					<br>
-					
-					<br>
-					<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: none; margin: 0 0 25px 66%; ">Thay đổi</button>
-					<br>
-					<b style="font-size: 10pt; margin-left: 10px; margin-bottom: 5px;">${message}</b>
-				</div>
+					<div id="user-detail" style="margin-left: 3%; margin-top: 1%;">
+ 						<table>
+ 						<tr>
+ 							<td colspan="2">
+ 								<h3>Phân quyền người dùng</h3>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td>
+ 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Tên người dùng:</label>
+ 							</td>
+ 							<td>
+ 								<input style="width: 240px; height: 30px; float: right;" type="text" value="${fullName}"  disabled></input>		
+ 							</td>
+ 						</tr>
+			    		<tr>
+ 							<td>
+ 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Tài khoản:</label>
+							</td>
+ 							<td>
+ 								<input style="width: 240px; height: 30px; float: right;" type="text"  value="${userName}" disabled ></input>
+							</td>
+ 						</tr>
+ 						<tr>
+ 							<td>
+ 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Email:</label>
+							</td>
+ 							<td>
+ 								<input style="width: 240px; height: 30px; float: right;" type="text" value="${email}" disabled></input>
+							</td>
+ 						</tr>
+			    		<tr>
+ 							<td>
+ 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Quyền:</label>
+							</td>
+ 							<td>
+ 								<input style="width: 240px; height: 30px; float: right;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
+							</td>
+ 						</tr>
+ 						<tr>
+ 							<td></td>
+ 							<td>
+ 								<b style="font-size: 10pt; float: left;">${message}</b>
+							</td>
+ 						</tr>
+ 						<tr>
+ 							<td></td>
+ 							<td>
+ 								<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="float: right; height: 35px;">Thay đổi</button>
+							</td>
+ 						</tr>
+						</table>
+					</div>
 				</c:if>		
 			</form:form>
- 			
- 		
+			
     </tiles:putAttribute>
 </tiles:insertDefinition>
 </body>
