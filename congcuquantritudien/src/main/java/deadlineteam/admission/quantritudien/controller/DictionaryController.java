@@ -353,14 +353,14 @@ public class DictionaryController {
 							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							
-							List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);
-							for(int i=0;i < Avaiable1.size();i++){
-								if(Avaiable1.get(i).getQuestion().length() >= check){
-									String abc = Avaiable1.get(i).getQuestion().toString();
-									Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+							for(int i=0;i < savelist.size();i++){
+								if(savelist.get(i).getQuestion().length() >= check){
+									String abc = savelist.get(i).getQuestion().toString();
+									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
 							}
-							model.addAttribute("Avaiable", Avaiable1);
+							model.addAttribute("savequestionlist", savelist);
 							model.addAttribute("message","Thay đổi cấu hình thành công.");
 	
 						}

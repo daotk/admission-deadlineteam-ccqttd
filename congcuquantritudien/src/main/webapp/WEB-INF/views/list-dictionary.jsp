@@ -34,6 +34,7 @@
 	$(window).bind("load", function() {
 		$('#loading').fadeOut(2000);
 	});
+	</script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
@@ -128,7 +129,7 @@
 					  		<div class="popup-box" id="popup-box-1">
 						  		<div class="close"><img src="images/close2.png" style="border: 0; margin-right: 5px; margin-top: 5px;" /></div>
 						  		<div class="top">
-						  			<form method="post" action="botudiendaxoa" style="text-align: center;">
+						  			<form method="post" action="botudien" style="text-align: center;">
 							  			<table>
 							  				<tr>
 							  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>

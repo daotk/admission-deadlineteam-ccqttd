@@ -238,7 +238,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		int result;
 		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
 		
-		int totalRecord = listquestion.size()-2;
+		int totalRecord = listquestion.size();
 		Setting settings = getSetting(UserID);
 		if(status ==1){
 			if( totalRecord % settings.getRecordNotRep() ==0){
@@ -270,7 +270,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 					}else{
 						if(status ==5){
 							List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(1);
-							int totaldictionary = list.size()-2;
+							int totaldictionary = list.size();
 							if( totaldictionary % settings.getRecordDictionary() ==0){
 								result= totaldictionary/settings.getRecordDictionary();
 							}else{

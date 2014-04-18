@@ -182,7 +182,7 @@ public class QuestionaManagementController {
 					//xu ly luu cau tra loi va gui mail
 					int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
 					if(result>0){
-						List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 						for(int i=0;i < ListQuestion1.size();i++){
 							if(ListQuestion.get(i).getQuestion().length() >= check){
 								String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -228,7 +228,7 @@ public class QuestionaManagementController {
 						if(checkboxdata!="0"){
 						int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
 						if(result>0){			
-							List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 							for(int i=0;i < ListQuestion1.size();i++){
 								if(ListQuestion.get(i).getQuestion().length() >= check){
 									String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -254,7 +254,7 @@ public class QuestionaManagementController {
 							if(result>0){
 								QuestionmanagementService.UpdateDelete(Id, login);
 								model.addAttribute("message1", "Bạn đã xóa thành công.");
-								List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+								List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 								for(int i=0;i < ListQuestion1.size();i++){
 									if(ListQuestion.get(i).getQuestion().length() >= check){
 										String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -272,7 +272,7 @@ public class QuestionaManagementController {
 							QuestionmanagementService.deleteall(checkboxdata,login);
 							
 							model.addAttribute("message", "Đã xóa.");
-							List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 							for(int i=0;i < ListQuestion1.size();i++){
 								if(ListQuestion.get(i).getQuestion().length() >= check){
 									String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -295,7 +295,7 @@ public class QuestionaManagementController {
 									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 									
-									List<Questionmanagement> ListQuestion1= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( 0,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
 										if(ListQuestion.get(i).getQuestion().length() >= check){
 											String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -535,7 +535,7 @@ public class QuestionaManagementController {
 									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(2, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayTemp());
 									
-									List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
+									List<Questionmanagement> savelist= QuestionmanagementService.savelist(0, UserID);
 									for(int i=0;i < savelist.size();i++){
 										if(savelist.get(i).getQuestion().length() >= check){
 											String abc = savelist.get(i).getQuestion().toString();
@@ -740,7 +740,7 @@ public class QuestionaManagementController {
 									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 									
-									List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(page-1, UserID);
+									List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(0, UserID);
 									for(int i=0;i < Deletequestionlist.size();i++){
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -904,7 +904,7 @@ public class QuestionaManagementController {
 						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 						
-						List<Questionmanagement> Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+						List<Questionmanagement> Deletequestionlist= QuestionmanagementService.deleteList(0, UserID);
 						for(int i=0;i < Deletequestionlist.size();i++){
 							if(Deletequestionlist.get(i).getQuestion().length() >= check){
 								String abc = Deletequestionlist.get(i).getQuestion().toString();
