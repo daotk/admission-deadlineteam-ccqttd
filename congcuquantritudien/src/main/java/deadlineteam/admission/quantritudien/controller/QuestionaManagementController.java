@@ -184,7 +184,7 @@ public class QuestionaManagementController {
 					if(result>0){
 						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 						for(int i=0;i < ListQuestion1.size();i++){
-							if(ListQuestion.get(i).getQuestion().length() >= check){
+							if(ListQuestion1.get(i).getQuestion().length() >= check){
 								String abc = ListQuestion1.get(i).getQuestion().toString();
 								ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
@@ -230,7 +230,7 @@ public class QuestionaManagementController {
 						if(result>0){			
 							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 							for(int i=0;i < ListQuestion1.size();i++){
-								if(ListQuestion.get(i).getQuestion().length() >= check){
+								if(ListQuestion1.get(i).getQuestion().length() >= check){
 									String abc = ListQuestion1.get(i).getQuestion().toString();
 									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
@@ -256,7 +256,7 @@ public class QuestionaManagementController {
 								model.addAttribute("message1", "Bạn đã xóa thành công.");
 								List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 								for(int i=0;i < ListQuestion1.size();i++){
-									if(ListQuestion.get(i).getQuestion().length() >= check){
+									if(ListQuestion1.get(i).getQuestion().length() >= check){
 										String abc = ListQuestion1.get(i).getQuestion().toString();
 										ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
@@ -274,7 +274,7 @@ public class QuestionaManagementController {
 							model.addAttribute("message", "Đã xóa.");
 							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 							for(int i=0;i < ListQuestion1.size();i++){
-								if(ListQuestion.get(i).getQuestion().length() >= check){
+								if(ListQuestion1.get(i).getQuestion().length() >= check){
 									String abc = ListQuestion1.get(i).getQuestion().toString();
 									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
