@@ -80,10 +80,38 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public Dictionary availablequestion(int Id) {
 		// TODO Auto-generated method stub
 		return DictionaryDAO.availablequestion(Id);
+		
 	}
-	public List<Dictionary> recentlist(int page) {
+	public List<Dictionary> recentlist(int page, int UserID) {
 		// TODO Auto-generated method stub
-		return DictionaryDAO.recentlist(page);
+		
+		List<Dictionary> list=  DictionaryDAO.recentlist(page, UserID);
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getUpdateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getUpdateDate().compareTo(max)>0){
+					max = list.get(i).getUpdateDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}	
+		List<Dictionary> newlist = new ArrayList<Dictionary>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordDictionary();
+		 int end = begin + settings.getRecordDictionary();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
 	}
 	public Dictionary recentquestion(int Id) {
 		// TODO Auto-generated method stub
@@ -103,6 +131,10 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public int upload(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.upload(Id);
+	}
+	public int updateby(int Id, int UserID){
+		// TODO Auto-generated method stub
+		return DictionaryDAO.updateby(Id, UserID);
 	}
 	public int remove(int Id){
 		// TODO Auto-generated method stub

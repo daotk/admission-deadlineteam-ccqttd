@@ -11,7 +11,7 @@ public interface Dictionary_SERVICE {
 	public int AddDictionarybyID (int Id,int UserId);
 	public List<Dictionary> availablelist(int page, int UserID);
 	public Dictionary availablequestion(int Id);
-	public List<Dictionary> recentlist(int page);
+	public List<Dictionary> recentlist(int page, int UserID);
 	public Dictionary recentquestion(int Id);
 	public List<Dictionary> deletelist(int page);
 	public Dictionary question(int Id);
@@ -19,6 +19,7 @@ public interface Dictionary_SERVICE {
 	public Dictionary removequestion(int Id);
 	public Dictionary getinformation(int ID);
 	public int upload(int Id);
+	public int updateby(int Id, int UserID);
 	public Dictionary loadquestion(int Id);
 	public int remove(int Id);
 	public int restore(int Id);

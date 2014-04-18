@@ -11,7 +11,7 @@ public interface Dictionary_DAO {
 	public void  AddDictionary (Dictionary  dictionary);
 	public List<Dictionary> availablelist(int page , int UserID) ;
 	public Dictionary availablequestion(int Id);
-	public List<Dictionary> recentlist(int page);
+	public List<Dictionary> recentlist(int page, int UserID);
 	public Dictionary recentquestion(int Id);
 	public List<Dictionary> deletelist(int page);
 	public Dictionary question(int Id);
@@ -20,6 +20,7 @@ public interface Dictionary_DAO {
 	public Dictionary getinformation(int ID);
 	public Dictionary loadquestion(int Id);
 	public int upload(int Id);
+	public int updateby(int Id,int UserID);
 	public int remove(int Id);
 	public int restore(int Id);
 	public int delete(int Id);

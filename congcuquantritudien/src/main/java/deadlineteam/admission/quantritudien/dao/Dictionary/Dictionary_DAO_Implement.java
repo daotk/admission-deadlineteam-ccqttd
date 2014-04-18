@@ -51,13 +51,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Dictionary> recentlist(int page) {
+	public List<Dictionary> recentlist(int page, int UserID) {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where Status = 2 and DeleteStatus = 0");
-         
-         q.setFirstResult(page * limitResultsPerPage); 
-         q.setMaxResults(limitResultsPerPage);
+                "from Dictionary where Status = 2 and DeleteStatus = 0 and UpdateBy ="+UserID);
+        
          return (List<Dictionary>) q.list();
 	}
 
@@ -96,6 +94,17 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		String sqlstring = "update Dictionary set Status = '2' where ID = :Id AND DeleteStatus = 0";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		q.setParameter("Id", Id);
+		int result = q.executeUpdate();
+		return result;
+	}
+	@Override
+	public int updateby(int Id, int UserID){
+		String sqlstring = "update Dictionary set UpdateBy =:userid, UpdateDate =:now where ID = :Id AND DeleteStatus = 0";
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		q.setParameter("userid", UserID);
+		q.setParameter("Id", Id);
+		Date now = new Date();
+		q.setParameter("now", now);
 		int result = q.executeUpdate();
 		return result;
 	}

@@ -35,6 +35,7 @@
 		$('#loading').fadeOut(2000);
 	});
 	</script>
+	
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
@@ -160,7 +161,7 @@
 											<a href="${pageContext.request.contextPath}/botudien?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
 													<div class="row1">
-													<div class="list-email">${Questionmanagement.createBy}</div>
+													<div class="list-email">${username}</div>
 														<!-- create date -->	
 														<div class="list-date">
 															<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />

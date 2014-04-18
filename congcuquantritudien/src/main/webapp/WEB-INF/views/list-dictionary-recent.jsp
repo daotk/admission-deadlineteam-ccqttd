@@ -9,32 +9,33 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
-	<title>Bộ từ điển đã đăng</title>
 	
+	<!-- CSS -->
 	<link href="css/stylesheet1.css" rel="stylesheet" />
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap.css"/>
 	
-	<script src="js/jquery.min.js"></script>
-	<script src="ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
+	<!-- Java Script -->
 	<script src='js/jquery.min.js' type='text/javascript'></script>
+	
+	<!-- CK Editor -->
+	<script src="ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
+	
+	<!-- Paging -->
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
-	
-	<!-- Setting pop box -->
-	<script src='js/popbox.js' type='text/javascript'></script>
-	
+		
 	<!-- Control Check box -->
 	<script src='js/checkbox.js' type='text/javascript'></script>
-	
+	<!-- Setting pop box -->
+	<script src='js/popbox.js' type='text/javascript'></script>
 	<!--For Loading -->
 	<script>
 	$(window).bind("load", function() {
 		$('#loading').fadeOut(2000);
 	});
 	</script>
-	<!--config paging -->
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
@@ -43,10 +44,10 @@
 			if(page != null){
 				var options = {
 				currentPage: page,
-				totalPages: 10,
+				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages: 3,
+				 numberOfPages: noOfDisplay,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -56,10 +57,10 @@
 		}else{
 			var options = {
 				currentPage: 1,
-				totalPages: 10,
+				totalPages: noOfPages,
 				 size:'normal',
 				 alignment:'center',
-				 numberOfPages: 3,
+				 numberOfPages:noOfDisplay,
 				 useBootstrapTooltip:true,
 				pageUrl: function(type, page, current){
 					return "?page="+page;
@@ -77,9 +78,9 @@
 		  if (event) {
 		    var charCode = (event.which) ? event.which : event.keyCode;
 		    if (charCode != 190 && charCode > 31 && 
-		       charCode < 48 || charCode > 57) && 
-		       charCode < 96 || charCode > 105) && 
-		       charCode < 37 || charCode > 40) && 
+		       (charCode < 48 || charCode > 57) && 
+		       (charCode < 96 || charCode > 105) && 
+		       (charCode < 37 || charCode > 40) && 
 		        charCode != 110 && charCode != 8 && charCode != 46 )
 		       return false;
 		  }
@@ -180,11 +181,12 @@
 								</c:if>
 							</div>
 							<!-- end load list of question -->
+							<!-- Paging -->
+							<div id="paginator"></div>
+							<!-- end paging -->  
 						 </div>
 						 
-						<!-- Paging -->
-						<div id="paginator"></div>
-						<!-- end paging -->          	
+						    	
                		</td>
 				
 					<!-- Detail -->
