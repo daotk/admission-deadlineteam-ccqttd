@@ -241,4 +241,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public Setting getSetting(int UserId){
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
+	public List<Dictionary> searchIdex(String keyword,String Status, int UserID){
+		return DictionaryDAO.searchIdex(keyword, Status, UserID);
+	}
 }

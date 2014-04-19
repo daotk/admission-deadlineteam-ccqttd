@@ -15,6 +15,7 @@ public interface Dictionary_DAO {
 	public Dictionary recentquestion(int Id);
 	public List<Dictionary> deletelist(int page, int UserID);
 	public Dictionary question(int Id);
+	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
 	public List<Dictionary> removelist(int page, int UserID);
 	public Dictionary removequestion(int Id);
 	public Dictionary getinformation(int ID);

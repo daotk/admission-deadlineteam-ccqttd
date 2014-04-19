@@ -20,6 +20,7 @@ public interface Dictionary_SERVICE {
 	public Dictionary getinformation(int ID);
 	public int upload(int Id);
 	public int updateby(int Id, int UserID);
+	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
 	public Dictionary loadquestion(int Id);
 	public int remove(int Id);
 	public int restore(int Id);

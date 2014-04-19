@@ -359,21 +359,29 @@ public class DictionaryController {
 							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							
-							List<Questionmanagement> savelist= QuestionmanagementService.savelist(page-1, UserID);
-							for(int i=0;i < savelist.size();i++){
-								if(savelist.get(i).getQuestion().length() >= check){
-									String abc = savelist.get(i).getQuestion().toString();
-									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							List<Dictionary> avaiable= DictionaryService.availablelist(0, UserID);
+							for(int i=0;i < avaiable.size();i++){
+								if(avaiable.get(i).getQuestion().length() >= check){
+									String abc = avaiable.get(i).getQuestion().toString();
+									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
 							}
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
-							model.addAttribute("savequestionlist", savelist);
+							model.addAttribute("savequestionlist", avaiable);
 							model.addAttribute("message","Thay đổi cấu hình thành công.");
 	
 						}
 					}else{
 					// Tim kiem
+						List<Dictionary> avaiable= DictionaryService.searchIdex(actionsubmit, "1", UserID);
+						for(int i=0;i < avaiable.size();i++){
+							if(avaiable.get(i).getQuestion().length() >= check){
+								String abc = avaiable.get(i).getQuestion().toString();
+								avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						model.addAttribute("savequestionlist", avaiable);
 					}
 				}
 			}			
@@ -553,6 +561,14 @@ public class DictionaryController {
 					}
 				}else{
 				// Tim kiem
+					List<Dictionary> dele= DictionaryService.searchIdex(actionsubmit, "4", userID);
+					for(int i=0;i < dele.size();i++){
+						if(dele.get(i).getQuestion().length() >= check){
+							String abc = dele.get(i).getQuestion().toString();
+							dele.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+					model.addAttribute("deletelist", dele);
 				}
 			}
 			return "list-dictionary-delete";
@@ -653,8 +669,7 @@ public class DictionaryController {
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 			
-			List<Dictionary> remove= DictionaryService.removelist(page-1,UserID );
-			model.addAttribute("removelist", remove);
+			
 			
 			model.addAttribute("dictionary", new Dictionary());
 			model.addAttribute("curentOfPage", page);
@@ -726,10 +741,10 @@ public class DictionaryController {
 						int result = DictionaryService.delete(Id);
 						DictionaryService.updatedelete(Id, userID);
 						List<Dictionary> remove1= DictionaryService.removelist(page-1, UserID);
-						for(int i=0;i < remove.size();i++){
-							if(remove.get(i).getQuestion().length() >= check){
-								String abc = remove.get(i).getQuestion().toString();
-								remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						for(int i=0;i < remove1.size();i++){
+							if(remove1.get(i).getQuestion().length() >= check){
+								String abc = remove1.get(i).getQuestion().toString();
+								remove1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
 						}
 						model.addAttribute("removelist", remove1);
@@ -757,10 +772,10 @@ public class DictionaryController {
 							// Processing restore question
 							int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 							List<Dictionary> remove2= DictionaryService.removelist(page-1, UserID);
-							for(int i=0;i < remove.size();i++){
-								if(remove.get(i).getQuestion().length() >= check){
-									String abc = remove.get(i).getQuestion().toString();
-									remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							for(int i=0;i < remove2.size();i++){
+								if(remove2.get(i).getQuestion().length() >= check){
+									String abc = remove2.get(i).getQuestion().toString();
+									remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
 							}
 							model.addAttribute("removelist", remove2);
@@ -793,10 +808,10 @@ public class DictionaryController {
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 								
 								List<Dictionary> remove2= DictionaryService.removelist(0, UserID);
-								for(int i=0;i < remove.size();i++){
-									if(remove.get(i).getQuestion().length() >= check){
-										String abc = remove.get(i).getQuestion().toString();
-										remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								for(int i=0;i < remove2.size();i++){
+									if(remove2.get(i).getQuestion().length() >= check){
+										String abc = remove2.get(i).getQuestion().toString();
+										remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
 								}
 								model.addAttribute("removelist", remove2);
@@ -808,6 +823,14 @@ public class DictionaryController {
 							}
 						}else{
 						// Tim kiem
+							List<Dictionary> remove2= DictionaryService.searchIdex(actionsubmit,"3", UserID);
+							for(int i=0;i < remove2.size();i++){
+								if(remove2.get(i).getQuestion().length() >= check){
+									String abc = remove2.get(i).getQuestion().toString();
+									remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							model.addAttribute("removelist", remove2);
 						}
 					}
 					
@@ -816,8 +839,7 @@ public class DictionaryController {
 			int page1 =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 			
-			List<Dictionary> remove1= DictionaryService.removelist(page1-1, UserID);
-			model.addAttribute("removelist", remove1);
+			
 			return "list-dictionary-down";
 	}	
 	@SuppressWarnings("deprecation")
@@ -1006,6 +1028,14 @@ public class DictionaryController {
 					}
 				}else{
 				// Tim kiem
+					List<Dictionary> rece1= DictionaryService.searchIdex(actionsubmit, "2", UserID);
+					for(int i=0;i < rece1.size();i++){
+						if(rece1.get(i).getQuestion().length() >= check){
+							String abc = rece1.get(i).getQuestion().toString();
+							rece1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+					model.addAttribute("Recentlist", rece1);
 				}
 			}
 			return "list-dictionary-recent";

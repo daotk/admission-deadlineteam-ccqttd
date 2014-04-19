@@ -97,7 +97,7 @@
         		<tr style="height: 100%;width: 100%">
 					<td style="background-color: #ffffff;width: 30%; height:100%" valign="top">
 						<div id="second-sidebar">
-                   			<form id="quick-search" method="post" action="botudiencosan">
+                   			<form id="quick-search" method="post" action="botudiendaha">
 				   				<fieldset class="search-bar">
 									<label >
 					 					<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm"> 

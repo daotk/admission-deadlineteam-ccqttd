@@ -6,10 +6,14 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import deadlineteam.admission.quantritudien.domain.Dictionary;
+import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 
@@ -209,5 +213,66 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	public Users getusername(int ID){
 		Users username =  (Users)getCurrentSession().createQuery(" from Users where ID = "+ID  ).uniqueResult();
 		return username;
+	}
+public List<Dictionary> searchIdex(String keyword,String Status, int UserID){
+		
+		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+		
+		QueryBuilder qb = fullTextSession.getSearchFactory()
+			    .buildQueryBuilder().forEntity(Dictionary.class).get();
+		if( Status.equals("1")){
+			org.apache.lucene.search.Query luceneQuery = qb	
+					.bool()
+					
+					.should(qb.phrase().onField("Anwser").andField("Question").sentence(keyword).createQuery())
+					.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
+					.must( qb.keyword().onField("Status").matching("2").createQuery() ).not()
+					.must( qb.keyword().onField("Status").matching("4").createQuery() ).not()
+					//.must( qb.keyword().onField("AnwserBy").matching(""+UserID).createQuery())
+					.createQuery();
+			org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Dictionary.class);
+			List<Dictionary> result = hibQuery.list();
+			return result;
+		}else{
+			if( Status.equals("2")){
+				org.apache.lucene.search.Query luceneQuery = qb	
+						.bool()
+						.should(qb.phrase().onField("Anwser").andField("Question").sentence(keyword).createQuery())
+						.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
+						.must( qb.keyword().onField("Status").matching("1").createQuery() ).not()
+						.must( qb.keyword().onField("Status").matching("4").createQuery() ).not()
+					//	.must( qb.keyword().onField("UpdateBy").matching(""+UserID).createQuery())
+						.createQuery();
+				org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Dictionary.class);
+				List<Dictionary> result = hibQuery.list();
+				return result;
+			}else{
+				if( Status.equals("3")){
+					org.apache.lucene.search.Query luceneQuery = qb	
+							.bool()
+							.should(qb.phrase().onField("Anwser").andField("Question").sentence(keyword).createQuery())
+							.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
+							.must( qb.keyword().onField("Status").matching("1").createQuery() ).not()
+							.must( qb.keyword().onField("Status").matching("2").createQuery() ).not()
+						//	.must( qb.keyword().onField("UpdateBy").matching(""+UserID).createQuery())
+							.createQuery();
+					org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Dictionary.class);
+					List<Dictionary> result = hibQuery.list();
+					return result;
+				}else{
+					org.apache.lucene.search.Query luceneQuery = qb	
+							.bool()
+							.should(qb.phrase().onField("Anwser").andField("Question").sentence(keyword).createQuery())
+							.must( qb.keyword().onField("DeleteStatus").matching("0").createQuery()).not()
+						//	.must( qb.keyword().onField("DeleteBy").matching(""+UserID).createQuery())
+							.createQuery();
+					org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Dictionary.class);
+					List<Dictionary> result = hibQuery.list();
+					return result;
+				}
+					
+			}
+		}
+
 	}
 }

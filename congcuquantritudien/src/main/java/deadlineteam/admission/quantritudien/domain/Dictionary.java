@@ -8,23 +8,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 @Entity
 @Table(name="Dictionary")
+@Indexed(index="Dictionary")
 public class Dictionary {
 	@Id
+	@DocumentId
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer ID;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String Question;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Integer CreateBy;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String Anwser;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Integer AnwserBy;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Date CreateDate;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Integer UpdateBy;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Date UpdateDate;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private int Status;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private int DeleteStatus;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Integer DeleteBy;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Date DeleteDate;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private int BusyStatus;
 	public Integer getID() {
 		return ID;
