@@ -164,10 +164,10 @@ public class QuestionaManagementController {
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			
-			List<Questionmanagement> ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
+		//	List<Questionmanagement> ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
 			
 			model.addAttribute("fullname",userService.getFullnameByID(UserID));
-			model.addAttribute("listquestionmanagement", ListQuestion);
+//			model.addAttribute("listquestionmanagement", ListQuestion);
 			model.addAttribute("questionmanagements", new Questionmanagement());
 			model.addAttribute("fullname", userService.getFullnameByID(UserID));
 			//check is admin

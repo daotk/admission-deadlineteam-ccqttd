@@ -13,9 +13,9 @@ public interface Dictionary_SERVICE {
 	public Dictionary availablequestion(int Id);
 	public List<Dictionary> recentlist(int page, int UserID);
 	public Dictionary recentquestion(int Id);
-	public List<Dictionary> deletelist(int page);
+	public List<Dictionary> deletelist(int page, int UserID);
 	public Dictionary question(int Id);
-	public List<Dictionary> removelist(int page);
+	public List<Dictionary> removelist(int page, int UserID);
 	public Dictionary removequestion(int Id);
 	public Dictionary getinformation(int ID);
 	public int upload(int Id);

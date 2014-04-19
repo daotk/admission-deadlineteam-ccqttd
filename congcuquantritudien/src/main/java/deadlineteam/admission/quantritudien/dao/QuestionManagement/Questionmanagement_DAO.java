@@ -30,6 +30,7 @@ public interface Questionmanagement_DAO {
 	// delete question-list page
 	public List<Questionmanagement> savelist(int page, int UserID);
 	//Load deletequestion-list
+	public List<Dictionary> getListDictionaryDelete(int status);
 	public Questionmanagement savequestion(int Id);
 	//delete save-question that is selected
 	public int deletesavequestion(int Id);

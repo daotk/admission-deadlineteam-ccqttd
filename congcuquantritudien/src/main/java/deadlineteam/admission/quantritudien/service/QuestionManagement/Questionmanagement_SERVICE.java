@@ -2,6 +2,7 @@ package deadlineteam.admission.quantritudien.service.QuestionManagement;
 
 import java.util.List;
 
+import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
@@ -16,6 +17,7 @@ public interface Questionmanagement_SERVICE{
 	//delete question that is selected
 	public int delete(int Id);
 	//--------------------- Delete Page
+	public List<Dictionary> getListDictionaryDelete(int status);
 	// Delete question-list page
 	public List<Questionmanagement> deleteList(int page, int UserID);
 	//Load deletequestion-list

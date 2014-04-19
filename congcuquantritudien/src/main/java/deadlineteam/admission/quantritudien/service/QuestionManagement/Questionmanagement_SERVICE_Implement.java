@@ -270,41 +270,59 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 					}else{
 						if(status ==5){
 							List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(1);
-							int totaldictionary = list.size();
-							if( totaldictionary % settings.getRecordDictionary() ==0){
-								result= totaldictionary/settings.getRecordDictionary();
+							int totaldictionary = list.size() ;
+							if(totaldictionary <= settings.getRecordDictionary()){
+								result =1;
 							}else{
-								result= totaldictionary/settings.getRecordDictionary()+1;
-							}
-							
-						}else{
-							if(status ==6){
-								List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(2);
-								int totaldictionary = list.size()-2;
 								if( totaldictionary % settings.getRecordDictionary() ==0){
 									result= totaldictionary/settings.getRecordDictionary();
 								}else{
 									result= totaldictionary/settings.getRecordDictionary()+1;
 								}
-								
-							}else{
-								if(status ==7){
-									List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(3);
-									int totaldictionary = list.size()-2;
+							}
+							
+							
+						}else{
+							if(status ==6){
+								List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(2);
+								int totaldictionary = list.size() ;
+								if(totaldictionary <= settings.getRecordDictionary()){
+									result =1;
+								}else{
 									if( totaldictionary % settings.getRecordDictionary() ==0){
 										result= totaldictionary/settings.getRecordDictionary();
 									}else{
 										result= totaldictionary/settings.getRecordDictionary()+1;
 									}
-									
-								}else{
-									if(status ==8){
-										List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(4);
-										int totaldictionary = list.size()-2;
+								}
+								
+							}else{
+								if(status ==7){
+									List<Dictionary> list = QuestionmanagementDAO.getListDictionarybyStatus(4);
+									int totaldictionary = list.size() ;
+									if(totaldictionary <= settings.getRecordDictionary()){
+										result =1;
+									}else{
 										if( totaldictionary % settings.getRecordDictionary() ==0){
 											result= totaldictionary/settings.getRecordDictionary();
 										}else{
 											result= totaldictionary/settings.getRecordDictionary()+1;
+										}
+									}
+									
+								}else{
+									if(status ==8){
+										
+										List<Dictionary> list = QuestionmanagementDAO.getListDictionaryDelete(4);
+										int totaldictionary = list.size() ;
+										if(totaldictionary <= settings.getRecordDictionary()){
+											result =1;
+										}else{
+											if( totaldictionary % settings.getRecordDictionary() ==0){
+												result= totaldictionary/settings.getRecordDictionary();
+											}else{
+												result= totaldictionary/settings.getRecordDictionary()+1;
+											}
 										}
 										
 									}else{
@@ -320,7 +338,9 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		}
 		return result;
 	}
-	
+	public List<Dictionary> getListDictionaryDelete(int status){
+		return QuestionmanagementDAO.getListDictionaryDelete(status);
+	}
 	@Override
 	public int totalPageQuestiomanagementDelete(int status){
 		int result;

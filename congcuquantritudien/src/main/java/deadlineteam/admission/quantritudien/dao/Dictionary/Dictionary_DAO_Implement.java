@@ -68,13 +68,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Dictionary> deletelist(int page) {
+	public List<Dictionary> deletelist(int page, int UserID) {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where DeleteStatus = 1");
-         
-         q.setFirstResult(page * limitResultsPerPage); 
-         q.setMaxResults(limitResultsPerPage);
+                "from Dictionary where DeleteStatus = 1 and DeleteBy =" +UserID);
+       
          return (List<Dictionary>) q.list();
 	}
 
@@ -151,12 +149,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Dictionary> removelist(int page){
+	public List<Dictionary> removelist(int page, int UserID){
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where Status = 4 and DeleteStatus = 0");
+                "from Dictionary where Status = 4 and DeleteStatus = 0 and UpdateBy ="+ UserID);
          
-         q.setFirstResult(page * limitResultsPerPage); 
-         q.setMaxResults(limitResultsPerPage);
+        
          return (List<Dictionary>) q.list();
 	}
 	@Override

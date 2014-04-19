@@ -117,9 +117,36 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		// TODO Auto-generated method stub
 		return DictionaryDAO.recentquestion(Id);
 	}
-	public List<Dictionary> deletelist(int page) {
+	public List<Dictionary> deletelist(int page, int UserID) {
 		// TODO Auto-generated method stub
-		return DictionaryDAO.deletelist(page);
+		
+		List<Dictionary> list=  DictionaryDAO.deletelist(page, UserID);
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getDeleteDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getDeleteDate().compareTo(max)>0){
+					max = list.get(i).getDeleteDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}	
+		List<Dictionary> newlist = new ArrayList<Dictionary>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordDictionary();
+		 int end = begin + settings.getRecordDictionary();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
 	}
 	public Dictionary question(int Id) {
 		// TODO Auto-generated method stub
@@ -157,8 +184,35 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby,Date CreateDate, int status, int deletestatus,int busystatus){
 		DictionaryDAO.addDictionaryAnswer2(title,question,createby,answer,answerby,CreateDate,status,deletestatus,busystatus);
 	}
-	public List<Dictionary> removelist(int page){
-		return DictionaryDAO.removelist(page);
+	public List<Dictionary> removelist(int page, int UserID){
+		
+		List<Dictionary> list=  DictionaryDAO.removelist(page, UserID);
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getUpdateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getUpdateDate().compareTo(max)>0){
+					max = list.get(i).getUpdateDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}	
+		List<Dictionary> newlist = new ArrayList<Dictionary>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordDictionary();
+		 int end = begin + settings.getRecordDictionary();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
 	}
 	public Dictionary removequestion(int Id){
 		return DictionaryDAO.removequestion(Id);

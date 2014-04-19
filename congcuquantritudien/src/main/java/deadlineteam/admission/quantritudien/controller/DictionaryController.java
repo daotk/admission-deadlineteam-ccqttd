@@ -155,6 +155,7 @@ public class DictionaryController {
 			@ModelAttribute("createQaA") Dictionary diction,
 			Model model,
 			HttpSession session) {
+		int UserID =Integer.parseInt(session.getAttribute("login").toString());
 		int page =Integer.parseInt(session.getAttribute("Page").toString());
 		if(actionsubmit.equals("save")){
 			int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
@@ -162,12 +163,12 @@ public class DictionaryController {
 			if(session.getAttribute("Id") !="0"){
 				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 				int restart = DictionaryService.busystatus(Id);
-				List<Dictionary> remove= DictionaryService.removelist(page-1);
+				List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
 				model.addAttribute("removelist", remove);
 				
 			}
 		}
-		List<Dictionary> remove= DictionaryService.removelist(page-1);
+		List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
 		for(int i=0;i < remove.size();i++){
 			if(remove.get(i).getQuestion().length() >= check){
 				String abc = remove.get(i).getQuestion().toString();
@@ -405,13 +406,25 @@ public class DictionaryController {
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
-			List<Dictionary> delete= DictionaryService.deletelist(page-1);
+			List<Dictionary> delete= DictionaryService.deletelist(page-1, userID);
 			for(int i=0;i < delete.size();i++){
 				if(delete.get(i).getQuestion().length() >= check){
 					String abc = delete.get(i).getQuestion().toString();
 					delete.get(i).setQuestion(abc.substring(0, get)+ ".....");
 				}
 			}
+			Setting setting = userService.getSetting(userID);
+			
+			int numOfRecord = setting.getRecordDictionary();
+			int numOfPagin = setting.getPaginDisplayDictionary();
+			
+			model.addAttribute("numOfRecord", ""+numOfRecord);
+			model.addAttribute("numOfPagin", ""+numOfPagin);
+			
+			model.addAttribute("curentOfPage",page);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+			
 			String user = userService.getFullnameByID(userID);
 			model.addAttribute("username", user);
 			model.addAttribute("deletelist", delete);
@@ -422,7 +435,7 @@ public class DictionaryController {
 		}else{
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
-			List<Dictionary> deletelist= DictionaryService.deletelist(page-1);	
+			List<Dictionary> deletelist= DictionaryService.deletelist(page-1, userID);	
 			for(int i=0;i < deletelist.size();i++){
 				if(deletelist.get(i).getQuestion().length() >= check){
 					String abc = deletelist.get(i).getQuestion().toString();
@@ -430,7 +443,17 @@ public class DictionaryController {
 				}
 			}
 			model.addAttribute("deletelist", deletelist);
+			Setting setting = userService.getSetting(userID);
 			
+			int numOfRecord = setting.getRecordDictionary();
+			int numOfPagin = setting.getPaginDisplayDictionary();
+			
+			model.addAttribute("numOfRecord", ""+numOfRecord);
+			model.addAttribute("numOfPagin", ""+numOfPagin);
+			
+			model.addAttribute("curentOfPage",page);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			Dictionary delete = DictionaryService.question(Id);
 			model.addAttribute("diction", delete);
 			String user = userService.getFullnameByID(userID);
@@ -448,6 +471,8 @@ public class DictionaryController {
 	@RequestMapping(value = "/botudiendaxoa", method = RequestMethod.POST)
 	public String botudiendaxoapost( 	
 			@RequestParam String actionsubmit , 
+			@RequestParam(value = "change-items", required = false, defaultValue= "0") String changeitems, 
+			@RequestParam(value = "change-pagin", required = false, defaultValue= "0") String changepagin, 
 			@ModelAttribute("dictionary") Dictionary diction,
 			Model model,
 			HttpSession session) {
@@ -456,7 +481,7 @@ public class DictionaryController {
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 			
-			List<Dictionary> deletelist= DictionaryService.deletelist(page);
+			List<Dictionary> deletelist= DictionaryService.deletelist(page, userID);
 			for(int i=0;i < deletelist.size();i++){
 				if(deletelist.get(i).getQuestion().length() >= check){
 					String abc = deletelist.get(i).getQuestion().toString();
@@ -464,8 +489,8 @@ public class DictionaryController {
 				}
 			}
 			model.addAttribute("deletelist", deletelist);
-			String user = userService.getFullnameByID(userID);
-			model.addAttribute("username", user);
+			
+			
 			model.addAttribute("dictionary", new Dictionary());
 			model.addAttribute("curentOfPage", page);
 			
@@ -476,19 +501,60 @@ public class DictionaryController {
 				if(session.getAttribute("Id") !="0"){
 					// Processing restore question
 					int result = DictionaryService.restore(Id);
-					List<Dictionary> dele= DictionaryService.deletelist(page-1);
+					List<Dictionary> dele= DictionaryService.deletelist(page-1,userID);
 					for(int i=0;i < dele.size();i++){
 						if(dele.get(i).getQuestion().length() >= check){
 							String abc = dele.get(i).getQuestion().toString();
 							dele.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
 					}
-					String user1 = userService.getFullnameByID(userID);
-					model.addAttribute("username", user1);
+					Setting setting = userService.getSetting(userID);
+					
+					int numOfRecord = setting.getRecordDictionary();
+					int numOfPagin = setting.getPaginDisplayDictionary();
+					
+					model.addAttribute("numOfRecord", ""+numOfRecord);
+					model.addAttribute("numOfPagin", ""+numOfPagin);
+					
+					model.addAttribute("curentOfPage",page);
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+					model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+					String user = userService.getFullnameByID(userID);
+					model.addAttribute("username", user);
 					model.addAttribute("deletelist", dele);
 					model.addAttribute("message", "Câu hỏi đã được khôi phục");
 				}						
-			}			
+			}else{
+				if(actionsubmit.equals("change")){
+					if(!changeitems.equals("0")){
+						int numOfRecord = Integer.parseInt(changeitems);
+						int numOfPagin = Integer.parseInt(changepagin);
+						userService.UpdateSettingDictionary(userID, numOfRecord, numOfPagin);
+				
+						model.addAttribute("numOfRecord",changeitems);
+						model.addAttribute("numOfPagin",changepagin);
+						Setting setting = userService.getSetting(userID);
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+						
+						List<Dictionary> dele= DictionaryService.deletelist(0,userID);
+						for(int i=0;i < dele.size();i++){
+							if(dele.get(i).getQuestion().length() >= check){
+								String abc = dele.get(i).getQuestion().toString();
+								dele.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						model.addAttribute("deletelist", dele);
+						String user = userService.getFullnameByID(userID);
+						model.addAttribute("username", user);
+						
+						model.addAttribute("message","Thay đổi cấu hình thành công.");
+
+					}
+				}else{
+				// Tim kiem
+				}
+			}
 			return "list-dictionary-delete";
 	}
 	
@@ -498,13 +564,14 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
+		int UserID =Integer.parseInt(session.getAttribute("login").toString());
 	if(session.getValue("login") == null){
 		return "redirect:/";
 	}else{
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
-			List<Dictionary> remove= DictionaryService.removelist(page-1);
+			List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
 			for(int i=0;i < remove.size();i++){
 				if(remove.get(i).getQuestion().length() >= check){
 					String abc = remove.get(i).getQuestion().toString();
@@ -512,6 +579,21 @@ public class DictionaryController {
 				}
 			}
 			model.addAttribute("removelist", remove);
+			//------------
+			Setting setting = userService.getSetting(UserID);
+			
+			int numOfRecord = setting.getRecordDictionary();
+			int numOfPagin = setting.getPaginDisplayDictionary();
+			
+			model.addAttribute("numOfRecord", ""+numOfRecord);
+			model.addAttribute("numOfPagin", ""+numOfPagin);
+			
+			model.addAttribute("curentOfPage",page);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+			String user = userService.getFullnameByID(UserID);
+			model.addAttribute("username", user);
+			//-----------
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
 			return "list-dictionary-down";
@@ -519,7 +601,7 @@ public class DictionaryController {
 		}else{
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
-			List<Dictionary> remove= DictionaryService.removelist(page-1);	
+			List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);	
 			for(int i=0;i < remove.size();i++){
 				if(remove.get(i).getQuestion().length() >= check){
 					String abc = remove.get(i).getQuestion().toString();
@@ -527,8 +609,22 @@ public class DictionaryController {
 				}
 			}
 			model.addAttribute("removelist", remove);
+			//------------------
+			Setting setting = userService.getSetting(UserID);
 			
+			int numOfRecord = setting.getRecordDictionary();
+			int numOfPagin = setting.getPaginDisplayDictionary();
+			
+			model.addAttribute("numOfRecord", ""+numOfRecord);
+			model.addAttribute("numOfPagin", ""+numOfPagin);
+			
+			model.addAttribute("curentOfPage",page);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+			String user = userService.getFullnameByID(UserID);
+			model.addAttribute("username", user);
 			Dictionary removequestion = DictionaryService.removequestion(Id);
+			//-----------------------
 			model.addAttribute("diction", removequestion);
 			if( removequestion.getBusyStatus()== 1){
 				model.addAttribute("busystatus",null);
@@ -546,15 +642,18 @@ public class DictionaryController {
 	@RequestMapping(value = "/botudiendaha", method = RequestMethod.POST)
 	public String botudiendahapost( 	
 			@RequestParam String actionsubmit , 
+			@RequestParam(value = "change-items", required = false, defaultValue= "0") String changeitems, 
+			@RequestParam(value = "change-pagin", required = false, defaultValue= "0") String changepagin, 
 			@ModelAttribute("dictionary") Dictionary diction,
 			Model model,
 			HttpSession session) {
+		
 			//get page
 			int UserID =Integer.parseInt(session.getAttribute("login").toString());
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 			
-			List<Dictionary> remove= DictionaryService.removelist(page-1);
+			List<Dictionary> remove= DictionaryService.removelist(page-1,UserID );
 			model.addAttribute("removelist", remove);
 			
 			model.addAttribute("dictionary", new Dictionary());
@@ -570,7 +669,7 @@ public class DictionaryController {
 					int result = DictionaryService.upload(Id);
 					int update = DictionaryService.updateby(Id, UserID);
 					if(result >0 && update >0){
-						List<Dictionary> remove1= DictionaryService.removelist(page-1);
+						List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
 						for(int i=0;i < remove1.size();i++){
 							if(remove1.get(i).getQuestion().length() >= check){
 								String abc = remove1.get(i).getQuestion().toString();
@@ -580,6 +679,21 @@ public class DictionaryController {
 						model.addAttribute("removelist", remove1);
 						
 					}
+					//--------------
+					Setting setting = userService.getSetting(UserID);
+					
+					int numOfRecord = setting.getRecordDictionary();
+					int numOfPagin = setting.getPaginDisplayDictionary();
+					
+					model.addAttribute("numOfRecord", ""+numOfRecord);
+					model.addAttribute("numOfPagin", ""+numOfPagin);
+					
+					model.addAttribute("curentOfPage",page);
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+					model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+					String user = userService.getFullnameByID(UserID);
+					model.addAttribute("username", user);
+					//--------------
 					Dictionary newdictionary = DictionaryService.getinformation(Id);
 					DictionaryRestful dicrestful = new DictionaryRestful();
 					dicrestful.setID(Id);
@@ -611,6 +725,27 @@ public class DictionaryController {
 						// Processing restore question
 						int result = DictionaryService.delete(Id);
 						DictionaryService.updatedelete(Id, userID);
+						List<Dictionary> remove1= DictionaryService.removelist(page-1, UserID);
+						for(int i=0;i < remove.size();i++){
+							if(remove.get(i).getQuestion().length() >= check){
+								String abc = remove.get(i).getQuestion().toString();
+								remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						model.addAttribute("removelist", remove1);
+						Setting setting = userService.getSetting(UserID);
+						
+						int numOfRecord = setting.getRecordDictionary();
+						int numOfPagin = setting.getPaginDisplayDictionary();
+						
+						model.addAttribute("numOfRecord", ""+numOfRecord);
+						model.addAttribute("numOfPagin", ""+numOfPagin);
+						
+						model.addAttribute("curentOfPage",page);
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+						String user = userService.getFullnameByID(UserID);
+						model.addAttribute("username", user);
 						model.addAttribute("message","Câu hỏi đã được xóa");
 					}				
 				}else{
@@ -621,9 +756,59 @@ public class DictionaryController {
 						if(session.getAttribute("Id") !="0"){
 							// Processing restore question
 							int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
-						
+							List<Dictionary> remove2= DictionaryService.removelist(page-1, UserID);
+							for(int i=0;i < remove.size();i++){
+								if(remove.get(i).getQuestion().length() >= check){
+									String abc = remove.get(i).getQuestion().toString();
+									remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							model.addAttribute("removelist", remove2);
+							Setting setting = userService.getSetting(UserID);
+							
+							int numOfRecord = setting.getRecordDictionary();
+							int numOfPagin = setting.getPaginDisplayDictionary();
+							
+							model.addAttribute("numOfRecord", ""+numOfRecord);
+							model.addAttribute("numOfPagin", ""+numOfPagin);
+							
+							model.addAttribute("curentOfPage",page);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+							String user = userService.getFullnameByID(UserID);
+							model.addAttribute("username", user);
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}	
+					}else{
+						if(actionsubmit.equals("change")){
+							if(!changeitems.equals("0")){
+								int numOfRecord = Integer.parseInt(changeitems);
+								int numOfPagin = Integer.parseInt(changepagin);
+								userService.UpdateSettingDictionary(UserID, numOfRecord, numOfPagin);
+						
+								model.addAttribute("numOfRecord",changeitems);
+								model.addAttribute("numOfPagin",changepagin);
+								Setting setting = userService.getSetting(UserID);
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+								
+								List<Dictionary> remove2= DictionaryService.removelist(0, UserID);
+								for(int i=0;i < remove.size();i++){
+									if(remove.get(i).getQuestion().length() >= check){
+										String abc = remove.get(i).getQuestion().toString();
+										remove.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+								model.addAttribute("removelist", remove2);
+								String user = userService.getFullnameByID(UserID);
+								model.addAttribute("username", user);
+								
+								model.addAttribute("message","Thay đổi cấu hình thành công.");
+		
+							}
+						}else{
+						// Tim kiem
+						}
 					}
 					
 				}
@@ -631,7 +816,7 @@ public class DictionaryController {
 			int page1 =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 			
-			List<Dictionary> remove1= DictionaryService.removelist(page1-1);
+			List<Dictionary> remove1= DictionaryService.removelist(page1-1, UserID);
 			model.addAttribute("removelist", remove1);
 			return "list-dictionary-down";
 	}	
@@ -746,6 +931,7 @@ public class DictionaryController {
 				if(session.getAttribute("Id") !="0"){
 					// Processing restore question
 					int result = DictionaryService.remove(Id);
+					int update = DictionaryService.updateby(Id, UserID);
 					List<Dictionary> rece= DictionaryService.recentlist(page-1, UserID);
 					for(int i=0;i < rece.size();i++){
 						if(rece.get(i).getQuestion().length() >= check){

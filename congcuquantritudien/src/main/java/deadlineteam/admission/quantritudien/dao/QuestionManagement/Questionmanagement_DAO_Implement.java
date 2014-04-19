@@ -222,7 +222,10 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	public List<Dictionary> getListDictionarybyStatus(int status){
 		return getCurrentSession().createQuery(" from Dictionary where Status = "+status+" AND DeleteStatus =0").list();
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getListDictionaryDelete(int status){
+		return getCurrentSession().createQuery(" from Dictionary where DeleteStatus =1").list();
+	}
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getListQuestionmanagementbyDeleteStatus(int status){
 		return getCurrentSession().createQuery(" from Questionmanagement where DeleteStatus = "+status).list();
