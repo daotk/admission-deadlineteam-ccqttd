@@ -139,7 +139,7 @@ public class UserController {
 				model.addAttribute("fullname", userService.getFullnameByID(userService.getIdbyUsername(user.getUserName())));
 				//check is admin
 				if(userService.checkIsAdmin(userService.getIdbyUsername(user.getUserName()))==true){
-					model.addAttribute("isAdmin","admin");
+					session.setAttribute("Admin", "Yes");
 				}				
 				return new ModelAndView("home", "listquestionmanagement",ListQuestion );
 			}else{	

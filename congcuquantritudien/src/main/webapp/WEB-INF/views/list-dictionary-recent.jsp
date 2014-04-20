@@ -217,9 +217,11 @@
 											${diction.anwser}
 									</div>
 								</div>
-								<div style="width: 100%;height:35px;">
-									<button class="buttoncontrol" id="remove" type="submit"  name="actionsubmit" value="remove">HẠ CÂU HỎI</button>				
-								</div>																	
+								<c:if test="${not empty Admin}">
+									<div style="width: 100%;height:35px;">
+										<button class="buttoncontrol" id="remove" type="submit"  name="actionsubmit" value="remove">HẠ CÂU HỎI</button>				
+									</div>
+								</c:if>																
 							</c:if>
 						</form:form>
 					</td>	      		

@@ -215,17 +215,19 @@
 									</div>
 								</div>
 								
-								<!-- Button -->
-								<div style="width: 100%;height:35px;padding-top: 20px;">
-									<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
-									<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
-									<!-- button chỉnh sửa -->
-									<c:if test="${not empty busystatus}">
-										<button class="buttoncontrol" id="update" type="submit"  name="actionsubmit" value="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
-									</c:if>
-									<!-- end button chỉnh sửa -->
-								</div>	
 								
+								<c:if test="${not empty Admin}">
+									<!-- Button -->
+									<div style="width: 100%;height:35px;padding-top: 20px;">
+										<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
+										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
+										<!-- button chỉnh sửa -->
+										<c:if test="${not empty busystatus}">
+											<button class="buttoncontrol" id="update" type="submit"  name="actionsubmit" value="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
+										</c:if>
+										<!-- end button chỉnh sửa -->
+									</div>	
+								</c:if>
 							</c:if>
 						</form:form>
 					</td>

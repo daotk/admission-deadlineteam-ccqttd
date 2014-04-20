@@ -457,9 +457,27 @@ public class QuestionaManagementController {
 						String email = session.getAttribute("email").toString();
 						String title = "Trả lời câu hỏi tuyển sinh";
 						String body = questionmanagement.getAnswer();
-						SendMail  send = new SendMail(email, title, body);
-						send.send();				
-						model.addAttribute("message","Gủi mail thành công");
+						
+						MimeMessage mimeMessage = mailSender.createMimeMessage();
+						
+						try {
+							
+							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+							 message.setTo(email);
+							 message.setSubject(title);
+							 
+							 message.setText(body, true);
+							// sends the e-mail
+							mailSender.send(mimeMessage);
+							
+							QuestionmanagementService.UpdateAnwserBy(Id, login);
+							model.addAttribute("message", "Bạn đã gửi mail thành công.");
+						} catch (MessagingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							model.addAttribute("message", "Bạn đã gủi mail thất bại.");
+						}
+						
 					}
 				}
 			}else{

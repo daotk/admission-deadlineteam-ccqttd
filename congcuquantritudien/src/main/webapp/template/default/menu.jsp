@@ -16,8 +16,10 @@
 		<h3>Tiện ích</h3>
 		<ul class="navigation" id="second">
 			<li><a href="taocauhoi">Tạo câu hỏi</a></li>
-			<li><a href="#">Tạo index</a></li>
-			<li><a href="cauhinh">Cấu hình</a></li>
+			<c:if test="${not empty Admin}">
+				<li><a href="#">Tạo index</a></li>
+				<li><a href="cauhinh">Cấu hình</a></li>
+			</c:if>
 			<li><a href="#">Trợ giúp</a></li>
 		</ul>
 	</div>	

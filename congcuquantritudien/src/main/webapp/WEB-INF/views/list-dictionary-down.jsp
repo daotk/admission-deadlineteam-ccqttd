@@ -212,14 +212,16 @@
 											${diction.anwser}
 										</div>
 									</div>
-					
-									<div style="width: 100%;height:35px;padding-top: 20px;">
-										<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
-										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
-										<c:if test="${not empty busystatus}">
-											<button class="buttoncontrol" id="update" type="submit"  name="actionsubmit" value="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
-										</c:if>
-									</div>
+									
+									<c:if test="${not empty Admin}">
+										<div style="width: 100%;height:35px;padding-top: 20px;">
+											<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
+											<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
+											<c:if test="${not empty busystatus}">
+												<button class="buttoncontrol" id="update" type="submit"  name="actionsubmit" value="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
+											</c:if>
+										</div>
+									</c:if>
 								</div>																
 							</c:if>	
 						</form:form>
