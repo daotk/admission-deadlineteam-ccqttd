@@ -8,35 +8,43 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import org.omg.CORBA.Current;
+
 
 public class FTPClientTransfer {
+
 	 public static void ftp() {
-		 String server = "31.170.165.128";
+		 String server = "10.11.27.12";
 	        int port = 21;
-	        String user = "u898831271.testfpt";
-	        String pass = "lKeIDZXnO6";
+	        String user = "anonymous";
+	        String pass = "";
 	        FTPClient ftpClient = new FTPClient();
 	        try {
 	            ftpClient.connect(server, port);
 	            ftpClient.login(user, pass);
 	            ftpClient.enterLocalPassiveMode();
 	            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+	   
 	            
-	            File directory = new File("E:/tmp/lucene/indexes/Questionmanagement/");
-	            
+	            String workingDir = "E:/Source%20code%20Capstone/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/congcuquantritudien/upload/Questionmanagement";
+	          
+	              
+	          
+	            File directory = new File(workingDir);  
 	            //get all the files from a directory
 	            File[] fList = directory.listFiles();
 	            int leng = fList.length;
 	            
-	            
-	            ftpClient.changeWorkingDirectory("/index");
-	          // FTPFile[] ftpFiles = ftpClient.listFiles("E:/tmp/lucene/indexes/Questionmanagement/_a.fdt");
-	           
-
-	          //  if (ftpFiles != null && ftpFiles.length > 0) {
+	            boolean success = ftpClient.changeWorkingDirectory("/congcuhienthitudien/index");
+	          
+	            if (success) {
 	            	  for (int i= 0 ;i<leng;i++) {
 	            		  
 		            	    File firstLocalFile = new File(fList[i].getPath());
@@ -45,16 +53,11 @@ public class FTPClientTransfer {
 		      	            InputStream inputStream = new FileInputStream(firstLocalFile);
 		      	 
 		      	            boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
-		      	            inputStream.close();
-		      	            if (done) {
-		      	                System.out.println("The "+fList[i].getName() +" is uploaded successfully.");
-		      	            }
-	            	
-	            		  
+		      	            inputStream.close();           	
 	            	  }
-	            	
-	            	
-	          //  }
+	            } else {
+	                System.out.println("Failed to change working directory. See server's reply.");
+	            }
 	        } catch (IOException ex) {
 	            System.out.println("Error: " + ex.getMessage());
 	            ex.printStackTrace();
