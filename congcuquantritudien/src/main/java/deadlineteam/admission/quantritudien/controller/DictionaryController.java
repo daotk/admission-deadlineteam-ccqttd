@@ -455,6 +455,9 @@ public class DictionaryController {
 					deletelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 				}
 			}
+			String user = userService.getFullnameByID(userID);
+			model.addAttribute("username", user);
+			
 			model.addAttribute("deletelist", deletelist);
 			Setting setting = userService.getSetting(userID);
 			
@@ -469,8 +472,8 @@ public class DictionaryController {
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			Dictionary delete = DictionaryService.question(Id);
 			model.addAttribute("diction", delete);
-			String user = userService.getFullnameByID(userID);
-			model.addAttribute("username", user);
+			String userdelete = userService.getFullnameByID(delete.getDeleteBy());
+			model.addAttribute("usernamedelete", userdelete);
 			Users newusername = DictionaryService.getusername(delete.getAnwserBy());
 			Users deleteuser = DictionaryService.getusername(delete.getDeleteBy());
 			model.addAttribute("username", newusername.getFullName().toString());
@@ -645,8 +648,11 @@ public class DictionaryController {
 			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			String user = userService.getFullnameByID(UserID);
-			model.addAttribute("username", user);
 			Dictionary removequestion = DictionaryService.removequestion(Id);
+			model.addAttribute("username", user);
+			String userremove = userService.getFullnameByID(removequestion.getUpdateBy());
+			model.addAttribute("usernameremove", userremove);
+			
 			//-----------------------
 			model.addAttribute("diction", removequestion);
 			if( removequestion.getBusyStatus()== 1){
@@ -922,7 +928,8 @@ public class DictionaryController {
 			
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
-			
+			String userrecent = userService.getFullnameByID(recent.getUpdateBy());
+			model.addAttribute("usernamerecent", userrecent);
 			model.addAttribute("curentOfPage", page);
 			Users newusername = DictionaryService.getusername(recent.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
