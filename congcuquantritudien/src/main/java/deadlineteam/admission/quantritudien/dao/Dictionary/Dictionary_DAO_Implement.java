@@ -97,6 +97,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		q.setParameter("Id", Id);
 		int result = q.executeUpdate();
+		
+		 Dictionary question = getinformation(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Dictionary.class,Id);
+		fullTextSession.index(question);
 		return result;
 	}
 	@Override
@@ -116,6 +121,10 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		q.setParameter("Id", Id);
 		int result = q.executeUpdate();
+		Dictionary question = getinformation(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Dictionary.class,Id);
+		fullTextSession.index(question);
 		return result;
 	}
 	@Override
@@ -124,6 +133,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		q.setParameter("Id", Id);
 		int result = q.executeUpdate();
+		
+		Dictionary question = getinformation(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Dictionary.class,Id);
+		fullTextSession.index(question);
 		return result;
 	}
 	@Override
@@ -132,6 +146,11 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		q.setParameter("Id", Id);
 		int result = q.executeUpdate();
+		
+		Dictionary question = getinformation(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Dictionary.class,Id);
+		fullTextSession.index(question);
 		return result;
 	}
 	@Override
