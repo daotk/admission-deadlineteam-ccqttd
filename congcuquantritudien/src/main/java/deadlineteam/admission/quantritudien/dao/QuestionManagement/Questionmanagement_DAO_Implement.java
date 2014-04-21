@@ -40,6 +40,14 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where Status = 1 and ID = "+Id ).uniqueResult();
 		return question;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Questionmanagement getQuestionmanagementbyIDToIndex(int Id) {
+		// TODO Auto-generated method stub	
+		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where ID = "+Id ).uniqueResult();
+		return question;
+	}
+	
 	//get question copy to dictionary
 	@SuppressWarnings("unchecked")
 	public Questionmanagement getQuestionmanagementbyIDToCopy(int Id) {
@@ -60,7 +68,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page , int UserID) {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 ");
-	         
+	        
 	         return (List<Questionmanagement>) q.list();
 	}
 	@SuppressWarnings("unchecked")
@@ -79,6 +87,11 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("answer", Answer);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
+				 
+		Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
 		return result;
 	}
 	
@@ -88,6 +101,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("answer", Answer);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
+			
+		
 		return result;
 	}
 	/*Author:Phu Ta
@@ -98,6 +117,10 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
 		return result;
 		
 	}
@@ -125,6 +148,11 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
+		 
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
 		return result;
 		
 	}
@@ -165,6 +193,10 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("answer", Answer);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
 		return result;		
 	}
 	/*
@@ -177,6 +209,10 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("answer", Answer);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
 		return result;
 		
 	}
@@ -211,6 +247,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", ID);
 		 int result= q.executeUpdate();
+		 
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(ID);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,ID);
+		fullTextSession.index(question);
+		 
 		return result;
 	}
 	@SuppressWarnings("unchecked")
@@ -313,6 +355,11 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 Date now = new Date();
 		 q.setParameter("now", now);
 		 q.executeUpdate();
+		 
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
 	}
 	public void UpdateDelete(int Id, int userid){
 		String sqlstring = "update Questionmanagement set DeleteBy =:userid, DeleteDate =:now where ID = :Id";
@@ -322,6 +369,11 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 Date now = new Date();
 		 q.setParameter("now", now);
 		 q.executeUpdate();
+		 
+		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.purge( Questionmanagement.class,Id);
+		fullTextSession.index(question);
 	}
 	public void UpdateAnwserBy(int Id, int userid){
 		String sqlstring = "update Questionmanagement set AnswerBy =:userid, AnwserDate =:now where ID = :Id";
@@ -340,5 +392,5 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		Setting temp =  (Setting)getCurrentSession().createQuery("from Setting where UserID = "+UserID ).uniqueResult();
 		return temp;
 	}
-
+	
 }
