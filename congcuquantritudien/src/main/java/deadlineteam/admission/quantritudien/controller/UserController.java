@@ -34,17 +34,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 
-
-
-
-
-
-
-
-
-
-
-import deadlineteam.admission.quantritudien.util.SendMail;
 import deadlineteam.admission.quantritudien.bean.UsersBean;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
