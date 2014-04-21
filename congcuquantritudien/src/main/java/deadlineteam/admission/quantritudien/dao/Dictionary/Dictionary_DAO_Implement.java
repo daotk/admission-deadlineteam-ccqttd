@@ -35,7 +35,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	public List<Dictionary> availablelist(int page , int UserID) {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where Status = 1 and DeleteStatus = 0 and CreateBy ="+UserID);
+                "from Dictionary where Status = 1 and DeleteStatus = 0");
 
          return (List<Dictionary>) q.list();
 	}
@@ -58,7 +58,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	public List<Dictionary> recentlist(int page, int UserID) {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where Status = 2 and DeleteStatus = 0 and UpdateBy ="+UserID);
+                "from Dictionary where Status = 2 and DeleteStatus = 0 ");
         
          return (List<Dictionary>) q.list();
 	}
@@ -75,7 +75,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	public List<Dictionary> deletelist(int page, int UserID) {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where DeleteStatus = 1 and DeleteBy =" +UserID);
+                "from Dictionary where DeleteStatus = 1 ");
        
          return (List<Dictionary>) q.list();
 	}
@@ -174,7 +174,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	@Override
 	public List<Dictionary> removelist(int page, int UserID){
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary where Status = 4 and DeleteStatus = 0 and UpdateBy ="+ UserID);
+                "from Dictionary where Status = 4 and DeleteStatus = 0");
          
         
          return (List<Dictionary>) q.list();
