@@ -378,7 +378,10 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 
 	//-----------------------RESTful web service
 	public void addquestion(Questionmanagement question){
-		getCurrentSession().save(question);		
+		getCurrentSession().save(question);	
+		FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+		fullTextSession.index(question);
+		
 	}
 	public void TransferToDictionary(int Id, int userid){
 		String sqlstring = "update Questionmanagement set Status = '4', UpdateBy =:userid, UpdateDate =:now where ID = :Id";
@@ -391,8 +394,8 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 
 		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
-		fullTextSession.purge( Questionmanagement.class,Id);
-		fullTextSession.index(question);
+		 fullTextSession.purge( Questionmanagement.class,Id);
+		 fullTextSession.index(question);
 	}
 	public void UpdateDelete(int Id, int userid){
 		String sqlstring = "update Questionmanagement set DeleteBy =:userid, DeleteDate =:now where ID = :Id";

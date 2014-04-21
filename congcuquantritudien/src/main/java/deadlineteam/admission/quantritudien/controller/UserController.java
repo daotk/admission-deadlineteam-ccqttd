@@ -438,10 +438,16 @@ public class UserController {
 				}
 				
 				
-				//implement when register submit
+			
 				@RequestMapping(value = "/notalow", method = RequestMethod.GET)
 				public String notalow( ){
 					return "notalow";
+				}
+				
+				@RequestMapping(value = "/taoindex", method = RequestMethod.GET)
+				public String taoindex(Model model){
+					model.addAttribute("message", "Thành công");
+					return "create-index";
 				}
 				
 }
