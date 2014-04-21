@@ -660,17 +660,26 @@ public class QuestionaManagementController {
 			
 								}
 							}else{
-							//xu ly tim kiem
-							model.addAttribute("message",actionsubmit);
-							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"2");
-							for(int i=0;i < list.size();i++){
-								if(list.get(i).getQuestion().length() >= check){
-									String abc = list.get(i).getQuestion().toString();
-									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							//xu ly tim kiem							
+							List<Questionmanagement> list;
+							if(session.getValue("Admin")!=null){
+								list = QuestionmanagementService.searchIdex(actionsubmit,"2");
+								for(int i=0;i < list.size();i++){
+									if(list.get(i).getQuestion().length() >= check){
+										String abc = list.get(i).getQuestion().toString();
+										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								list = QuestionmanagementService.searchIdexForAdmin(actionsubmit,"2",UserID);
+								for(int i=0;i < list.size();i++){
+									if(list.get(i).getQuestion().length() >= check){
+										String abc = list.get(i).getQuestion().toString();
+										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
 								}
 							}
 							model.addAttribute("savequestionlist", list);
-							
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
 						}
@@ -931,13 +940,26 @@ public class QuestionaManagementController {
 							}else{
 							//xu ly tim kiem
 							model.addAttribute("message",actionsubmit);
-							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"3");
-							for(int i=0;i < list.size();i++){
-								if(list.get(i).getQuestion().length() >= check){
-									String abc = list.get(i).getQuestion().toString();
-									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							List<Questionmanagement> list;
+							if(session.getValue("Admin")!=null){
+								list = QuestionmanagementService.searchIdex(actionsubmit,"3");
+								for(int i=0;i < list.size();i++){
+									if(list.get(i).getQuestion().length() >= check){
+										String abc = list.get(i).getQuestion().toString();
+										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								list = QuestionmanagementService.searchIdexForAdmin(actionsubmit,"3",UserID);
+								for(int i=0;i < list.size();i++){
+									if(list.get(i).getQuestion().length() >= check){
+										String abc = list.get(i).getQuestion().toString();
+										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
 								}
 							}
+							
+							
 							model.addAttribute("replylust", list);
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
@@ -1140,16 +1162,26 @@ public class QuestionaManagementController {
 					}
 				}else{
 				//xu ly tim kiem
-				model.addAttribute("message",actionsubmit);
-				List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"4");
-				for(int i=0;i < list.size();i++){
-					if(list.get(i).getQuestion().length() >= check){
-						String abc = list.get(i).getQuestion().toString();
-						list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+				List<Questionmanagement> list;
+				if(session.getValue("Admin")!=null){
+					list= QuestionmanagementService.searchIdex(actionsubmit,"4");
+					for(int i=0;i < list.size();i++){
+						if(list.get(i).getQuestion().length() >= check){
+							String abc = list.get(i).getQuestion().toString();
+							list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
 					}
+				}else{
+					list= QuestionmanagementService.searchIdexDeleteListForAdmin(actionsubmit,"4",UserID);
+					for(int i=0;i < list.size();i++){
+						if(list.get(i).getQuestion().length() >= check){
+							String abc = list.get(i).getQuestion().toString();
+							list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+					
 				}
 				model.addAttribute("deletequestionlist", list);
-				
 				model.addAttribute("actionsubmit", actionsubmit);
 				}
 			}

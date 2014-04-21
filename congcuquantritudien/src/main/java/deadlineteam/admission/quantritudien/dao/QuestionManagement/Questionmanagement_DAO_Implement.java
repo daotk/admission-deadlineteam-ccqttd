@@ -314,6 +314,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 			e.printStackTrace();
 		}
 	}
+	
 	public List<Questionmanagement> searchIdex(String keyword,String Status){
 		
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
@@ -374,6 +375,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		}
 
 	}
+
 	//-----------------------RESTful web service
 	public void addquestion(Questionmanagement question){
 		getCurrentSession().save(question);		

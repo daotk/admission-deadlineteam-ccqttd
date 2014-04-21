@@ -1,5 +1,6 @@
 package deadlineteam.admission.quantritudien.service.QuestionManagement;
 import deadlineteam.admission.quantritudien.dao.Dictionary.Dictionary_DAO;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -462,6 +463,34 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	public List<Questionmanagement> searchIdex(String keyword,String Status){
 		return QuestionmanagementDAO.searchIdex(keyword, Status);
 	}
+	public List<Questionmanagement> searchIdexForAdmin(String keyword,String Status,int UserID){
+		List<Questionmanagement> question =  QuestionmanagementDAO.searchIdex(keyword, Status);
+		
+		List<Questionmanagement> newlistquestion= new ArrayList<Questionmanagement>();
+		int L=0;
+		for(int i=0;i<question.size();i++){
+			if(question.get(i).getAnswerBy().equals(UserID)){
+				newlistquestion.add(L,question.get(i));
+				L++;
+			}
+		}
+		return newlistquestion;
+	}
+	
+	public List<Questionmanagement> searchIdexDeleteListForAdmin(String keyword,String Status,int UserID){
+		List<Questionmanagement> question =  QuestionmanagementDAO.searchIdex(keyword, Status);
+		
+		List<Questionmanagement> newlistquestion= new ArrayList<Questionmanagement>();
+		int L=0;
+		for(int i=0;i<question.size();i++){
+			if(question.get(i).getDeleteBy().equals(UserID)){
+				newlistquestion.add(L,question.get(i));
+				L++;
+			}
+		}
+		return newlistquestion;
+	}
+	
 	public void deleteall (String listdelete, int userid){
 		String[] liststring = listdelete.split(",");
 		for(int i=0;i<liststring.length;i++){

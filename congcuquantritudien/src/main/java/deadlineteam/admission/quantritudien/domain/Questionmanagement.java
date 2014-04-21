@@ -49,7 +49,9 @@ public class Questionmanagement {
 	private Integer Status;
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Integer DeleteStatus;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Integer DeleteBy;
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Date DeleteDate;
 
 	public Integer getID() {

@@ -60,7 +60,7 @@ public interface Questionmanagement_DAO {
 	public List<Questionmanagement> getListQuestionmanagementbyDeleteStatus(int status);
 	
 	public void createIndex();	
-	public List<Questionmanagement> searchIdex(String keyword,String Status);	
+	public List<Questionmanagement> searchIdex(String keyword,String Status);
 	//-------------------- RESTful web service----------
 	public void addquestion(Questionmanagement question);
 	public void TransferToDictionary(int Id, int userid);
