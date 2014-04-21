@@ -82,6 +82,7 @@ public class DictionaryController {
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id,
 		Model model, HttpSession session) {
 		if(session.getValue("login") == null){
+			model.addAttribute("error", "notlogin");
 			return "redirect:/";
 		}else{
 			session.setAttribute("Id", Id);
@@ -134,6 +135,7 @@ public class DictionaryController {
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id,
 		Model model, HttpSession session) {
 		if(session.getValue("login") == null){
+			model.addAttribute("error", "notlogin");
 			return "redirect:/";
 		}else{
 			session.setAttribute("Id", Id);
@@ -186,12 +188,13 @@ public class DictionaryController {
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
 		
-		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		
 	if(session.getValue("login") == null){
+		model.addAttribute("error", "notlogin");
 		return "redirect:/";
 	}else{
-		if(Id==0){
-			
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		if(Id==0){		
 			int UserId = Integer.parseInt(session.getAttribute("UserId").toString());
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
@@ -407,10 +410,12 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
-		int userID = Integer.parseInt(session.getAttribute("login").toString());
+		
 	if(session.getValue("login") == null){
+		model.addAttribute("error", "notlogin");
 		return "redirect:/";
 	}else{
+		int userID = Integer.parseInt(session.getAttribute("login").toString());
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
@@ -580,10 +585,12 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
-		int UserID =Integer.parseInt(session.getAttribute("login").toString());
+		
 	if(session.getValue("login") == null){
+		model.addAttribute("error", "notlogin");
 		return "redirect:/";
 	}else{
+		int UserID =Integer.parseInt(session.getAttribute("login").toString());
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
@@ -848,10 +855,12 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
-		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		
 	if(session.getValue("login") == null){
+		model.addAttribute("error", "notlogin");
 		return "redirect:/";
 	}else{
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
@@ -1042,11 +1051,17 @@ public class DictionaryController {
 	}
 	
 
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/taocauhoi", method = RequestMethod.GET)
-	public String taocauhoi(Locale locale, Model model) {
-		model.addAttribute("createQaA", new Dictionary());
-		model.addAttribute("message", "");
-		return "create-dictionary";
+	public String taocauhoi(Locale locale, Model model, HttpSession session) {
+		if(session.getValue("login") == null){
+			model.addAttribute("error", "notlogin");
+			return "redirect:/";
+		}else{
+			model.addAttribute("createQaA", new Dictionary());
+			model.addAttribute("message", "");
+			return "create-dictionary";
+		}
 	}
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/taocauhoi", method = RequestMethod.POST)
@@ -1055,8 +1070,7 @@ public class DictionaryController {
 			@ModelAttribute("createQaA") Dictionary dictionary,
 			Model model,
 			HttpSession session, BindingResult result) throws NoSuchAlgorithmException, UnsupportedEncodingException{
-		int userID = Integer.parseInt(session.getAttribute("login").toString());// get ID
-		
+		int userID = Integer.parseInt(session.getAttribute("login").toString());// get ID	
 		DictionaryValidator validator = new DictionaryValidator();
 		validator.validate(dictionary, result);	     
         if (result.hasErrors()){

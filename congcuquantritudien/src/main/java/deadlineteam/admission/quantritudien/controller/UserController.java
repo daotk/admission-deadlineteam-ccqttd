@@ -82,7 +82,10 @@ public class UserController {
 		
 		QuestionmanagementService.createIndex();
 		if(session.getValue("login") == null){
-			model.addAttribute("users", new Users());	
+			model.addAttribute("users", new Users());
+			if(error.equals("notlogin")){
+				model.addAttribute("error", "Bạn chưa đăng nhập");
+			}
 			return "login";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -267,13 +270,14 @@ public class UserController {
 		public String settinguser(
 				@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 				HttpSession session, Model model) {
-			
 			if(session.getValue("login") == null){
-				model.addAttribute("error", "Bạn chưa đăng nhập");
+				model.addAttribute("error", "notlogin");
 				return "redirect:/";
 			}else{
-				//User ID
-
+				if(session.getValue("Admin")==null){
+					return "redirect:/notalow";
+				}else{
+				
 				if(Id==0){
 					//Get List Question
 					List<Users> listUser= userService.getAllUsers();
@@ -306,10 +310,13 @@ public class UserController {
 				
 			
 				return "setting-user";
+				}
+				}
 			}
 		
+
 		
-		}
+		
 		//implement when register submit
 		@RequestMapping(value = "/cauhinh", method = RequestMethod.POST)
 		public String cauhinhpost( 	
@@ -440,4 +447,12 @@ public class UserController {
 						
 					return "setting-mail";
 				}
+				
+				
+				//implement when register submit
+				@RequestMapping(value = "/notalow", method = RequestMethod.GET)
+				public String notalow( ){
+					return "notalow";
+				}
+				
 }

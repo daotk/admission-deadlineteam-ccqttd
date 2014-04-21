@@ -139,6 +139,14 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		  
 	         return (List<Questionmanagement>) q.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID){
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
+	                "from Questionmanagement where DeleteStatus = 1");
+		  
+	         return (List<Questionmanagement>) q.list();
+	}
 
 	/*Author: Phu Ta
 	 * Restore question that is selected
@@ -160,14 +168,26 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	 * Author: Phu Ta
 	 * Load save-question list
 	 */
-	
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> savelist(int page,int UserID){
+	public List<Questionmanagement> getSaveListForUser(int page,int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0 and AnswerBy = "+UserID);
 		
 	         return (List<Questionmanagement>) q.list();	
 	}
+	/*
+	 * Author: Dao Khau
+	 * Load save-question list For Admin
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Questionmanagement> getSaveListForAdmin(int page){
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
+	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0");
+		
+	         return (List<Questionmanagement>) q.list();	
+	}
+	
+	
 	public Questionmanagement savequestion(int Id){
 		Questionmanagement savequestion =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where Status = 2 and ID = "+Id +" and DeleteStatus = 0" ).uniqueResult();
 		return savequestion;
@@ -225,6 +245,17 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	public List<Questionmanagement> repliedList(int page, int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 3 AND DeleteStatus = 0 and AnswerBy ="+UserID);
+		
+	         return (List<Questionmanagement>) q.list();	
+	}
+	/*
+	 * Author: Dao Khau
+	 * Get Reply question-list for Admin 
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID){
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
+	                "from Questionmanagement where Status = 3 AND DeleteStatus = 0");
 		
 	         return (List<Questionmanagement>) q.list();	
 	}

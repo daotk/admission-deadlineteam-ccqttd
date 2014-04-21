@@ -114,6 +114,38 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		
 	}
 
+	
+	
+	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID){
+		List<Questionmanagement> list=QuestionmanagementDAO.getDeleteListForAdmin(page,UserID);
+		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getDeleteDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getDeleteDate().compareTo(max)>0){
+					max = list.get(i).getDeleteDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+		
+		List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordDelete();
+		 int end = begin + settings.getRecordDelete();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
+	}
 	/*Author: Phu Ta
 	 * delete question that is selected
 	 */
@@ -127,8 +159,43 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		public Questionmanagement savequestion(int Id){
 			return QuestionmanagementDAO.savequestion(Id);
 		}
+		
 		public List<Questionmanagement> savelist(int page, int UserID){
-			List<Questionmanagement> list= QuestionmanagementDAO.savelist(page, UserID);
+			List<Questionmanagement> list= QuestionmanagementDAO.getSaveListForUser(page, UserID);
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				shortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			
+			
+			List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
+			 Setting settings = getSetting(UserID);
+			 int begin = page* settings.getRecordTemp();
+			 int end = begin + settings.getRecordTemp();
+			if(end > shortlist.size()){
+				end = shortlist.size();
+			}
+			int l = 0;
+			for(int k = begin; k < end; k++){
+				newlist.add(l, shortlist.get(k));
+				l++;
+			}
+			return newlist;
+		}
+		
+		
+		public List<Questionmanagement> getSaveListForAdmin(int page,int UserID ){
+			List<Questionmanagement> list= QuestionmanagementDAO.getSaveListForAdmin(page);
 			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
 			for(;list.size()>0;){
 				Date max = list.get(0).getAnwserDate();
@@ -227,7 +294,42 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		}
 		return newlist;
 	}
-
+	//get reply list for admin
+	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID){
+		List<Questionmanagement> list =  QuestionmanagementDAO.getRepliedListForAdmin(page,UserID);
+		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getAnwserDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getAnwserDate().compareTo(max)>0){
+					max = list.get(i).getAnwserDate();
+					rememberint = i;
+				}
+			}
+			shortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+	
+		List<Questionmanagement> newlist = new ArrayList<Questionmanagement>();
+		 Setting settings = getSetting(UserID);
+		 int begin = page* settings.getRecordRepied();
+		 int end = begin + settings.getRecordRepied();
+		if(end > shortlist.size()){
+			end = shortlist.size();
+		}
+		int l = 0;
+		for(int k = begin; k < end; k++){
+			newlist.add(l, shortlist.get(k));
+			l++;
+		}
+		return newlist;
+	}
+	
+	
+	
+	
+	
 	@Override
 	public Questionmanagement repliedquestion(int ID) {
 		// TODO Auto-generated method stub
@@ -388,5 +490,8 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
 
+	
+		
+	
 }
 

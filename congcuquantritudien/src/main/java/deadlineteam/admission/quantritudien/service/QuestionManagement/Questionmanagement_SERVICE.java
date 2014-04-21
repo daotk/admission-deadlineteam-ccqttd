@@ -20,6 +20,7 @@ public interface Questionmanagement_SERVICE{
 	public List<Dictionary> getListDictionaryDelete(int status);
 	// Delete question-list page
 	public List<Questionmanagement> deleteList(int page, int UserID);
+	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID);
 	//Load deletequestion-list
 	public Questionmanagement deletequestion(int Id);
 	//restore question that is selected
@@ -27,8 +28,10 @@ public interface Questionmanagement_SERVICE{
 	//--------------------- Save Page
 	//Save-question list page
 	public Questionmanagement savequestion(int Id);
-	//Load save-question list
+	//Load save-question list for user
 	public List<Questionmanagement> savelist(int page, int UserID);
+	//Load save-question list for admin
+	public List<Questionmanagement> getSaveListForAdmin(int page,int UserID );
 	//delete save-question that is selected
 	public int deletesavequestion(int Id);
 	//save save-question
@@ -41,6 +44,7 @@ public interface Questionmanagement_SERVICE{
 	//-------------------------replied page
 	//replied question-list page
 	public List<Questionmanagement> repliedList(int page, int UserID);
+	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID);
 	
 	//load replied question-list
 	public Questionmanagement repliedquestion(int ID);

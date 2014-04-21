@@ -21,6 +21,7 @@ public interface Questionmanagement_DAO {
 	//---------------------- Delete Page
 	// delete question-list page
 	public List<Questionmanagement> deleteList(int page, int UserID);
+	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID);
 	//Load deletequestion-list
 	public Questionmanagement deletequestion(int Id);
 	//restore question that is selected
@@ -28,7 +29,8 @@ public interface Questionmanagement_DAO {
 	
 	//--------------------- Save Page
 	// delete question-list page
-	public List<Questionmanagement> savelist(int page, int UserID);
+	public List<Questionmanagement> getSaveListForUser(int page, int UserID);
+	public List<Questionmanagement> getSaveListForAdmin(int page);
 	//Load deletequestion-list
 	public List<Dictionary> getListDictionaryDelete(int status);
 	public Questionmanagement savequestion(int Id);
@@ -44,6 +46,8 @@ public interface Questionmanagement_DAO {
 	//---------------------- Replied page
 	// replied question-list page
 	public List<Questionmanagement> repliedList(int page, int UserID);
+	// replied question-list page
+	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID);
 	
 	// load replied question-list
 	public Questionmanagement repliedquestion(int ID);
