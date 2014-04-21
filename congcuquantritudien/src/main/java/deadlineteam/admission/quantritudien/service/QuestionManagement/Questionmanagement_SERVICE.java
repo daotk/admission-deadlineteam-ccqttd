@@ -61,7 +61,7 @@ public interface Questionmanagement_SERVICE{
 	public void deleteall (String listdelete, int userid);
 	
 	//----------------RESTful web service
-	public void addquestion(Questionmanagement question);
+	public void addQuestionRESTful(Questionmanagement question);
 	public void TransferToDictionary(int Id, int userid);
 	public void UpdateDelete(int Id, int userid);
 	public void UpdateAnwserBy(int Id, int userid);

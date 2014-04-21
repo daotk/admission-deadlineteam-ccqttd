@@ -500,7 +500,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		}
 	}
 	//--------------------RESTful web service-----
-	public void addquestion(Questionmanagement question){
+	public void addQuestionRESTful(Questionmanagement question){
 		QuestionmanagementDAO.addquestion(question);	
 	}
 	public void TransferToDictionary(int Id, int userid){

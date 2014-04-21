@@ -19,7 +19,7 @@ import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionm
 
 @Controller
 @RequestMapping("api")
-public class PersonController {
+public class RESTfulController {
 	@Autowired
 	private Questionmanagement_SERVICE QuestionmanagementService;
 	
@@ -44,7 +44,7 @@ public class PersonController {
 				createquestion.setQuestionDate(now);
 				createquestion.setStatus(1);
 				createquestion.setDeleteStatus(0);		
-				QuestionmanagementService.addquestion(createquestion);
+				QuestionmanagementService.addQuestionRESTful(createquestion);
 				message = message+"Issuccess";
 			}else{
 				message = message+"Emailinvalid";

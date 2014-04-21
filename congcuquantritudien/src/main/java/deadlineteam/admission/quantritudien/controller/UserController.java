@@ -62,18 +62,21 @@ public class UserController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	// Implement when call login page
+
+	
+	/*
+	 * Implement when call login page
+	 */
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String login(HttpSession session, Model model,@ModelAttribute("error") String error) {
-	
-		//check user login 
 		
 		QuestionmanagementService.createIndex();
+		
 		if(session.getValue("login") == null){
 			model.addAttribute("users", new Users());
 			if(error.equals("notlogin")){
-				model.addAttribute("error", "Bạn chưa đăng nhập");
+				model.addAttribute("error", "Bạn chưa đăng nhập.");
 			}
 			return "login";
 		}else{
@@ -85,7 +88,9 @@ public class UserController {
 		}
 	}
 	
-	//Implement when submit login page
+	/*
+	 * Implement when submit login page
+	 */
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public ModelAndView loginsubmit(@ModelAttribute("users") Users user, Model model, HttpSession session,BindingResult result) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		
@@ -98,7 +103,6 @@ public class UserController {
         	String checklogin = userService.checkLogin(user.getUserName(), passmd5);
 			if(checklogin.equals("Right")){
 				//session
-				
 				session.setAttribute("Page",1);
 				session.setAttribute("UserId",userService.getIdbyUsername(user.getUserName()));
 				
@@ -310,13 +314,13 @@ public class UserController {
 		@RequestMapping(value = "/cauhinh", method = RequestMethod.POST)
 		public String cauhinhpost( 	
 				@RequestParam String actionsubmit ,
-				@RequestParam(value = "authorization", required = false, defaultValue= "0") String authorization, 
+				@RequestParam(value = "authorization", required = false, defaultValue= "-1") String authorization, 
 				@ModelAttribute("listUser2") Users user,
 				Model model,
 				HttpSession session) {		
 
 				if(actionsubmit.equals("change")){
-					if(!authorization.equals("0")){
+					if(!authorization.equals("-1")){
 						int num = Integer.parseInt(authorization);
 						int Id = Integer.parseInt(session.getAttribute("Id").toString());
 						//userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
