@@ -201,7 +201,9 @@
 										<div id="question-info">
 											<span style="font-size: 12px;">Người trả lời:  ${username}</span>
 										</div>
-						
+										<div id="question-info">
+											<span style="font-size: 12px;">Người hạ câu hỏi:  ${usernameremove}</span>
+										</div>
 										<div id="question-content">
 											${diction.question}
 										</div>
