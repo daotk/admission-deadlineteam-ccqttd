@@ -249,23 +249,50 @@ public class UserController {
 	
 	//Xử lý khi nhấp chang pass
 	@RequestMapping(value="/changepass", method=RequestMethod.POST)
-	public ModelAndView changpasspost(@ModelAttribute("users") UsersBean user, Model model,BindingResult result ,HttpSession session) {
+	public ModelAndView changpasspost(@ModelAttribute("users") UsersBean user,
+			@RequestParam String actionsubmit,
+			Model model,BindingResult result ,HttpSession session) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		ChangePassValidator validator = new ChangePassValidator();
-		validator.validate(user, result);	     
+		validator.validate(user, result);	 
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		Users getinfor = userService.getUser(UserID);
+		getinfor.getPassword();
         if (result.hasErrors()){
+        	user.setPassword("");
+        	user.setConfirmPassword("");
+        	user.setNewPassword("");
         	 return new ModelAndView("change-pass", "users", user);
         }else{
-        	//còn xét mật khẩu củ
-        	int UserID = Integer.parseInt(session.getAttribute("login").toString());
-        	int message = userService.changePassword(UserID, user.getNewPassword());
-        	if(message>0){
-        		model.addAttribute("message", "Bạn đã thay đổi mật khẩu thành công");
+        	if(actionsubmit.equals("change")){
+        		String passmd = AeSimpleMD5.MD5(user.getPassword());
+    			user.setPassword(passmd);
+        		if(!(getinfor.getPassword()).equals(passmd)){
+        			user.setNewPassword("");
+        			user.setPassword("");
+        			user.setConfirmPassword("");
+        			
+        			model.addAttribute("error", "Mật khẩu hiện tại không đúng");
+        		}else{
+        			String passmd5 = AeSimpleMD5.MD5(user.getNewPassword());
+        			user.setPassword(passmd5);
+                	int message = userService.changePassword(UserID, passmd5);
+                	if(message>0){
+                		model.addAttribute("message", "Bạn đã thay đổi mật khẩu thành công");
+                		user.setPassword("");
+                		user.setNewPassword("");
+                		user.setConfirmPassword("");
+                	}
+        		}
+            	
         	}
+        	//còn xét mật khẩu củ
+        	
         	model.addAttribute("fullname", userService.getFullnameByID(UserID));
         	//check is admin
     		if(userService.checkIsAdmin(UserID)==true){
     			model.addAttribute("isAdmin","admin");
-    		}	
+    		}
+    		
         	return new ModelAndView("change-pass", "users", user);
         }
 	}

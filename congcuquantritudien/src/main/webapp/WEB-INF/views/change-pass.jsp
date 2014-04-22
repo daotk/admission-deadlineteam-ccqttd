@@ -58,22 +58,23 @@ font-style: italic;
 							<td><label style="float: left; font-size: 10pt;">Nhập lại mật khẩu:</label></td>
 							<td>
 								<div style="float: left;">
-									<form:input path="NewPassword" style="width: 300px; border-radius: 5px; height: 25px; padding-left: 5px; color: #555555; border: 1px solid #cccccc; line-heigt: 1.428571429;"  type="password"/>
+									<form:input path="ConfirmPassword" style="width: 300px; border-radius: 5px; height: 25px; padding-left: 5px; color: #555555; border: 1px solid #cccccc; line-heigt: 1.428571429;"  type="password"/>
 								</div>
 							</td>
 							<td>
 								<div style="float:left;">
-									<form:errors path="NewPassword" cssClass="error" />
+									<form:errors path="ConfirmPassword" cssClass="error" />
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td></td>
 							<td style="float: left;">${message}</td>
+							<td style="float: left;" class ="error">${error}</td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="height: 35px; float: right; margin-right: 0;">LƯU</button></td>
+							<td><button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: right; margin-right: 0;">LƯU</button></td>
 						</tr>
 					</table>
 				</form:form>
