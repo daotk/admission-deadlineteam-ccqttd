@@ -36,11 +36,13 @@
 	});
 	</script>
 
+		<!-- Info Paging -->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
 		var noOfDisplay = '${noOfDisplay}';
 		var page = location.search.split("page=")[1];
+		if(noOfPages>=1){   
 			if(page != null){
 				var options = {
 				currentPage: page,
@@ -54,38 +56,34 @@
 				}
 			};
 			$('#paginator').bootstrapPaginator(options);    
-		}else{
-			var options = {
-				currentPage: 1,
-				totalPages: noOfPages,
-				 size:'normal',
-				 alignment:'center',
-				 numberOfPages:noOfDisplay,
-				 useBootstrapTooltip:true,
-				pageUrl: function(type, page, current){
-					return "?page="+page;
-				}
-			};
-			$('#paginator').bootstrapPaginator(options); 
+			}else{
+				var options = {
+					currentPage: 1,
+					totalPages: noOfPages,
+					 size:'normal',
+					 alignment:'center',
+					 numberOfPages:noOfDisplay,
+					 useBootstrapTooltip:true,
+					pageUrl: function(type, page, current){
+						return "?page="+page;
+					}
+				};
+				$('#paginator').bootstrapPaginator(options); 
+			}
 		}
 		return false;
 		});
 	</script>
-
-<!-- LIMIT TExt filed to accept only numbers as input -->
+	<!-- LIMIT TExt filed to accept only numbers as input -->
 	<script>
-	function isNumber(event) {
-		  if (event) {
-		    var charCode = (event.which) ? event.which : event.keyCode;
-		    if (charCode != 190 && charCode > 31 && 
-		       (charCode < 48 || charCode > 57) && 
-		       (charCode < 96 || charCode > 105) && 
-		       (charCode < 37 || charCode > 40) && 
-		        charCode != 110 && charCode != 8 && charCode != 46 )
-		       return false;
-		  }
-		  return true;
-		}
+	 function isNumber(evt)
+     {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+           return false;
+
+        return true;
+     }
 	</script>
 </head>
 <body>

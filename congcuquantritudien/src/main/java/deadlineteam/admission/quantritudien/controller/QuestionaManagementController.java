@@ -97,9 +97,6 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserId));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 
-				model.addAttribute("curentOfPage",page);
-				
-			//	model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1));
 				
 				model.addAttribute("fullname",userService.getFullnameByID(UserId));
 				

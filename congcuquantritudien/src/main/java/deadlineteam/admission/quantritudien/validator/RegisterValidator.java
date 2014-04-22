@@ -24,6 +24,9 @@ public class RegisterValidator implements Validator {
 		if(!user.getConfirmPassword().equals(user.getPassword())){
 			errors.rejectValue("ConfirmPassword","confirmPassword.notequal");
 		}
+		if(user.getPassword().length()<=6){
+			errors.rejectValue("Password","password.notenough");
+		}
 		
 		
 	}
