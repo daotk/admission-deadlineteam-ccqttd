@@ -105,7 +105,7 @@ public class UserController {
 				//session
 				session.setAttribute("Page",1);
 				session.setAttribute("UserId",userService.getIdbyUsername(user.getUserName()));
-				
+				session.setAttribute("sessionfullname",userService.getIdbyUsername(user.getUserName()));				
 				//xử lý
 				session.setAttribute("login",userService.getIdbyUsername(user.getUserName()));
 				int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -132,7 +132,7 @@ public class UserController {
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 
-				model.addAttribute("fullname", userService.getFullnameByID(userService.getIdbyUsername(user.getUserName())));
+				
 				//check is admin
 				if(userService.checkIsAdmin(userService.getIdbyUsername(user.getUserName()))==true){
 					session.setAttribute("Admin", "Yes");

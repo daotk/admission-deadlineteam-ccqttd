@@ -7,7 +7,7 @@
 	    	<div class="viewprofilebutton">
 	    		<img style="float: left; width: 22px; padding-top:2px;" src="template/default/images/userPic.png"/>
 	    		<span style="float: left; margin-top: 4px;margin-left: 3px;">Xin chào</span>
-	    		<a style="float: left; margin-top: 4px;margin-left: 3px; text-decoration: none;color: #fff;" href="profile">${fullname}</a>
+	    		<a style="float: left; margin-top: 4px;margin-left: 3px; text-decoration: none;color: #fff;" href="profile">${sessionfullname}</a>
 	    	</div>
 	    	
 	    	<!-- Change password -->
