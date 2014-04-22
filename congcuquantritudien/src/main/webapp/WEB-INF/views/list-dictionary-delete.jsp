@@ -162,7 +162,7 @@
 											<a href="${pageContext.request.contextPath}/botudiendaxoa?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
 													<div class="row1">	
-														<div class="list-email">${deleteuser}</div>
+														
 														<div class="list-date">
 															<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />
 														</div>
@@ -199,10 +199,7 @@
 			        		</c:if>	
 							<c:if test="${not empty diction.question}">
 								<div id="questionarea">
-									<div id="question-dateinfo">
-										<span style="font-size: 12px;">Người xóa: ${deleteuser}</span>
-										<span style="font-size: 12px;float:right ;">Ngày xóa: ${diction.deleteDate}</span>
-									</div>
+									
 									<div id="question-dateinfo">
 										<span style="font-size: 12px;">Người trả lời:  ${username}</span>
 									</div>

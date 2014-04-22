@@ -69,7 +69,7 @@ public class DictionaryController {
 	private Dictionary_SERVICE DictionaryService;
 	
 	//url = http://localhost:8080/congcuquantri
-	private static final String url = "http://10.11.27.12:8080/congcuhienthitudien";
+	private static final String url = "http://localhost:8080/hienthitudien";
 	
 	private int check = 47;
 	private int get = 44;
@@ -318,7 +318,7 @@ public class DictionaryController {
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}else{
 							if(result1.equals("fail")){
-								model.addAttribute("message","Đăng câu hỏi không  thành công");
+								model.addAttribute("message","Đăng câu hỏi không  thành công ");
 							}
 						}
 						
@@ -1002,10 +1002,10 @@ public class DictionaryController {
 						RestTemplate restTemplate = new RestTemplate();
 						String result1 = restTemplate.postForObject(url+"/api/romovequestion", dicrestful, String.class);
 						
-						if(result1.equals("remove is success")){
+						if(result1.equals("success")){
 							model.addAttribute("message", "Hạ câu hỏi thành công");
 						}else{
-							if(result1.equals("remove is fail")){
+							if(result1.equals("fail")){
 								model.addAttribute("message", "Hạ câu hỏi không thành công");
 							}
 						}
