@@ -376,15 +376,34 @@ public class DictionaryController {
 	
 						}
 					}else{
-					// Tim kiem
-						List<Dictionary> avaiable= DictionaryService.searchIdex(actionsubmit, "1", UserID);
-						for(int i=0;i < avaiable.size();i++){
-							if(avaiable.get(i).getQuestion().length() >= check){
-								String abc = avaiable.get(i).getQuestion().toString();
-								avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						if(actionsubmit.equals("deleteall")){
+							int login = Integer.parseInt(session.getAttribute("login").toString());
+							DictionaryService.deletealldictionary(checkboxdata, login);
+							model.addAttribute("message", "Đã xóa.");
+							List<Dictionary> avaiable= DictionaryService.availablelist(0, UserID);
+							for(int i=0;i < avaiable.size();i++){
+								if(avaiable.get(i).getQuestion().length() >= check){
+									String abc = avaiable.get(i).getQuestion().toString();
+									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
 							}
+							String user = userService.getFullnameByID(UserID);
+							model.addAttribute("username", user);
+							model.addAttribute("savequestionlist", avaiable);
+						
+						}else{
+							// Tim kiem
+							List<Dictionary> avaiable= DictionaryService.searchIdex(actionsubmit, "1", UserID);
+							for(int i=0;i < avaiable.size();i++){
+								if(avaiable.get(i).getQuestion().length() >= check){
+									String abc = avaiable.get(i).getQuestion().toString();
+									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							model.addAttribute("savequestionlist", avaiable);
 						}
-						model.addAttribute("savequestionlist", avaiable);
+					
+						
 					}
 				}
 			}			
@@ -671,6 +690,7 @@ public class DictionaryController {
 	@RequestMapping(value = "/botudiendaha", method = RequestMethod.POST)
 	public String botudiendahapost( 	
 			@RequestParam String actionsubmit , 
+			@RequestParam(value = "checkboxdata", required = false, defaultValue= "0") String checkboxdata, 
 			@RequestParam(value = "change-items", required = false, defaultValue= "0") String changeitems, 
 			@RequestParam(value = "change-pagin", required = false, defaultValue= "0") String changepagin, 
 			@ModelAttribute("dictionary") Dictionary diction,
@@ -835,15 +855,33 @@ public class DictionaryController {
 		
 							}
 						}else{
-						// Tim kiem
-							List<Dictionary> remove2= DictionaryService.searchIdex(actionsubmit,"3", UserID);
-							for(int i=0;i < remove2.size();i++){
-								if(remove2.get(i).getQuestion().length() >= check){
-									String abc = remove2.get(i).getQuestion().toString();
-									remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							if(actionsubmit.equals("deleteall")){
+								int login = Integer.parseInt(session.getAttribute("login").toString());
+								DictionaryService.deletealldictionary(checkboxdata, login);
+								model.addAttribute("message", "Đã xóa.");
+								List<Dictionary> remove2= DictionaryService.removelist(0, UserID);
+								for(int i=0;i < remove2.size();i++){
+									if(remove2.get(i).getQuestion().length() >= check){
+										String abc = remove2.get(i).getQuestion().toString();
+										remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
 								}
+								model.addAttribute("removelist", remove2);
+								String user = userService.getFullnameByID(UserID);
+								model.addAttribute("username", user);
+							}else{
+								// Tim kiem
+								List<Dictionary> remove2= DictionaryService.searchIdex(actionsubmit,"3", UserID);
+								for(int i=0;i < remove2.size();i++){
+									if(remove2.get(i).getQuestion().length() >= check){
+										String abc = remove2.get(i).getQuestion().toString();
+										remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+								model.addAttribute("removelist", remove2);
 							}
-							model.addAttribute("removelist", remove2);
+					
+							
 						}
 					}
 					

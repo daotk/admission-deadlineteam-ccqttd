@@ -19,6 +19,7 @@ import deadlineteam.admission.quantritudien.domain.Users;
 
 @Repository
 public class Dictionary_DAO_Implement implements Dictionary_DAO {
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -233,6 +234,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		Users username =  (Users)getCurrentSession().createQuery(" from Users where ID = "+ID  ).uniqueResult();
 		return username;
 	}
+	
 public List<Dictionary> searchIdex(String keyword,String Status, int UserID){
 		
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());

@@ -82,6 +82,14 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return DictionaryDAO.availablequestion(Id);
 		
 	}
+	public void deletealldictionary(String checkbox, int login){
+		String[] liststring = checkbox.split(",");
+		for(int i=0;i<liststring.length;i++){
+			int deleteid = Integer.parseInt(liststring[i].toString());
+			DictionaryDAO.updatedelete(deleteid, login);
+			DictionaryDAO.delete(deleteid);
+		}
+	}
 	public List<Dictionary> recentlist(int page, int UserID) {
 		// TODO Auto-generated method stub
 		
