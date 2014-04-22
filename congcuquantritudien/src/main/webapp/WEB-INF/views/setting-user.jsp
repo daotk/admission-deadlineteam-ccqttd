@@ -38,8 +38,8 @@
 	            <li><a href="cauhinhmail">Cấu hình mail</a></li>
 			</ul>
 
-			<div id="user-grid">
-				<table id="tableUser" style="margin-left: 3%;">
+			<div id="user-grid" style="overflow: auto;background-color: gray; height: 540px;">
+				<table id="tableUser" style="margin-left: 1%;">
 		            <tr>
 		                <th>Tên người dùng</th>
 		                <th>Tài khoản</th>
@@ -121,7 +121,7 @@
  						<tr>
  							<td></td>
  							<td>
- 								<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="float: right; height: 35px;">Thay đổi</button>
+ 								<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="float: right; height: 35px; margin-right: 0;">Thay đổi</button>
 							</td>
  						</tr>
 						</table>
