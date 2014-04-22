@@ -45,7 +45,7 @@ public class HomeController {
 	/*
 	 * examble : http://localhost:8080/congcuquantri/
 	 */
-	private static final String url = "http://10.11.27.11:8080/congcuquantritudien/";
+	private static final String url = "http://localhost:8080/quantritudien/";
 	
 	/**
 	 * Simply selects the home view to render by returning its name.

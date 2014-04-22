@@ -21,7 +21,7 @@ public class RESTful_Controller {
 	@RequestMapping(value="question", method=RequestMethod.POST)
 	@ResponseBody
 	public String savequestion(@RequestBody Dictionary dictionary) {
-		String message = "";
+		String message ;
 		if(checkinput(dictionary) == true){
 			Dictionary newquestion = new Dictionary();
 			newquestion.setID(dictionary.getID());
@@ -30,9 +30,9 @@ public class RESTful_Controller {
 			Date now = new Date();
 			newquestion.setCreateDate(now);
 			dictionaryService.updatequestion(newquestion);
-			message = message+ "update question is success";
+			message = "success";
 		}else{
-			message = message +"update question is fail";	
+			message = "fail";	
 		}
 	
 		return message;
@@ -50,12 +50,12 @@ public class RESTful_Controller {
 	@RequestMapping(value="romovequestion", method=RequestMethod.POST)
 	@ResponseBody
 	public String removequesstion(@RequestBody Dictionary dictionary) {
-		String message = "";
+		String message ;
 		if(checkinput(dictionary) == true){
 			dictionaryService.deleteUser(dictionary);
-			message = message+ "remove is success";
+			message = "success";
 		}else{
-			message = message +"remove is fail";	
+			message = "fail";	
 		}
 	
 		return message;
