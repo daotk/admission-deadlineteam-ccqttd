@@ -186,14 +186,20 @@ $(document).ready(function() {
 							<span style="font-size: 13pt; font-weight: bold; margin-left: 20px; color:rgb(100,150,200);">Gửi câu hỏi của bạn!</span>
 						</div>
 						<div style="width: 90%; margin-left: 10%;">
-							<c:if test="${not empty message}">
-								<center><span class="success">${message}</span></center>
-							</c:if>
-							<c:if test="${not empty error}">
-								<center><span class="error">${error}</span></center>
-							</c:if>	
+							
 							<table style="width: 90%; float: left;">						
 								<form:form commandName ="question" id ="newquestion" action="./" method="post">
+									<tr>
+										<td style="width: 25%;"></td>
+										<td style="float: right">
+											<c:if test="${not empty message}">
+												<span class="success">${message}</span>
+											</c:if>
+											<c:if test="${not empty error}">
+												<center><span class="error">${error}</span></center>
+											</c:if>	
+										</td>
+									</tr>
 									<tr>
 										<td style="width: 25%;"><span style="font-size: 80%;">Họ tên của bạn</span></td>
 										<td><form:input path="QuestionBy" type="text" style="width: 90%; height: 25px; font-size: 10pt; margin-top: 4px; margin-left: 10px;"  placeholder="Họ tên của bạn!"/></td>

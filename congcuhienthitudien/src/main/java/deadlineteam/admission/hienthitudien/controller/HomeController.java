@@ -134,7 +134,7 @@ public class HomeController {
 							RestTemplate restTemplate = new RestTemplate();
 							String result = restTemplate.postForObject(url+"api/question", questionmanagement, String.class);
 							if(result.equals("Issuccess")){
-								model.addAttribute("message","Câu hỏi đã được gủi thành công.");
+								model.addAttribute("message","Câu hỏi đã được gửi thành công.");
 								List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
 								for(int i = 0; i< list.size();i++){
 									int number = (i+1) + ((page-1)*record) ;
