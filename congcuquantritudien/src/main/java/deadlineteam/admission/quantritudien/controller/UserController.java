@@ -171,7 +171,7 @@ public class UserController {
 			String passmd5 = AeSimpleMD5.MD5(userbean.getPassword());
 			user.setPassword(passmd5);
 			user.setEmail(userbean.getEmail());
-			user.setAuthorization(1);
+			user.setAuthorization(0);
 			if(userService.checkUsername(user.getUserName()) ==true){
 				model.addAttribute("error", "Tài khoản đã tồn tại. Xin nhập tài khoản khác.");	
 			}else{
@@ -325,11 +325,7 @@ public class UserController {
 					//Get List Question
 					List<Users> listUser= userService.getAllUsers();
 					model.addAttribute("listUser", listUser);
-					List<Users> getUser = userService.getUserDetail(1);
-					model.addAttribute("fullName", getUser.get(0).getFullName());
-					model.addAttribute("userName", getUser.get(0).getUserName());
-					model.addAttribute("email", getUser.get(0).getEmail());
-					model.addAttribute("authorization", getUser.get(0).getAuthorization());
+					
 					model.addAttribute("listUser2", new Users());
 				}else{
 					//Get List Question
