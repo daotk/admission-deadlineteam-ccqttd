@@ -223,7 +223,7 @@
 										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
 										<!-- button chỉnh sửa -->
 										<c:if test="${not empty busystatus}">
-											<button class="buttoncontrol" id="update" type="submit"  name="actionsubmit" value="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
+											<button class="buttoncontrol" id="update" type="submit"  name="actionsubmit" value="update"><a href="editdictionary?topic=${diction.ID}">CHỈNH SỬA</a></button>
 										</c:if>
 										<!-- end button chỉnh sửa -->
 									</div>	

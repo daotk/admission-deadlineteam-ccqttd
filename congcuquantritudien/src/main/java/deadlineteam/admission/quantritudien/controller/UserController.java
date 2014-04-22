@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +35,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
-
 import deadlineteam.admission.quantritudien.bean.UsersBean;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
@@ -105,7 +106,7 @@ public class UserController {
 				//session
 				session.setAttribute("Page",1);
 				session.setAttribute("UserId",userService.getIdbyUsername(user.getUserName()));
-				session.setAttribute("sessionfullname",userService.getIdbyUsername(user.getUserName()));				
+				session.setAttribute("sessionfullname",userService.getFullnameByID(userService.getIdbyUsername(user.getUserName())));				
 				//xử lý
 				session.setAttribute("login",userService.getIdbyUsername(user.getUserName()));
 				int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -174,30 +175,52 @@ public class UserController {
 			if(userService.checkUsername(user.getUserName()) ==true){
 				model.addAttribute("error", "Tài khoản đã tồn tại. Xin nhập tài khoản khác.");	
 			}else{
-				userService.addUser(user);
-				List<Users> temp = userService.getAllUsers();
-				int size = temp.size() -1;
-				model.addAttribute("message","Bạn đã đăng ký thành công");
+				if(checkemail(user.getEmail())){
+					userService.addUser(user);
+					List<Users> temp = userService.getAllUsers();
+					int size = temp.size() -1;
+					model.addAttribute("error","Bạn đã đăng ký thành công");
+					
+					
+					Setting settings = new Setting();
+					
+					settings.setPaginDisplayDelete(3);
+					settings.setPaginDisplayDictionary(3);
+					settings.setPaginDisplayNotRep(3);
+					settings.setPaginDisplayReplied(3);
+					settings.setPaginDisplayTemp(3);
+					settings.setRecordDelete(5);
+					settings.setRecordDictionary(5);
+					settings.setRecordNotRep(5);
+					settings.setRecordRepied(5);
+					settings.setRecordTemp(5);
+					settings.setUserID(Integer.parseInt(temp.get(size).getID().toString()));
+					userService.addSettingUser(settings);
+				}else{
+					model.addAttribute("message","Email không hợp lệ");
+				}
 				
-				
-				Setting settings = new Setting();
-				
-				settings.setPaginDisplayDelete(3);
-				settings.setPaginDisplayDictionary(3);
-				settings.setPaginDisplayNotRep(3);
-				settings.setPaginDisplayReplied(3);
-				settings.setPaginDisplayTemp(3);
-				settings.setRecordDelete(5);
-				settings.setRecordDictionary(5);
-				settings.setRecordNotRep(5);
-				settings.setRecordRepied(5);
-				settings.setRecordTemp(5);
-				settings.setUserID(Integer.parseInt(temp.get(size).getID().toString()));
-				userService.addSettingUser(settings);
 				
 			}
 			return "registration";
         }
+	}
+	private boolean checkemail(String email){
+		Pattern pattern;
+		Matcher matcher;
+		String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		if (!(email != null && email.isEmpty())) {  
+			   pattern = Pattern.compile(EMAIL_PATTERN);  
+			   matcher = pattern.matcher(email);  
+			   if (!matcher.matches()) {  
+				   return false; 
+			   }else{
+				   return true;		   
+			   }  
+		}else{
+			return false;
+		}
+	
 	}
 	//Xử lý khi nhấp logout
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
