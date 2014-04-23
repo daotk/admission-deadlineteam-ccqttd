@@ -69,7 +69,7 @@ public class DictionaryController {
 	private Dictionary_SERVICE DictionaryService;
 	
 	//url = http://localhost:8080/congcuquantri
-	private static final String url = "http://10.11.27.12:8080/congcuhienthitudien";
+	private static final String url = "http://localhost:8080/hienthitudien";
 	
 	private int check = 47;
 	private int get = 44;
