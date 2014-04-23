@@ -177,8 +177,8 @@ public class QuestionaManagementController {
 				int login = Integer.parseInt(session.getAttribute("login").toString());
 				if(session.getAttribute("Id") !="0"){
 					//xu ly luu cau tra loi va gui mail
-					int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
-					if(result>0){
+					if(questionmanagement.getAnswer() ==""){
+						model.addAttribute("error", "Bạn chưa nhập câu trả lời.");
 						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 						for(int i=0;i < ListQuestion1.size();i++){
 							if(ListQuestion1.get(i).getQuestion().length() >= check){
@@ -187,31 +187,44 @@ public class QuestionaManagementController {
 							}
 						}
 						model.addAttribute("listquestionmanagement", ListQuestion1);
-						String email = session.getAttribute("email").toString();
-						String title = "Trả lời câu hỏi tuyển sinh";
-						String body = questionmanagement.getAnswer();
-						
-						MimeMessage mimeMessage = mailSender.createMimeMessage();
-						
-						try {
+					}else{
+						int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+						if(result>0){
+							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+							for(int i=0;i < ListQuestion1.size();i++){
+								if(ListQuestion1.get(i).getQuestion().length() >= check){
+									String abc = ListQuestion1.get(i).getQuestion().toString();
+									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							model.addAttribute("listquestionmanagement", ListQuestion1);
+							String email = session.getAttribute("email").toString();
+							String title = "Trả lời câu hỏi tuyển sinh";
+							String body = questionmanagement.getAnswer();
 							
-							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-							 message.setTo(email);
-							 message.setSubject(title);
-							 
-							 message.setText(body, true);
-							// sends the e-mail
-							mailSender.send(mimeMessage);
+							MimeMessage mimeMessage = mailSender.createMimeMessage();
 							
+							try {
+								
+								 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+								 message.setTo(email);
+								 message.setSubject(title);
+								 
+								 message.setText(body, true);
+								// sends the e-mail
+								mailSender.send(mimeMessage);
+								
+								
+								QuestionmanagementService.UpdateAnwserBy(Id, login);
+								model.addAttribute("message", "Bạn đã gửi mail thành công.");
+							} catch (MessagingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								model.addAttribute("message", "Bạn đã gủi mail thất bại.");
+							}
 							
-							QuestionmanagementService.UpdateAnwserBy(Id, login);
-							model.addAttribute("message", "Bạn đã gửi mail thành công.");
-						} catch (MessagingException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							model.addAttribute("message", "Bạn đã gủi mail thất bại.");
-						}
-						
+					}
+					
 						
 						
 					}
@@ -464,9 +477,8 @@ public class QuestionaManagementController {
 				int login = Integer.parseInt(session.getAttribute("login").toString());
 				model.addAttribute("anwser",Id);
 				if(session.getAttribute("Id") !="0"){
-					//xu ly luu cau tra loi va gui mail
-					int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
-					if(result>0){
+					if(questionmanagement.getAnswer() ==""){
+						model.addAttribute("error", "Bạn chưa nhập câu trả lời.");
 						List<Questionmanagement> savelist;
 						if(session.getValue("Admin")==null){	
 							//user nomal
@@ -489,30 +501,58 @@ public class QuestionaManagementController {
 							
 						}
 						model.addAttribute("savequestionlist", savelist);
-						model.addAttribute("anwser",questionmanagement.getAnswer());
-						String email = session.getAttribute("email").toString();
-						String title = "Trả lời câu hỏi tuyển sinh";
-						String body = questionmanagement.getAnswer();
-						
-						MimeMessage mimeMessage = mailSender.createMimeMessage();
-						
-						try {
+					}else{
+						//xu ly luu cau tra loi va gui mail
+						int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
+						if(result>0){
+							List<Questionmanagement> savelist;
+							if(session.getValue("Admin")==null){	
+								//user nomal
+								savelist= QuestionmanagementService.savelist(page-1, UserID);
+								for(int i=0;i < savelist.size();i++){
+									if(savelist.get(i).getQuestion().length() >= check){
+										String abc = savelist.get(i).getQuestion().toString();
+										savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								//admin
+								savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+								for(int i=0;i < savelist.size();i++){
+									if(savelist.get(i).getQuestion().length() >= check){
+										String abc = savelist.get(i).getQuestion().toString();
+										savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+								
+							}
+							model.addAttribute("savequestionlist", savelist);
+							model.addAttribute("anwser",questionmanagement.getAnswer());
+							String email = session.getAttribute("email").toString();
+							String title = "Trả lời câu hỏi tuyển sinh";
+							String body = questionmanagement.getAnswer();
 							
-							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-							 message.setTo(email);
-							 message.setSubject(title);
-							 
-							 message.setText(body, true);
-							// sends the e-mail
-							mailSender.send(mimeMessage);
+							MimeMessage mimeMessage = mailSender.createMimeMessage();
 							
-							QuestionmanagementService.UpdateAnwserBy(Id, login);
-							model.addAttribute("message", "Bạn đã gửi mail thành công.");
-						} catch (MessagingException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							model.addAttribute("message", "Bạn đã gủi mail thất bại.");
-						}
+							try {
+								
+								 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+								 message.setTo(email);
+								 message.setSubject(title);
+								 
+								 message.setText(body, true);
+								// sends the e-mail
+								mailSender.send(mimeMessage);
+								
+								QuestionmanagementService.UpdateAnwserBy(Id, login);
+								model.addAttribute("message", "Bạn đã gửi mail thành công.");
+							} catch (MessagingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								model.addAttribute("message", "Bạn đã gủi mail thất bại.");
+							}
+					}
+					
 						
 					}
 				}
@@ -859,18 +899,19 @@ public class QuestionaManagementController {
 						model.addAttribute("mess",Id);
 						Dictionary newdic = new Dictionary();
 						Questionmanagement question = QuestionmanagementService.repliedquestion(Id);
+					
+							newdic.setAnwser(question.getAnswer());
+							newdic.setQuestion(question.getQuestion());
+							newdic.setCreateBy(login);
+							Date now = new Date();
+							newdic.setCreateDate(now);
+							newdic.setAnwserBy(question.getAnswerBy());
+							newdic.setStatus(1);
+							newdic.setDeleteStatus(0);
+							newdic.setBusyStatus(0);
+							DictionaryService.AddDictionary(newdic);
+							QuestionmanagementService.TransferToDictionary(Id, login);
 						
-						newdic.setAnwser(question.getAnswer());
-						newdic.setQuestion(question.getQuestion());
-						newdic.setCreateBy(login);
-						Date now = new Date();
-						newdic.setCreateDate(now);
-						newdic.setAnwserBy(question.getAnswerBy());
-						newdic.setStatus(1);
-						newdic.setDeleteStatus(0);
-						newdic.setBusyStatus(0);
-						DictionaryService.AddDictionary(newdic);
-						QuestionmanagementService.TransferToDictionary(Id, login);
 						List<Questionmanagement> Deletequestionlist;
 						if(session.getValue("Admin")==null){	
 							Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
@@ -889,8 +930,8 @@ public class QuestionaManagementController {
 								}
 							}
 						}
-						model.addAttribute("replylust", Deletequestionlist);
 						model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
+						model.addAttribute("replylust", Deletequestionlist);
 					}else{
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
