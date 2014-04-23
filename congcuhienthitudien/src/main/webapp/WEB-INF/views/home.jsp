@@ -89,17 +89,17 @@ $(document).ready(function() {
 			<tr> 
 				<td style="background-color: #ffffff; width: 350px; height:100%" valign="top">
 					<!-- search and setting -->					
-					<div id="tfheader" style="width: 100%;display: block;height: 4%">
+					<div id="tfheader" style="width: 100%;display: block; margin-top: 3%;">
 						<!-- Search -->
-						<div id="search" style="width: 90%; height:100%;float: left">
+						<div id="search" style="width: 90%; height:100%;float: left;">
 							<form id="tfnewsearch" method="post" action="./">
 								<label>
-									<span style="margin-left: 5%;">Tìm kiếm: </span>
+									<span style="margin-left: 3%;">Tìm kiếm: </span>
 									<c:if test="${empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 80%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 85%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
 									</c:if>
 						 			<c:if test="${not empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 80%; margin-top: 5px;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 85%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
 									</c:if>
 								</label>
 							</form>
@@ -107,9 +107,9 @@ $(document).ready(function() {
 						<!-- End search -->						
 						
 						<!-- configuration -->
-					  	<div id="container-pop" style="width: 10%; height: 75%; margin-top: 14px; float: left;">
+					  	<div id="container-pop" style="float: left;">
 							<a class="popup-link-1" style="text-decoration: none;">
-								<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px; margin-top: 1px;" />
+								<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px;" />
 							</a>
 						</div>
 						<!-- end configuration -->
