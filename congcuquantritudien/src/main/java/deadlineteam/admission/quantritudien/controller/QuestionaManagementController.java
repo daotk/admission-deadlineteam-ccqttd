@@ -318,7 +318,6 @@ public class QuestionaManagementController {
 								}
 							}else{
 							//xu ly tim kiem
-							model.addAttribute("message",actionsubmit);
 							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"1");
 							for(int i=0;i < list.size();i++){
 								if(list.get(i).getQuestion().length() >= check){
@@ -977,7 +976,6 @@ public class QuestionaManagementController {
 								}
 							}else{
 							//xu ly tim kiem
-							model.addAttribute("message",actionsubmit);
 							List<Questionmanagement> list;
 							if(session.getValue("Admin")!=null){
 								list = QuestionmanagementService.searchIdex(actionsubmit,"3");

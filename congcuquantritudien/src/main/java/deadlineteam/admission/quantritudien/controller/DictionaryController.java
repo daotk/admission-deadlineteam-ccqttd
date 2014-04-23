@@ -69,7 +69,7 @@ public class DictionaryController {
 	private Dictionary_SERVICE DictionaryService;
 	
 	//url = http://localhost:8080/congcuquantri
-	private static final String url = "http://localhost:8080/hienthitudien";
+	private static final String url = "http://10.11.27.12:8080/congcuhienthitudien";
 	
 	private int check = 47;
 	private int get = 44;
@@ -87,16 +87,15 @@ public class DictionaryController {
 		}else{
 			session.setAttribute("Id", Id);
 			Dictionary available = DictionaryService.loadquestion(Id);
-			
-			if(available.getBusyStatus() ==1){
+			if(available.getBusyStatus().equals(1)){
+				model.addAttribute("message", "Đã có người đang chỉnh sữa câu hỏi này.");
 				return "list-dictionary";
 			}else{
 				DictionaryService.busystatusupdate(Id);
+				model.addAttribute("createQaA", available);
+				return "edit-dictionary";
 			}
-			model.addAttribute("createQaA", available);
 		}
-		
-		return "edit-dictionary";
 	}
 	
 	@RequestMapping(value = "/editdictionary", method = RequestMethod.POST)
@@ -126,7 +125,7 @@ public class DictionaryController {
 			}
 		}
 		model.addAttribute("Avaiable", Avaiable);
-		return "list-dictionary";
+		return "redirect:/botudien";
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -139,16 +138,16 @@ public class DictionaryController {
 			return "redirect:/";
 		}else{
 			session.setAttribute("Id", Id);
-			Dictionary available = DictionaryService.loadquestion(Id);
-			
-			if(available.getBusyStatus() ==1){
+			Dictionary available = DictionaryService.loadquestion(Id);	
+			if(available.getBusyStatus().equals(1)){
+				model.addAttribute("message", "Đã có người đang chỉnh sữa câu hỏi này.");
 				return "list-dictionary";
 			}else{
 				DictionaryService.busystatusupdate(Id);
+				model.addAttribute("createQaA", available);
+				return "edit-dictionary";
 			}
-			model.addAttribute("createQaA", available);
 		}
-		return "edit-dictionary";
 	}
 	
 	@RequestMapping(value = "/editdictionary2", method = RequestMethod.POST)
@@ -178,7 +177,7 @@ public class DictionaryController {
 			}
 		}
 		model.addAttribute("removelist", remove);
-		return "list-dictionary-down";
+		return "redirect:/botudiendaha";
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -389,7 +388,7 @@ public class DictionaryController {
 							}
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
-							model.addAttribute("savequestionlist", avaiable);
+							model.addAttribute("Avaiable", avaiable);
 						
 						}else{
 							// Tim kiem
@@ -400,25 +399,14 @@ public class DictionaryController {
 									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
 							}
-							model.addAttribute("savequestionlist", avaiable);
+							model.addAttribute("actionsubmit", actionsubmit);
+							model.addAttribute("Avaiable", avaiable);
 						}
 					
 						
 					}
 				}
 			}			
-			List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);
-			for(int i=0;i < Avaiable1.size();i++){
-				if(Avaiable1.get(i).getQuestion().length() >= check){
-					String abc = Avaiable1.get(i).getQuestion().toString();
-					Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
-				}
-			}
-			String user = userService.getFullnameByID(UserID);
-			model.addAttribute("username", user);
-			model.addAttribute("Avaiable", Avaiable1);	
-			model.addAttribute("dictionary", new Dictionary());
-			model.addAttribute("curentOfPage", page);		
 			return "list-dictionary";
 	}
 
@@ -595,6 +583,7 @@ public class DictionaryController {
 							dele.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
 					}
+					model.addAttribute("actionsubmit", actionsubmit);
 					model.addAttribute("deletelist", dele);
 				}
 			}
@@ -878,6 +867,7 @@ public class DictionaryController {
 										remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
 								}
+								model.addAttribute("actionsubmit", actionsubmit);
 								model.addAttribute("removelist", remove2);
 							}
 					
@@ -1089,6 +1079,7 @@ public class DictionaryController {
 							rece1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
 					}
+					model.addAttribute("actionsubmit", actionsubmit);
 					model.addAttribute("Recentlist", rece1);
 				}
 			}

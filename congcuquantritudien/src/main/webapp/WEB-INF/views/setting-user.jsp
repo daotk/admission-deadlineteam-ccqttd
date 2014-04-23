@@ -38,7 +38,7 @@
 	            <li><a href="cauhinhmail">Cấu hình mail</a></li>
 			</ul>
 
-			<div id="user-grid" style="overflow: auto;background-color: gray; height: 540px;">
+			<div id="user-grid" style="overflow: auto; height: 540px;">
 				<table id="tableUser" style="margin-left: 1%;">
 		            <tr>
 		                <th>Tên người dùng</th>

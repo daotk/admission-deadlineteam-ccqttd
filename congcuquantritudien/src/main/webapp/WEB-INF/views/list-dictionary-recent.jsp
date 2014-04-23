@@ -9,7 +9,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
+	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
+	<title>Danh sách bộ từ điển đã đăng</title>
 	<!-- CSS -->
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
@@ -100,7 +101,8 @@
                    			<form id="quick-search" method="post" action="botudienhientai">
 				   				<fieldset class="search-bar">
 									<label >
-					 					<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm"> 
+					 					<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
+							 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>"> 
 									</label>
 				   				</fieldset>
 				  			</form> 

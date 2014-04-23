@@ -9,7 +9,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
+	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
+	<title>Danh sách bộ từ điển đã hạ</title>
 	<!-- CSS -->
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
@@ -98,7 +99,8 @@
                    			<form id="quick-search" method="post" action="botudiendaha">
 				   				<fieldset class="search-bar">
 									<label >
-					 					<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm"> 
+					 					<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
+							 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">   
 									</label>
 				   				</fieldset>
 				  			</form> 
@@ -218,7 +220,7 @@
 											<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
 											<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
 											<c:if test="${not empty busystatus}">
-												<button class="buttoncontrol" id="update" type="submit"  name="actionsubmit" value="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
+												<button class="buttoncontrol" id="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
 											</c:if>
 										</div>
 									</c:if>

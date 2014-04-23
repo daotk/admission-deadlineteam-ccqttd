@@ -7,7 +7,7 @@
 	<div id="menus" class="menu">
 		<h3>Quản lý chung</h3>
 		<ul class="navigation" id="fist">
-			<li ><a href="home">Danh sách chưa trả lời</a></li>
+			<li class="active" ><a href="home">Danh sách chưa trả lời</a></li>
 			<li ><a href="dsluutam">Danh sách lưu tạm</a></li>
 			<li><a href="dsdatraloi">Danh sách đã trả lời</a></li>
 			<li><a href="botudien">Bộ từ điển</a></li>

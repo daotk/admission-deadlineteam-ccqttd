@@ -189,8 +189,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	public int update(int Id,String Anwser,  String Question){
 		String sqlstring = "update Dictionary set Anwser = :anwser, Question =:question where ID = :Id ";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
-		 q.setParameter("anwser", Anwser);
-		
+		 q.setParameter("anwser", Anwser);	
 		 q.setParameter("question", Question);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
