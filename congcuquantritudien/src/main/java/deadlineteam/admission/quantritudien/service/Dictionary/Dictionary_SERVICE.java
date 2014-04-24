@@ -10,6 +10,7 @@ import deadlineteam.admission.quantritudien.domain.Users;
 public interface Dictionary_SERVICE {
 	public int AddDictionarybyID (int Id,int UserId);
 	public List<Dictionary> availablelist(int page, int UserID);
+	public List<Dictionary> availablelistadmin(int page , int UserID);
 	public Dictionary availablequestion(int Id);
 	public List<Dictionary> recentlist(int page, int UserID);
 	public Dictionary recentquestion(int Id);
@@ -19,6 +20,7 @@ public interface Dictionary_SERVICE {
 	public Dictionary removequestion(int Id);
 	public Dictionary getinformation(int ID);
 	public int upload(int Id);
+	public int updateCreateby(int Id, int UserID);
 	public int updateby(int Id, int UserID);
 	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
 	public Dictionary loadquestion(int Id);
