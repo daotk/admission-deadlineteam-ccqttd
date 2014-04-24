@@ -58,7 +58,7 @@ public interface Questionmanagement_SERVICE{
 	public List<Questionmanagement> searchIdex(String keyword,String Status);
 	public List<Questionmanagement> searchIdexForAdmin(String keyword,String Status,int UserID);
 	public List<Questionmanagement> searchIdexDeleteListForAdmin(String keyword,String Status,int UserID);
-	public void deleteall (String listdelete, int userid);
+	public int deleteall (String listdelete, int userid);
 	
 	//----------------RESTful web service
 	public void addQuestionRESTful(Questionmanagement question);

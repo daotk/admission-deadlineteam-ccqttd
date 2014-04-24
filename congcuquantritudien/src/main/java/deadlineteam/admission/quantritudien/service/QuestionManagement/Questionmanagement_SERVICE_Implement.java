@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import deadlineteam.admission.quantritudien.dao.QuestionManagement.Questionmanagement_DAO;
+import deadlineteam.admission.quantritudien.dao.User.Users_DAO;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
@@ -18,11 +19,17 @@ import deadlineteam.admission.quantritudien.domain.Users;
 @Service
 @Transactional
 public class Questionmanagement_SERVICE_Implement implements Questionmanagement_SERVICE{
+	
+	@Autowired
+	private Users_DAO UserDAO;
 	@Autowired
 	private Questionmanagement_DAO QuestionmanagementDAO;
 	@Autowired
 	private Dictionary_DAO Dictionary_DAO;
 	
+	
+	private int check = 47;
+	private int get = 44;
 	public List<Questionmanagement> getListQuestionmanagement() {
 		return QuestionmanagementDAO.getListQuestionmanagement();
 	}
@@ -491,13 +498,42 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		return newlistquestion;
 	}
 	
-	public void deleteall (String listdelete, int userid){
+	public int deleteall (String listdelete, int userid){
+		int count =0;
 		String[] liststring = listdelete.split(",");
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
-			QuestionmanagementDAO.UpdateDelete(deleteid, userid);
-			QuestionmanagementDAO.delete(deleteid);
-		}
+			//xu ly luu cau tra loi va gui mail
+			Questionmanagement question = getQuestionmanagementbyID(deleteid);
+			if(question.getDeleteBy() != null){
+				// Xu ly thao tac song song
+				Users information = UserDAO.getUser(userid);
+				int author = information.getAuthorization();
+				if(userid== question.getDeleteBy()){
+					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+					QuestionmanagementDAO.delete(deleteid);
+					
+				}else{
+					if(author ==1){
+						Users otheruser = UserDAO.getUser(question.getDeleteBy());
+						int otherauthor = otheruser.getAuthorization();
+						if(otherauthor ==1){
+							//Null
+						}else{
+							QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+							QuestionmanagementDAO.delete(deleteid);
+							count++;
+						}
+					}
+				}
+				
+			}else{
+				QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+				QuestionmanagementDAO.delete(deleteid);		
+				count++;
+			}	
+		}// end for
+		return count;
 	}
 	//--------------------RESTful web service-----
 	public void addQuestionRESTful(Questionmanagement question){
