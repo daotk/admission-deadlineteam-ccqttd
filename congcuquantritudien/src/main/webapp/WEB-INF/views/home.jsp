@@ -195,20 +195,23 @@
 		        			</c:if>	
 							<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
-								
 									<!-- Question info -->
-									<div id="question-info">
+									<div id="question-dateinfo">
 										<span style="float:left;">Người hỏi: </span>
 										<span style="margin-left: 5px;">${questionmanagements.questionBy} &lt;${questionmanagements.questionEmail}&gt;</span>
-										<span style="float: right;">
+									</div>
+									
+									<!-- Question date info -->
+									<div id="question-info">
+										<span style="float: left;">Ngày nhận câu hỏi: </span>
+										<span style="float: left;  margin-left: 5px;">
 											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
 										</span>
-										<span style="float:right; margin-right: 5px;">Ngày nhận câu hỏi: </span>
+										
 									</div>
-									<!-- end question info -->
 									
 									<!-- Question content -->
-									<div id="question-content" style ="width:100%;">${questionmanagements.question}</div>
+									<div id="question-content" style ="overflow-x: auto; height: auto;">${questionmanagements.question}</div>
 									<!-- end question content -->
 									
 								</div>

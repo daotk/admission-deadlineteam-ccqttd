@@ -154,11 +154,10 @@
     color: #8b8f97;
     border-bottom: 1px solid #e6ebed;
 	cursor: default;
-	float:left;
-	/*padding: 1px 5px 1px 5px;*/
-	width: 94%;
+	float:right;
+	width: 92%;
 	margion-left: 0px;
-	padding-left: 0px;
+	padding-left: 2px;
 
 }
 .list-question: hover{

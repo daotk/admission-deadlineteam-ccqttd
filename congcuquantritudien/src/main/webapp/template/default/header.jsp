@@ -5,20 +5,21 @@
 		<div style="height:100%;float: right;padding-right: 20px;">
 	    	<!-- Account -->
 	    	<div class="viewprofilebutton">
-	    		<img style="float: left; width: 22px; padding-top:2px;" src="template/default/images/userPic.png"/>
+	    		<img style="float: left; width: 22px; padding-top:3
+	    		px;" src="template/default/images/userPic.png"/>
 	    		<span style="float: left; margin-top: 4px;margin-left: 3px;">Xin chào</span>
 	    		<a style="float: left; margin-top: 4px;margin-left: 3px; text-decoration: none;color: #fff;" href="profile">${sessionfullname}</a>
 	    	</div>
 	    	
 	    	<!-- Change password -->
 	    	<div class="changepassbutton">
-	    		<img style="float: left; width: 10px; height: 11px; margin-top: 6px;" src="template/default/images/settings.png"/>
+	    		<img style="float: left; width: 10px; height: 11px; margin-top: 8px;" src="template/default/images/settings.png"/>
 	    		<a style="float: left; margin-top: 4px;margin-left: 3px; text-decoration: none;color: #fff;" href="changepass">Đổi mật khẩu</a>
 	    	</div>
 	    	
 	    	<!-- Logout -->
 	    	<div class="logoutbutton">
-	    		<img style="float: left; width: 11px; height: 11px; margin-top: 6px;" src="template/default/images/logout.png"/>
+	    		<img style="float: left; width: 11px; height: 11px; margin-top: 8px;" src="template/default/images/logout.png"/>
 	    		<a style="float: left; margin-top: 4px;margin-left: 3px; text-decoration: none;color: #fff;" href="logout">Logout</a>
 	    	</div>
     	</div>	
