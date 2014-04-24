@@ -233,11 +233,12 @@ last-child .list-question{
 
 }
 #quick-search .search-bar label{
-        border-radius: 1em;
+        
         display: block;
-        width: 94%;
+        width: 84%;
         padding: 0 10px;
-        background: #ffffff url('../images/search.png') no-repeat scroll right;
+        background: #ffffff;
+        /*background: #ffffff url('../images/search.png') no-repeat scroll right;*/
 }
 #quick-search .search-bar input, #quick-search .search-bar button{ /* resetting to make it easier to work with */
          -webkit-apperance: none;
@@ -837,3 +838,4 @@ div.tabcontents
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 }   
+

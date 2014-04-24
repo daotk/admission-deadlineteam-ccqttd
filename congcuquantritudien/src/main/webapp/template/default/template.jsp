@@ -41,7 +41,7 @@
      
     .menu {
     	background-color:#2c406e;
-        width:180px;
+        width:210px;
         float:left;  
 		color: white;
 		height:100%;

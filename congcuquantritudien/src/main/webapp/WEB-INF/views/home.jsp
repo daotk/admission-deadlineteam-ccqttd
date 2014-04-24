@@ -101,7 +101,8 @@
 						<!-- search form -->			
 						<form id="quick-search" method="post" action="home" class="timkiem">
 					   		<fieldset class="search-bar">
-								<label >
+					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
+								<label>									
 						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
 						 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>"> 
 								</label>
@@ -150,12 +151,14 @@
 						<!-- end configuration pop-up -->
 					
 						<!-- load list of question -->  
-						<div style="height: 81%;">      	
+						<div style="height: 82%;">      	
 							<div class="list-question-content">
 								<c:if test="${not empty listquestionmanagement}">
 									<c:forEach var="Questionmanagement" items="${listquestionmanagement}" >
 										<div style="width: 100%;">
-											<div class="check"><input id="${Questionmanagement.ID}" name="check_" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
+											<div class="check">
+												<input id="${Questionmanagement.ID}" name="check_" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF />
+											</div>
 											<a href="${pageContext.request.contextPath}/home?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
 													<div class="row1">	
@@ -178,9 +181,10 @@
 						<!-- end load list of question -->
 					
 						<!-- Paging -->
-						<div id="paginator"></div>
+						<div id="paginator" style="clear: both;"></div>
 					  	<!-- end paging -->
 					</td>
+					
 					<!-- Detail of question is received -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">			
 						<form:form method="post" action="" commandName="questionmanagements">
@@ -211,9 +215,8 @@
 									</div>
 									
 									<!-- Question content -->
-									<div id="question-content" style ="overflow-x: auto; height: auto;">${questionmanagements.question}</div>
+									<div id="question-content" style ="overflow-x: auto; height: 100px;">${questionmanagements.question}</div>
 									<!-- end question content -->
-									
 								</div>
 												
 								<div id="answerarea">
