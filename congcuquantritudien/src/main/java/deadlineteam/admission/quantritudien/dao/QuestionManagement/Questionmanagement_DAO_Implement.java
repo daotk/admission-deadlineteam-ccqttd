@@ -1,3 +1,4 @@
+
 package deadlineteam.admission.quantritudien.dao.QuestionManagement;
 
 import java.util.Date;
@@ -265,7 +266,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	 * load replied question-list
 	 */
 	public Questionmanagement repliedquestion(int ID){
-		Questionmanagement savequestion =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where Status = 3 and ID = "+ID +" and DeleteStatus = 0" ).uniqueResult();
+		Questionmanagement savequestion =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where ID = "+ID +" and DeleteStatus = 0" ).uniqueResult();
 		return savequestion;
 	}
 	

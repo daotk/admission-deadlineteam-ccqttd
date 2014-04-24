@@ -370,7 +370,7 @@ public class QuestionaManagementController {
 								int result = QuestionmanagementService.delete(Id);
 								if(result>0){
 									QuestionmanagementService.UpdateDelete(Id, login);
-									model.addAttribute("message1", "Bạn đã xóa thành công.");
+									model.addAttribute("message1", "Bạn đã xóa thành công ");
 									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
 										if(ListQuestion1.get(i).getQuestion().length() >= check){
@@ -389,9 +389,9 @@ public class QuestionaManagementController {
 						//xủ lý xóa tất cả
 						int login = Integer.parseInt(session.getAttribute("login").toString());
 						if(actionsubmit.equals("deleteall")){
-							QuestionmanagementService.deleteall(checkboxdata,login);
+							int count = QuestionmanagementService.deleteall(checkboxdata,login);
 							
-							model.addAttribute("message", "Đã xóa.");
+							model.addAttribute("message", "Đã xóa ");
 							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 							for(int i=0;i < ListQuestion1.size();i++){
 								if(ListQuestion1.get(i).getQuestion().length() >= check){
@@ -1239,77 +1239,258 @@ public class QuestionaManagementController {
 				
 				model.addAttribute("deletequestion",Id);
 				if(session.getAttribute("Id") !="0"){
-					// Processing restore question
-					int result = QuestionmanagementService.deleterepliedquestion(Id);
-					if(result>0){
-						QuestionmanagementService.UpdateDelete(Id, login);
-						model.addAttribute("message","Xóa thành công");
-						List<Questionmanagement> Deletequestionlist;
-						if(session.getValue("Admin")==null){	
-							Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
-							for(int i=0;i < Deletequestionlist.size();i++){
-								if(Deletequestionlist.get(i).getQuestion().length() >= check){
-									String abc = Deletequestionlist.get(i).getQuestion().toString();
-									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					
+					//xu ly luu cau tra loi va gui mail
+					Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					if(question.getDeleteBy() != null){
+						// Xu ly thao tac song song
+						Users information = userService.getUser(UserID);
+						int author = information.getAuthorization();
+						if(UserID == question.getDeleteBy()){
+							int result = QuestionmanagementService.deleterepliedquestion(Id);
+							if(result>0){
+								QuestionmanagementService.UpdateDelete(Id, login);
+								model.addAttribute("message","Xóa thành công");
+								List<Questionmanagement> Deletequestionlist;
+								if(session.getValue("Admin")==null){	
+									Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+									for(int i=0;i < Deletequestionlist.size();i++){
+										if(Deletequestionlist.get(i).getQuestion().length() >= check){
+											String abc = Deletequestionlist.get(i).getQuestion().toString();
+											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}else{
+									Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+									for(int i=0;i < Deletequestionlist.size();i++){
+										if(Deletequestionlist.get(i).getQuestion().length() >= check){
+											String abc = Deletequestionlist.get(i).getQuestion().toString();
+											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
 								}
+				
+								model.addAttribute("replylust", Deletequestionlist);
 							}
 						}else{
-							Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
-							for(int i=0;i < Deletequestionlist.size();i++){
-								if(Deletequestionlist.get(i).getQuestion().length() >= check){
-									String abc = Deletequestionlist.get(i).getQuestion().toString();
-									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							if(author ==1){
+								Users otheruser = userService.getUser(question.getDeleteBy());
+								int otherauthor = otheruser.getAuthorization();
+								if(otherauthor ==1){
+									// null
+									
+									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
+								}else{
+									// Processing restore question
+									int result = QuestionmanagementService.deleterepliedquestion(Id);
+									if(result>0){
+										QuestionmanagementService.UpdateDelete(Id, login);
+										model.addAttribute("message","Xóa thành công");
+										List<Questionmanagement> Deletequestionlist;
+										if(session.getValue("Admin")==null){	
+											Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+											for(int i=0;i < Deletequestionlist.size();i++){
+												if(Deletequestionlist.get(i).getQuestion().length() >= check){
+													String abc = Deletequestionlist.get(i).getQuestion().toString();
+													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+										}else{
+											Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+											for(int i=0;i < Deletequestionlist.size();i++){
+												if(Deletequestionlist.get(i).getQuestion().length() >= check){
+													String abc = Deletequestionlist.get(i).getQuestion().toString();
+													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+										}
+						
+										model.addAttribute("replylust", Deletequestionlist);
+									}
 								}
+							}else{
+								Users otheruser = userService.getUser(question.getDeleteBy());
+								model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 							}
 						}
 						
-						
-						
-						
-						model.addAttribute("replylust", Deletequestionlist);
+					}else{
+						// Processing restore question
+						int result = QuestionmanagementService.deleterepliedquestion(Id);
+						if(result>0){
+							QuestionmanagementService.UpdateDelete(Id, login);
+							model.addAttribute("message","Xóa thành công");
+							List<Questionmanagement> Deletequestionlist;
+							if(session.getValue("Admin")==null){	
+								Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}
+			
+							model.addAttribute("replylust", Deletequestionlist);
+						}
 					}
+					//
+					
 				}
 									
 				}else{
 					if(actionsubmit.equals("dictionary")){
 						int login =Integer.parseInt(session.getAttribute("login").toString());
 						int Id =Integer.parseInt(session.getAttribute("Id").toString());
-						model.addAttribute("mess",Id);
-						Dictionary newdic = new Dictionary();
-						Questionmanagement question = QuestionmanagementService.repliedquestion(Id);
-					
-							newdic.setAnwser(question.getAnswer());
-							newdic.setQuestion(question.getQuestion());
-							newdic.setCreateBy(login);
-							Date now = new Date();
-							newdic.setCreateDate(now);
-							newdic.setAnwserBy(question.getAnswerBy());
-							newdic.setStatus(1);
-							newdic.setDeleteStatus(0);
-							newdic.setBusyStatus(0);
-							DictionaryService.AddDictionary(newdic);
-							QuestionmanagementService.TransferToDictionary(Id, login);
 						
-						List<Questionmanagement> Deletequestionlist;
-						if(session.getValue("Admin")==null){	
-							Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
-							for(int i=0;i < Deletequestionlist.size();i++){
-								if(Deletequestionlist.get(i).getQuestion().length() >= check){
-									String abc = Deletequestionlist.get(i).getQuestion().toString();
-									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						//
+						Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+						if(question.getUpdateBy() != null){
+							// Xu ly thao tac song song
+							Users information = userService.getUser(UserID);
+							int author = information.getAuthorization();
+							if(UserID == question.getUpdateBy()){
+								//
+								model.addAttribute("mess",Id);
+								Dictionary newdic = new Dictionary();
+								Questionmanagement question1 = QuestionmanagementService.repliedquestion(Id);
+							
+									newdic.setAnwser(question1.getAnswer());
+									newdic.setQuestion(question1.getQuestion());
+									newdic.setCreateBy(login);
+									Date now = new Date();
+									newdic.setCreateDate(now);
+									newdic.setAnwserBy(question1.getAnswerBy());
+									newdic.setStatus(1);
+									newdic.setDeleteStatus(0);
+									newdic.setBusyStatus(0);
+									DictionaryService.AddDictionary(newdic);
+									QuestionmanagementService.TransferToDictionary(Id, login);
+								
+								List<Questionmanagement> Deletequestionlist;
+								if(session.getValue("Admin")==null){	
+									Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+									for(int i=0;i < Deletequestionlist.size();i++){
+										if(Deletequestionlist.get(i).getQuestion().length() >= check){
+											String abc = Deletequestionlist.get(i).getQuestion().toString();
+											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}else{
+									Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+									for(int i=0;i < Deletequestionlist.size();i++){
+										if(Deletequestionlist.get(i).getQuestion().length() >= check){
+											String abc = Deletequestionlist.get(i).getQuestion().toString();
+											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}
+								model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
+								model.addAttribute("replylust", Deletequestionlist);
+							}else{
+								if(author ==1){
+									Users otheruser = userService.getUser(question.getUpdateBy());
+									int otherauthor = otheruser.getAuthorization();
+									if(otherauthor ==1){
+										// null
+										
+										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" đưa vào bộ từ điển");
+									}else{
+										//
+										model.addAttribute("mess",Id);
+										Dictionary newdic = new Dictionary();
+										Questionmanagement question1 = QuestionmanagementService.repliedquestion(Id);
+									
+											newdic.setAnwser(question1.getAnswer());
+											newdic.setQuestion(question1.getQuestion());
+											newdic.setCreateBy(login);
+											Date now = new Date();
+											newdic.setCreateDate(now);
+											newdic.setAnwserBy(question1.getAnswerBy());
+											newdic.setStatus(1);
+											newdic.setDeleteStatus(0);
+											newdic.setBusyStatus(0);
+											DictionaryService.AddDictionary(newdic);
+											QuestionmanagementService.TransferToDictionary(Id, login);
+										
+										List<Questionmanagement> Deletequestionlist;
+										if(session.getValue("Admin")==null){	
+											Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+											for(int i=0;i < Deletequestionlist.size();i++){
+												if(Deletequestionlist.get(i).getQuestion().length() >= check){
+													String abc = Deletequestionlist.get(i).getQuestion().toString();
+													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+										}else{
+											Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+											for(int i=0;i < Deletequestionlist.size();i++){
+												if(Deletequestionlist.get(i).getQuestion().length() >= check){
+													String abc = Deletequestionlist.get(i).getQuestion().toString();
+													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+										}
+										model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
+										model.addAttribute("replylust", Deletequestionlist);
+									}
+								}else{
+									// null
+									Users otheruser = userService.getUser(question.getUpdateBy());
+									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" đưa vào bộ từ điển");
 								}
 							}
+							
+							// ket thuc xu ly thao tac song song
 						}else{
-							Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
-							for(int i=0;i < Deletequestionlist.size();i++){
-								if(Deletequestionlist.get(i).getQuestion().length() >= check){
-									String abc = Deletequestionlist.get(i).getQuestion().toString();
-									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							//
+							model.addAttribute("mess",Id);
+							Dictionary newdic = new Dictionary();
+							Questionmanagement question1 = QuestionmanagementService.repliedquestion(Id);
+						
+								newdic.setAnwser(question1.getAnswer());
+								newdic.setQuestion(question1.getQuestion());
+								newdic.setCreateBy(login);
+								Date now = new Date();
+								newdic.setCreateDate(now);
+								newdic.setAnwserBy(question1.getAnswerBy());
+								newdic.setStatus(1);
+								newdic.setDeleteStatus(0);
+								newdic.setBusyStatus(0);
+								DictionaryService.AddDictionary(newdic);
+								QuestionmanagementService.TransferToDictionary(Id, login);
+							
+							List<Questionmanagement> Deletequestionlist;
+							if(session.getValue("Admin")==null){	
+								Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
 								}
 							}
+							model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
+							model.addAttribute("replylust", Deletequestionlist);
 						}
-						model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
-						model.addAttribute("replylust", Deletequestionlist);
+						
+						
 					}else{
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
@@ -1513,30 +1694,111 @@ public class QuestionaManagementController {
 				int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
 			//	model.addAttribute("deletequestion",Id);
 				if(session.getAttribute("Id") !="0"){
-					// Processing restore question
-					int result = QuestionmanagementService.restore(Id);
-					if(result>0){
-						model.addAttribute("message","Khôi phục thành công");
-						List<Questionmanagement> Deletequestionlist;
-						if(session.getValue("Admin")==null){
-							Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
-							for(int i=0;i < Deletequestionlist.size();i++){
-								if(Deletequestionlist.get(i).getQuestion().length() >= check){
-									String abc = Deletequestionlist.get(i).getQuestion().toString();
-									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					int login = Integer.parseInt(session.getAttribute("login").toString());
+					//xu ly luu cau tra loi va gui mail
+					Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					if(question.getDeleteBy() != null){
+						// Xu ly thao tac song song
+						Users information = userService.getUser(UserID);
+						int author = information.getAuthorization();
+						if(UserID == question.getDeleteBy()){
+							// Processing restore question
+							int result = QuestionmanagementService.restore(Id);
+							if(result>0){
+								QuestionmanagementService.UpdateAnwserBy(Id, login);
+								QuestionmanagementService.UpdateDelete(Id, login);
+								model.addAttribute("message","Khôi phục thành công");
+								List<Questionmanagement> Deletequestionlist;
+								if(session.getValue("Admin")==null){
+									Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+									for(int i=0;i < Deletequestionlist.size();i++){
+										if(Deletequestionlist.get(i).getQuestion().length() >= check){
+											String abc = Deletequestionlist.get(i).getQuestion().toString();
+											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}else{
+									Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+									for(int i=0;i < Deletequestionlist.size();i++){
+										if(Deletequestionlist.get(i).getQuestion().length() >= check){
+											String abc = Deletequestionlist.get(i).getQuestion().toString();
+											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
 								}
+								model.addAttribute("deletequestionlist", Deletequestionlist);
 							}
 						}else{
-							Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
-							for(int i=0;i < Deletequestionlist.size();i++){
-								if(Deletequestionlist.get(i).getQuestion().length() >= check){
-									String abc = Deletequestionlist.get(i).getQuestion().toString();
-									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							if(author ==1){
+								Users otheruser = userService.getUser(question.getDeleteBy());
+								int otherauthor = otheruser.getAuthorization();
+								if(otherauthor ==1){
+									// null
+									
+									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" khôi phục");
+								}else{
+									// Processing restore question
+									int result = QuestionmanagementService.restore(Id);
+									if(result>0){
+										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										QuestionmanagementService.UpdateDelete(Id, login);
+										model.addAttribute("message","Khôi phục thành công");
+										List<Questionmanagement> Deletequestionlist;
+										if(session.getValue("Admin")==null){
+											Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+											for(int i=0;i < Deletequestionlist.size();i++){
+												if(Deletequestionlist.get(i).getQuestion().length() >= check){
+													String abc = Deletequestionlist.get(i).getQuestion().toString();
+													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+										}else{
+											Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+											for(int i=0;i < Deletequestionlist.size();i++){
+												if(Deletequestionlist.get(i).getQuestion().length() >= check){
+													String abc = Deletequestionlist.get(i).getQuestion().toString();
+													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+										}
+										model.addAttribute("deletequestionlist", Deletequestionlist);
+									}
 								}
+							}else{
+								Users otheruser = userService.getUser(question.getDeleteBy());
+								model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" khôi phục");
 							}
 						}
-						model.addAttribute("deletequestionlist", Deletequestionlist);
+						
+					}else{
+						// Processing restore question
+						int result = QuestionmanagementService.restore(Id);
+						if(result>0){
+							QuestionmanagementService.UpdateAnwserBy(Id, login);
+							QuestionmanagementService.UpdateDelete(Id, login);
+							model.addAttribute("message","Khôi phục thành công");
+							List<Questionmanagement> Deletequestionlist;
+							if(session.getValue("Admin")==null){
+								Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}
+							model.addAttribute("deletequestionlist", Deletequestionlist);
+						}
 					}
+					
 				}					
 				
 			}else{
