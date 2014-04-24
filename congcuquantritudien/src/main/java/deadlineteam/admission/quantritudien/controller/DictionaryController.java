@@ -87,14 +87,10 @@ public class DictionaryController {
 		}else{
 			session.setAttribute("Id", Id);
 			Dictionary available = DictionaryService.loadquestion(Id);
-			if(available.getBusyStatus().equals(1)){
-				model.addAttribute("message", "Đã có người đang chỉnh sữa câu hỏi này.");
-				return "list-dictionary";
-			}else{
-				DictionaryService.busystatusupdate(Id);
+			
 				model.addAttribute("createQaA", available);
 				return "edit-dictionary";
-			}
+			
 		}
 	}
 	
@@ -110,11 +106,109 @@ public class DictionaryController {
 			int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
 			model.addAttribute("dictionary",Id);
 			if(session.getAttribute("Id") !="0"){
-				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
-				int restart = DictionaryService.busystatus(Id);
-			
-				List<Dictionary> Avaiable= DictionaryService.availablelist(page-1,UserID);
-				model.addAttribute("Avaiable", Avaiable);
+				//
+				Dictionary question = DictionaryService.getinformation(Id);
+				if(question.getCreateBy() != null){
+					// Xu ly thao tac song song
+					Users information = userService.getUser(UserID);
+					int author = information.getAuthorization();
+					if(UserID == question.getCreateBy()){
+						int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
+						int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
+						int restart = DictionaryService.busystatus(Id);
+					
+						List<Dictionary> Avaiable;
+						if(session.getValue("Admin")==null){	
+							Avaiable= DictionaryService.availablelist(page-1, UserID);			
+							for(int i=0;i < Avaiable.size();i++){
+								if(Avaiable.get(i).getQuestion().length() >= check){
+									String abc = Avaiable.get(i).getQuestion().toString();
+									Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}else{
+							Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+							for(int i=0;i < Avaiable.size();i++){
+								if(Avaiable.get(i).getQuestion().length() >= check){
+									String abc = Avaiable.get(i).getQuestion().toString();
+									Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}
+						
+						model.addAttribute("Avaiable", Avaiable);
+					}else{
+						if(author ==1){
+							Users otheruser = userService.getUser(question.getCreateBy());
+							int otherauthor = otheruser.getAuthorization();
+							if(otherauthor ==1){
+								// null
+								
+								model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
+							}else{
+								//
+								int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
+								int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
+								int restart = DictionaryService.busystatus(Id);
+							
+								List<Dictionary> Avaiable;
+								if(session.getValue("Admin")==null){	
+									Avaiable= DictionaryService.availablelist(page-1, UserID);			
+									for(int i=0;i < Avaiable.size();i++){
+										if(Avaiable.get(i).getQuestion().length() >= check){
+											String abc = Avaiable.get(i).getQuestion().toString();
+											Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}else{
+									Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+									for(int i=0;i < Avaiable.size();i++){
+										if(Avaiable.get(i).getQuestion().length() >= check){
+											String abc = Avaiable.get(i).getQuestion().toString();
+											Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}
+								
+								model.addAttribute("Avaiable", Avaiable);
+							}
+						}else{
+							// null
+							Users otheruser = userService.getUser(question.getCreateBy());
+							model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
+						}
+					}
+					
+					// ket thuc xu ly thao tac song song
+				}else{
+					//
+					int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
+					int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
+					int restart = DictionaryService.busystatus(Id);
+				
+					List<Dictionary> Avaiable;
+					if(session.getValue("Admin")==null){	
+						Avaiable= DictionaryService.availablelist(page-1, UserID);			
+						for(int i=0;i < Avaiable.size();i++){
+							if(Avaiable.get(i).getQuestion().length() >= check){
+								String abc = Avaiable.get(i).getQuestion().toString();
+								Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+					}else{
+						Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+						for(int i=0;i < Avaiable.size();i++){
+							if(Avaiable.get(i).getQuestion().length() >= check){
+								String abc = Avaiable.get(i).getQuestion().toString();
+								Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+					}
+					
+					model.addAttribute("Avaiable", Avaiable);
+				}
+				
+				
 			}
 		}
 		List<Dictionary> Avaiable= DictionaryService.availablelist(page-1,UserID);
@@ -197,14 +291,26 @@ public class DictionaryController {
 			int UserId = Integer.parseInt(session.getAttribute("UserId").toString());
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
-			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1,UserID);
-			for(int i=0;i < Avaiable.size();i++){
-				if(Avaiable.get(i).getQuestion().length() >= check){
-					String abc = Avaiable.get(i).getQuestion().toString();
-					Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+			List<Dictionary> Avaiable;
+			if(session.getValue("Admin")==null){	
+				Avaiable= DictionaryService.availablelist(page-1, UserID);			
+				for(int i=0;i < Avaiable.size();i++){
+					if(Avaiable.get(i).getQuestion().length() >= check){
+						String abc = Avaiable.get(i).getQuestion().toString();
+						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
+			}else{
+				Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+				for(int i=0;i < Avaiable.size();i++){
+					if(Avaiable.get(i).getQuestion().length() >= check){
+						String abc = Avaiable.get(i).getQuestion().toString();
+						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
 				}
 			}
-			model.addAttribute("Avaiable", Avaiable);
+			
+			model.addAttribute("Avaiable", Avaiable);	
 			model.addAttribute("diction", new Dictionary());
 			
 			Setting setting = userService.getSetting(UserId);
@@ -226,14 +332,25 @@ public class DictionaryController {
 		}else{
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
-			
-			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1, UserID);			
-			for(int i=0;i < Avaiable.size();i++){
-				if(Avaiable.get(i).getQuestion().length() >= check){
-					String abc = Avaiable.get(i).getQuestion().toString();
-					Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+			List<Dictionary> Avaiable;
+			if(session.getValue("Admin")==null){	
+				Avaiable= DictionaryService.availablelist(page-1, UserID);			
+				for(int i=0;i < Avaiable.size();i++){
+					if(Avaiable.get(i).getQuestion().length() >= check){
+						String abc = Avaiable.get(i).getQuestion().toString();
+						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
+			}else{
+				Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+				for(int i=0;i < Avaiable.size();i++){
+					if(Avaiable.get(i).getQuestion().length() >= check){
+						String abc = Avaiable.get(i).getQuestion().toString();
+						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
 				}
 			}
+			
 			model.addAttribute("Avaiable", Avaiable);				
 			Dictionary available = DictionaryService.availablequestion(Id);
 			Users newusername = DictionaryService.getusername(available.getAnwserBy());
@@ -277,9 +394,7 @@ public class DictionaryController {
 			//get page
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
-			//Load deleted-question list of page that is selected			
-			List<Dictionary> Avaiable= DictionaryService.availablelist(page-1, UserID);
-			model.addAttribute("Avaiable", Avaiable);	
+		
 			model.addAttribute("dictionary", new Dictionary());
 			model.addAttribute("curentOfPage", page);	
 			
@@ -294,14 +409,26 @@ public class DictionaryController {
 					if(result > 0 && update >0){
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
-						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);			
-						for(int i=0;i < Avaiable1.size();i++){
-							if(Avaiable1.get(i).getQuestion().length() >= check){
-								String abc = Avaiable1.get(i).getQuestion().toString();
-								Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						List<Dictionary> Avaiable;
+						if(session.getValue("Admin")==null){	
+							Avaiable= DictionaryService.availablelist(page-1, UserID);			
+							for(int i=0;i < Avaiable.size();i++){
+								if(Avaiable.get(i).getQuestion().length() >= check){
+									String abc = Avaiable.get(i).getQuestion().toString();
+									Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}else{
+							Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+							for(int i=0;i < Avaiable.size();i++){
+								if(Avaiable.get(i).getQuestion().length() >= check){
+									String abc = Avaiable.get(i).getQuestion().toString();
+									Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
 							}
 						}
-						model.addAttribute("Avaiable", Avaiable1);
+						
+						model.addAttribute("Avaiable", Avaiable);	
 					}
 					Dictionary newdictionary = DictionaryService.getinformation(Id);
 					
@@ -336,16 +463,29 @@ public class DictionaryController {
 						// Processing restore question
 						int result = DictionaryService.delete(Id);
 						DictionaryService.updatedelete(Id, userID);
-						List<Dictionary> Avaiable1= DictionaryService.availablelist(page-1, UserID);
-						for(int i=0;i < Avaiable1.size();i++){
-							if(Avaiable1.get(i).getQuestion().length() >= check){
-								String abc = Avaiable1.get(i).getQuestion().toString();
-								Avaiable1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						List<Dictionary> Avaiable;
+						if(session.getValue("Admin")==null){	
+							Avaiable= DictionaryService.availablelist(page-1, UserID);			
+							for(int i=0;i < Avaiable.size();i++){
+								if(Avaiable.get(i).getQuestion().length() >= check){
+									String abc = Avaiable.get(i).getQuestion().toString();
+									Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}else{
+							Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+							for(int i=0;i < Avaiable.size();i++){
+								if(Avaiable.get(i).getQuestion().length() >= check){
+									String abc = Avaiable.get(i).getQuestion().toString();
+									Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
 							}
 						}
+						
+						model.addAttribute("Avaiable", Avaiable);
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
-						model.addAttribute("Avaiable", Avaiable1);
+						
 						model.addAttribute("message","Câu hỏi đã được xóa");
 					}					
 				}else{
@@ -361,16 +501,29 @@ public class DictionaryController {
 							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							
-							List<Dictionary> avaiable= DictionaryService.availablelist(0, UserID);
-							for(int i=0;i < avaiable.size();i++){
-								if(avaiable.get(i).getQuestion().length() >= check){
-									String abc = avaiable.get(i).getQuestion().toString();
-									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							List<Dictionary> Avaiable;
+							if(session.getValue("Admin")==null){	
+								Avaiable= DictionaryService.availablelist(page-1, UserID);			
+								for(int i=0;i < Avaiable.size();i++){
+									if(Avaiable.get(i).getQuestion().length() >= check){
+										String abc = Avaiable.get(i).getQuestion().toString();
+										Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+								for(int i=0;i < Avaiable.size();i++){
+									if(Avaiable.get(i).getQuestion().length() >= check){
+										String abc = Avaiable.get(i).getQuestion().toString();
+										Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
 								}
 							}
+							
+							model.addAttribute("Avaiable", Avaiable);	
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
-							model.addAttribute("savequestionlist", avaiable);
+							
 							model.addAttribute("message","Thay đổi cấu hình thành công.");
 	
 						}
@@ -379,16 +532,29 @@ public class DictionaryController {
 							int login = Integer.parseInt(session.getAttribute("login").toString());
 							DictionaryService.deletealldictionary(checkboxdata, login);
 							model.addAttribute("message", "Đã xóa.");
-							List<Dictionary> avaiable= DictionaryService.availablelist(0, UserID);
-							for(int i=0;i < avaiable.size();i++){
-								if(avaiable.get(i).getQuestion().length() >= check){
-									String abc = avaiable.get(i).getQuestion().toString();
-									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							List<Dictionary> Avaiable;
+							if(session.getValue("Admin")==null){	
+								Avaiable= DictionaryService.availablelist(page-1, UserID);			
+								for(int i=0;i < Avaiable.size();i++){
+									if(Avaiable.get(i).getQuestion().length() >= check){
+										String abc = Avaiable.get(i).getQuestion().toString();
+										Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+								for(int i=0;i < Avaiable.size();i++){
+									if(Avaiable.get(i).getQuestion().length() >= check){
+										String abc = Avaiable.get(i).getQuestion().toString();
+										Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
 								}
 							}
+							
+							model.addAttribute("Avaiable", Avaiable);	
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
-							model.addAttribute("Avaiable", avaiable);
+						
 						
 						}else{
 							// Tim kiem
