@@ -37,7 +37,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public Questionmanagement getQuestionmanagementbyID(int Id) {
 		// TODO Auto-generated method stub	
-		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where Status = 1 and ID = "+Id ).uniqueResult();
+		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where ID = "+Id ).uniqueResult();
 		return question;
 	}
 	
