@@ -36,6 +36,14 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	public List<Dictionary> availablelist(int page , int UserID) {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
+                "from Dictionary where Status = 1 and DeleteStatus = 0 and CreateBy ="+ UserID);
+
+         return (List<Dictionary>) q.list();
+	}
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> availablelistadmin(int page , int UserID) {
+		// TODO Auto-generated method stub
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
                 "from Dictionary where Status = 1 and DeleteStatus = 0");
 
          return (List<Dictionary>) q.list();
@@ -92,6 +100,19 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		Dictionary information = (Dictionary)getCurrentSession().createQuery(" from Dictionary where ID = "+ID  ).uniqueResult();
 		return information;
 	}
+	@Override
+	public int updateCreateby(int Id, int UserID){
+		String sqlstring = "update Dictionary set CreateBy =:userid , CreateDate =:mow where ID = :Id";
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		q.setParameter("Id", Id);
+		q.setParameter("userid", UserID);
+		Date now = new Date();
+		q.setParameter("mow", now);
+		int result = q.executeUpdate();
+		
+		return result;
+	}
+	
 	@Override
 	public int upload(int Id){
 		String sqlstring = "update Dictionary set Status = '2' where ID = :Id AND DeleteStatus = 0";

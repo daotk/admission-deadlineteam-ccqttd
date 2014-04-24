@@ -10,6 +10,7 @@ import deadlineteam.admission.quantritudien.domain.Users;
 public interface Dictionary_DAO {	
 	public void  AddDictionary (Dictionary  dictionary);
 	public List<Dictionary> availablelist(int page , int UserID) ;
+	public List<Dictionary> availablelistadmin(int page , int UserID);
 	public Dictionary availablequestion(int Id);
 	public List<Dictionary> recentlist(int page, int UserID);
 	public Dictionary recentquestion(int Id);
@@ -29,6 +30,7 @@ public interface Dictionary_DAO {
 	public void addDictionaryAnswer(String title, String question, String answer);
 	//public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby, Date CreateDate, int status, int deletestatus);
 	public int busystatusupdate(int Id);
+	public int updateCreateby(int Id, int UserID);
 	public int busystatus(int Id);
 	public void updateRemove(int Id, int userID);
 	public void updatedelete(int Id, int userID);
