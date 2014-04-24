@@ -82,6 +82,7 @@ public class QuestionaManagementController {
 						ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
+				
 				model.addAttribute("listquestionmanagement", ListQuestion);
 				
 				Setting setting = userService.getSetting(UserId);
@@ -188,45 +189,81 @@ public class QuestionaManagementController {
 						}
 						model.addAttribute("listquestionmanagement", ListQuestion1);
 					}else{
-						int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
-						if(result>0){
-							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
-							for(int i=0;i < ListQuestion1.size();i++){
-								if(ListQuestion1.get(i).getQuestion().length() >= check){
-									String abc = ListQuestion1.get(i).getQuestion().toString();
-									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						String email = session.getAttribute("email").toString();
+						String title = "Trả lời câu hỏi tuyển sinh";
+						String body = questionmanagement.getAnswer();
+						MimeMessage mimeMessage = mailSender.createMimeMessage();
+						try {
+							
+							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+							 message.setTo(email);
+							 message.setSubject(title);
+							 
+							 message.setText(body, true);
+							// sends the e-mail
+							mailSender.send(mimeMessage);
+							
+							
+							
+							model.addAttribute("message", "Bạn đã gửi mail thành công.");
+							
+							
+							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							if(question.getAnswerBy() != null){
+								// Xu ly thao tac song song
+								Users information = userService.getUser(UserID);
+								int author = information.getAuthorization();
+								if(author ==1){
+									Users otheruser = userService.getUser(question.getAnswerBy());
+									int otherauthor = otheruser.getAuthorization();
+									if(otherauthor ==1){
+										// null
+										
+										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
+									}else{
+										int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+										if(result>0){
+											
+											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+											for(int i=0;i < ListQuestion1.size();i++){
+												if(ListQuestion1.get(i).getQuestion().length() >= check){
+													String abc = ListQuestion1.get(i).getQuestion().toString();
+													ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+											QuestionmanagementService.UpdateAnwserBy(Id, login);
+											model.addAttribute("listquestionmanagement", ListQuestion1);														
+										}
+									}
+								}else{
+									// null
+									Users otheruser = userService.getUser(question.getAnswerBy());
+									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
+								}
+								// ket thuc xu ly thao tac song song
+							}else{
+								int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+								if(result>0){
+									
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+									for(int i=0;i < ListQuestion1.size();i++){
+										if(ListQuestion1.get(i).getQuestion().length() >= check){
+											String abc = ListQuestion1.get(i).getQuestion().toString();
+											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									model.addAttribute("listquestionmanagement", ListQuestion1);														
 								}
 							}
-							model.addAttribute("listquestionmanagement", ListQuestion1);
-							String email = session.getAttribute("email").toString();
-							String title = "Trả lời câu hỏi tuyển sinh";
-							String body = questionmanagement.getAnswer();
 							
-							MimeMessage mimeMessage = mailSender.createMimeMessage();
 							
-							try {
-								
-								 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-								 message.setTo(email);
-								 message.setSubject(title);
-								 
-								 message.setText(body, true);
-								// sends the e-mail
-								mailSender.send(mimeMessage);
-								
-								
-								QuestionmanagementService.UpdateAnwserBy(Id, login);
-								model.addAttribute("message", "Bạn đã gửi mail thành công.");
-							} catch (MessagingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								model.addAttribute("message", "Bạn đã gủi mail thất bại.");
-							}
-							
-					}
-					
-						
-						
+																						
+						} catch (MessagingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							model.addAttribute("message", "Bạn đã gủi mail thất bại.");
+						}						
 					}
 				}
 			}else{
@@ -236,44 +273,117 @@ public class QuestionaManagementController {
 					if(session.getAttribute("Id") !="0"){
 						//xu ly luu cau tra loi
 						if(checkboxdata!="0"){
-						int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
-						if(result>0){			
-							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
-							for(int i=0;i < ListQuestion1.size();i++){
-								if(ListQuestion1.get(i).getQuestion().length() >= check){
-									String abc = ListQuestion1.get(i).getQuestion().toString();
-									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							
+						
+							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							if(question.getAnswerBy() != null){
+								// Xu ly thao tac song song
+								Users information = userService.getUser(UserID);
+								int author = information.getAuthorization();
+								if(author ==1){
+									Users otheruser = userService.getUser(question.getAnswerBy());
+									int otherauthor = otheruser.getAuthorization();
+									if(otherauthor ==1){
+										// null
+										
+										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
+									}else{
+										int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
+										if(result>0){			
+											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+											for(int i=0;i < ListQuestion1.size();i++){
+												if(ListQuestion1.get(i).getQuestion().length() >= check){
+													String abc = ListQuestion1.get(i).getQuestion().toString();
+													ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+											model.addAttribute("listquestionmanagement", ListQuestion1);
+											QuestionmanagementService.UpdateAnwserBy(Id, login);
+											model.addAttribute("message", "Bạn đã lưu thành công.");
+										}
+									}
+								}else{
+									Users otheruser = userService.getUser(question.getAnswerBy());
+									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
+								}
+							}else{
+								int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
+								if(result>0){			
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+									for(int i=0;i < ListQuestion1.size();i++){
+										if(ListQuestion1.get(i).getQuestion().length() >= check){
+											String abc = ListQuestion1.get(i).getQuestion().toString();
+											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+									model.addAttribute("listquestionmanagement", ListQuestion1);
+									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									model.addAttribute("message", "Bạn đã lưu thành công.");
 								}
 							}
-							model.addAttribute("listquestionmanagement", ListQuestion1);
-							QuestionmanagementService.UpdateAnwserBy(Id, login);
-							model.addAttribute("message", "Bạn đã lưu thành công.");
 						}
-					}
 					}	
 				}else{
 					if(actionsubmit.equals("delete")){
 					//xu ly khi delete
 						//xu ly khi nhan gui
+						
 						int Id = Integer.parseInt(session.getAttribute("Id").toString());
 						int login = Integer.parseInt(session.getAttribute("login").toString());
 						model.addAttribute("deletequestion",Id);
 						if(session.getAttribute("Id") !="0"){
+							
 							//xu ly luu cau tra loi va gui mail
-							int result = QuestionmanagementService.delete(Id);
-							if(result>0){
-								QuestionmanagementService.UpdateDelete(Id, login);
-								model.addAttribute("message1", "Bạn đã xóa thành công.");
-								List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
-								for(int i=0;i < ListQuestion1.size();i++){
-									if(ListQuestion1.get(i).getQuestion().length() >= check){
-										String abc = ListQuestion1.get(i).getQuestion().toString();
-										ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							if(question.getDeleteBy() != null){
+								// Xu ly thao tac song song
+								Users information = userService.getUser(UserID);
+								int author = information.getAuthorization();
+								if(author ==1){
+									Users otheruser = userService.getUser(question.getDeleteBy());
+									int otherauthor = otheruser.getAuthorization();
+									if(otherauthor ==1){
+										// null
+										
+										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
+									}else{
+										int result = QuestionmanagementService.delete(Id);
+										if(result>0){
+											QuestionmanagementService.UpdateDelete(Id, login);
+											model.addAttribute("message1", "Bạn đã xóa thành công.");
+											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+											for(int i=0;i < ListQuestion1.size();i++){
+												if(ListQuestion1.get(i).getQuestion().length() >= check){
+													String abc = ListQuestion1.get(i).getQuestion().toString();
+													ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+											model.addAttribute("listquestionmanagement", ListQuestion1);
+											
+										}
 									}
+								}else{
+									Users otheruser = userService.getUser(question.getDeleteBy());
+									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 								}
-								model.addAttribute("listquestionmanagement", ListQuestion1);
-								
+							}else{
+								int result = QuestionmanagementService.delete(Id);
+								if(result>0){
+									QuestionmanagementService.UpdateDelete(Id, login);
+									model.addAttribute("message1", "Bạn đã xóa thành công.");
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+									for(int i=0;i < ListQuestion1.size();i++){
+										if(ListQuestion1.get(i).getQuestion().length() >= check){
+											String abc = ListQuestion1.get(i).getQuestion().toString();
+											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+									model.addAttribute("listquestionmanagement", ListQuestion1);
+									
+								}
 							}
+							//
+							
 						}
 					}else{
 						//xủ lý xóa tất cả
