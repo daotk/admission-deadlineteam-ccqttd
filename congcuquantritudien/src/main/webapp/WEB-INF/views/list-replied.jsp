@@ -213,7 +213,7 @@
 									</div>
 									
 									<!-- Question content -->
-									<div id="question-content">${questionmanagements.question}</div>
+									<div id="question-content" style ="overflow-x: auto; height: 100px;">${questionmanagements.question}</div>
 									<!-- end question content -->
 									
 								</div>

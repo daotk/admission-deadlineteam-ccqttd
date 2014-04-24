@@ -82,34 +82,34 @@
  						</tr>
  						<tr>
  							<td>
- 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Tên người dùng:</label>
+ 								<label style="width: 100%; font-size: 10pt; float: left; margin-left: 5px;">Tên</label>
  							</td>
  							<td>
- 								<input style="width: 240px; height: 30px; float: right;" type="text" value="${fullName}"  disabled></input>		
+ 								<input style="width: 100%; height: 30px; float: right;" type="text" value="${fullName}"  disabled></input>		
  							</td>
  						</tr>
 			    		<tr>
  							<td>
- 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Tài khoản:</label>
+ 								<label style="width: 100%; font-size: 10pt; float: left; margin-left: 5px;">Tài khoản</label>
 							</td>
  							<td>
- 								<input style="width: 240px; height: 30px; float: right;" type="text"  value="${userName}" disabled ></input>
+ 								<input style="width: 100%; height: 30px; float: right;" type="text"  value="${userName}" disabled ></input>
 							</td>
  						</tr>
  						<tr>
  							<td>
- 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Email:</label>
+ 								<label style="width: 100%; font-size: 10pt; float: left; margin-left: 5px;">Email</label>
 							</td>
  							<td>
- 								<input style="width: 240px; height: 30px; float: right;" type="text" value="${email}" disabled></input>
+ 								<input style="width: 100%; height: 30px; float: right;" type="text" value="${email}" disabled></input>
 							</td>
  						</tr>
 			    		<tr>
  							<td>
- 								<label style="width: 110px; font-size: 10pt; float: left; margin-left: 5px;">Quyền:</label>
+ 								<label style="width: 100%; font-size: 10pt; float: left; margin-left: 5px;">Quyền</label>
 							</td>
  							<td>
- 								<input style="width: 240px; height: 30px; float: right;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
+ 								<input style="width: 100%; height: 30px; float: right;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
 							</td>
  						</tr>
  						<tr>

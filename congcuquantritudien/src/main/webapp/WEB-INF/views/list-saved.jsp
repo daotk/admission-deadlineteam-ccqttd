@@ -97,16 +97,18 @@
         		<tr style="height: 100%; width: 100%;">
         			<!-- List question is saved -->
 					<td style="background-color: #ffffff; width: 350px; height:100%;" valign="top">				
-						<!-- search form -->
-						<form id="quick-search" method="post" action="dsluutam">
-						   	<fieldset class="search-bar">
-								<label >
-									<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
+						
+						<!-- search form -->			
+						<form id="quick-search" method="post" action="home" class="timkiem">
+					   		<fieldset class="search-bar">
+					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
+								<label>									
+						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
 								</label>
-						   	</fieldset>
-						 </form>
-						 <!-- end search form -->
-						 
+					   		</fieldset>
+					  	</form>
+					  	<!-- end search -->
+						
 						<!-- select form -->
 						<div style="padding: 5px;">
 						  	<span id="select_all" style="cursor: pointer;"><!-- img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" /-->Chọn tất cả</span>
@@ -190,28 +192,31 @@
 								<div id="questionarea">
 								
 									<!-- Question info -->
-									<div id="question-info">
+									<div id="question-dateinfo">
 										<!-- questioner by -->
 										<span style="float:left;">Người hỏi: </span>
 										<span style="margin-left: 5px;">${questionmanagements.questionBy} &lt;${questionmanagements.questionEmail}&gt;</span>
-										
-										<!-- Replied date -->
-										<span style="float: right;">
-											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
-										</span>
-										<span style="float:right; margin-right: 5px;"> - Ngày trả lời: </span>
-										
+									</div>
+									<div id="question-info">
 										<!-- Recieve date -->
-										<span style="float: right;margin-right: 3px;">
+										<span style="float: left;">Ngày nhận: </span>
+										<span style="float: left;margin-left: 5px;">
+											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
+										</span>										
+									</div>
+									<!-- Question date info -->
+									<div id="question-info" style="float: left;">
+										<!-- Replied date -->
+										<span style="float: left; ">Ngày trả lời: </span>
+										<span style="float: left; margin-right: 5px;">
 											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
 										</span>
-										<span style="float:right; margin-right: 5px;">Ngày nhận câu hỏi: </span>
-										
 									</div>
 									<!-- end question info -->
 									
 									<!-- Question content -->
-									<div id="question-content">${questionmanagements.question}</div>
+									<div id="question-content" style ="overflow-x: auto; height: 100px;"
+									>${questionmanagements.question}</div>
 									<!-- end question content -->
 									
 								</div>

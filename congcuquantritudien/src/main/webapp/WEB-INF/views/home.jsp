@@ -149,12 +149,13 @@
 						</div>
 						<div id="blackout"></div>
 						<!-- end configuration pop-up -->
-					
+						
 						<!-- load list of question -->  
 						<div style="height: 82%;">      	
 							<div class="list-question-content">
 								<c:if test="${not empty listquestionmanagement}">
 									<c:forEach var="Questionmanagement" items="${listquestionmanagement}" >
+						
 										<div style="width: 100%;">
 											<div class="check">
 												<input id="${Questionmanagement.ID}" name="check_" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF />
@@ -174,12 +175,13 @@
 												</div>
 											</a>
 										</div>
+										
 									</c:forEach>
 								</c:if>
 							</div>
 						</div>
 						<!-- end load list of question -->
-					
+						
 						<!-- Paging -->
 						<div id="paginator" style="clear: both;"></div>
 					  	<!-- end paging -->
@@ -207,11 +209,10 @@
 									
 									<!-- Question date info -->
 									<div id="question-info">
-										<span style="float: left;">Ngày nhận câu hỏi: </span>
+										<span style="float: left;">Ngày nhận: </span>
 										<span style="float: left;  margin-left: 5px;">
 											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
 										</span>
-										
 									</div>
 									
 									<!-- Question content -->
@@ -237,9 +238,9 @@
 								
 								<!-- Button -->			
 								<div style="width: 100%;height:35px;padding-top: 20px;">
-										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
-										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">LƯU</button>
-										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">GỬI</button>
+										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
+										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">Lưu</button>
+										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">Gửi</button>
 								</div>
 							</c:if>								
 						</form:form>

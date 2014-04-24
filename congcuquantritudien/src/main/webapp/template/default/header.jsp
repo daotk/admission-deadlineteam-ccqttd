@@ -5,7 +5,7 @@
 		<div style="height:100%;float: right;padding-right: 20px;">
 	    	<!-- Account -->
 	    	<div class="viewprofilebutton">
-	    		<img style="float: left; width: 22px; padding-top:3px;" src="template/default/images/user.png"/>
+	    		<img style="float: left; width: 22px; padding-top:1px;" src="template/default/images/user.png"/>
 	    		<span style="float: left; margin-top: 4px;margin-left: 3px;">Xin chào</span>
 	    		<a style="float: left; margin-top: 4px;margin-left: 3px; text-decoration: none;color: #fff;" href="profile">${sessionfullname}</a>
 	    	</div>
