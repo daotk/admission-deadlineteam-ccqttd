@@ -224,15 +224,25 @@
 									<div style="width: 100%;height:35px;padding-top: 20px;">
 										<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
 										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
+										<a href="editdictionary?topic=${diction.ID}">CHỈNH SỬA</a>
 										<!-- button chỉnh sửa -->
-										<c:if test="${not empty busystatus}">
-											<button class="buttoncontrol" id="update"><a href="editdictionary?topic=${diction.ID}">CHỈNH SỬA</a></button>
-										</c:if>
-										<!-- end button chỉnh sửa -->
+										
 									</div>	
 								</c:if>
+								
+									<c:if test="${empty Admin}">
+									<div style="width: 100%;height:35px;padding-top: 20px;">
+									<a href="editdictionary?topic=${diction.ID}">CHỈNH SỬA</a>
+									</div>
+									</c:if>
+								
+								
 							</c:if>
 						</form:form>
+						 
+											
+										
+										
 					</td>
 					
 					      		
