@@ -29,6 +29,7 @@
 	$(document).ready(function(){
 		var noOfPages = '${noOfPages}'; 
 		var page = location.search.split("page=")[1];
+		if(noOfPages>=1){
 			if(page != null){
 				var options = {
 				currentPage: page,
@@ -42,19 +43,20 @@
 				}
 			}
 			$('#paginator').bootstrapPaginator(options);    
-		}else{
-			var options = {
-				currentPage: 1,
-				totalPages: noOfPages,
-				 size:'normal',
-				 alignment:'center',
-				 numberOfPages:10,
-				 useBootstrapTooltip:true,
-				pageUrl: function(type, page, current){
-					return "?page="+page;
+			}else{
+				var options = {
+					currentPage: 1,
+					totalPages: noOfPages,
+					 size:'normal',
+					 alignment:'center',
+					 numberOfPages:10,
+					 useBootstrapTooltip:true,
+					pageUrl: function(type, page, current){
+						return "?page="+page;
+					}
 				}
+				$('#paginator').bootstrapPaginator(options); 
 			}
-			$('#paginator').bootstrapPaginator(options); 
 		}
 		return false;
 		});

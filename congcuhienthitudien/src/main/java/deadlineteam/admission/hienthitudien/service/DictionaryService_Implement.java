@@ -43,13 +43,17 @@ public class DictionaryService_Implement implements DictionaryService {
 	
 	public int totalPage(int record){
 		List<Dictionary> dictionary = DictionaryDAO.getall();
-		if(dictionary.size() <= record){
-			return 1;
+		if(dictionary.size()==0){
+			return 0;
 		}else{
-			if(dictionary.size()%record==0){
-				return dictionary.size()/record;
+			if(dictionary.size() <= record){
+				return 1;
 			}else{
-				return (dictionary.size()/record)+1;
+				if(dictionary.size()%record==0){
+					return dictionary.size()/record;
+				}else{
+					return (dictionary.size()/record)+1;
+				}
 			}
 		}
 		
