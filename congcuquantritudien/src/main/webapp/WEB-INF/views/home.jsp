@@ -15,6 +15,9 @@
 	<!-- CSS -->
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
+	<link href="css/examples.css" rel="stylesheet" type="text/css" />
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+	<style type="text/css">a.ui-dialog-titlebar-close { display:none; }</style>
 	
 	<!-- Java Script -->
 	<script src='js/jquery.min.js' type='text/javascript'></script>
@@ -89,11 +92,93 @@
 	</script>
 </head>
 <body>
-
 <tiles:insertDefinition name="defaultTemplate">
     <tiles:putAttribute name="body">
     <div id="loading"></div>
     <div class="body">
+
+    
+    <!-- Dialog warming -->
+	<div id="dialog" title="Cảnh báo!">
+		<p>
+			<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+			Bạn sẽ đăng xuất trong <span id="dialog-countdown" style="font-weight:bold"></span> giây.</br>Hãy nhập mật khẩu để tiếp tục.
+		</p>
+		<input type="password" id="matkhau" style="height: 30px;margin-top: 10px;"></input>
+	</div>
+	
+	<!-- Dialog warming JavaScript-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="js/jquery.idletimer.js" type="text/javascript"></script>
+	<script src="js/jquery.idletimeout.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+	// setup the dialog
+	$("#dialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 400,
+		height: 200,
+		closeOnEscape: false,
+		draggable: false,
+		resizable: false,
+		buttons: {
+			'Tiếp tục': function(){
+				var abc = document.getElementById("matkhau").value;
+				var UserPassword = '${UserPassword}'; 
+				if(abc==UserPassword){
+					document.getElementById("matkhau").value = "";
+					$(this).dialog('close');
+				}else{
+					$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
+					idleAfter: 10,
+					pollingInterval: 2,
+					keepAliveURL: '',
+					serverResponseEquals: 'OK',
+					onTimeout: function(){
+						window.location = "./logout";
+					},
+					onIdle: function(){
+						$(this).dialog("open");
+					},
+					onCountdown: function(counter){
+						$countdown.html(counter); // update the counter
+					}
+				});
+				}
+			},
+			'Đăng xuất': function(){
+				// fire whatever the configured onTimeout callback is.
+				// using .call(this) keeps the default behavior of "this" being the warning
+				// element (the dialog in this case) inside the callback.
+				document.getElementById("matkhau").value = "";
+				$.idleTimeout.options.onTimeout.call(this);
+			}
+		}
+	});
+	
+	// cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
+	var $countdown = $("#dialog-countdown");
+	
+	// start the idle timer plugin
+	$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
+		idleAfter: 10,
+		pollingInterval: 2,
+		keepAliveURL: '',
+		serverResponseEquals: 'OK',
+		onTimeout: function(){
+			window.location = "./logout";
+		},
+		onIdle: function(){
+			$(this).dialog("open");
+		},
+		onCountdown: function(counter){
+			$countdown.html(counter); // update the counter
+		}
+	});
+	</script>
+
         	<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%; width: 100%;">
         			<!-- List question is received -->

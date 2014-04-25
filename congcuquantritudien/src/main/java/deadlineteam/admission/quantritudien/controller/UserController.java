@@ -106,6 +106,7 @@ public class UserController {
 				//session
 				session.setAttribute("Page",1);
 				session.setAttribute("UserId",userService.getIdbyUsername(user.getUserName()));
+				session.setAttribute("UserPassword",user.getPassword());
 				session.setAttribute("sessionfullname",userService.getFullnameByID(userService.getIdbyUsername(user.getUserName())));				
 				//xử lý
 				session.setAttribute("login",userService.getIdbyUsername(user.getUserName()));
