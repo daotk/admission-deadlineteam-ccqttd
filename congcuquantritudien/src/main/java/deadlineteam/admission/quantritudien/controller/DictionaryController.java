@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,8 +69,8 @@ public class DictionaryController {
 	@Autowired
 	private Dictionary_SERVICE DictionaryService;
 	
-	//url = http://localhost:8080/congcuquantri
-	private static final String url = "http://localhost:8080/hienthitudien";
+	@Value("${congcuhienthi.url}")
+    private String congcuhienthi;
 	
 	private int check = 47;
 	private int get = 44;
@@ -439,7 +440,7 @@ public class DictionaryController {
 					
 					try{
 						RestTemplate restTemplate = new RestTemplate();
-						String result1 = restTemplate.postForObject(url+"/api/question", dicrestful, String.class);
+						String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
 						if(result1.equals("success")){
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}else{
@@ -902,10 +903,10 @@ public class DictionaryController {
 					dicrestful.setID(Id);
 					dicrestful.setAnwser(newdictionary.getAnwser());
 					dicrestful.setQuestion(newdictionary.getQuestion());
-					
+					String s = congcuhienthi;
 					try{
 						RestTemplate restTemplate = new RestTemplate();
-						String result1 = restTemplate.postForObject(url+"/api/question", dicrestful, String.class);
+						String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
 						if(result1.equals("success")){
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}else{
@@ -1194,7 +1195,7 @@ public class DictionaryController {
 					dicrestful.setQuestion(newdictionary.getQuestion());
 					try{
 						RestTemplate restTemplate = new RestTemplate();
-						String result1 = restTemplate.postForObject(url+"/api/romovequestion", dicrestful, String.class);
+						String result1 = restTemplate.postForObject(congcuhienthi+"/api/romovequestion", dicrestful, String.class);
 						
 						if(result1.equals("success")){
 							model.addAttribute("message", "Hạ câu hỏi thành công");
