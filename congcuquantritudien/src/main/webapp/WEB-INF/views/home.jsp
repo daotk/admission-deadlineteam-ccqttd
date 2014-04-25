@@ -99,7 +99,7 @@
 
     
     <!-- Dialog warming -->
-	<div id="dialog" title="Cảnh báo!">
+	<!-- div id="dialog" title="Cảnh báo!">
 		<p>
 			<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
 			Bạn sẽ đăng xuất trong <span id="dialog-countdown" style="font-weight:bold"></span> giây.</br>Hãy nhập mật khẩu để tiếp tục.
@@ -108,12 +108,12 @@
 	</div>
 	
 	<!-- Dialog warming JavaScript-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
+	<!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="js/jquery.idletimer.js" type="text/javascript"></script>
 	<script src="js/jquery.idletimeout.js" type="text/javascript"></script>
 
-	<script type="text/javascript">
+	<!-- script type="text/javascript">
 	// setup the dialog
 	$("#dialog").dialog({
 		autoOpen: false,
@@ -132,7 +132,7 @@
 					$(this).dialog('close');
 				}else{
 					$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
-					idleAfter: 10,
+					idleAfter: 100000,
 					pollingInterval: 2,
 					keepAliveURL: '',
 					serverResponseEquals: 'OK',
@@ -177,7 +177,7 @@
 			$countdown.html(counter); // update the counter
 		}
 	});
-	</script>
+	</script-->
 
         	<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%; width: 100%;">

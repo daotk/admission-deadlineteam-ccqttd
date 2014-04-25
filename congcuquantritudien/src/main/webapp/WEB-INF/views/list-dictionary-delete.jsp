@@ -97,14 +97,17 @@
         		<tr style="height: 100%;width: 100%">
 					<td style="background-color: #ffffff;width: 30%; height:100%" valign="top">
 						<div id="second-sidebar">
-                   			<form id="quick-search" method="post" action="botudiendaxoa">
-				   				<fieldset class="search-bar">
-									<label >
-							 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
+                   			<!-- search form -->
+							<form id="quick-search" method="post" action="home" class="timkiem">
+					   		<fieldset class="search-bar">
+					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
+								<label style="width: 85%;">									
+						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
 							 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">   
-									</label>
-				   				</fieldset>
-				  			</form> 
+								</label>
+					   		</fieldset>
+					  		</form> 
+					  		<!-- end search -->
 				  	
 						  	<ul class="tabbed" data-persist="true">
 					            <li><a href="botudien">Có sẵn</a></li>

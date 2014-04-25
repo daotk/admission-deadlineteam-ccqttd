@@ -97,15 +97,16 @@
         		<tr style="height: 100%;width: 100%">
 					<!-- List question is replied -->
 					<td style="background-color: #ffffff;width: 350px; height:100%" valign="top">
-						<!-- search form -->
-						<form id="quick-search" method="post" action="dsdatraloi">
+						<!-- search form -->			
+						<form id="quick-search" method="post" action="home" class="timkiem">
 					   		<fieldset class="search-bar">
-								<label >
+					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
+								<label>									
 						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
 								</label>
 					   		</fieldset>
-					 	</form>
-					 	<!-- end search form -->
+					  	</form>
+					  	<!-- end search -->
 					 	
 					 	<!-- select form -->
 						<div style="padding: 5px;">
@@ -188,30 +189,36 @@
 							<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 								
-									<!-- Question date info -->
-									<div id="question-dateinfo">
-										<!-- Answer by -->
-										<span>Người trả lời: </span>
-										<form:label path="AnswerBy" style="margin-left: 5px;">${username}</form:label>
-										
-										<!-- Answer date -->
-										<form:label path="AnwserDate" style="float:right;">
-											<fmt:formatDate value="${questionmanagements.anwserDate}"  pattern="dd/MM/yyyy HH:mm" />
-										</form:label>
-										<span style="float:right; margin-right: 5px;">Ngày trả lời: </span>
-									</div>
-									
 									<!-- Question info -->
 									<div id="question-info">
 										<!-- Email of questioner -->
-										<span>${questionmanagements.questionBy} &lt;${questionmanagements.questionEmail}&gt;</span>
-										<!-- Question date -->
-										<span style="float: right;">
-											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
-										</span>
-										<span style="float:right; margin-right: 5px;">Ngày nhận câu hỏi: </span>
+										<span style="float: left;">Người hỏi: </span>
+										<span style="float: left; margin-left: 5px;">${questionmanagements.questionBy} &lt;${questionmanagements.questionEmail}&gt;</span>
 									</div>
 									
+									<div id="question-info">
+										<!-- Question date -->
+										<span style="float: left;">Ngày nhận: </span>
+										<span style="float: left; margin-left: 5px;">
+											<fmt:formatDate value="${questionmanagements.questionDate}"  pattern="dd/MM/yyyy HH:mm" />
+										</span>
+										
+									</div>
+									
+									<!-- Question date info -->
+									<div id="question-dateinfo">
+										<!-- Answer by -->
+										<span style="float: left;">Người trả lời: </span>
+										<form:label path="AnswerBy" style="float: left; margin-left: 5px;">${username}</form:label>
+									</div>
+									<div id="question-dateinfo">
+										<!-- Answer date -->
+										<span style="float: left;">Ngày trả lời: </span>
+										<form:label path="AnwserDate" style="float: left;  margin-left: 5px;">
+											<fmt:formatDate value="${questionmanagements.anwserDate}"  pattern="dd/MM/yyyy HH:mm" />
+										</form:label>
+									</div>
+																		
 									<!-- Question content -->
 									<div id="question-content" style ="overflow-x: auto; height: 100px;">${questionmanagements.question}</div>
 									<!-- end question content -->
@@ -226,8 +233,8 @@
 								
 								<!-- button -->
 								<div style="width: 100%;height:35px;padding-top: 20px;">
-									<button class="buttoncontrol" id="input" type="submit"  name="actionsubmit" value="dictionary">ĐƯA VÀO BỘ TỪ ĐIỂN</button>
-									<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
+									<button class="buttoncontrol" id="input" type="submit"  name="actionsubmit" value="dictionary">Đưa vào bộ từ điển</button>
+									<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
 								</div>	
 							</c:if> 																
 						</form:form>

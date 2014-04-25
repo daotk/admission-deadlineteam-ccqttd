@@ -96,16 +96,17 @@
         	<table style="height: 100%;width: 100%">
         		<tr style="height: 100%;width: 100%">
 					<td style="background-color: #ffffff;width: 350px; height:100%" valign="top">
-						<!-- search form -->
-						<form id="quick-search" method="post" action="dsdaxoa">
-						   		<fieldset class="search-bar">
-									<label >
-							 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
+						<!-- search form -->			
+						<form id="quick-search" method="post" action="home" class="timkiem">
+					   		<fieldset class="search-bar">
+					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
+								<label>									
+						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
 							 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">  
-									</label>
-						   		</fieldset>
-						 </form>
-						 <!-- end search -->
+								</label>
+					   		</fieldset>
+					  	</form>
+					  	<!-- end search -->
 						 
 						<!-- select form --> 
 						<div style="padding: 5px;">
@@ -188,7 +189,9 @@
 									<!-- Question info -->
 									<div id="question-dateinfo">
 										<span style="font-size: 12px;">Người xóa: ${deletequestion.deleteBy}</span>
-										<span style="font-size: 12px;float:right ;">Ngày xóa: ${deletequestion.deleteDate}</span>
+									</div>
+									<div id="question-dateinfo">
+										<span style="font-size: 12px;float: left;">Ngày xóa: ${deletequestion.deleteDate}</span>
 									</div>
 									<!-- End question info -->
 									
@@ -207,7 +210,7 @@
 								
 								<!-- button -->
 								<div style="width: 100%; height:35px; padding-top: 20px;">
-									<button class="buttoncontrol" id="backup" type="submit"  name="actionsubmit" value="delete">KHÔI PHỤC</button>
+									<button class="buttoncontrol" id="backup" type="submit"  name="actionsubmit" value="delete">Khôi phục</button>
 								</div>
 							</c:if>																
 						</form:form>

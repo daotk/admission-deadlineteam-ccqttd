@@ -98,14 +98,16 @@
 					<td style="background-color: #ffffff;width: 30%; height:100%" valign="top">
 						<div id="second-sidebar">
 							<!-- search form -->
-                   			<form id="quick-search" method="post" action="botudien">
-				   				<fieldset class="search-bar">
-									<label >
-					 					<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
+							<form id="quick-search" method="post" action="home" class="timkiem">
+					   		<fieldset class="search-bar">
+					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
+								<label style="width: 85%;">									
+						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
 							 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">   
-									</label>
-				   				</fieldset>
-				  			</form>
+								</label>
+					   		</fieldset>
+					  		</form> 
+					  		<!-- end search -->
 				  			
 				  			<!-- tab of dictionary -->
 						  	<ul class="tabbed" data-persist="true">
@@ -222,17 +224,17 @@
 								<c:if test="${not empty Admin}">
 									<!-- Button -->
 									<div style="width: 100%;height:35px;padding-top: 20px;">
-										<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
-										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
-										<a href="editdictionary?topic=${diction.ID}">CHỈNH SỬA</a>
+										<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">Đăng câu hỏi</button>
+										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
+										<div class="buttoncontrol" id="change" style="text-align: center;"><a href="editdictionary?topic=${diction.ID} " style="text-decoration: none; color: white; margin-top: 10px;margin-right: 3px;float: right;width: 100%;height: 45%;">Chỉnh sửa</a></div>
 										<!-- button chỉnh sửa -->
 										
 									</div>	
 								</c:if>
 								
 									<c:if test="${empty Admin}">
-									<div style="width: 100%;height:35px;padding-top: 20px;">
-									<a href="editdictionary?topic=${diction.ID}">CHỈNH SỬA</a>
+									<div class="buttoncontrol" id="change" style="text-align: center;">
+									<a href="editdictionary?topic=${diction.ID}" style="text-decoration: none; color: white; margin-top: 10px;margin-right: 3px;float: right;width: 100%;height: 45%;">Chỉnh sửa</a>
 									</div>
 									</c:if>
 								

@@ -237,9 +237,9 @@
 								
 								<!-- Button -->
 								<div style="width: 100%;height:35px;padding-top: 20px;">
-										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
-										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">LƯU</button>
-										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">GỬI</button>
+										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
+										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">Lưu</button>
+										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">Gửi</button>
 								</div>
 							</c:if>								
 						</form:form>
