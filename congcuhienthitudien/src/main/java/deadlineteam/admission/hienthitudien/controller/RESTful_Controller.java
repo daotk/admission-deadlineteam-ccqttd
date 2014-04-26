@@ -34,9 +34,9 @@ public class RESTful_Controller {
 		}else{
 			message = "fail";	
 		}
-	
 		return message;
 	}
+	
 	private boolean checkinput(Dictionary dictionary){
 		if(dictionary.getQuestion() != null 
 				&& dictionary.getAnwser() != null
@@ -47,6 +47,7 @@ public class RESTful_Controller {
 		}
 		
 	}
+	
 	@RequestMapping(value="romovequestion", method=RequestMethod.POST)
 	@ResponseBody
 	public String removequesstion(@RequestBody Dictionary dictionary) {
@@ -57,7 +58,6 @@ public class RESTful_Controller {
 		}else{
 			message = "fail";	
 		}
-	
 		return message;
 	}
 }

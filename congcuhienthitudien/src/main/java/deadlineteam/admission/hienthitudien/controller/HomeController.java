@@ -5,20 +5,17 @@ import java.text.DateFormat;
 import deadlineteam.admission.hienthitudien.service.DictionaryService;
 import deadlineteam.admission.hienthitudien.validate.SendquestionValidate;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
-import deadlineteam.admission.hienthitudien.domain.Setting;
 import deadlineteam.admission.hienthitudien.domain.Dictionary;
 import deadlineteam.admission.hienthitudien.domain.Questionmanagement;
 
@@ -42,10 +37,8 @@ public class HomeController {
 	@Autowired
 	private DictionaryService DictionaryService;
 	
-	/*
-	 * examble : http://localhost:8080/congcuquantri/
-	 */
-	private static final String url = "http://10.11.27.11:8080/congcuquantritudien/";
+	@Value("${congcuquantri.url}")
+    private String url;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -132,7 +125,7 @@ public class HomeController {
 		        }else {
 						if(checkemail(questionmanagement.getQuestionEmail())){
 							RestTemplate restTemplate = new RestTemplate();
-							String result = restTemplate.postForObject(url+"api/question", questionmanagement, String.class);
+							String result = restTemplate.postForObject(url+"/api/question", questionmanagement, String.class);
 							if(result.equals("Issuccess")){
 								model.addAttribute("message","Câu hỏi đã được gửi thành công.");
 								List<Dictionary> list = DictionaryService.getalldictionary(page-1, record);
