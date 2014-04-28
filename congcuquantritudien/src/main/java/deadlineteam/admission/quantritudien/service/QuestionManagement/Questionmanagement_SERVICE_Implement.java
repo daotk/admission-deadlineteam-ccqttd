@@ -78,6 +78,9 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	/*Author: Phu Ta
 	 * delete question that is selected
 	 */
+	public void ResetUpdateAnwserBy(int Id, int userid){
+		QuestionmanagementDAO.ResetUpdateAnwserBy(Id, userid);
+	}
 	public int delete(int Id){
 		return QuestionmanagementDAO.delete(Id);
 	}

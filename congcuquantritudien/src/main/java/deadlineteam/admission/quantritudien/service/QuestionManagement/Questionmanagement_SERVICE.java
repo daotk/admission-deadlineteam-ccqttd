@@ -40,7 +40,7 @@ public interface Questionmanagement_SERVICE{
 	public int SendAnwser(int Id,String Answer);
 	// Save Temporaty
 	public int SaveTemporaryAnswerbyId(int Id,String Answer);
-	
+	public void ResetUpdateAnwserBy(int Id, int userid);
 	//-------------------------replied page
 	//replied question-list page
 	public List<Questionmanagement> repliedList(int page, int UserID);
