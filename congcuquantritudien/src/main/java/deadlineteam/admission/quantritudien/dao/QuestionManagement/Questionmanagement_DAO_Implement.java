@@ -421,6 +421,15 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("now", now);
 		 q.executeUpdate();
 	}
+	public void ResetUpdateAnwserBy(int Id, int userid){
+		String sqlstring = "update Questionmanagement set AnswerBy =:userid, AnwserDate =:now where ID = :Id";
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		 q.setParameter("Id", null);
+		 q.setParameter("userid", userid);
+		 Date now = new Date();
+		 q.setParameter("now", null);
+		 q.executeUpdate();
+	}
 	public Users getusername(int username){
 		Users question =  (Users)getCurrentSession().createQuery(" from Users where ID = "+username ).uniqueResult();
 		return question;

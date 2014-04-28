@@ -24,6 +24,7 @@ public interface Questionmanagement_DAO {
 	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID);
 	//Load deletequestion-list
 	public Questionmanagement deletequestion(int Id);
+	public void ResetUpdateAnwserBy(int Id, int userid);
 	//restore question that is selected
 	public int restore(int Id);
 	
