@@ -195,15 +195,13 @@ public class QuestionaManagementController {
 						MimeMessage mimeMessage = mailSender.createMimeMessage();
 						try {
 							
-							
-							
-							
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUser(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getAnswerBy()){
+									QuestionmanagementService.UpdateAnwserBy(Id, login);
 									 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 									 message.setTo(email);
 									 message.setSubject(title);
@@ -237,6 +235,7 @@ public class QuestionaManagementController {
 											
 											model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 										}else{
+											QuestionmanagementService.UpdateAnwserBy(Id, login);
 											 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 											 message.setTo(email);
 											 message.setSubject(title);
@@ -271,6 +270,7 @@ public class QuestionaManagementController {
 								}
 								
 							}else{
+								QuestionmanagementService.UpdateAnwserBy(Id, login);
 								 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 								 message.setTo(email);
 								 message.setSubject(title);
@@ -302,6 +302,7 @@ public class QuestionaManagementController {
 						} catch (MessagingException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							QuestionmanagementService.ResetUpdateAnwserBy(Id, login);
 							model.addAttribute("message", "Bạn đã gủi mail thất bại.");
 						}						
 					}
@@ -659,15 +660,14 @@ public class QuestionaManagementController {
 						MimeMessage mimeMessage = mailSender.createMimeMessage();
 						
 						try {
-							
-							
-							
+			
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUser(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getAnswerBy()){
+									QuestionmanagementService.UpdateAnwserBy(Id, login);
 									 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 									 message.setTo(email);
 									 message.setSubject(title);
@@ -717,6 +717,7 @@ public class QuestionaManagementController {
 											model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 										}else{
 											//xu ly luu cau tra loi va gui mail
+											QuestionmanagementService.UpdateAnwserBy(Id, login);
 											 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 											 message.setTo(email);
 											 message.setSubject(title);
@@ -767,6 +768,7 @@ public class QuestionaManagementController {
 								// ket thuc xu ly thao tac song song
 							}else{
 								//xu ly luu cau tra loi va gui mail
+								QuestionmanagementService.UpdateAnwserBy(Id, login);
 								 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 								 message.setTo(email);
 								 message.setSubject(title);
@@ -813,6 +815,7 @@ public class QuestionaManagementController {
 						} catch (MessagingException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							QuestionmanagementService.ResetUpdateAnwserBy(Id, login);
 							model.addAttribute("message", "Bạn đã gủi mail thất bại.");
 						}
 						
