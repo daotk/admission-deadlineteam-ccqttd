@@ -195,17 +195,7 @@ public class QuestionaManagementController {
 						MimeMessage mimeMessage = mailSender.createMimeMessage();
 						try {
 							
-							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-							 message.setTo(email);
-							 message.setSubject(title);
-							 
-							 message.setText(body, true);
-							// sends the e-mail
-							mailSender.send(mimeMessage);
 							
-							
-							
-							model.addAttribute("message", "Bạn đã gửi mail thành công.");
 							
 							
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -213,35 +203,85 @@ public class QuestionaManagementController {
 								// Xu ly thao tac song song
 								Users information = userService.getUser(UserID);
 								int author = information.getAuthorization();
-								if(author ==1){
-									Users otheruser = userService.getUser(question.getAnswerBy());
-									int otherauthor = otheruser.getAuthorization();
-									if(otherauthor ==1){
-										// null
+								if(UserID == question.getAnswerBy()){
+									 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+									 message.setTo(email);
+									 message.setSubject(title);
+									 
+									 message.setText(body, true);
+									// sends the e-mail
+									mailSender.send(mimeMessage);
+									
+									
+									
+									model.addAttribute("message", "Bạn đã gửi mail thành công.");
+									int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+									if(result>0){
 										
-										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
-									}else{
-										int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
-										if(result>0){
-											
-											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
-											for(int i=0;i < ListQuestion1.size();i++){
-												if(ListQuestion1.get(i).getQuestion().length() >= check){
-													String abc = ListQuestion1.get(i).getQuestion().toString();
-													ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
-												}
+										List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+										for(int i=0;i < ListQuestion1.size();i++){
+											if(ListQuestion1.get(i).getQuestion().length() >= check){
+												String abc = ListQuestion1.get(i).getQuestion().toString();
+												ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
-											QuestionmanagementService.UpdateAnwserBy(Id, login);
-											model.addAttribute("listquestionmanagement", ListQuestion1);														
 										}
+										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										model.addAttribute("listquestionmanagement", ListQuestion1);														
 									}
 								}else{
-									// null
-									Users otheruser = userService.getUser(question.getAnswerBy());
-									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
+									if(author ==1){
+										Users otheruser = userService.getUser(question.getAnswerBy());
+										int otherauthor = otheruser.getAuthorization();
+										if(otherauthor ==1){
+											// null
+											
+											model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
+										}else{
+											 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+											 message.setTo(email);
+											 message.setSubject(title);
+											 
+											 message.setText(body, true);
+											// sends the e-mail
+											mailSender.send(mimeMessage);
+											
+											
+											
+											model.addAttribute("message", "Bạn đã gửi mail thành công.");
+											int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+											if(result>0){
+												
+												List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+												for(int i=0;i < ListQuestion1.size();i++){
+													if(ListQuestion1.get(i).getQuestion().length() >= check){
+														String abc = ListQuestion1.get(i).getQuestion().toString();
+														ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+													}
+												}
+												QuestionmanagementService.UpdateAnwserBy(Id, login);
+												model.addAttribute("listquestionmanagement", ListQuestion1);														
+											}
+										}
+									}else{
+										// null
+										Users otheruser = userService.getUser(question.getAnswerBy());
+										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
+									}
+									// ket thuc xu ly thao tac song song
 								}
-								// ket thuc xu ly thao tac song song
+								
 							}else{
+								 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+								 message.setTo(email);
+								 message.setSubject(title);
+								 
+								 message.setText(body, true);
+								// sends the e-mail
+								mailSender.send(mimeMessage);
+								
+								
+								
+								model.addAttribute("message", "Bạn đã gửi mail thành công.");
 								int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
 								if(result>0){
 									
@@ -620,16 +660,7 @@ public class QuestionaManagementController {
 						
 						try {
 							
-							 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-							 message.setTo(email);
-							 message.setSubject(title);
-							 
-							 message.setText(body, true);
-							// sends the e-mail
-							mailSender.send(mimeMessage);
 							
-							
-							model.addAttribute("message", "Bạn đã gửi mail thành công.");
 							
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getAnswerBy() != null){
@@ -637,6 +668,16 @@ public class QuestionaManagementController {
 								Users information = userService.getUser(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getAnswerBy()){
+									 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+									 message.setTo(email);
+									 message.setSubject(title);
+									 
+									 message.setText(body, true);
+									// sends the e-mail
+									mailSender.send(mimeMessage);
+									
+									
+									model.addAttribute("message", "Bạn đã gửi mail thành công.");
 									int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
 									if(result>0){
 										List<Questionmanagement> savelist;
@@ -676,6 +717,16 @@ public class QuestionaManagementController {
 											model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 										}else{
 											//xu ly luu cau tra loi va gui mail
+											 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+											 message.setTo(email);
+											 message.setSubject(title);
+											 
+											 message.setText(body, true);
+											// sends the e-mail
+											mailSender.send(mimeMessage);
+											
+											
+											model.addAttribute("message", "Bạn đã gửi mail thành công.");
 											int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
 											if(result>0){
 												List<Questionmanagement> savelist;
@@ -716,6 +767,16 @@ public class QuestionaManagementController {
 								// ket thuc xu ly thao tac song song
 							}else{
 								//xu ly luu cau tra loi va gui mail
+								 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+								 message.setTo(email);
+								 message.setSubject(title);
+								 
+								 message.setText(body, true);
+								// sends the e-mail
+								mailSender.send(mimeMessage);
+								
+								
+								model.addAttribute("message", "Bạn đã gửi mail thành công.");
 								int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
 								if(result>0){
 									List<Questionmanagement> savelist;
