@@ -24,6 +24,8 @@ $(document).ready(function(){
 			        		$('body').append(form);
 			        		$(form).submit();   
 			    }
-	        }
+	        }else {
+	        	alert("Bạn chưa chọn câu hỏi để xóa!");
+			}
 	});
 });
