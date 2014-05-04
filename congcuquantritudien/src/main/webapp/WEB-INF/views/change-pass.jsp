@@ -69,12 +69,12 @@ font-style: italic;
 						</tr>
 						<tr>
 							<td></td>
-							<td style="float: left;">${message}</td>
-							<td style="float: left;" class ="error">${error}</td>
+							<td style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif; float: left;">${message}</td>
+							<td style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif; float: left;" class ="error">${error}</td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: right; margin-right: 0;">LƯU</button></td>
+							<td><button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="change" style="height: 35px; float: right; margin-right: 0;">Lưu</button></td>
 						</tr>
 					</table>
 				</form:form>

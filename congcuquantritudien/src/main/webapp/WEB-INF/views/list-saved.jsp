@@ -182,10 +182,12 @@
 					<!-- Detail of question is saved -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">
 						<c:if test="${not empty error}">
-							<p class="error">${error}<p>
+							<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
+								<p class="error">${error}</p>
+							</div>
 						</c:if>	
 						<c:if test="${not empty message}">
-		        			<p class="success">${message}<p>
+							<p class="success">${message}</p>
 		        		</c:if>	
 						<form:form method="post" action="" commandName="questionmanagements">
 							<c:if test="${not empty questionmanagements.question}">

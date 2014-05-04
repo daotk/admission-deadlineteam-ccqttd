@@ -41,8 +41,8 @@
 					
 					<!-- Buttons -->
 					<div style="width: 100%;height:35px;padding-top: 20px;">
-						<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="margin-right: 40px;">LƯU</button>
-						<p id="quotation">${message}<p>
+						<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="margin-right: 40px;">Lưu</button>
+						<p id="quotation" style="style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">${message}<p>
 					</div>
 	        	</div>
  			</form:form>

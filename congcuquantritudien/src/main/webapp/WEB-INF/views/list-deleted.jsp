@@ -182,8 +182,14 @@
 					<!-- Detail of question is deleted-->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top" >
 						<form:form method="post" action="" commandName="deletequestion">
-							<p class="error">${error}<p>
-		        			<p class="success">${message}<p>
+							<c:if test="${not empty error}">
+								<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
+									<p class="error">${error}</p>
+								</div>
+							</c:if>
+							<c:if test="${not empty message}">
+								<p class="success">${message}</p>	        			
+							</c:if>
 							<c:if test="${not empty deletequestion.question}">
 								<div id="questionarea">
 									<!-- Question info -->

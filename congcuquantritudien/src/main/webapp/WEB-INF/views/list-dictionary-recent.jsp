@@ -195,14 +195,16 @@
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">	
 						<form:form method="post" action="" commandName="diction">
 							<c:if test="${not empty error}">
-								<p class="error">${error}<p>
+								<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
+								<p class="error">${error}</p>
+								</div>
 							</c:if>	
 							<c:if test="${not empty message}">
-			        			<p class="success">${message}<p>
-			        		</c:if>	
+								<p class="success">${message}</p>
+							</c:if>	
 			        		<c:if test="${not empty message1}">
-			        			<p class="success">${message1}<p>
-			        		</c:if>	
+			        			<p class="success">${message1}</p>
+							</c:if>	
 							<c:if test="${not empty diction.question}">
 								<div id="question" style="margin-left: 10px;">
 									<div id="question-dateinfo">

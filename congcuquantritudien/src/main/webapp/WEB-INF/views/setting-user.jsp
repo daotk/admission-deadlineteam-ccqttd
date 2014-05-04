@@ -115,7 +115,7 @@
  						<tr>
  							<td></td>
  							<td>
- 								<b style="font-size: 10pt; float: left;">${message}</b>
+ 								<b style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif; float: left;">${message}</b>
 							</td>
  						</tr>
  						<tr>

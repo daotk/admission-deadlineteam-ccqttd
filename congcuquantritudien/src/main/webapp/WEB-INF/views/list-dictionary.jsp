@@ -197,13 +197,15 @@
 						
 						<form:form method="post" action="" commandName="diction">
 							<c:if test="${not empty error}">
-								<p class="error">${error}<p>
+								<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
+								<p class="error">${error}</p>
+								</div>
 							</c:if>	
 							<c:if test="${not empty message}">
-			        			<p class="success">${message}<p>
-			        		</c:if>	
+								<p class="success">${message}</p>
+							</c:if>	
 			        		<c:if test="${not empty message1}">
-			        			<p class="success">${message1}<p>
+			        			<p class="success">${message1}</p>
 			        		</c:if>	
 							<c:if test="${not empty diction.ID}">
 								<div id="question-dateinfo" style="margin-left: 13px;">
@@ -230,24 +232,15 @@
 										<!-- button chỉnh sửa -->
 										
 									</div>	
-								</c:if>
-								
+								</c:if>								
 									<c:if test="${empty Admin}">
 									<div class="buttoncontrol" id="change" style="text-align: center;">
 									<a href="editdictionary?topic=${diction.ID}" style="text-decoration: none; color: white; margin-top: 10px;margin-right: 3px;float: right;width: 100%;height: 45%;">Chỉnh sửa</a>
 									</div>
 									</c:if>
-								
-								
 							</c:if>
-						</form:form>
-						 
-											
-										
-										
-					</td>
-					
-					      		
+						</form:form>										
+					</td>      		
         		</tr>
         	</table>         
         </div>

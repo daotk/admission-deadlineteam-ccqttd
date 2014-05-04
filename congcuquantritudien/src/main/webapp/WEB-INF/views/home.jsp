@@ -99,7 +99,7 @@
 
     
     <!-- Dialog warming -->
-	<div id="dialog" title="Cảnh báo!">
+	<!-- div id="dialog" title="Cảnh báo!">
 		<p>
 			<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
 			Bạn sẽ đăng xuất trong <span id="dialog-countdown" style="font-weight:bold"></span> giây.</br>Hãy nhập mật khẩu để tiếp tục.
@@ -108,12 +108,12 @@
 	</div>
 	
 	<!-- Dialog warming JavaScript-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
+	<!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="js/jquery.idletimer.js" type="text/javascript"></script>
-	<script src="js/jquery.idletimeout.js" type="text/javascript"></script>
+	<script src="js/jquery.idletimeout.js" type="text/javascript"></script-->
 
-	<script type="text/javascript">
+	<!-- script type="text/javascript">
 	// setup the dialog
 	$("#dialog").dialog({
 		autoOpen: false,
@@ -177,7 +177,7 @@
 			$countdown.html(counter); // update the counter
 		}
 	});
-	</script>
+	</script-->
 
         	<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%; width: 100%;">
@@ -189,7 +189,7 @@
 					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
 								<label>									
 						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
-						 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>"> 
+						 			value="<c:if test="${not empty actionsubmit}"><div style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;"> ${actionsubmit}</div></c:if>"> 
 								</label>
 					   		</fieldset>
 					  	</form>
@@ -240,7 +240,6 @@
 							<div class="list-question-content">
 								<c:if test="${not empty listquestionmanagement}">
 									<c:forEach var="Questionmanagement" items="${listquestionmanagement}" >
-						
 										<div style="width: 100%;">
 											<div class="check">
 												<input id="${Questionmanagement.ID}" name="check_" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF />
@@ -275,16 +274,18 @@
 					<!-- Detail of question is received -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">			
 						<form:form method="post" action="" commandName="questionmanagements">
+							<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
 							<c:if test="${not empty error}">
-								<p class="error">${error}<p>
+								<p class="error">${error}</p>
 							</c:if>	
+							</div>
 							<c:if test="${not empty message}">
-		        				<p class="success">${message}<p>
+		        				<p class="success">${message}</p>
 		        			</c:if>	
 		        			<c:if test="${not empty message1}">
-		        				<p class="success">${message1}<p>
+		        				<p class="success">${message1}</p>
 		        			</c:if>	
-							<c:if test="${not empty questionmanagements.question}">
+		        			<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 									<!-- Question info -->
 									<div id="question-dateinfo">

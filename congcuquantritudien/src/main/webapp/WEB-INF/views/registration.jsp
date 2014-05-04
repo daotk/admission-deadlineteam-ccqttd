@@ -48,7 +48,7 @@ font-style: italic;
 	 	</td>
 	 </tr>
  	 <tr>
-	 	<td id="login-content" ">
+	 	<td id="login-content">
 			 <div id="register-box">
 
 		    <div class="header"><h2 style="margin-bottom: 0;">Đăng kí tài khoản</h2></div>
@@ -66,8 +66,10 @@ font-style: italic;
 				<input type="capcha" name="capcha" placeholder="Nhập dãy số bên cạnh" required="" id="tra_loi1"/>
 		      	<input type="cauhoi" id="cau_hoi1" onselect="return false" onmousedown="return false" />
 		        <hr>
-		        <p class="error">${error}<p>
-		        <p class="success">${message}<p>
+		        <div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
+					<p class="error">${error}</p>
+		        	<p class="success">${message}</p>
+		        </div>
 		      	<a href="home" id="login">Đăng nhập!</a>
 		
 		        <button class="button" type="submit"  name="actionsubmit" value="register">GỬI</button>

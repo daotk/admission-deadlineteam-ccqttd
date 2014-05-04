@@ -68,7 +68,7 @@
 					<!-- Buttons -->
 					<div style="width: 100%;height:35px;padding-top: 20px;">	
 						<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="margin-right: 3%;">Lưu</button>
-						<p id="quotation">${message}<p>
+						<p id="quotation" style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">${message}<p>
 					</div>			      
 				</form:form>
         	</table>
