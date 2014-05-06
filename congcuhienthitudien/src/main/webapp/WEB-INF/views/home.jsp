@@ -178,7 +178,7 @@ $(document).ready(function() {
 						<!-- End list dictionary -->
 					
 						<!-- Paging -->
-						<div id="paginator"></div>
+						<div id="paginator" style="width: 100%; height: 100%; float: left;"></div>
 						<!-- End paging -->					
 					</div>
 					
