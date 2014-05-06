@@ -20,7 +20,7 @@
 				<li><a href="taoindex"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/Index.png"/>Tạo index</a></li>
 				<li><a href="cauhinh"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/Cofig.png"/>Cấu hình</a></li>
 			</c:if>
-			<li><a href="#"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/Help.png"/>Trợ giúp</a></li>
+			<li><a href="trogiup"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/Help.png"/>Trợ giúp</a></li>
 		</ul>
 	</div>	
 </div>

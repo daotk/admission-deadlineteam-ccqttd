@@ -89,6 +89,21 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value="/trogiup", method=RequestMethod.GET)
+	public String trogiup(HttpSession session, Model model,@ModelAttribute("error") String error) {
+		
+		return "help";
+	}
+	@RequestMapping(value="/tienich", method=RequestMethod.GET)
+	public String tienich(HttpSession session, Model model,@ModelAttribute("error") String error) {
+		
+		return "help2";
+	}
+	@RequestMapping(value="/nguoidung", method=RequestMethod.GET)
+	public String nguoidung(HttpSession session, Model model,@ModelAttribute("error") String error) {
+		
+		return "help3";
+	}
 	/*
 	 * Implement when submit login page
 	 */

@@ -74,7 +74,7 @@
  			<form:form method="post" action="" commandName="listUser2" style="text-align: left;">
 				<c:if test="${not empty listUser2.fullName}">
 					<div id="user-detail" style="margin-left: 3%; margin-top: 1%;">
- 						<table>
+ 						<table style="width: 100%;">
  						<tr>
  							<td colspan="2">
  								<h3>Phân quyền người dùng</h3>

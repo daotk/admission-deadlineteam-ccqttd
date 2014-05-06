@@ -147,7 +147,10 @@
 	max-height:545px;
 }	
 	
-.list-question{ 
+.list-question, .list-question1,
+.list-question2, .list-question3,
+.list-question4, .list-question5,
+.list-question6, .list-question7, .list-question8{ 
 	position: relative;
     line-height: 21px;
     font-size: 12px;
@@ -628,7 +631,7 @@ transition: all 0.4s ease-in-out;
 /* Tab Content - menucool.com */
 ul.tabbed
 {
-	width: 358px;
+	width: 355px;
     padding: 11px 0 7px;
     font-size: 0;
     list-style-type: none;
@@ -820,7 +823,7 @@ div.tabcontents
 }
 #user-detail{
 	
-	width: 22%;
+	width: 35%;
 	padding-top: 10px;
 	border: 1px dashed;
 	float: left;

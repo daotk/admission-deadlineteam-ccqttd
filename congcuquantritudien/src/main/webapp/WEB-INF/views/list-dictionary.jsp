@@ -212,7 +212,7 @@
 									<span style="font-size: 12px;">Người trả lời:  ${username}</span>
 								</div>
 				
-								<div id="question-content" style="margin-left: 13px;">
+								<div id="question-content" style="margin-left: 13px;overflow-x: auto; height: 100px;">
 									${diction.question}
 								</div>
 								<div id="answerarea">

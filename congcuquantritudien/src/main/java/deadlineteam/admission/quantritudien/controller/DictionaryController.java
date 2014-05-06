@@ -292,6 +292,7 @@ public class DictionaryController {
 			int UserId = Integer.parseInt(session.getAttribute("UserId").toString());
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
+			
 			List<Dictionary> Avaiable;
 			if(session.getValue("Admin")==null){	
 				Avaiable= DictionaryService.availablelist(page-1, UserID);			
@@ -310,7 +311,7 @@ public class DictionaryController {
 					}
 				}
 			}
-			
+			model.addAttribute("message", "Không mục nào được chọn để xem.");
 			model.addAttribute("Avaiable", Avaiable);	
 			model.addAttribute("diction", new Dictionary());
 			
