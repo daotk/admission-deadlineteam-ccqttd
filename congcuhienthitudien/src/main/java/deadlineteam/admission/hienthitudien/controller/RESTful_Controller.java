@@ -23,14 +23,19 @@ public class RESTful_Controller {
 	public String savequestion(@RequestBody Dictionary dictionary) {
 		String message ;
 		if(checkinput(dictionary) == true){
-			Dictionary newquestion = new Dictionary();
-			newquestion.setID(dictionary.getID());
-			newquestion.setQuestion(dictionary.getQuestion());
-			newquestion.setAnwser(dictionary.getAnwser());
-			Date now = new Date();
-			newquestion.setCreateDate(now);
-			dictionaryService.updatequestion(newquestion);
-			message = "success";
+			try{
+				Dictionary newquestion = new Dictionary();
+				newquestion.setID(dictionary.getID());
+				newquestion.setQuestion(dictionary.getQuestion());
+				newquestion.setAnwser(dictionary.getAnwser());
+				Date now = new Date();
+				newquestion.setCreateDate(now);
+				dictionaryService.updatequestion(newquestion);
+				message = "success";
+			}catch(Exception e){
+				message = "fail";
+			}
+			
 		}else{
 			message = "fail";	
 		}
@@ -53,8 +58,13 @@ public class RESTful_Controller {
 	public String removequesstion(@RequestBody Dictionary dictionary) {
 		String message ;
 		if(checkinput(dictionary) == true){
-			dictionaryService.deleteUser(dictionary);
-			message = "success";
+			try{
+				dictionaryService.deleteUser(dictionary);
+				message = "success";
+			}catch(Exception e){
+				message = "fail";
+			}
+			
 		}else{
 			message = "fail";	
 		}
