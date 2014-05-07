@@ -1,5 +1,6 @@
 package deadlineteam.admission.hienthitudien.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,22 @@ public class DictionaryService_Implement implements DictionaryService {
 		return returnlist;
 	}
 	public List<Dictionary> getall(){
-		return DictionaryDAO.getall();		
+		List<Dictionary> list = DictionaryDAO.getall();
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+		 int page = 0;
+         int setting = 3;
+         int begin = page*setting;
+         int end = begin + setting;
+         if(end > list.size()){
+         	end = list.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, list.get(k));
+         	l++;
+         }
+         
+		return shortlist;		
 	}
 	public List<Dictionary> getalldictionary(int page, int record){
 		return DictionaryDAO.getalldictionary(page, record);
