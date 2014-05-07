@@ -113,7 +113,7 @@ public class QuestionaManagementController {
 					//set Session
 					session.setAttribute("Id", Id);
 					session.setAttribute("Page",page );
-					
+					model.addAttribute("abc", Id);
 					Questionmanagement questionmanagement = QuestionmanagementService.getQuestionmanagementbyID(Id);
 					List<Questionmanagement> ListQuestion= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 					for(int i=0;i < ListQuestion.size();i++){

@@ -181,39 +181,8 @@ $(document).ready(function(){
 												</li>
 												<li style="margin-left: 3%;">
 													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">TẠO INDEX</span>
+														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">TẠO INDEX</span> để cập nhật lại index.
 													</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Nhập từ khóa cần tìm kiếm vào khung tìm kiếm để tìm kiếm câu hỏi bạn cần hoặc tìm kiếm trực tiếp trong danh sách
-													câu hỏi bên dưới khung tìm kiếm
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn vào câu hỏi cần xem chi tiết hoặc cần trả lời
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Nhập nội dung câu trả lời cần chỉnh sửa của bạn vào khung trả lời
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Gửi nếu bạn muốn gửi trực tiếp cho người hỏi. Sau đó câu hỏi và câu trả lời sẽ được chuyển sang <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">DANH SÁCH ĐÃ TRẢ LỜI</span>.
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Lưu nếu bạn muốn lưu tạm câu hỏi lại. Sau đó câu hỏi và câu trả lời sẽ được lưu lại.
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Xóa nếu bạn muốn xóa câu hỏi. Sau đó câu hỏi sẽ được chuyển sang <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">DANH SÁCH ĐÃ XÓA</span>.
-												</span>
 												</li>
 											</ul>
 									</div>
@@ -233,28 +202,27 @@ $(document).ready(function(){
 												</li>
 												<li style="margin-left: 3%;">
 													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">DANH SÁCH ĐÃ TRẢ LỜI</span>
+														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">CẤU HÌNH</span>
+													</span>
+												</li>
+												<li style="margin-left: 3%;">
+													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
+														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">CẤU HÌNH NGƯỜI DÙNG</span>
 													</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Nhập từ khóa cần tìm kiếm vào khung tìm kiếm để tìm kiếm câu hỏi bạn cần hoặc tìm kiếm trực tiếp trong danh sách
-													câu hỏi bên dưới khung tìm kiếm
+													Chọn <img src="images/pen.png" /> để hiển thị thông tin người  dùng
 												</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn vào câu hỏi cần xem chi tiết hoặc cần trả lời
+													Cập nhật Quyền của người dùng nếu cần
 												</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Xóa nếu bạn muốn xóa câu hỏi. Sau đó câu hỏi sẽ được chuyển sang <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">DANH SÁCH ĐÃ XÓA</span>.
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Đưa vào bộ từ điển nếu bạn muốn đưa câu hỏi vào bộ từ điển. Sau đó câu hỏi sẽ được chuyển sang <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">DANH SÁCH CÓ SẴN</span> trong bộ từ điển.
+													Chọn Lưu để lưu lại những cập nhật.
 												</span>
 												</li>
 											</ul>
@@ -275,23 +243,17 @@ $(document).ready(function(){
 												</li>
 												<li style="margin-left: 3%;">
 													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">DANH SÁCH ĐÃ XÓA</span>
+														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">CẤU HÌNH HỆ THỐNG</span>
 													</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Nhập từ khóa cần tìm kiếm vào khung tìm kiếm để tìm kiếm câu hỏi bạn cần hoặc tìm kiếm trực tiếp trong danh sách
-													câu hỏi bên dưới khung tìm kiếm
+													Cập nhật thông tin hệ thống
 												</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn vào câu hỏi cần xem chi tiết.
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Khôi phục nếu bạn muốn khôi phục câu hỏi đã được xóa. Sau đó câu hỏi sẽ được chuyển về danh sách câu hỏi mà trước đó đã bị xóa.
+													Chọn Lưu để lưu lại thông tin cấu hình hệ thống
 												</span>
 												</li>
 											</ul>
@@ -312,38 +274,17 @@ $(document).ready(function(){
 												</li>
 												<li style="margin-left: 3%;">
 													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">BỘ TỪ ĐIỂN</span>
+														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">CẤU HÌNH EMAIL</span>
 													</span>
 												</li>
 												<li style="margin-left: 3%;">
 													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">CÓ SẴN</span>
+														Cập nhật thông tin cấu hình email.
 													</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Nhập từ khóa cần tìm kiếm vào khung tìm kiếm để tìm kiếm câu hỏi bạn cần hoặc tìm kiếm trực tiếp trong danh sách
-													câu hỏi bên dưới khung tìm kiếm
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn vào câu hỏi cần xem chi tiết.
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Chỉnh sửa nếu bạn muốn chỉnh sửa nội dung câu trả lời. Sau đó chọn lưu để quay về giao diện ban đầu.
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Xóa nếu bạn muốn xóa câu hỏi. Sau đó câu hỏi sẽ được chuyển sang danh sách <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">ĐÃ XÓA</span> trong bộ từ điển.
-												</span>
-												</li>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Đăng câu hỏi nếu bạn muốn đăng câu hỏi lên internet để phụ huynh học sinh có thể tham khảo. Sau đó câu hỏi sẽ được chuyển sang danh sách <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">ĐÃ ĐĂNG</span> trong bộ từ điển .
+													Chọn Lưu để lưu lại thông tin cấu hình email.
 												</span>
 												</li>
 											</ul>
@@ -364,27 +305,22 @@ $(document).ready(function(){
 												</li>
 												<li style="margin-left: 3%;">
 													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">BỘ TỪ ĐIỂN</span>
+														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">TRỢ GIÚP</span>
 													</span>
 												</li>
 												<li style="margin-left: 3%;">
 													<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">ĐÃ ĐĂNG</span>
+														Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">QUẢN LÝ CHUNG</span> để tìm hiểu thông tin các mục trong phần quản lý chung trên thanh menu.
 													</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Nhập từ khóa cần tìm kiếm vào khung tìm kiếm để tìm kiếm câu hỏi bạn cần hoặc tìm kiếm trực tiếp trong danh sách
-													câu hỏi bên dưới khung tìm kiếm
+													Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">TIỆN ÍCH</span> để tìm hiểu thông tin các mục trong phần tiện ích trên thanh menu.
 												</span>
 												</li>
 												<li style="margin-left: 3%;">
 												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn vào câu hỏi cần xem chi tiết.
-												</span>
-												<li style="margin-left: 3%;">
-												<SPAN style="font-size: 12px; font-family: Arial;text-align: justify;">
-													Chọn Hạ câu hỏi nếu bạn muốn hạ câu hỏi khỏi internet. Sau đó câu hỏi sẽ được chuyển sang danh sách <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">ĐÃ HẠ</span> trong bộ từ điển .
+													Chọn <span style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">NGƯỜI DÙNG</span> để tìm hiểu thông tin các mục trong phần người dùng trên thanh menu.
 												</span>
 												</li>
 											</ul>
