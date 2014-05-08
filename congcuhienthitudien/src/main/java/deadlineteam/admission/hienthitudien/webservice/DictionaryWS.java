@@ -38,14 +38,15 @@ public class DictionaryWS {
 	private DictionaryService dicSer;
 	private DictionaryListEntity dicList = new DictionaryListEntity();
 
-	@RequestMapping(value="dictionary", method=RequestMethod.GET)
+	@RequestMapping(value="dictionary/{page}", method=RequestMethod.GET)
 	@Produces("application/xml")
 	@ResponseBody
-	public DictionaryListEntity getDictionList(@PathParam("username")String username){
+	public DictionaryListEntity getDictionList(
+			@PathVariable("page")String page){
 	
-		
+		int numpage = Integer.parseInt(page);
 		dicList.setDictionaryList(new ArrayList<DictionaryEntity>());
-		List<Dictionary> dicTemp= dicSer.getall();
+		List<Dictionary> dicTemp= dicSer.getall(numpage);
 
 
 		for(int i = 0; i < dicTemp.size(); i++){
@@ -60,14 +61,17 @@ public class DictionaryWS {
 		return dicList;
 	}
 	
-	@RequestMapping(value="dictionary/search/{keyword}", method=RequestMethod.GET)
+	@RequestMapping(value="dictionary/search/{page},{keyword}", method=RequestMethod.GET)
 	@Produces("application/xml")
 	@ResponseBody
-	public DictionaryListEntity getDictionSearchList(@PathVariable("keyword")String keyword){
+	public DictionaryListEntity getDictionSearchList(
+			@PathVariable("page")String page,
+			@PathVariable("keyword")String keyword){
 	
 		
 		dicList.setDictionaryList(new ArrayList<DictionaryEntity>());
-		List<Dictionary> dicTemp= dicSer.searchIdex(keyword);
+		int pageInt = Integer.parseInt(page);
+		List<Dictionary> dicTemp= dicSer.searchIdexAndroid(pageInt, keyword);
 		for(int i = 0; i < dicTemp.size(); i++){
 			
 			DictionaryEntity us = new DictionaryEntity();
@@ -93,6 +97,7 @@ public class DictionaryWS {
 		questionmanagement.setQuestionBy(name);
 		questionmanagement.setQuestionEmail(email);
 		questionmanagement.setQuestion(question);
+		
 		
 		String result = restTemplate.postForObject(url+"api/question", questionmanagement, String.class);
 		if(result.equals("Issuccess")){

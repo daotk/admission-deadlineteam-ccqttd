@@ -1,6 +1,7 @@
 package deadlineteam.admission.hienthitudien.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,31 +25,106 @@ public class DictionaryService_Implement implements DictionaryService {
 		List<Dictionary> returnlist = DictionaryDAO.getalldictionary(page);		
 		return returnlist;
 	}
-	public List<Dictionary> getall(){
+	public List<Dictionary> getall(int page){
 		List<Dictionary> list = DictionaryDAO.getall();
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
+				}
+			}
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+		
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
-		 int page = 0;
          int setting = 3;
-         int begin = page*setting;
-         int end = begin + setting;
-         if(end > list.size()){
-         	end = list.size();
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
          }
          int l = 0;
          for(int k = begin; k< end;k++){
-         	shortlist.add(l, list.get(k));
+         	shortlist.add(l, sortlist.get(k));
          	l++;
          }
          
 		return shortlist;		
 	}
 	public List<Dictionary> getalldictionary(int page, int record){
-		return DictionaryDAO.getalldictionary(page, record);
+		 List<Dictionary> list = DictionaryDAO.getalldictionary(page, record);
+		 List<Dictionary> sortlist = new ArrayList<Dictionary>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getCreateDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getCreateDate().compareTo(max)>0){
+						max = list.get(i).getCreateDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+		return sortlist;
 	}
 
 	public List<Dictionary> searchIdex(String keyword){
+		List<Dictionary> list = DictionaryDAO.searchIdex(keyword);
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
+				}
+			}
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+		return sortlist;
+	}
+	public List<Dictionary> searchIdexAndroid(int page, String keyword){
 		
-		return DictionaryDAO.searchIdex(keyword);
+		List<Dictionary> list = DictionaryDAO.searchIdex(keyword);
+		
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
+				}
+			}
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = 1;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;	
+		
+
 	}
 	public void updatequestion(Dictionary dictionary){
 		 DictionaryDAO.updatequestion(dictionary);
