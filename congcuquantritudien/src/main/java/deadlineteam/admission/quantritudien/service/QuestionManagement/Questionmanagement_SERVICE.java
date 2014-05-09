@@ -73,4 +73,5 @@ public interface Questionmanagement_SERVICE{
 	//update Busy Status when user click question
 	public void updateBusyStatus(int Id,int UserId);
 	public void updateBusyStatusAfter(int Id,int UserId);
+	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status);
 }
