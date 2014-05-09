@@ -90,7 +90,6 @@ public class QuestionaManagementController {
 						ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
-				
 				model.addAttribute("listquestionmanagement", ListQuestion);		
 				Setting setting = userService.getSetting(UserId);
 				int numOfRecord = setting.getRecordNotRep();

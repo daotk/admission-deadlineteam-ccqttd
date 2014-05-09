@@ -583,7 +583,9 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	public Setting getSetting(int UserId){
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
-
+	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status){
+		return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+	}
 	public void updateBusyStatus(int Id,int UserId){
 		QuestionmanagementDAO.updateBusyStatus(Id, UserId);
 	}

@@ -345,7 +345,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 					.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
 					.must( qb.keyword().onField("Status").matching("2").createQuery() ).not()
 					.must( qb.keyword().onField("Status").matching("3").createQuery() ).not()
-					
+					.must( qb.keyword().onField("Status").matching("4").createQuery() ).not()
 					.createQuery();
 			org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Questionmanagement.class);
 			List<Questionmanagement> result = hibQuery.list();
@@ -358,7 +358,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 						.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
 						.must( qb.keyword().onField("Status").matching("3").createQuery() ).not()
 						.must( qb.keyword().onField("Status").matching("1").createQuery() ).not()
-						
+						.must( qb.keyword().onField("Status").matching("4").createQuery() ).not()
 						.createQuery();
 				org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Questionmanagement.class);
 				List<Questionmanagement> result = hibQuery.list();
@@ -371,7 +371,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 							.must( qb.keyword().onField("DeleteStatus").matching("1").createQuery()).not()
 							.must( qb.keyword().onField("Status").matching("1").createQuery() ).not()
 							.must( qb.keyword().onField("Status").matching("2").createQuery() ).not()
-							
+							.must( qb.keyword().onField("Status").matching("4").createQuery() ).not()
 							.createQuery();
 					org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(luceneQuery, Questionmanagement.class);
 					List<Questionmanagement> result = hibQuery.list();
