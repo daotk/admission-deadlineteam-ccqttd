@@ -80,16 +80,21 @@
 		});
 	</script>
 	<!-- LIMIT TExt filed to accept only numbers as input -->
-	<script>
-	 function isNumber(evt)
-     {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-           return false;
+	<SCRIPT>
+	function validateNumber(event) {
+	    var key = window.event ? event.keyCode : event.which;
 
-        return true;
-     }
-	</script>
+	    if ( key < 48 || key > 57 ) {
+	        return false;
+	    }
+	    else return true;
+	};
+	</SCRIPT>
+	<SCRIPT>
+	$(document).ready(function(){
+	    $('[id^=edit]').keypress(validateNumber);
+	});
+	</SCRIPT>
 	
 </head>
 <body>
@@ -143,11 +148,11 @@
 							  			<table>
 							  				<tr>
 							  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-							  					<td><input maxlength="5" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+							  					<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
 							  				</tr>
 							  				<tr>
 							  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
-							  					<td><input maxlength="5" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+							  					<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
 							  				</tr>
 							  				<tr>
 							  					<td></td>
