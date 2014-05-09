@@ -33,7 +33,17 @@
 		
 	<!-- Control Check box -->
 	<script src='js/checkbox.js' type='text/javascript'></script>
-	
+	<script>
+	function limitText(field, maxChar){
+	    $(field).attr('maxlength',maxChar);
+	}
+</script>
+<script type="text/javascript">
+function basicPopup() 
+{
+    popupWindow = window.open("empchoosefoldertosavepopup.aspx", 'popUpWindow', 'height=300,width=600,left=100,top=30,resizable=No,scrollbars=No,toolbar=no,menubar=no,location=no,directories=no, status=No');
+}
+</script>
 	<!--For Loading -->
 	<script>
 	$(window).bind("load", function() {
@@ -80,19 +90,23 @@
 		});
 	</script>
 	<!-- LIMIT TExt filed to accept only numbers as input -->
-	<script>
-	 function isNumber(evt)
-     {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-           return false;
+	<SCRIPT>
+	function validateNumber(event) {
+	    var key = window.event ? event.keyCode : event.which;
 
-        return true;
-     }
-	</script>
+	    if ( key < 48 || key > 57 ) {
+	        return false;
+	    }
+	    else return true;
+	};
+	</SCRIPT>
+	<SCRIPT>
+	$(document).ready(function(){
+	    $('[id^=edit]').keypress(validateNumber);
+	});
+	</SCRIPT>
 	
-	
-</script>
+
 </head>
 <body>
 <tiles:insertDefinition name="defaultTemplate">
@@ -221,11 +235,11 @@
 					  			<table>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-					  					<td><input style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+					  					<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" ></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
-					  					<td><input style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+					  					<td><input id="edit1" maxlength ="5" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" ></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td></td>
@@ -276,7 +290,7 @@
 					
 					<!-- Detail of question is received -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">			
-						<form:form method="post" action="" commandName="questionmanagements">
+						<form:form method="post" action="home" commandName="questionmanagements">
 							<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
 							<c:if test="${not empty error}">
 								<p class="error">${error}</p>
@@ -330,6 +344,7 @@
 										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
 										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">Lưu</button>
 										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">Gửi</button>
+									
 								</div>
 							</c:if>								
 						</form:form>

@@ -27,7 +27,11 @@
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
-		
+		<script>
+	function limitText(field, maxChar){
+	    $(field).attr('maxlength',maxChar);
+	}
+</script>
 	<!-- Control Check box -->
 	<script src='js/checkbox.js' type='text/javascript'></script>
 	
@@ -131,11 +135,11 @@
 					  			<table>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-					  					<td><input style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+					  					<td><input maxlength ="5" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
-					  					<td><input style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+					  					<td><input maxlength ="5" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td></td>
@@ -181,7 +185,7 @@
 					
 					<!-- Detail of question is deleted-->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top" >
-						<form:form method="post" action="" commandName="deletequestion">
+						<form:form method="post" action="dsdaxoa" commandName="deletequestion">
 							<c:if test="${not empty error}">
 								<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
 									<p class="error">${error}</p>

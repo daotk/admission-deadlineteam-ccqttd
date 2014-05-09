@@ -131,11 +131,11 @@
 									<table>
 										<tr>
 											<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-											<td><input style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+											<td><input maxlength ="5"style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
 										</tr>
 						    			<tr>
 						    				<td><label style="width: 160px; display: inline; padding-right: 10px;">Số trang hiển thị:</label></td>
-						    				<td><input style="width: 220px; height: 30px;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+						    				<td><input maxlength="5"style="width: 220px; height: 30px;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
 						    			</tr>
 										<tr>
 											<td></td>
@@ -189,7 +189,7 @@
 						<c:if test="${not empty message}">
 							<p class="success">${message}</p>
 		        		</c:if>	
-						<form:form method="post" action="" commandName="questionmanagements">
+						<form:form method="post" action="dsluutam" commandName="questionmanagements">
 							<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 								

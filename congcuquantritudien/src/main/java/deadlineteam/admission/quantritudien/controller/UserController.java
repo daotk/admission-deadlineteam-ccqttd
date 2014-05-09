@@ -382,7 +382,7 @@ public class UserController {
 				HttpSession session) {		
 
 				if(actionsubmit.equals("change")){
-					if(!authorization.equals("-1")){
+					if(authorization.equals("1") || authorization.equals("0") ){
 						int num = Integer.parseInt(authorization);
 						int Id = Integer.parseInt(session.getAttribute("Id").toString());
 						//userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
@@ -404,6 +404,26 @@ public class UserController {
 						model.addAttribute("listUser2", test);
 						
 						model.addAttribute("message","Thay đổi cấu hình thành công!");
+					}else{
+						
+						int Id = Integer.parseInt(session.getAttribute("Id").toString());
+						//userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
+						
+						
+						List<Users> listUser= userService.getAllUsers();
+						model.addAttribute("listUser", listUser);
+						List<Users> getUser = userService.getUserDetail(Id);
+						model.addAttribute("fullName", getUser.get(0).getFullName());
+						model.addAttribute("userName", getUser.get(0).getUserName());
+						model.addAttribute("email", getUser.get(0).getEmail());
+						model.addAttribute("authorization", getUser.get(0).getAuthorization());
+						
+					
+						
+						Users test = new Users();
+						test.setFullName(getUser.get(0).getFullName());
+						model.addAttribute("listUser2", test);
+						model.addAttribute("message","Bạn phải nhập 0 hoặc 1 ");
 					}
 				}
 				

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+ <?xml version="1.0" encoding="utf-8" ?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
@@ -20,11 +20,31 @@
 	<script src='js/popbox.js' type='text/javascript'></script>
 
 	<!--For Loading -->
+	<SCRIPT>
+	function validateNumber(event) {
+	    var key = window.event ? event.keyCode : event.which;
+
+	    if ( key < 48 || key > 49 ) {
+	        return false;
+	    }
+	    else return true;
+	};
+	</SCRIPT>
+	<SCRIPT>
+	$(document).ready(function(){
+	    $('[id^=edit]').keypress(validateNumber);
+	});
+	</SCRIPT>
 	<script>
 	$(window).bind("load", function() {
 		$('#loading').fadeOut(2000);
 	});
 	</script>
+	<script>
+	function limitText(field, maxChar){
+	    $(field).attr('maxlength',maxChar);
+	}
+</script>
 	<!-- LIMIT TExt filed to accept only numbers as input -->
 </head>
 <body>
@@ -109,7 +129,7 @@
  								<label style="width: 100%; font-size: 10pt; float: left; margin-left: 5px;">Quyền</label>
 							</td>
  							<td>
- 								<input style="width: 100%; height: 30px; float: right;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);" ></input>
+ 								<input  id="edit1" maxlength="1" style="width: 100%; height: 30px; float: right;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);"></input>
 							</td>
  						</tr>
  						<tr>
