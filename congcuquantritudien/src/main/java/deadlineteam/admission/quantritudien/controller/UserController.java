@@ -93,18 +93,24 @@ public class UserController {
 	public String trogiup(HttpSession session, Model model,@ModelAttribute("error") String error) {
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
+		Users users = userService.getUser(UserID);
+		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang trợ giúp");
 		return "help";
 	}
 	@RequestMapping(value="/tienich", method=RequestMethod.GET)
 	public String tienich(HttpSession session, Model model,@ModelAttribute("error") String error) {
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
+		Users users = userService.getUser(UserID);
+		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang tiện ích");
 		return "help2";
 	}
 	@RequestMapping(value="/nguoidung", method=RequestMethod.GET)
 	public String nguoidung(HttpSession session, Model model,@ModelAttribute("error") String error) {
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
+		Users users = userService.getUser(UserID);
+		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang người dùng");
 		return "help3";
 	}
 	/*
