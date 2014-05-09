@@ -3,6 +3,7 @@ package deadlineteam.admission.quantritudien.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.soap.SOAPBinding.Use;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
@@ -65,17 +66,24 @@ public class QuestionaManagementController {
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
+			checkBusyStatus(Id, UserID, session);
 			if(Id==0){
 				//User ID
 				int UserId = Integer.parseInt(session.getAttribute("UserId").toString());
-				
+		
 				//Set Session
 				session.setAttribute("Record", "4");
 				session.setAttribute("Id", "0");
 				session.setAttribute("Page",page );
-				
+
 				//Get List Question
-				List<Questionmanagement> ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
+				//check is admin
+				List<Questionmanagement> ListQuestion;
+				if(userService.checkIsAdmin(UserId)==true){
+					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(page-1,  UserID);
+				}else{
+					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
+				}
 				for(int i=0;i < ListQuestion.size();i++){
 					if(ListQuestion.get(i).getQuestion().length() >= check){
 						String abc = ListQuestion.get(i).getQuestion().toString();
@@ -83,38 +91,34 @@ public class QuestionaManagementController {
 					}
 				}
 				
-				model.addAttribute("listquestionmanagement", ListQuestion);
-				
+				model.addAttribute("listquestionmanagement", ListQuestion);		
 				Setting setting = userService.getSetting(UserId);
-				
 				int numOfRecord = setting.getRecordNotRep();
 				int numOfPagin = setting.getPaginDisplayNotRep();
-				
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
-				
-				
 				model.addAttribute("curentOfPage",page);
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserId));
-				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
-
-				
+				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());				
 				model.addAttribute("fullname",userService.getFullnameByID(UserId));
-				
 				model.addAttribute("questionmanagements", new Questionmanagement());
 				model.addAttribute("message", "Không mục nào được chọn để xem.");
 				
-				//check is admin
-				if(userService.checkIsAdmin(UserId)==true){
-					model.addAttribute("isAdmin","admin");
-				}		
+	
 				return "home";
 			}else{
 					//set Session
 					session.setAttribute("Id", Id);
 					session.setAttribute("Page",page );
 					model.addAttribute("abc", Id);
+					QuestionmanagementService.updateBusyStatusAfter(Id,UserID);
 					Questionmanagement questionmanagement = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					
+					//check is admin
+					if(userService.checkIsAdmin(UserID)==true){
+						model.addAttribute("isAdmin","admin");
+					}
+					
 					List<Questionmanagement> ListQuestion= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 					for(int i=0;i < ListQuestion.size();i++){
 						if(ListQuestion.get(i).getQuestion().length() >= check){
@@ -124,10 +128,8 @@ public class QuestionaManagementController {
 					}
 					model.addAttribute("questionmanagements", questionmanagement);
 					Setting setting = userService.getSetting(UserID);
-					
 					int numOfRecord = setting.getRecordNotRep();
 					int numOfPagin = setting.getPaginDisplayNotRep();
-					
 					model.addAttribute("numOfRecord", ""+numOfRecord);
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					model.addAttribute("curentOfPage",page);
@@ -136,16 +138,21 @@ public class QuestionaManagementController {
 					model.addAttribute("listquestionmanagement", ListQuestion);
 					model.addAttribute("fullname", userService.getFullnameByID(UserID));
 					
-					//check is admin
-					if(userService.checkIsAdmin(UserID)==true){
-						model.addAttribute("isAdmin","admin");
-					}	
-						
 					session.setAttribute("email",questionmanagement.getQuestionEmail());
 					
+					//update busy status when user click question
+					QuestionmanagementService.updateBusyStatus(Id,UserID);
+					session.setAttribute("BusyStatus",UserID);
 					return "home";
 						
 			}
+		}
+		
+	}
+	
+	public void checkBusyStatus(int Id,int UserID, HttpSession session){
+		if(session.getValue("BusyStatus") != null){
+			QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
 		}
 	}
 	
@@ -501,6 +508,7 @@ public class QuestionaManagementController {
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
+			checkBusyStatus(Id, UserID, session);
 			if(Id==0){
 				session.setAttribute("Id",0);
 				session.setAttribute("Page",page );
@@ -1183,6 +1191,7 @@ public class QuestionaManagementController {
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
+			checkBusyStatus(Id, UserID, session);
 			if(Id==0){
 				session.setAttribute("Id", "0");
 				session.setAttribute("Page",page );
@@ -1645,6 +1654,7 @@ public class QuestionaManagementController {
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
+			checkBusyStatus(Id, UserID, session);
 			if(Id==0){
 				session.setAttribute("Id", "0");
 				session.setAttribute("Page",page );

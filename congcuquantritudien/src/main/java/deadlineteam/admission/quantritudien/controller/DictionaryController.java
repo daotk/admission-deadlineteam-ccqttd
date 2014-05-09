@@ -288,6 +288,7 @@ public class DictionaryController {
 		return "redirect:/";
 	}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		checkBusyStatus(Id, UserID, session);
 		if(Id==0){		
 			int UserId = Integer.parseInt(session.getAttribute("UserId").toString());
 			session.setAttribute("Id", "0");
@@ -1275,6 +1276,8 @@ public class DictionaryController {
 			model.addAttribute("error", "notlogin");
 			return "redirect:/";
 		}else{
+			int UserID = Integer.parseInt(session.getAttribute("login").toString());
+			checkBusyStatus(0, UserID, session);
 			model.addAttribute("createQaA", new Dictionary());
 			model.addAttribute("message", "");
 			return "create-dictionary";
@@ -1311,5 +1314,11 @@ public class DictionaryController {
 			}
         	return "create-dictionary";
         }		
+	}
+	
+	public void checkBusyStatus(int Id,int UserID, HttpSession session){
+		if(session.getValue("BusyStatus") != null){
+			QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
+		}
 	}
 }

@@ -43,7 +43,8 @@ public class RESTfulController {
 				Date now = new Date();
 				createquestion.setQuestionDate(now);
 				createquestion.setStatus(1);
-				createquestion.setDeleteStatus(0);		
+				createquestion.setDeleteStatus(0);	
+				createquestion.setBusyStatus(0);
 				QuestionmanagementService.addQuestionRESTful(createquestion);
 				message = message+"Issuccess";
 			}else{

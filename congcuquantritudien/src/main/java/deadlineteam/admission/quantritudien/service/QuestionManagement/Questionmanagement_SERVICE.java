@@ -12,6 +12,7 @@ public interface Questionmanagement_SERVICE{
 	public List<Questionmanagement> getListQuestionmanagement();
 	public Questionmanagement getQuestionmanagementbyID(int Id) ;
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page, int UserID);
+	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin(int page, int UserID);
 	public int updateAnswerbyId(int Id,String Answer);
 	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record);
 	//delete question that is selected
@@ -67,5 +68,7 @@ public interface Questionmanagement_SERVICE{
 	public void UpdateAnwserBy(int Id, int userid);
 	public Users getusername(int username);
 	public Setting getSetting(int UserId);
-
+	//update Busy Status when user click question
+	public void updateBusyStatus(int Id,int UserId);
+	public void updateBusyStatusAfter(int Id,int UserId);
 }

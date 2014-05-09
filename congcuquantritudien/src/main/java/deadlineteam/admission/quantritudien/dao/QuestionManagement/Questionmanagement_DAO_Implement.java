@@ -68,10 +68,17 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page , int UserID) {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 ");
-	        
+	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 AND BusyStatus = 0");	        
 	         return (List<Questionmanagement>) q.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin() {
+	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
+	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 ");
+	         return (List<Questionmanagement>) q.list();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record){
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
@@ -437,6 +444,22 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	public Setting getSetting(int UserID){
 		Setting temp =  (Setting)getCurrentSession().createQuery("from Setting where UserID = "+UserID ).uniqueResult();
 		return temp;
+	}
+	
+	public void updateBusyStatus(int Id, int UserId){
+		String sqlstring = "update Questionmanagement set BusyStatus = :userid where ID = :Id";
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		 q.setParameter("Id", Id);
+		 q.setParameter("userid", UserId);
+		 q.executeUpdate();
+	}
+	
+	//update status when do nothing
+	public void updateBusyStatusAfter(int Id, int UserId){	
+		String sqlstring = "update Questionmanagement set BusyStatus = 0 where BusyStatus = :userid";
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		 q.setParameter("userid", UserId);
+		 q.executeUpdate();
 	}
 	
 }

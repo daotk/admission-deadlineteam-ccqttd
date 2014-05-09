@@ -12,6 +12,7 @@ public interface Questionmanagement_DAO {
 	public List<Questionmanagement> getListQuestionmanagement();
 	public Questionmanagement getQuestionmanagementbyID(int Id);
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page, int UserID);
+	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin();
 	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record);
 	public int updateAnswerbyId(int Id,String Answer);
 	public Questionmanagement getQuestionmanagementbyIDToCopy(int Id);
@@ -70,5 +71,6 @@ public interface Questionmanagement_DAO {
 	public Users getusername(int username);
 	
 	public Setting getSetting(int Id);
-	
+	public void updateBusyStatus(int Id,int UserId);
+	public void updateBusyStatusAfter(int Id, int UserId);
 }

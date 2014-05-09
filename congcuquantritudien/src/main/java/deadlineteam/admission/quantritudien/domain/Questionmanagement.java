@@ -53,6 +53,8 @@ public class Questionmanagement {
 	private Integer DeleteBy;
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Date DeleteDate;
+	private Integer BusyStatus;
+	
 
 	public Integer getID() {
 		return ID;
@@ -147,6 +149,12 @@ public class Questionmanagement {
 	}
 	public void setDeleteDate(Date deleteDate) {
 		DeleteDate = deleteDate;
+	}
+	public Integer getBusyStatus() {
+		return BusyStatus;
+	}
+	public void setBusyStatus(Integer busyStatus) {
+		BusyStatus = busyStatus;
 	}
 
 }

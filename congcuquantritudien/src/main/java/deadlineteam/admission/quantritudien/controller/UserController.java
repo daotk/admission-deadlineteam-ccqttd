@@ -91,17 +91,20 @@ public class UserController {
 	
 	@RequestMapping(value="/trogiup", method=RequestMethod.GET)
 	public String trogiup(HttpSession session, Model model,@ModelAttribute("error") String error) {
-		
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		checkBusyStatus(0, UserID, session);
 		return "help";
 	}
 	@RequestMapping(value="/tienich", method=RequestMethod.GET)
 	public String tienich(HttpSession session, Model model,@ModelAttribute("error") String error) {
-		
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		checkBusyStatus(0, UserID, session);
 		return "help2";
 	}
 	@RequestMapping(value="/nguoidung", method=RequestMethod.GET)
 	public String nguoidung(HttpSession session, Model model,@ModelAttribute("error") String error) {
-		
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		checkBusyStatus(0, UserID, session);
 		return "help3";
 	}
 	/*
@@ -241,6 +244,8 @@ public class UserController {
 	//Xử lý khi nhấp logout
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		checkBusyStatus(0, UserID, session);
 		session.invalidate();
 	    return "redirect:/";
 	}
@@ -255,6 +260,7 @@ public class UserController {
 	@RequestMapping(value="/changepass", method=RequestMethod.GET)
 	public ModelAndView changpass(HttpSession session, Model model) {
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		checkBusyStatus(0, UserID, session);
 		model.addAttribute("fullname", userService.getFullnameByID(UserID));
 		//check is admin
 		if(userService.checkIsAdmin(UserID)==true){
@@ -316,6 +322,7 @@ public class UserController {
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public ModelAndView profile(HttpSession session, Model model) {
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
+		checkBusyStatus(0, UserID, session);
 		model.addAttribute("fullname", userService.getFullnameByID(UserID));
 		//check is admin
 		if(userService.checkIsAdmin(UserID)==true){
@@ -536,4 +543,9 @@ public class UserController {
 					return "create-index";
 				}
 				
+				public void checkBusyStatus(int Id,int UserID, HttpSession session){
+					if(session.getValue("BusyStatus") != null){
+						QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
+					}
+				}
 }
