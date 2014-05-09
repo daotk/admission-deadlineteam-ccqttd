@@ -129,7 +129,12 @@ public class UserController {
 				//xử lý
 				session.setAttribute("login",userService.getIdbyUsername(user.getUserName()));
 				int UserID = Integer.parseInt(session.getAttribute("login").toString());
-				List<Questionmanagement> ListQuestion=  QuestionmanagementService.getQuestionmanagementbyPage(0,UserID);
+				List<Questionmanagement> ListQuestion;
+				if(userService.checkIsAdmin(UserID)==true){
+					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(0,  UserID);
+				}else{
+					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage(0,  UserID);;
+				}			
 				for(int i=0;i < ListQuestion.size();i++){
 					if(ListQuestion.get(i).getQuestion().length() >= 47){
 						String abc = ListQuestion.get(i).getQuestion().toString();

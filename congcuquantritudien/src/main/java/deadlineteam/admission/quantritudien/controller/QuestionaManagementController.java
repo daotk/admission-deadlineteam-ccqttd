@@ -107,6 +107,32 @@ public class QuestionaManagementController {
 	
 				return "home";
 			}else{
+				if(QuestionmanagementService.checkQuestionIsBusy(Id)==true){
+					model.addAttribute("message", "Có người đang làm việc với câu hỏi này.");
+					//check is admin
+					List<Questionmanagement> ListQuestion;
+					if(userService.checkIsAdmin(UserID)==true){
+						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(page-1,  UserID);
+					}else{
+						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
+					}
+					for(int i=0;i < ListQuestion.size();i++){
+						if(ListQuestion.get(i).getQuestion().length() >= check){
+							String abc = ListQuestion.get(i).getQuestion().toString();
+							ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+					Setting setting = userService.getSetting(UserID);
+					int numOfRecord = setting.getRecordNotRep();
+					int numOfPagin = setting.getPaginDisplayNotRep();
+					model.addAttribute("numOfRecord", ""+numOfRecord);
+					model.addAttribute("numOfPagin", ""+numOfPagin);
+					model.addAttribute("curentOfPage",page);
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
+					model.addAttribute("listquestionmanagement", ListQuestion);
+					return "home";
+				}else{
 					//set Session
 					session.setAttribute("Id", Id);
 					session.setAttribute("Page",page );
@@ -115,11 +141,12 @@ public class QuestionaManagementController {
 					Questionmanagement questionmanagement = QuestionmanagementService.getQuestionmanagementbyID(Id);
 					
 					//check is admin
+					List<Questionmanagement> ListQuestion;
 					if(userService.checkIsAdmin(UserID)==true){
-						model.addAttribute("isAdmin","admin");
+						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(page-1,  UserID);
+					}else{
+						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
 					}
-					
-					List<Questionmanagement> ListQuestion= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 					for(int i=0;i < ListQuestion.size();i++){
 						if(ListQuestion.get(i).getQuestion().length() >= check){
 							String abc = ListQuestion.get(i).getQuestion().toString();
@@ -144,7 +171,7 @@ public class QuestionaManagementController {
 					QuestionmanagementService.updateBusyStatus(Id,UserID);
 					session.setAttribute("BusyStatus",UserID);
 					return "home";
-						
+				}
 			}
 		}
 		

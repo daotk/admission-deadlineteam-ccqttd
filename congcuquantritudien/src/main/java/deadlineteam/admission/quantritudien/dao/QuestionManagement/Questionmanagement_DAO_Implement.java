@@ -73,6 +73,14 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	}
 	
 	@SuppressWarnings("unchecked")
+	public Questionmanagement checkQuestionIsBusy(int Id) {
+		Questionmanagement question = (Questionmanagement) getCurrentSession().get(Questionmanagement.class, Id);
+		return question;
+
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin() {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 ");

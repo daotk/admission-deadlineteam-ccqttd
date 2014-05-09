@@ -17,6 +17,7 @@ public interface Questionmanagement_DAO {
 	public int updateAnswerbyId(int Id,String Answer);
 	public Questionmanagement getQuestionmanagementbyIDToCopy(int Id);
 	public List<Dictionary> getListDictionarybyStatus(int status);
+	public Questionmanagement checkQuestionIsBusy(int Id) ;
 	//delete question that is selected
 	public int delete(int Id);
 	//---------------------- Delete Page
