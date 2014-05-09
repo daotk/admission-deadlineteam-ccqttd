@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,9 @@ import deadlineteam.admission.hienthitudien.service.DictionaryService;
 @RequestMapping("android")
 public class DictionaryWS {
 	
-	private static final String url = "http://localhost:8080/quantritudien/";
+
+	@Value("${congcuquantri.url}")
+    private String url;
 	
 	@Autowired
 	private DictionaryService dicSer;
@@ -96,10 +99,11 @@ public class DictionaryWS {
 
 		questionmanagement.setQuestionBy(name);
 		questionmanagement.setQuestionEmail(email);
+		question = AndroidUtil.restoreTags(question);
 		questionmanagement.setQuestion(question);
 		
 		
-		String result = restTemplate.postForObject(url+"api/question", questionmanagement, String.class);
+		String result = restTemplate.postForObject(url+"/api/question", questionmanagement, String.class);
 		if(result.equals("Issuccess")){
 			message = "success";
 		}else{
@@ -107,4 +111,6 @@ public class DictionaryWS {
 		}
 		return message;
 	}
+	
+	
 }
