@@ -3,26 +3,19 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
-	
     <appender name="Appender2" class="org.apache.log4j.FileAppender">
-       <param name="File" value="E:/Logs/SpringMVC2.log" />
+       <param name="File" value="/usr/log4j/SpringMVC2.log" />
+       <param name="Append" value="true" />
+	   <param name="Encoding" value="UTF-8" />
+	   <param name="MaxFileSize" value="100000KB" />
+	   <param name="MaxBackupIndex" value="10" />
        <layout class="org.apache.log4j.PatternLayout">
-          <param name="ConversionPattern" value="%-7p %d [%t] %c %x - %m%n"/>
+          <param name="ConversionPattern" value="%-7p %d{dd MMM yyyy HH:mm:ss}: %m%n"/>
        </layout>
     </appender>
-	<!-- Application Loggers -->
-	<logger name="deadlineteam.admission.quantritudien">
-		<level value="info" />
-	</logger>
-	
-	
-
 	<!-- Root Logger -->
 	<root>
 		<priority value="INFO" />
-		
-        <appender-ref ref="Appender1" />
         <appender-ref ref="Appender2" />
 	</root>
-	
 </log4j:configuration>
