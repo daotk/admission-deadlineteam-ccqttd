@@ -82,13 +82,20 @@ public class DictionaryController {
 	public String editdictionary(
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id,
 		Model model, HttpSession session) {
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		if(session.getValue("login") == null){
 			model.addAttribute("error", "notlogin");
 			return "redirect:/";
 		}else{
 			session.setAttribute("Id", Id);
 			Dictionary available = DictionaryService.loadquestion(Id);
-			
+			Users users = userService.getUser(UserID);
+			String question = available.getQuestion();
+			if(available.getQuestion().length() > 50){
+				question.subSequence(0, 45);
+				question = question +"...";
+			}
+			logger.info("Tài khoản " + users.getUserName() +" vào trang chỉnh sửa câu hỏi " + question);
 				model.addAttribute("createQaA", available);
 				return "edit-dictionary";
 			
@@ -117,7 +124,15 @@ public class DictionaryController {
 						int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 						int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
 						int restart = DictionaryService.busystatus(Id);
-					
+						Users users = userService.getUser(UserID);
+						//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+						Dictionary userquestion = DictionaryService.getinformation(Id);
+						String newquestion = userquestion.getQuestion();
+						if(newquestion.length() > 50){
+							newquestion.substring(0, 45);
+							newquestion = newquestion + "...";
+						}
+						logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 						List<Dictionary> Avaiable;
 						if(session.getValue("Admin")==null){	
 							Avaiable= DictionaryService.availablelist(page-1, UserID);			
@@ -151,7 +166,15 @@ public class DictionaryController {
 								int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 								int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
 								int restart = DictionaryService.busystatus(Id);
-							
+								Users users = userService.getUser(UserID);
+							//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Dictionary userquestion = DictionaryService.getinformation(Id);
+								String newquestion = userquestion.getQuestion();
+								if(newquestion.length() > 50){
+									newquestion.substring(0, 45);
+									newquestion = newquestion + "...";
+								}
+								logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 								List<Dictionary> Avaiable;
 								if(session.getValue("Admin")==null){	
 									Avaiable= DictionaryService.availablelist(page-1, UserID);			
@@ -186,7 +209,16 @@ public class DictionaryController {
 					int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 					int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
 					int restart = DictionaryService.busystatus(Id);
-				
+					
+					Users users = userService.getUser(UserID);
+					//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					Dictionary userquestion = DictionaryService.getinformation(Id);
+					String newquestion = userquestion.getQuestion();
+					if(newquestion.length() > 50){
+						newquestion.substring(0, 45);
+						newquestion = newquestion + "...";
+					}
+					logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 					List<Dictionary> Avaiable;
 					if(session.getValue("Admin")==null){	
 						Avaiable= DictionaryService.availablelist(page-1, UserID);			
@@ -228,12 +260,20 @@ public class DictionaryController {
 	public String edit2(
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id,
 		Model model, HttpSession session) {
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		if(session.getValue("login") == null){
 			model.addAttribute("error", "notlogin");
 			return "redirect:/";
 		}else{
 			session.setAttribute("Id", Id);
-			Dictionary available = DictionaryService.loadquestion(Id);	
+			Dictionary available = DictionaryService.loadquestion(Id);
+			Users users = userService.getUser(UserID);
+			String question = available.getQuestion();
+			if(available.getQuestion().length() > 50){
+				question.subSequence(0, 45);
+				question = question +"...";
+			}
+			logger.info("Tài khoản " + users.getUserName() +" vào trang chỉnh sửa câu hỏi " + question);
 			if(available.getBusyStatus().equals(1)){
 				model.addAttribute("message", "Đã có người đang chỉnh sữa câu hỏi này.");
 				return "list-dictionary";
@@ -259,6 +299,16 @@ public class DictionaryController {
 			if(session.getAttribute("Id") !="0"){
 				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 				int restart = DictionaryService.busystatus(Id);
+				
+				Users users = userService.getUser(UserID);
+				//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+				Dictionary userquestion = DictionaryService.getinformation(Id);
+				String newquestion = userquestion.getQuestion();
+				if(newquestion.length() > 50){
+					newquestion.substring(0, 45);
+					newquestion = newquestion + "...";
+				}
+				logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 				List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
 				model.addAttribute("removelist", remove);
 				
@@ -330,6 +380,8 @@ public class DictionaryController {
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
 			model.addAttribute("curentOfPage", page);
+			Users users = userService.getUser(UserID);
+			logger.info("Tài khoản "+users.getUserName()+" vào danh sách câu hỏi chờ sẵn");
 			return "list-dictionary";
 			
 		}else{
@@ -416,10 +468,21 @@ public class DictionaryController {
 						String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
 						if(result1.equals("success")){
 							model.addAttribute("message","Đăng câu hỏi thành công");
+							
+							
 							// Processing restore question
 							int result = DictionaryService.upload(Id);	
 							int update = DictionaryService.updateby(Id, UserID);
 							if(result > 0 && update >0){
+								Users users = userService.getUser(UserID);
+						//		Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Dictionary question = DictionaryService.getinformation(Id);
+								String newquestion = question.getQuestion();
+								if(newquestion.length() > 50){
+									newquestion.substring(0, 45);
+									newquestion = newquestion + "...";
+								}
+								logger.info("Tài khoản " + users.getUserName() + " đã đăng câu hỏi "+newquestion);
 								String user = userService.getFullnameByID(UserID);
 								model.addAttribute("username", user);
 								List<Dictionary> Avaiable;
@@ -493,7 +556,15 @@ public class DictionaryController {
 						model.addAttribute("Avaiable", Avaiable);
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
-						
+						Users users = userService.getUser(UserID);
+					//	Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+						Dictionary question = DictionaryService.getinformation(Id);
+						String newquestion = question.getQuestion();
+						if(newquestion.length() > 50){
+							newquestion.substring(0, 45);
+							newquestion = newquestion + "...";
+						}
+						logger.info("Tài khoản " + users.getUserName() + " đã xóa câu hỏi "+newquestion);
 						model.addAttribute("message","Câu hỏi đã được xóa");
 					}					
 				}else{
@@ -531,7 +602,9 @@ public class DictionaryController {
 							model.addAttribute("Avaiable", Avaiable);	
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
+							Users users = userService.getUser(UserID);
 							
+							logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang");
 							model.addAttribute("message","Thay đổi cấu hình thành công.");
 	
 						}
@@ -573,11 +646,12 @@ public class DictionaryController {
 									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
 							}
+							Users users = userService.getUser(UserID);
+							
+							logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit);
 							model.addAttribute("actionsubmit", actionsubmit);
 							model.addAttribute("Avaiable", avaiable);
-						}
-					
-						
+						}						
 					}
 				}
 			}			
@@ -591,7 +665,7 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
-		
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 	if(session.getValue("login") == null){
 		model.addAttribute("error", "notlogin");
 		return "redirect:/";
@@ -624,6 +698,9 @@ public class DictionaryController {
 			model.addAttribute("deletelist", delete);
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
+			Users users = userService.getUser(UserID);
+			
+			logger.info("Tài khoản " + users.getUserName() + "vào danh sách câu hỏi đã xóa trong bộ từ điển");
 			return "list-dictionary-delete";
 			
 		}else{
@@ -719,6 +796,15 @@ public class DictionaryController {
 					String user = userService.getFullnameByID(userID);
 					model.addAttribute("username", user);
 					model.addAttribute("deletelist", dele);
+					Users users = userService.getUser(userID);
+				//	Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					Dictionary question = DictionaryService.getinformation(Id);
+					String newquestion = question.getQuestion();
+					if(newquestion.length() > 50){
+						newquestion.substring(0, 45);
+						newquestion = newquestion + "...";
+					}
+					logger.info("Tài khoản " + users.getUserName() + " đã khôi phục câu hỏi "+newquestion);
 					model.addAttribute("message", "Câu hỏi đã được khôi phục");
 				}						
 			}else{
@@ -744,7 +830,9 @@ public class DictionaryController {
 						model.addAttribute("deletelist", dele);
 						String user = userService.getFullnameByID(userID);
 						model.addAttribute("username", user);
+						Users users = userService.getUser(userID);
 						
+						logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang");
 						model.addAttribute("message","Thay đổi cấu hình thành công.");
 
 					}
@@ -757,6 +845,9 @@ public class DictionaryController {
 							dele.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
 					}
+					Users users = userService.getUser(userID);
+					
+					logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit);
 					model.addAttribute("actionsubmit", actionsubmit);
 					model.addAttribute("deletelist", dele);
 				}
@@ -770,12 +861,12 @@ public class DictionaryController {
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
 		Model model, HttpSession session) {
-		
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 	if(session.getValue("login") == null){
 		model.addAttribute("error", "notlogin");
 		return "redirect:/";
 	}else{
-		int UserID =Integer.parseInt(session.getAttribute("login").toString());
+		
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
@@ -804,6 +895,9 @@ public class DictionaryController {
 			//-----------
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
+			Users users = userService.getUser(UserID);
+			
+			logger.info("Tài khoản " + users.getUserName() + " vào danh sách câu hỏi đã hạ khỏi bộ từ điển ");
 			return "list-dictionary-down";
 			
 		}else{
@@ -886,6 +980,15 @@ public class DictionaryController {
 						RestTemplate restTemplate = new RestTemplate();
 						String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
 						if(result1.equals("success")){
+							Users users = userService.getUser(UserID);
+							//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Dictionary userquestion = DictionaryService.getinformation(Id);
+							String newquestion =  userquestion.getQuestion();
+							if(newquestion.length() > 50){
+								newquestion.subSequence(0, 45);
+								newquestion = newquestion + "...";
+							}
+							logger.info("Tài khoản " + users.getUserName() + " đã đăng câu hỏi " +newquestion);
 							model.addAttribute("message","Đăng câu hỏi thành công");
 							// Processing restore question
 							int result = DictionaryService.upload(Id);
@@ -961,6 +1064,15 @@ public class DictionaryController {
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
+						Users users = userService.getUser(UserID);
+						//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+						Dictionary userquestion = DictionaryService.getinformation(Id);
+						String newquestion =  userquestion.getQuestion();
+						if(newquestion.length() > 50){
+							newquestion.subSequence(0, 45);
+							newquestion = newquestion + "...";
+						}
+						logger.info("Tài khoản " + users.getUserName() + " đã xóa câu hỏi " +newquestion);
 						model.addAttribute("message","Câu hỏi đã được xóa");
 					}				
 				}else{
@@ -992,6 +1104,7 @@ public class DictionaryController {
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
+							
 							model.addAttribute("message","Đăng câu hỏi thành công");
 						}	
 					}else{
@@ -1017,7 +1130,9 @@ public class DictionaryController {
 								model.addAttribute("removelist", remove2);
 								String user = userService.getFullnameByID(UserID);
 								model.addAttribute("username", user);
+								Users users = userService.getUser(UserID);
 								
+								logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang " );
 								model.addAttribute("message","Thay đổi cấu hình thành công.");
 		
 							}
@@ -1046,6 +1161,9 @@ public class DictionaryController {
 									}
 								}
 								model.addAttribute("actionsubmit", actionsubmit);
+								Users users = userService.getUser(UserID);
+								
+								logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit );
 								model.addAttribute("removelist", remove2);
 							}
 					
@@ -1100,6 +1218,9 @@ public class DictionaryController {
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
 			model.addAttribute("curentOfPage", page);
+			Users users = userService.getUser(UserID);
+			
+			logger.info("Tài khoản " + users.getUserName() + " vào danh sách câu hỏi trên bộ từ điển" );
 			return "list-dictionary-recent";
 			
 		}else{
@@ -1185,7 +1306,15 @@ public class DictionaryController {
 						
 						if(result1.equals("success")){
 							model.addAttribute("message", "Hạ câu hỏi thành công");
-							
+							Users users = userService.getUser(UserID);
+						//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Dictionary userquestion = DictionaryService.getinformation(Id);
+							String newquestion =  userquestion.getQuestion();
+							if(newquestion.length() > 50){
+								newquestion.subSequence(0, 45);
+								newquestion = newquestion + "...";
+							}
+							logger.info("Tài khoản " + users.getUserName() + " đã hạ câu hỏi " +newquestion);
 							// Processing restore question
 							int result = DictionaryService.remove(Id);
 							int update = DictionaryService.updateby(Id, UserID);
@@ -1248,7 +1377,9 @@ public class DictionaryController {
 						model.addAttribute("Recentlist", rece);
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
-						
+						Users users = userService.getUser(UserID);
+								
+								logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang " );
 						model.addAttribute("message","Thay đổi cấu hình thành công.");
 
 					}
@@ -1262,6 +1393,9 @@ public class DictionaryController {
 						}
 					}
 					model.addAttribute("actionsubmit", actionsubmit);
+					Users users = userService.getUser(UserID);
+					
+					logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit );
 					model.addAttribute("Recentlist", rece1);
 				}
 			}
@@ -1272,14 +1406,18 @@ public class DictionaryController {
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/taocauhoi", method = RequestMethod.GET)
 	public String taocauhoi(Locale locale, Model model, HttpSession session) {
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		if(session.getValue("login") == null){
 			model.addAttribute("error", "notlogin");
 			return "redirect:/";
 		}else{
-			int UserID = Integer.parseInt(session.getAttribute("login").toString());
+			
 			checkBusyStatus(0, UserID, session);
 			model.addAttribute("createQaA", new Dictionary());
 			model.addAttribute("message", "");
+			Users users = userService.getUser(UserID);
+			
+			logger.info("Tài khoản " + users.getUserName() + " vào trang tạo câu hỏi " );
 			return "create-dictionary";
 		}
 	}
@@ -1308,7 +1446,14 @@ public class DictionaryController {
 				dictionary.setBusyStatus(0);
 			
 				DictionaryService.AddDictionary(dictionary);
-				
+				Users users = userService.getUser(userID);
+			
+				String newquestion =  dictionary.getQuestion();
+				if(newquestion.length() > 50){
+					newquestion.subSequence(0, 45);
+					newquestion = newquestion + "...";
+				}
+				logger.info("Tài khoản " + users.getUserName() + " đã tạo câu hỏi " +newquestion);
 				model.addAttribute("message", "Tạo câu hỏi thành công!");
 				
 			}
