@@ -127,7 +127,7 @@
 					<!-- List question is replied -->
 					<td style="background-color: #ffffff;width: 350px; height:100%" valign="top">
 						<!-- search form -->			
-						<form id="quick-search" method="post" action="dsdatrloi" class="timkiem">
+						<form id="quick-search" method="post" action="dsdatraloi" class="timkiem">
 					   		<fieldset class="search-bar">
 					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
 								<label>									
