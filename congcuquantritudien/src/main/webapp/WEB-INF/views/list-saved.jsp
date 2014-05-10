@@ -92,6 +92,26 @@
 	    $('[id^=edit]').keypress(validateNumber);
 	});
 	</SCRIPT>
+		<!-- kepp active class -->
+	<script type="text/javascript">
+		//Get url parameter
+		function getUrlVars() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		        vars[key] = value;
+		    });
+		    return vars;
+		}
+		//xủ lý lưu active class
+	   $(document).ready(function(){
+	    	var url = getUrlVars()["topic"];
+			if(url!= null){  
+				var divid= "div_"+url;
+				document.getElementById(divid).style.backgroundColor='#eef0f2';
+			}
+	
+	    });
+	</script>	
 </head>
 <body>
 <tiles:insertDefinition name="defaultTemplate">
@@ -104,7 +124,7 @@
 					<td style="background-color: #ffffff; width: 350px; height:100%;" valign="top">				
 						
 						<!-- search form -->			
-						<form id="quick-search" method="post" action="home" class="timkiem">
+						<form id="quick-search" method="post" action="dsdaxoa" class="timkiem">
 					   		<fieldset class="search-bar">
 					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
 								<label>									
@@ -160,7 +180,7 @@
 									<c:forEach var="Questionmanagement" items="${savequestionlist}" >
 										<div class="check"><input id="${Questionmanagement.ID}" name="check_${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
 										<a href="${pageContext.request.contextPath}/dsluutam?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
-											<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
+											<div class="list-question" id="div_${Questionmanagement.ID}">
 												<div class="row1">	
 													<div class="list-email">${Questionmanagement.questionEmail}</div>
 													<div class="list-date">

@@ -31,19 +31,41 @@
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
 		
+	<!-- kepp active class -->
+	<script type="text/javascript">
+		//Get url parameter
+		function getUrlVars() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		        vars[key] = value;
+		    });
+		    return vars;
+		}
+		//xủ lý lưu active class
+	   $(document).ready(function(){
+	    	var url = getUrlVars()["topic"];
+			if(url!= null){  
+				var divid= "div_"+url;
+				document.getElementById(divid).style.backgroundColor='#eef0f2';
+			}
+	
+	    });
+	</script>	
+		
+		
 	<!-- Control Check box -->
 	<script src='js/checkbox.js' type='text/javascript'></script>
 	<script>
-	function limitText(field, maxChar){
-	    $(field).attr('maxlength',maxChar);
+		function limitText(field, maxChar){
+		    $(field).attr('maxlength',maxChar);
+		}
+	</script>
+	<script type="text/javascript">
+	function basicPopup() 
+	{
+	    popupWindow = window.open("empchoosefoldertosavepopup.aspx", 'popUpWindow', 'height=300,width=600,left=100,top=30,resizable=No,scrollbars=No,toolbar=no,menubar=no,location=no,directories=no, status=No');
 	}
-</script>
-<script type="text/javascript">
-function basicPopup() 
-{
-    popupWindow = window.open("empchoosefoldertosavepopup.aspx", 'popUpWindow', 'height=300,width=600,left=100,top=30,resizable=No,scrollbars=No,toolbar=no,menubar=no,location=no,directories=no, status=No');
-}
-</script>
+	</script>
 	<!--For Loading -->
 	<script>
 	$(window).bind("load", function() {
@@ -105,6 +127,7 @@ function basicPopup()
 	    $('[id^=edit]').keypress(validateNumber);
 	});
 	</SCRIPT>
+	
 	
 
 </head>
@@ -206,7 +229,7 @@ function basicPopup()
 					   			<p class="search_1" style="width: 31px; height: 29px; float: right;background: url('./images/Search.png') no-repeat scroll 4px 3px;border: 1 solid;border-color: white;"></p>
 								<label>									
 						 			<input name="actionsubmit" type="search" class="search-term" placeholder="Nhập từ khóa tìm kiếm" 
-						 			value="<c:if test="${not empty actionsubmit}"><div style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;"> ${actionsubmit}</div></c:if>"> 
+						 			value="<c:if test="${not empty actionsubmit}">${actionsubmit}</c:if>">
 								</label>
 					   		</fieldset>
 					  	</form>
@@ -262,7 +285,7 @@ function basicPopup()
 												<input id="${Questionmanagement.ID}" name="check_" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF />
 											</div>
 											<a href="${pageContext.request.contextPath}/home?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
-												<div class="list-question" id="${Questionmanagement.ID}"  onMouseOver="this.style.backgroundColor='#eef0f2'" onMouseOut="this.style.backgroundColor='#ffffff'">
+												<div  class="list-question" id="div_${Questionmanagement.ID}">
 													<div class="row1">	
 														<div class="list-email">${Questionmanagement.questionEmail}</div>
 														<div class="list-date">
