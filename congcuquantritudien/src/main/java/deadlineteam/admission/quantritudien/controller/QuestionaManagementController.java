@@ -102,8 +102,8 @@ public class QuestionaManagementController {
 				model.addAttribute("fullname",userService.getFullnameByID(UserId));
 				model.addAttribute("questionmanagements", new Questionmanagement());
 				model.addAttribute("message", "Không mục nào được chọn để xem.");
-				
-	
+				Users users = userService.getUser(UserID);
+				logger.info("Tài khoản "+users.getUserName() +" đã vào danh sách chưa trả lời");
 				return "home";
 			}else{
 				if(QuestionmanagementService.checkQuestionIsBusy(Id)==true){
@@ -243,7 +243,10 @@ public class QuestionaManagementController {
 									// sends the e-mail
 									mailSender.send(mimeMessage);
 									
+									Users users = userService.getUser(UserID);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									
+									logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
 									
 									model.addAttribute("message", "Bạn đã gửi mail thành công.");
 									int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
@@ -277,8 +280,10 @@ public class QuestionaManagementController {
 											// sends the e-mail
 											mailSender.send(mimeMessage);
 											
+											Users users = userService.getUser(UserID);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 											
-											
+											logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
 											model.addAttribute("message", "Bạn đã gửi mail thành công.");
 											int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
 											if(result>0){
@@ -312,7 +317,10 @@ public class QuestionaManagementController {
 								// sends the e-mail
 								mailSender.send(mimeMessage);
 								
+								Users users = userService.getUser(UserID);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								
+								logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
 								
 								model.addAttribute("message", "Bạn đã gửi mail thành công.");
 								int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
@@ -373,6 +381,10 @@ public class QuestionaManagementController {
 											}
 											model.addAttribute("listquestionmanagement", ListQuestion1);
 											QuestionmanagementService.UpdateAnwserBy(Id, login);
+											Users users = userService.getUser(UserID);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											
+											logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 											model.addAttribute("message", "Bạn đã lưu thành công.");
 										}
 									}
@@ -393,6 +405,10 @@ public class QuestionaManagementController {
 									model.addAttribute("listquestionmanagement", ListQuestion1);
 									QuestionmanagementService.UpdateAnwserBy(Id, login);
 									model.addAttribute("message", "Bạn đã lưu thành công.");
+									Users users = userService.getUser(UserID);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									
+									logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 								}
 							}
 						}
@@ -424,6 +440,10 @@ public class QuestionaManagementController {
 										int result = QuestionmanagementService.delete(Id);
 										if(result>0){
 											QuestionmanagementService.UpdateDelete(Id, login);
+											Users users = userService.getUser(UserID);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											
+											logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 											model.addAttribute("message1", "Bạn đã xóa thành công.");
 											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 											for(int i=0;i < ListQuestion1.size();i++){
@@ -444,6 +464,10 @@ public class QuestionaManagementController {
 								int result = QuestionmanagementService.delete(Id);
 								if(result>0){
 									QuestionmanagementService.UpdateDelete(Id, login);
+									Users users = userService.getUser(UserID);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									
+									logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 									model.addAttribute("message1", "Bạn đã xóa thành công ");
 									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
@@ -497,6 +521,9 @@ public class QuestionaManagementController {
 										}
 									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
+									Users users = userService.getUser(UserID);
+								
+									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 									model.addAttribute("message","Thay đổi cấu hình thành công.");
 			
 								}
@@ -509,6 +536,9 @@ public class QuestionaManagementController {
 									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
 							}
+							Users users = userService.getUser(UserID);
+							
+							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+ actionsubmit);
 							model.addAttribute("listquestionmanagement", list);
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
@@ -580,6 +610,8 @@ public class QuestionaManagementController {
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
 				}	
+				Users users = userService.getUser(UserID);
+				logger.info("Tài khoản "+users.getUserName()+" đã vào danh sách lưu tạm");
 				return "list-saved";
 				
 			}else{
@@ -709,7 +741,9 @@ public class QuestionaManagementController {
 									 message.setText(body, true);
 									// sends the e-mail
 									mailSender.send(mimeMessage);
-									
+									Users users = userService.getUser(UserID);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 									
 									model.addAttribute("message", "Bạn đã gửi mail thành công.");
 									int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
@@ -759,7 +793,9 @@ public class QuestionaManagementController {
 											 message.setText(body, true);
 											// sends the e-mail
 											mailSender.send(mimeMessage);
-											
+											Users users = userService.getUser(UserID);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 											
 											model.addAttribute("message", "Bạn đã gửi mail thành công.");
 											int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
@@ -810,7 +846,9 @@ public class QuestionaManagementController {
 								 message.setText(body, true);
 								// sends the e-mail
 								mailSender.send(mimeMessage);
-								
+								Users users = userService.getUser(UserID);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 								
 								model.addAttribute("message", "Bạn đã gửi mail thành công.");
 								int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
@@ -872,6 +910,10 @@ public class QuestionaManagementController {
 							if(UserID == question.getAnswerBy()){
 								int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
 								if(result>0){
+									Users users = userService.getUser(UserID);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									
+									logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 									model.addAttribute("message","Lưu thành công");
 									QuestionmanagementService.UpdateAnwserBy(Id, login);
 									List<Questionmanagement> savelist;
@@ -912,6 +954,10 @@ public class QuestionaManagementController {
 									}else{
 										int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
 										if(result>0){
+											Users users = userService.getUser(UserID);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											
+											logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 											model.addAttribute("message","Lưu thành công");
 											QuestionmanagementService.UpdateAnwserBy(Id, login);
 											List<Questionmanagement> savelist;
@@ -950,6 +996,10 @@ public class QuestionaManagementController {
 						}else{
 							int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
 							if(result>0){
+								Users users = userService.getUser(UserID);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								
+								logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 								model.addAttribute("message","Lưu thành công");
 								QuestionmanagementService.UpdateAnwserBy(Id, login);
 								List<Questionmanagement> savelist;
@@ -1002,6 +1052,10 @@ public class QuestionaManagementController {
 									int result = QuestionmanagementService.deletesavequestion(Id);
 									
 									if(result>0){
+										Users users = userService.getUser(UserID);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										
+										logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 										QuestionmanagementService.UpdateDelete(Id, login);
 										model.addAttribute("message","Xóa thành công");
 										List<Questionmanagement> savelist;
@@ -1076,6 +1130,10 @@ public class QuestionaManagementController {
 								
 								if(result>0){
 									QuestionmanagementService.UpdateDelete(Id, login);
+									Users users = userService.getUser(UserID);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									
+									logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 									model.addAttribute("message","Xóa thành công");
 									List<Questionmanagement> savelist;
 									if(session.getValue("Admin")==null){	
@@ -1169,6 +1227,10 @@ public class QuestionaManagementController {
 										
 									}
 									model.addAttribute("savequestionlist", savelist);
+									Users users = userService.getUser(UserID);
+								
+									
+									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 									model.addAttribute("message","Thay đổi cấu hình thành công.");
 			
 								}
@@ -1193,6 +1255,10 @@ public class QuestionaManagementController {
 								}
 							}
 							model.addAttribute("savequestionlist", list);
+							Users users = userService.getUser(UserID);
+							
+							
+							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+actionsubmit);
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
 						}
@@ -1261,6 +1327,8 @@ public class QuestionaManagementController {
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
 				}	
+				Users users = userService.getUser(UserID);				
+				logger.info("Tài khoản "+users.getUserName()+" vào danh sách câu hỏi đã trả lời");
 				return "list-replied";
 				
 			}else{
@@ -1349,6 +1417,10 @@ public class QuestionaManagementController {
 							int result = QuestionmanagementService.deleterepliedquestion(Id);
 							if(result>0){
 								QuestionmanagementService.UpdateDelete(Id, login);
+								Users users = userService.getUser(UserID);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								
+								logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 								model.addAttribute("message","Xóa thành công");
 								List<Questionmanagement> Deletequestionlist;
 								if(session.getValue("Admin")==null){	
@@ -1384,6 +1456,10 @@ public class QuestionaManagementController {
 									int result = QuestionmanagementService.deleterepliedquestion(Id);
 									if(result>0){
 										QuestionmanagementService.UpdateDelete(Id, login);
+										Users users = userService.getUser(UserID);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										
+										logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 										model.addAttribute("message","Xóa thành công");
 										List<Questionmanagement> Deletequestionlist;
 										if(session.getValue("Admin")==null){	
@@ -1418,6 +1494,10 @@ public class QuestionaManagementController {
 						int result = QuestionmanagementService.deleterepliedquestion(Id);
 						if(result>0){
 							QuestionmanagementService.UpdateDelete(Id, login);
+							Users users = userService.getUser(UserID);
+							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							
+							logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 							model.addAttribute("message","Xóa thành công");
 							List<Questionmanagement> Deletequestionlist;
 							if(session.getValue("Admin")==null){	
@@ -1492,6 +1572,10 @@ public class QuestionaManagementController {
 										}
 									}
 								}
+								Users users = userService.getUser(UserID);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								
+								logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
 								model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
 								model.addAttribute("replylust", Deletequestionlist);
 							}else{
@@ -1538,6 +1622,10 @@ public class QuestionaManagementController {
 												}
 											}
 										}
+										Users users = userService.getUser(UserID);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										
+										logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
 										model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
 										model.addAttribute("replylust", Deletequestionlist);
 									}
@@ -1585,6 +1673,10 @@ public class QuestionaManagementController {
 									}
 								}
 							}
+							Users users = userService.getUser(UserID);
+							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							
+							logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
 							model.addAttribute("message", "Đã đưa vào bộ từ điển thành công.");
 							model.addAttribute("replylust", Deletequestionlist);
 						}
@@ -1630,6 +1722,8 @@ public class QuestionaManagementController {
 										}
 									}
 									model.addAttribute("replylust", Deletequestionlist);
+									Users users = userService.getUser(UserID);
+									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 									model.addAttribute("message","Thay đổi cấu hình thành công.");
 			
 								}
@@ -1654,7 +1748,8 @@ public class QuestionaManagementController {
 								}
 							}
 							
-							
+							Users users = userService.getUser(UserID);
+							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+ actionsubmit);
 							model.addAttribute("replylust", list);
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
@@ -1721,6 +1816,8 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 				model.addAttribute("deletequestion", new Questionmanagement());
 				model.addAttribute("message", "Không mục nào được chọn để xem.");
+				Users users = userService.getUser(UserID);				
+				logger.info("Tài khoản "+users.getUserName()+" vào danh sách câu hỏi đã xóa");
 				return "list-deleted";
 				
 			}else{
@@ -1807,6 +1904,10 @@ public class QuestionaManagementController {
 							if(result>0){
 								QuestionmanagementService.UpdateAnwserBy(Id, login);
 								QuestionmanagementService.UpdateDelete(Id, login);
+								Users users = userService.getUser(UserID);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								
+								logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 								model.addAttribute("message","Khôi phục thành công");
 								List<Questionmanagement> Deletequestionlist;
 								if(session.getValue("Admin")==null){
@@ -1842,6 +1943,10 @@ public class QuestionaManagementController {
 									if(result>0){
 										QuestionmanagementService.UpdateAnwserBy(Id, login);
 										QuestionmanagementService.UpdateDelete(Id, login);
+										Users users = userService.getUser(UserID);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										
+										logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 										model.addAttribute("message","Khôi phục thành công");
 										List<Questionmanagement> Deletequestionlist;
 										if(session.getValue("Admin")==null){
@@ -1876,6 +1981,10 @@ public class QuestionaManagementController {
 						if(result>0){
 							QuestionmanagementService.UpdateAnwserBy(Id, login);
 							QuestionmanagementService.UpdateDelete(Id, login);
+							Users users = userService.getUser(UserID);
+							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							
+							logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 							model.addAttribute("message","Khôi phục thành công");
 							List<Questionmanagement> Deletequestionlist;
 							if(session.getValue("Admin")==null){
@@ -1934,6 +2043,8 @@ public class QuestionaManagementController {
 							}
 						}
 						model.addAttribute("deletequestionlist", Deletequestionlist);
+						Users users = userService.getUser(UserID);
+						logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 						model.addAttribute("message","Thay đổi cấu hình thành công.");
 
 					}
@@ -1958,6 +2069,8 @@ public class QuestionaManagementController {
 					}
 					
 				}
+				Users users = userService.getUser(UserID);
+				logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+actionsubmit);
 				model.addAttribute("deletequestionlist", list);
 				model.addAttribute("actionsubmit", actionsubmit);
 				}
