@@ -837,6 +837,13 @@ public class DictionaryController {
 
 					}
 				}else{
+					if(actionsubmit.equals("restoreall")){
+						//xử lý khôi phục tất cả
+						
+						
+						model.addAttribute("message","Khôi phục tất cả thành công.");
+					}else{
+						
 				// Tim kiem
 					List<Dictionary> dele= DictionaryService.searchIdex(actionsubmit, "4", userID);
 					for(int i=0;i < dele.size();i++){
@@ -850,6 +857,7 @@ public class DictionaryController {
 					logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit);
 					model.addAttribute("actionsubmit", actionsubmit);
 					model.addAttribute("deletelist", dele);
+				}
 				}
 			}
 			return "list-dictionary-delete";
