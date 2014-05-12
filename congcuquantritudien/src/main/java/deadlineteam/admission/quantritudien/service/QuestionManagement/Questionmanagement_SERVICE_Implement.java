@@ -526,9 +526,47 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		}
 		return newlistquestion;
 	}
-	
-	public int deleteall (String listdelete, int userid){
-		int count =0;
+	public List<Questionmanagement> restoreall (String listdelete, int userid){
+		List<Questionmanagement> returnlist = new ArrayList<Questionmanagement>();
+		
+		String[] liststring = listdelete.split(",");
+		for(int i=0;i<liststring.length;i++){
+			int deleteid = Integer.parseInt(liststring[i].toString());
+			//xu ly luu cau tra loi va gui mail
+			Questionmanagement question = getQuestionmanagementbyID(deleteid);
+			if(question.getDeleteBy() != null){
+				// Xu ly thao tac song song
+				Users information = UserDAO.getUser(userid);
+				int author = information.getAuthorization();
+				if(userid== question.getDeleteBy()){
+					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+					QuestionmanagementDAO.restore(deleteid);
+					returnlist.add(question);
+				}else{
+					if(author ==1){
+						Users otheruser = UserDAO.getUser(question.getDeleteBy());
+						int otherauthor = otheruser.getAuthorization();
+						if(otherauthor ==1){
+							//Null
+						}else{
+							QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+							QuestionmanagementDAO.restore(deleteid);
+							returnlist.add(question);
+						}
+					}
+				}
+				
+			}else{
+				QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+				QuestionmanagementDAO.restore(deleteid);		
+				returnlist.add(question);
+			}	
+		}// end for
+		return returnlist;
+	}
+	public List<Questionmanagement> deleteall (String listdelete, int userid){
+		
+		List<Questionmanagement> returnlist = new ArrayList<Questionmanagement>();
 		String[] liststring = listdelete.split(",");
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
@@ -541,7 +579,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 				if(userid== question.getDeleteBy()){
 					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
 					QuestionmanagementDAO.delete(deleteid);
-					
+					returnlist.add(question);
 				}else{
 					if(author ==1){
 						Users otheruser = UserDAO.getUser(question.getDeleteBy());
@@ -551,7 +589,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 						}else{
 							QuestionmanagementDAO.UpdateDelete(deleteid, userid);
 							QuestionmanagementDAO.delete(deleteid);
-							count++;
+							returnlist.add(question);
 						}
 					}
 				}
@@ -559,10 +597,10 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 			}else{
 				QuestionmanagementDAO.UpdateDelete(deleteid, userid);
 				QuestionmanagementDAO.delete(deleteid);		
-				count++;
+				returnlist.add(question);
 			}	
 		}// end for
-		return count;
+		return returnlist;
 	}
 	//--------------------RESTful web service-----
 	public void addQuestionRESTful(Questionmanagement question){
