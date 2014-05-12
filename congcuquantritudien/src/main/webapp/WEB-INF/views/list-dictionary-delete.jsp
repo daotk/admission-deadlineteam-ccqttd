@@ -188,7 +188,7 @@
 								<c:if test="${not empty deletelist}">
 									<c:forEach var="Questionmanagement" items="${deletelist}" >
 										<div style="width: 100%;">
-											<div class="check"><input id="check_${Questionmanagement.ID}" name="check_${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
+											<div class="check"><input id="${Questionmanagement.ID}" name="${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
 											<a href="${pageContext.request.contextPath}/botudiendaxoa?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="div_${Questionmanagement.ID}">
 													<div class="row1">	

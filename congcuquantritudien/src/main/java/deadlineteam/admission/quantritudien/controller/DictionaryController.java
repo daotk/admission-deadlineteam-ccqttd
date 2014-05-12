@@ -611,7 +611,7 @@ public class DictionaryController {
 					}else{
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
-							DictionaryService.deletealldictionary(checkboxdata, login);
+							List<Dictionary> returnlist = DictionaryService.deletealldictionary(checkboxdata, login);
 							model.addAttribute("message", "Đã xóa.");
 							List<Dictionary> Avaiable;
 							if(session.getValue("Admin")==null){	
@@ -631,7 +631,18 @@ public class DictionaryController {
 									}
 								}
 							}
-							
+							if(returnlist !=null){
+								for(int i =0; i< returnlist.size();i++){
+									Users usersquestion = userService.getUser(UserID);
+									
+									String question = returnlist.get(i).getQuestion();
+									if(question.length() > 50){
+										question.substring(0, 45);
+										question = question + "...";
+									}
+									logger.info("Tài khoản "+usersquestion.getUserName()+" xóa câu hỏi " + question);
+								}
+							}
 							model.addAttribute("Avaiable", Avaiable);	
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
@@ -745,6 +756,7 @@ public class DictionaryController {
 	@RequestMapping(value = "/botudiendaxoa", method = RequestMethod.POST)
 	public String botudiendaxoapost( 	
 			@RequestParam String actionsubmit , 
+			@RequestParam(value = "checkboxdata", required = false, defaultValue= "0") String checkboxdata,
 			@RequestParam(value = "change-items", required = false, defaultValue= "0") String changeitems, 
 			@RequestParam(value = "change-pagin", required = false, defaultValue= "0") String changepagin, 
 			@ModelAttribute("dictionary") Dictionary diction,
@@ -839,8 +851,42 @@ public class DictionaryController {
 				}else{
 					if(actionsubmit.equals("restoreall")){
 						//xử lý khôi phục tất cả
+						List<Dictionary> returnlist = DictionaryService.restorealldictionary(checkboxdata, userID);
+						List<Dictionary> dele= DictionaryService.deletelist(page-1,userID);
+						for(int i=0;i < dele.size();i++){
+							if(dele.get(i).getQuestion().length() >= check){
+								String abc = dele.get(i).getQuestion().toString();
+								dele.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						Setting setting = userService.getSetting(userID);
 						
+						int numOfRecord = setting.getRecordDictionary();
+						int numOfPagin = setting.getPaginDisplayDictionary();
 						
+						model.addAttribute("numOfRecord", ""+numOfRecord);
+						model.addAttribute("numOfPagin", ""+numOfPagin);
+						
+						model.addAttribute("curentOfPage",page);
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+						String user = userService.getFullnameByID(userID);
+						model.addAttribute("username", user);
+						model.addAttribute("deletelist", dele);
+						Users users = userService.getUser(userID);
+						
+						if(returnlist !=null){
+							for(int i =0; i< returnlist.size();i++){
+								Users usersquestion = userService.getUser(userID);
+								
+								String question = returnlist.get(i).getQuestion();
+								if(question.length() > 50){
+									question.substring(0, 45);
+									question = question + "...";
+								}
+								logger.info("Tài khoản "+usersquestion.getUserName()+" khôi phục câu hỏi " + question);
+							}
+						}
 						model.addAttribute("message","Khôi phục tất cả thành công.");
 					}else{
 						
@@ -1147,13 +1193,25 @@ public class DictionaryController {
 						}else{
 							if(actionsubmit.equals("deleteall")){
 								int login = Integer.parseInt(session.getAttribute("login").toString());
-								DictionaryService.deletealldictionary(checkboxdata, login);
+								List<Dictionary> returnlist = DictionaryService.deletealldictionary(checkboxdata, login);
 								model.addAttribute("message", "Đã xóa.");
 								List<Dictionary> remove2= DictionaryService.removelist(0, UserID);
 								for(int i=0;i < remove2.size();i++){
 									if(remove2.get(i).getQuestion().length() >= check){
 										String abc = remove2.get(i).getQuestion().toString();
 										remove2.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+								if(returnlist !=null){
+									for(int i =0; i< returnlist.size();i++){
+										Users usersquestion = userService.getUser(UserID);
+										
+										String question = returnlist.get(i).getQuestion();
+										if(question.length() > 50){
+											question.substring(0, 45);
+											question = question + "...";
+										}
+										logger.info("Tài khoản "+usersquestion.getUserName()+" xóa câu hỏi " + question);
 									}
 								}
 								model.addAttribute("removelist", remove2);
