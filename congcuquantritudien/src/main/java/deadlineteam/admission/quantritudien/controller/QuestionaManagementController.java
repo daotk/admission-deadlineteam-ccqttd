@@ -487,7 +487,7 @@ public class QuestionaManagementController {
 						//xủ lý xóa tất cả
 						int login = Integer.parseInt(session.getAttribute("login").toString());
 						if(actionsubmit.equals("deleteall")){
-							int count = QuestionmanagementService.deleteall(checkboxdata,login);
+							List<Questionmanagement> returnlist = QuestionmanagementService.deleteall(checkboxdata,login);
 							
 							model.addAttribute("message", "Đã xóa ");
 							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
@@ -495,6 +495,18 @@ public class QuestionaManagementController {
 								if(ListQuestion1.get(i).getQuestion().length() >= check){
 									String abc = ListQuestion1.get(i).getQuestion().toString();
 									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							if(returnlist !=null){
+								for(int i =0; i< returnlist.size();i++){
+									Users users = userService.getUser(UserID);
+									
+									String question = returnlist.get(i).getQuestion();
+									if(question.length() > 50){
+										question.substring(0, 45);
+										question = question + "...";
+									}
+									logger.info("Tài khoản "+users.getUserName()+" xóa câu hỏi " + question);
 								}
 							}
 							model.addAttribute("listquestionmanagement", ListQuestion1);
@@ -543,8 +555,6 @@ public class QuestionaManagementController {
 							model.addAttribute("actionsubmit", actionsubmit);
 							}
 
-							
-	
 						}
 					}
 				}
@@ -1167,7 +1177,7 @@ public class QuestionaManagementController {
 						//xủ lý xóa tất cả
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
-							QuestionmanagementService.deleteall(checkboxdata,login);
+							List<Questionmanagement> returnlist =QuestionmanagementService.deleteall(checkboxdata,login);
 							model.addAttribute("message", "Đã xóa.");
 							List<Questionmanagement> savelist;
 							if(session.getValue("Admin")==null){	
@@ -1189,6 +1199,18 @@ public class QuestionaManagementController {
 									}
 								}
 								
+							}
+							if(returnlist !=null){
+								for(int i =0; i< returnlist.size();i++){
+									Users users = userService.getUser(UserID);
+									
+									String question = returnlist.get(i).getQuestion();
+									if(question.length() > 50){
+										question.substring(0, 45);
+										question = question + "...";
+									}
+									logger.info("Tài khoản "+users.getUserName()+" xóa câu hỏi " + question);
+								}
 							}
 							model.addAttribute("savequestionlist", savelist);
 						}else{
@@ -1685,9 +1707,39 @@ public class QuestionaManagementController {
 					}else{
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
-							QuestionmanagementService.deleteall(checkboxdata,login);
+							List<Questionmanagement> returenlist = QuestionmanagementService.deleteall(checkboxdata,login);
 							model.addAttribute("message", "Đã xóa.");
-							List<Questionmanagement> Deletequestionlist= QuestionmanagementService.repliedList(page-1, UserID);
+							
+							List<Questionmanagement> Deletequestionlist;
+							if(session.getValue("Admin")==null){	
+								Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}else{
+								Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+								for(int i=0;i < Deletequestionlist.size();i++){
+									if(Deletequestionlist.get(i).getQuestion().length() >= check){
+										String abc = Deletequestionlist.get(i).getQuestion().toString();
+										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+							}
+							if(returenlist !=null){
+								for(int i =0; i< returenlist.size();i++){
+									Users users = userService.getUser(UserID);
+									
+									String question = returenlist.get(i).getQuestion();
+									if(question.length() > 50){
+										question.substring(0, 45);
+										question = question + "...";
+									}
+									logger.info("Tài khoản "+users.getUserName()+" xóa câu hỏi " + question);
+								}
+							}
 							model.addAttribute("replylust", Deletequestionlist);
 						}else{
 							if(actionsubmit.equals("change")){
@@ -1872,6 +1924,7 @@ public class QuestionaManagementController {
 			@RequestParam(value = "checkboxdata", required = false, defaultValue= "0") String checkboxdata, 
 			Model model,
 			HttpSession session) {
+		int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			//get page
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
@@ -1888,7 +1941,7 @@ public class QuestionaManagementController {
 			}	
 			if(actionsubmit.equals("delete")){
 				// restore question
-				int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
+				
 			//	model.addAttribute("deletequestion",Id);
 				if(session.getAttribute("Id") !="0"){
 					int login = Integer.parseInt(session.getAttribute("login").toString());
@@ -2051,8 +2104,39 @@ public class QuestionaManagementController {
 				}else{
 					if(actionsubmit.equals("restoreall")){
 						//xử lý khôi phục tất cả
+						List<Questionmanagement> returnlist = QuestionmanagementService.restoreall(checkboxdata, UserID);
+						List<Questionmanagement> Deletequestionlist;
+						if(session.getValue("Admin")==null){
+							Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+							for(int i=0;i < Deletequestionlist.size();i++){
+								if(Deletequestionlist.get(i).getQuestion().length() >= check){
+									String abc = Deletequestionlist.get(i).getQuestion().toString();
+									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}else{
+							Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+							for(int i=0;i < Deletequestionlist.size();i++){
+								if(Deletequestionlist.get(i).getQuestion().length() >= check){
+									String abc = Deletequestionlist.get(i).getQuestion().toString();
+									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}
 						
-						
+						if(returnlist !=null){
+							for(int i =0; i< returnlist.size();i++){
+								Users users = userService.getUser(UserID);
+								
+								String question = returnlist.get(i).getQuestion();
+								if(question.length() > 50){
+									question.substring(0, 45);
+									question = question + "...";
+								}
+								logger.info("Tài khoản "+users.getUserName()+" khôi phục câu hỏi " + question);
+							}
+						}
+						model.addAttribute("deletequestionlist", Deletequestionlist);
 						model.addAttribute("message","Khôi phục tất cả.");
 					}else{
 					
