@@ -148,8 +148,8 @@
 		       		 
 			       		 	<!-- select form -->
 							<div style="padding: 5px;">
-							  	<span id="select_all" style="cursor: pointer;"></span>
-							  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"></span>
+							  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+							  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;">Hạ</span>
 						  		
 						  		<!-- configuration -->
 						  		<div id="container-pop">

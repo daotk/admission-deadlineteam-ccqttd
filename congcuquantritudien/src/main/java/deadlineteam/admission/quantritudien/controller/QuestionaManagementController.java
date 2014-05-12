@@ -2049,32 +2049,40 @@ public class QuestionaManagementController {
 
 					}
 				}else{
-				//xu ly tim kiem
-				List<Questionmanagement> list;
-				if(session.getValue("Admin")!=null){
-					list= QuestionmanagementService.searchIdex(actionsubmit,"4");
-					for(int i=0;i < list.size();i++){
-						if(list.get(i).getQuestion().length() >= check){
-							String abc = list.get(i).getQuestion().toString();
-							list.get(i).setQuestion(abc.substring(0, get)+ ".....");
-						}
-					}
-				}else{
-					list= QuestionmanagementService.searchIdexDeleteListForAdmin(actionsubmit,"4",UserID);
-					for(int i=0;i < list.size();i++){
-						if(list.get(i).getQuestion().length() >= check){
-							String abc = list.get(i).getQuestion().toString();
-							list.get(i).setQuestion(abc.substring(0, get)+ ".....");
-						}
-					}
+					if(actionsubmit.equals("restoreall")){
+						//xử lý khôi phục tất cả
+						
+						
+						model.addAttribute("message","Khôi phục tất cả.");
+					}else{
 					
-				}
-				Users users = userService.getUser(UserID);
-				logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+actionsubmit);
-				model.addAttribute("deletequestionlist", list);
-				model.addAttribute("actionsubmit", actionsubmit);
-				}
+					//xu ly tim kiem
+					List<Questionmanagement> list;
+					if(session.getValue("Admin")!=null){
+						list= QuestionmanagementService.searchIdex(actionsubmit,"4");
+						for(int i=0;i < list.size();i++){
+							if(list.get(i).getQuestion().length() >= check){
+								String abc = list.get(i).getQuestion().toString();
+								list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+					}else{
+						list= QuestionmanagementService.searchIdexDeleteListForAdmin(actionsubmit,"4",UserID);
+						for(int i=0;i < list.size();i++){
+							if(list.get(i).getQuestion().length() >= check){
+								String abc = list.get(i).getQuestion().toString();
+								list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						
+					}
+					Users users = userService.getUser(UserID);
+					logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+actionsubmit);
+					model.addAttribute("deletequestionlist", list);
+					model.addAttribute("actionsubmit", actionsubmit);
+					}
+					}
 			}
-			return "list-deleted";
+		return "list-deleted";
 	}
 }
