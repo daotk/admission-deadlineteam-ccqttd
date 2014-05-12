@@ -574,7 +574,8 @@ public class UserController {
 				
 				@RequestMapping(value = "/taoindex", method = RequestMethod.GET)
 				public String taoindex(Model model){
-					model.addAttribute("message", "Thành công");
+					String message = FTPClientTransfer.ftp();				
+					model.addAttribute("message", message);
 					return "create-index";
 				}
 				
