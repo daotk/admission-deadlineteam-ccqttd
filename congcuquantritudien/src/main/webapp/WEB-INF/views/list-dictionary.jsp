@@ -200,7 +200,7 @@
 											<a href="${pageContext.request.contextPath}/botudien?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
 												<div class="list-question" id="div_${Questionmanagement.ID}">
 													<div class="row1">
-													<div class="list-email">${username}</div>
+													
 														<!-- create date -->	
 														<div class="list-date">
 															<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />
