@@ -14,16 +14,23 @@ $(document).ready(function(){
 	            }
 	        });
 	        if(checked!=""){
-			   if (confirm("Bạn có muốn xóa?")){ 
-					 var url = window.location.pathname.split( '/' )[2]; 
-					 if(url==""){url="home";}
-			        var form = $('<form action="'+url+'" method="post">' +
-			        		'<input type="hidden" name="checkboxdata" value="'+checked+'" />' +
-			        		'<input type="hidden" name="actionsubmit" value="deleteall" />' +
-			        		'</form>');
-			        		$('body').append(form);
-			        		$(form).submit();   
-			    }
+	        	$.msgbox({
+	        		type: 'confirm',
+	        		content: 'Bạn có chắc là muốn xóa tất cả không?',
+	        		title: 'Confirm',
+	        		onClose: function(){
+	        			if (this.val() === true) {
+	   					 var url = window.location.pathname.split( '/' )[2]; 
+						 if(url==""){url="home";}
+				        var form = $('<form action="'+url+'" method="post">' +
+				        		'<input type="hidden" name="checkboxdata" value="'+checked+'" />' +
+				        		'<input type="hidden" name="actionsubmit" value="deleteall" />' +
+				        		'</form>');
+				        		$('body').append(form);
+				        		$(form).submit();   
+	        			}
+	        		}
+	        	});
 	        }else {
 	        	alert("Bạn chưa chọn câu hỏi để xóa!");
 			}
@@ -74,9 +81,6 @@ $(document).ready(function(){
 			    }
 	        }else {
 	        	alert("Bạn chưa chọn câu hỏi để khôi phục!");
-			}
-	
-		
-		
+			}	
 	});
 });
