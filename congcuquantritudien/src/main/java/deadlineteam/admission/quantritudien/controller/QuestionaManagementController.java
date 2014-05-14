@@ -1961,7 +1961,16 @@ public class QuestionaManagementController {
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
-								model.addAttribute("message","Khôi phục thành công");
+								if(userquestion.getStatus() == 1){
+									model.addAttribute("message","Câu hỏi đã được khôi phục vào danh sách chưa trả lời");
+								}else{
+									if(userquestion.getStatus() == 2){
+										model.addAttribute("message","Câu hỏi đã được khôi phục vào danh sách lưu tạm");
+									}else{
+										model.addAttribute("message","Câu hỏi đã được khôi phục vào danh sách đã trả lời");
+									}
+								}
+								
 								List<Questionmanagement> Deletequestionlist;
 								if(session.getValue("Admin")==null){
 									Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
