@@ -13,6 +13,9 @@
 	<title>Danh sách chưa trả lời</title>
 	
 	<!-- CSS -->
+	
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css" />
+	
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link href="css/examples.css" rel="stylesheet" type="text/css" />
@@ -30,6 +33,9 @@
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
+		
+	<script type="text/javascript" src="js/jquery.msgbox.i18n.js"></script>
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 		
 	<!-- kepp active class -->
 	<script type="text/javascript">
@@ -137,88 +143,6 @@
     <div id="loading"></div>
     <div class="body">
 
-    
-    <!-- Dialog warming -->
-	<!-- div id="dialog" title="Cảnh báo!">
-		<p>
-			<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
-			Bạn sẽ đăng xuất trong <span id="dialog-countdown" style="font-weight:bold"></span> giây.</br>Hãy nhập mật khẩu để tiếp tục.
-		</p>
-		<input type="password" id="matkhau" style="height: 30px;margin-top: 10px;"></input>
-	</div>
-	
-	<!-- Dialog warming JavaScript-->
-	<!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="js/jquery.idletimer.js" type="text/javascript"></script>
-	<script src="js/jquery.idletimeout.js" type="text/javascript"></script-->
-
-	<!-- script type="text/javascript">
-	// setup the dialog
-	$("#dialog").dialog({
-		autoOpen: false,
-		modal: true,
-		width: 400,
-		height: 200,
-		closeOnEscape: false,
-		draggable: false,
-		resizable: false,
-		buttons: {
-			'Tiếp tục': function(){
-				var abc = document.getElementById("matkhau").value;
-				var UserPassword = '${UserPassword}'; 
-				if(abc==UserPassword){
-					document.getElementById("matkhau").value = "";
-					$(this).dialog('close');
-				}else{
-					$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
-					idleAfter: 100000,
-					pollingInterval: 2,
-					keepAliveURL: '',
-					serverResponseEquals: 'OK',
-					onTimeout: function(){
-						window.location = "./logout";
-					},
-					onIdle: function(){
-						$(this).dialog("open");
-					},
-					onCountdown: function(counter){
-						$countdown.html(counter); // update the counter
-					}
-				});
-				}
-			},
-			'Đăng xuất': function(){
-				// fire whatever the configured onTimeout callback is.
-				// using .call(this) keeps the default behavior of "this" being the warning
-				// element (the dialog in this case) inside the callback.
-				document.getElementById("matkhau").value = "";
-				$.idleTimeout.options.onTimeout.call(this);
-			}
-		}
-	});
-	
-	// cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
-	var $countdown = $("#dialog-countdown");
-	
-	// start the idle timer plugin
-	$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
-		idleAfter: 10,
-		pollingInterval: 2,
-		keepAliveURL: '',
-		serverResponseEquals: 'OK',
-		onTimeout: function(){
-			window.location = "./logout";
-		},
-		onIdle: function(){
-			$(this).dialog("open");
-		},
-		onCountdown: function(counter){
-			$countdown.html(counter); // update the counter
-		}
-	});
-	</script-->
-
         	<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%; width: 100%;">
         			<!-- List question is received -->
@@ -316,15 +240,27 @@
 						<form:form method="post" action="home" commandName="questionmanagements">
 							<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
 							<c:if test="${not empty error}">
-								<p class="error">${error}</p>
+								<script type="text/javascript">
+									var mess = '${error}';
+									$.msgbox({
+										type: 'error',
+										content: mess,
+										title: 'Thất bại'
+									});
+								</script>
 							</c:if>	
 							</div>
 							<c:if test="${not empty message}">
-		        				<p class="success">${message}</p>
+								<script type="text/javascript">
+									var mess = '${message}';
+				        				$.msgbox({
+										type: 'success',
+										content: mess,
+										title: 'Thành công'
+									});
+			        			</script>
 		        			</c:if>	
-		        			<c:if test="${not empty message1}">
-		        				<p class="success">${message1}</p>
-		        			</c:if>	
+
 		        			<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 									<!-- Question info -->

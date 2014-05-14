@@ -444,7 +444,7 @@ public class QuestionaManagementController {
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
-											model.addAttribute("message1", "Bạn đã xóa thành công.");
+											model.addAttribute("message", "Bạn đã xóa thành công.");
 											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 											for(int i=0;i < ListQuestion1.size();i++){
 												if(ListQuestion1.get(i).getQuestion().length() >= check){
@@ -468,7 +468,7 @@ public class QuestionaManagementController {
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
-									model.addAttribute("message1", "Bạn đã xóa thành công ");
+									model.addAttribute("message", "Bạn đã xóa thành công ");
 									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
 										if(ListQuestion1.get(i).getQuestion().length() >= check){

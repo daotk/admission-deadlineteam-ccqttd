@@ -68,7 +68,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page , int UserID) {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 AND BusyStatus = 0");	        
+	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 AND (BusyStatus = 0 OR BusyStatus = "+UserID+")");        
 	         return (List<Questionmanagement>) q.list();
 	}
 	
