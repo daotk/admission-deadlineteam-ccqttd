@@ -101,7 +101,6 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());				
 				model.addAttribute("fullname",userService.getFullnameByID(UserId));
 				model.addAttribute("questionmanagements", new Questionmanagement());
-				model.addAttribute("message", "Không mục nào được chọn để xem.");
 				Users users = userService.getUser(UserID);
 				logger.info("Tài khoản "+users.getUserName() +" đã vào danh sách chưa trả lời");
 				return "home";
@@ -615,7 +614,6 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayTemp());
 				model.addAttribute("savequestionlist", savelist);
 				model.addAttribute("questionmanagements", new Questionmanagement());
-				model.addAttribute("message", "Không mục nào được chọn để xem.");
 				//check is admin
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
@@ -1344,7 +1342,6 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 				model.addAttribute("questionmanagements", new Questionmanagement());
-				model.addAttribute("message", "Không mục nào được chọn để xem.");
 				//check is admin
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
