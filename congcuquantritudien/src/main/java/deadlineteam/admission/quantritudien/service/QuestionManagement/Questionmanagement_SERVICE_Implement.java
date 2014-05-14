@@ -150,7 +150,9 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 		return newlist;
 		
 	}
-
+	public int updatedelete(int ID){
+		return QuestionmanagementDAO.updatedelete(ID);
+	}
 	
 	
 	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID){

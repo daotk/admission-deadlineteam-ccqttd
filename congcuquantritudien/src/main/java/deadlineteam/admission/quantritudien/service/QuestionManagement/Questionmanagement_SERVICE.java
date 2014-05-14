@@ -42,6 +42,7 @@ public interface Questionmanagement_SERVICE{
 	//send save-question
 	public int SendAnwser(int Id,String Answer);
 	// Save Temporaty
+	public int updatedelete(int ID);
 	public int SaveTemporaryAnswerbyId(int Id,String Answer);
 	public void ResetUpdateAnwserBy(int Id, int userid);
 	//-------------------------replied page
