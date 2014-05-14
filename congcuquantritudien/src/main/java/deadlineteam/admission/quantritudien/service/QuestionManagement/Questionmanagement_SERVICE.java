@@ -16,7 +16,7 @@ public interface Questionmanagement_SERVICE{
 	public int updateAnswerbyId(int Id,String Answer);
 	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record);
 	
-	public boolean checkQuestionIsBusy(int Id) ;
+	public boolean checkQuestionIsBusy(int Id,int UserId) ;
 	//delete question that is selected
 	public int delete(int Id);
 	//--------------------- Delete Page

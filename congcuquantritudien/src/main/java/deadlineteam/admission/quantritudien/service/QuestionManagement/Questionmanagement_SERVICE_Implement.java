@@ -631,9 +631,9 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 	public void updateBusyStatusAfter(int Id,int UserId){
 		QuestionmanagementDAO.updateBusyStatusAfter( Id,  UserId);	
 	}
-	public boolean checkQuestionIsBusy(int Id) {
+	public boolean checkQuestionIsBusy(int Id,int UserId) {
 		Questionmanagement question = QuestionmanagementDAO.checkQuestionIsBusy(Id);
-		if(question.getBusyStatus().equals(0)){
+		if(question.getBusyStatus().equals(0)||question.getBusyStatus().equals(UserId)){
 			return false;
 		}else{
 			return true;

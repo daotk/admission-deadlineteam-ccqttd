@@ -106,8 +106,8 @@ public class QuestionaManagementController {
 				logger.info("Tài khoản "+users.getUserName() +" đã vào danh sách chưa trả lời");
 				return "home";
 			}else{
-				if(QuestionmanagementService.checkQuestionIsBusy(Id)==true){
-					model.addAttribute("message", "Có người đang làm việc với câu hỏi này.");
+				if(QuestionmanagementService.checkQuestionIsBusy(Id,UserID)==true){
+					model.addAttribute("message", userService.getFullnameByID(UserID)+ " đang làm việc với câu hỏi này.");
 					//check is admin
 					List<Questionmanagement> ListQuestion;
 					if(userService.checkIsAdmin(UserID)==true){
