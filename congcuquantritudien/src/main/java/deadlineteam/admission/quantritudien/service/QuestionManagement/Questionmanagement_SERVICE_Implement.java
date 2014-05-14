@@ -543,6 +543,7 @@ public class Questionmanagement_SERVICE_Implement implements Questionmanagement_
 				if(userid== question.getDeleteBy()){
 					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
 					QuestionmanagementDAO.restore(deleteid);
+					QuestionmanagementDAO.updatedelete(deleteid);
 					returnlist.add(question);
 				}else{
 					if(author ==1){
