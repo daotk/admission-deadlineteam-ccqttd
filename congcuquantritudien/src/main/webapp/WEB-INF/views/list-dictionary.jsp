@@ -13,6 +13,7 @@
 	<title>Danh sách bộ từ điển</title>
 	
 	<!-- CSS -->
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	
@@ -26,6 +27,9 @@
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
+		
+	<script type="text/javascript" src="js/jquery.msgbox.i18n.js"></script>
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 		
 	<!-- Control Check box -->
 	<script src='js/checkbox.js' type='text/javascript'></script>
@@ -227,16 +231,26 @@
 						
 						<form:form method="post" action="botudien" commandName="diction">
 							<c:if test="${not empty error}">
-								<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
-								<p class="error">${error}</p>
-								</div>
+								<script type="text/javascript">
+									var mess = '${error}';
+									$.msgbox({
+										type: 'error',
+										content: mess,
+										title: 'Thất bại'
+									});
+								</script>
 							</c:if>	
+							</div>
 							<c:if test="${not empty message}">
-								<p class="success">${message}</p>
-							</c:if>	
-			        		<c:if test="${not empty message1}">
-			        			<p class="success">${message1}</p>
-			        		</c:if>	
+								<script type="text/javascript">
+									var mess = '${message}';
+				        				$.msgbox({
+										type: 'success',
+										content: mess,
+										title: 'Thành công'
+									});
+			        			</script>
+		        			</c:if>	
 							<c:if test="${not empty diction.ID}">
 								<div id="question-dateinfo" style="margin-left: 13px;">
 									<span style="font-size: 12px;">Người trả lời:  ${username}</span>

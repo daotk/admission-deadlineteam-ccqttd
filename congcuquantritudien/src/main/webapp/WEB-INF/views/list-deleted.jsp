@@ -13,6 +13,7 @@
 	<title>Danh sách đã xóa</title>
 	
 	<!-- CSS -->
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	
@@ -27,11 +28,15 @@
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
-		<script>
-	function limitText(field, maxChar){
-	    $(field).attr('maxlength',maxChar);
-	}
-</script>
+	
+	<script type="text/javascript" src="js/jquery.msgbox.i18n.js"></script>
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
+	
+	<script>
+		function limitText(field, maxChar){
+		    $(field).attr('maxlength',maxChar);
+		}
+	</script>
 	<!-- Control Check box -->
 	<script src='js/checkbox.js' type='text/javascript'></script>
 	
@@ -213,13 +218,26 @@
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top" >
 						<form:form method="post" action="dsdaxoa" commandName="deletequestion">
 							<c:if test="${not empty error}">
-								<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
-									<p class="error">${error}</p>
-								</div>
-							</c:if>
+								<script type="text/javascript">
+									var mess = '${error}';
+									$.msgbox({
+										type: 'error',
+										content: mess,
+										title: 'Thất bại'
+									});
+								</script>
+							</c:if>	
+							</div>
 							<c:if test="${not empty message}">
-								<p class="success">${message}</p>	        			
-							</c:if>
+								<script type="text/javascript">
+									var mess = '${message}';
+				        				$.msgbox({
+										type: 'success',
+										content: mess,
+										title: 'Thành công'
+									});
+			        			</script>
+		        			</c:if>	
 							<c:if test="${not empty deletequestion.question}">
 								<div id="questionarea">
 									<!-- Question info -->
