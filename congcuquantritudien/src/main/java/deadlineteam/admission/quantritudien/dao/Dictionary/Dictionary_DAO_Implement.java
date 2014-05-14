@@ -27,6 +27,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		return sessionFactory.getCurrentSession();
 	}
 
+	
 	public void AddDictionary(Dictionary dictionary) {
 		getCurrentSession().save(dictionary);
 	}
@@ -249,6 +250,16 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		 Date now = new Date();
 		 q.setParameter("now", now);
 		 q.executeUpdate();
+	}
+	public int updaterestore(int Id){
+		String sqlstring = "update Dictionary set DeleteBy =:userid, DeleteDate =:now where ID = :Id";
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		 q.setParameter("Id", Id);
+		 q.setParameter("userid", null);
+		
+		 q.setParameter("now", null);
+		 int result = q.executeUpdate();
+		 return result;
 	}
 	public Users getusername(int ID){
 		Users username =  (Users)getCurrentSession().createQuery(" from Users where ID = "+ID  ).uniqueResult();

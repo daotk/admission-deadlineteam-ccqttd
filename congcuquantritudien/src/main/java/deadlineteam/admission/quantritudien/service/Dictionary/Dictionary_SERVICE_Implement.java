@@ -124,6 +124,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 			Dictionary question = DictionaryDAO.getinformation(deleteid);
 			DictionaryDAO.updatedelete(deleteid, login);
 			DictionaryDAO.restore(deleteid);
+			DictionaryDAO.updaterestore(deleteid);
 			returnlist.add(question);
 		}
 		return returnlist;
@@ -136,6 +137,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 			Dictionary question = DictionaryDAO.getinformation(deleteid);
 			DictionaryDAO.updatedelete(deleteid, login);
 			DictionaryDAO.delete(deleteid);
+			
 			returnlist.add(question);
 		}
 		return returnlist;
@@ -175,6 +177,9 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public Dictionary recentquestion(int Id) {
 		// TODO Auto-generated method stub
 		return DictionaryDAO.recentquestion(Id);
+	}
+	public int updaterestore(int Id){
+		return DictionaryDAO.updaterestore(Id);
 	}
 	public List<Dictionary> deletelist(int page, int UserID) {
 		// TODO Auto-generated method stub

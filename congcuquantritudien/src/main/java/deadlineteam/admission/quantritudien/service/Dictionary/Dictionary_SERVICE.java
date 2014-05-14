@@ -32,6 +32,7 @@ public interface Dictionary_SERVICE {
 	public int update(int Id,String Anwser, String Question);
 	public int busystatusupdate(int Id);
 	public int busystatus(int Id);
+	public int updaterestore(int Id);
 	public List<Dictionary> restorealldictionary(String checkbox, int login);
 	public List<Dictionary> deletealldictionary(String checkbox, int login);
 	public void AddDictionary(Dictionary dictionary);

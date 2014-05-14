@@ -816,8 +816,14 @@ public class DictionaryController {
 						newquestion.substring(0, 45);
 						newquestion = newquestion + "...";
 					}
+					DictionaryService.updaterestore(Id);
 					logger.info("Tài khoản " + users.getUserName() + " đã khôi phục câu hỏi "+newquestion);
-					model.addAttribute("message", "Câu hỏi đã được khôi phục");
+					if(question.getStatus() == 1){
+						model.addAttribute("message", "Câu hỏi đã được khôi phục vào danh sách có sẵn");
+					}else{
+						model.addAttribute("message", "Câu hỏi đã được khôi phục vào danh sách đã hạ");	
+					}
+					
 				}						
 			}else{
 				if(actionsubmit.equals("change")){
