@@ -249,6 +249,17 @@
 									});
 								</script>
 							</c:if>	
+							
+							<c:if test="${not empty warning}">
+								<script type="text/javascript">
+									var mess = '${warning}';
+									$.msgbox({
+										type: 'warning',
+										content: mess,
+										title: 'Cảnh báo'
+									});
+								</script>
+							</c:if>	
 							</div>
 							<c:if test="${not empty message}">
 								<script type="text/javascript">

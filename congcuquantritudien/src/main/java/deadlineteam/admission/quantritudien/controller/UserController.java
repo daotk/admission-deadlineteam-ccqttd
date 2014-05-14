@@ -157,7 +157,6 @@ public class UserController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("questionmanagements", new Questionmanagement());
-				model.addAttribute("message", "Không mục nào được chọn để xem.");
 				//paging
 				model.addAttribute("curentOfPage",1);
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));

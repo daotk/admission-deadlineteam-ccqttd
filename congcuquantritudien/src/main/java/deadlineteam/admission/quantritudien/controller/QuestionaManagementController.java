@@ -106,7 +106,7 @@ public class QuestionaManagementController {
 				return "home";
 			}else{
 				if(QuestionmanagementService.checkQuestionIsBusy(Id,UserID)==true){
-					model.addAttribute("message", userService.getFullnameByID(UserID)+ " đang làm việc với câu hỏi này.");
+					model.addAttribute("warning","Hiện tại "+userService.getFullnameByID(UserID)+ " đang làm việc với câu hỏi này.");
 					//check is admin
 					List<Questionmanagement> ListQuestion;
 					if(userService.checkIsAdmin(UserID)==true){
@@ -1864,7 +1864,6 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 				model.addAttribute("deletequestion", new Questionmanagement());
-				model.addAttribute("message", "Không mục nào được chọn để xem.");
 				Users users = userService.getUser(UserID);				
 				logger.info("Tài khoản "+users.getUserName()+" vào danh sách câu hỏi đã xóa");
 				return "list-deleted";

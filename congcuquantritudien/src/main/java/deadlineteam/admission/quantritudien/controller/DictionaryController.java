@@ -362,7 +362,6 @@ public class DictionaryController {
 					}
 				}
 			}
-			model.addAttribute("message", "Không mục nào được chọn để xem.");
 			model.addAttribute("Avaiable", Avaiable);	
 			model.addAttribute("diction", new Dictionary());
 			
