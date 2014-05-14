@@ -57,7 +57,7 @@ public interface Questionmanagement_DAO {
 	
 	//delete replied question that is selected
 	public int deleterepliedquestion (int ID);
-	
+	public int updatedelete(int ID);
 	
 	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status);
 	public List<Questionmanagement> getListQuestionmanagementbyDeleteStatus(int status);

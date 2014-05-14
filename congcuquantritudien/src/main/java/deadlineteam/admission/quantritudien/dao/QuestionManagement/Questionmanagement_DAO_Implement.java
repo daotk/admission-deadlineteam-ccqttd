@@ -252,7 +252,16 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		return result;
 		
 	}
-	
+	public int updatedelete(int ID){
+		String sqlstring = "update Questionmanagement set DeleteBy = :delete,  DeleteDate =:date where ID = :Id";
+		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
+		 q.setParameter("delete", null);
+		 q.setParameter("date", null);
+		 q.setParameter("Id", ID);
+		 int result= q.executeUpdate();
+		 
+		return result;
+	}
 	/*
 	 * Author: Chau Le
 	 * Delete question-list page
