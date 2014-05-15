@@ -160,7 +160,7 @@ public class DictionaryController {
 							if(otherauthor ==1){
 								// null
 								
-								model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
+								model.addAttribute("thongbao", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
 							}else{
 								//
 								int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
@@ -199,7 +199,7 @@ public class DictionaryController {
 						}else{
 							// null
 							Users otheruser = userService.getUser(question.getCreateBy());
-							model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
+							model.addAttribute("thongbao", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
 						}
 					}
 					
