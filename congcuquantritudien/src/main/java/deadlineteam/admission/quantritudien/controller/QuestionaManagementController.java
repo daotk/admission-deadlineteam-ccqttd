@@ -106,7 +106,7 @@ public class QuestionaManagementController {
 				return "home";
 			}else{
 				if(QuestionmanagementService.checkQuestionIsBusy(Id,UserID)==true){
-					model.addAttribute("warning","Hiện tại "+userService.getFullnameByID(UserID)+ " đang làm việc với câu hỏi này.");
+					model.addAttribute("warning","Hiện tại tài khoản "+userService.getFullnameByID(UserID)+ " đang làm việc với câu hỏi này.");
 					//check is admin
 					List<Questionmanagement> ListQuestion;
 					if(userService.checkIsAdmin(UserID)==true){
@@ -1176,7 +1176,7 @@ public class QuestionaManagementController {
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
 							List<Questionmanagement> returnlist =QuestionmanagementService.deleteall(checkboxdata,login);
-							model.addAttribute("message", "Đã xóa.");
+							model.addAttribute("message", "Đã xóa thành công.");
 							List<Questionmanagement> savelist;
 							if(session.getValue("Admin")==null){	
 								//user nomal
@@ -1705,8 +1705,7 @@ public class QuestionaManagementController {
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
 							List<Questionmanagement> returenlist = QuestionmanagementService.deleteall(checkboxdata,login);
-							model.addAttribute("message", "Đã xóa.");
-							
+							model.addAttribute("message", "Đã xóa thành công.");	
 							List<Questionmanagement> Deletequestionlist;
 							if(session.getValue("Admin")==null){	
 								Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
