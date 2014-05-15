@@ -15,8 +15,11 @@
     	<table>
         	<form:form method="post" action="" commandName="createQaA">
 	        	<div class="body">
+	        	<div class="title_create_dictionary" style="height: 36px; background-color: #2c406e; float: left; width: 100%; font-size: 13pt; color: #e4e4e4; padding-left: 25px;padding-top: 15px; margin-top: 1px; margin-left: 1px;">
+				Chỉnh sửa câu hỏi
+				</div>
 					<!-- Question content -->
-					<div id="answer" style="width: 95%; margin: 15px;">
+					<div id="answer" style="width: 95%; margin: 70px 15px 15px 15px;">
 						<span style="font-size: 12px; font-weight: normal;">Nội dung câu hỏi:</span>
 						<br>
 						<div style="width: 100%;">
