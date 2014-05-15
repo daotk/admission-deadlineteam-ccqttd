@@ -42,10 +42,10 @@
 			Enter: 'play'
 		},					// key bindings, use string to call the api or specify a function
 		prefix: 'jMsgbox',	// the class prefix of overlay: jMsgbox-overlay, the box: jMsgbox-msgbox
-		width: 600,			// the width of msgbox
-		height: 450,		// the height of msgbox
-		initialWidth: 350,	// the initial width of msgbox, when loaded, it will be animated to options.width and options.height
-		initialHeight: 220, // see initialHeight
+		width: 500,			// the width of msgbox
+		height: 300,		// the height of msgbox
+		initialWidth: 450,	// the initial width of msgbox, when loaded, it will be animated to options.width and options.height
+		initialHeight: 150, // see initialHeight
 		top: false,			// the position of msgbox, if false, will show in the middle of the window
 		left: false,
 		titleHeight: 30,	// the height of the title of it is not specified in css

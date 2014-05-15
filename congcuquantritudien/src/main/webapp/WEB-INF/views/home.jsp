@@ -14,14 +14,12 @@
 	
 	<!-- CSS -->
 	
-	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css" />
-	
-	<link href="css/stylesheet1.css" rel="stylesheet" />
+	<link href="css/stylesheet1.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link href="css/examples.css" rel="stylesheet" type="text/css" />
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
 	<style type="text/css">a.ui-dialog-titlebar-close { display:none; }</style>
-	
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
 	<!-- Java Script -->
 	<script src='js/jquery.min.js' type='text/javascript'></script>
 	
