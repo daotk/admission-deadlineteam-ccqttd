@@ -7,7 +7,7 @@
 	<div id="menus" class="menu">
 		<h3>Quản lý chung</h3>
 		<ul class="navigation" id="fist">
-			<li class="active" ><a href="home"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/List-question.png"/>Danh sách chưa trả lời</a></li>
+			<li ><a href="home"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/List-question.png"/>Danh sách chưa trả lời</a></li>
 			<li ><a href="dsluutam"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/List-save.png"/>Danh sách lưu tạm</a></li>
 			<li><a href="dsdatraloi"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/List-replied.png"/>Danh sách đã trả lời</a></li>
 			<li><a href="dsdaxoa"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/List-delete.png"/>Danh sách đã xóa</a></li>

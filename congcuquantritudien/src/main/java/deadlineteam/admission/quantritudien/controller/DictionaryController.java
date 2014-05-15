@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 
@@ -107,7 +108,7 @@ public class DictionaryController {
 			@RequestParam String actionsubmit , 
 			@ModelAttribute("createQaA") Dictionary diction,
 			Model model,
-			HttpSession session) {
+			HttpSession session, RedirectAttributes attribute) {
 		int UserID =Integer.parseInt(session.getAttribute("login").toString());
 		int page =Integer.parseInt(session.getAttribute("Page").toString());
 		if(actionsubmit.equals("save")){
@@ -133,6 +134,7 @@ public class DictionaryController {
 							newquestion = newquestion + "...";
 						}
 						logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
+						attribute.addFlashAttribute("message", "Câu hỏi đã được Chỉnh sửa thành công.");
 						List<Dictionary> Avaiable;
 						if(session.getValue("Admin")==null){	
 							Avaiable= DictionaryService.availablelist(page-1, UserID);			
@@ -160,7 +162,7 @@ public class DictionaryController {
 							if(otherauthor ==1){
 								// null
 								
-								model.addAttribute("thongbao", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
+								attribute.addFlashAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
 							}else{
 								//
 								int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
@@ -174,6 +176,7 @@ public class DictionaryController {
 									newquestion.substring(0, 45);
 									newquestion = newquestion + "...";
 								}
+								attribute.addFlashAttribute("message", "Câu hỏi đã được Chỉnh sửa thành công.");
 								logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 								List<Dictionary> Avaiable;
 								if(session.getValue("Admin")==null){	
@@ -199,7 +202,7 @@ public class DictionaryController {
 						}else{
 							// null
 							Users otheruser = userService.getUser(question.getCreateBy());
-							model.addAttribute("thongbao", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
+							attribute.addFlashAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
 						}
 					}
 					
@@ -218,6 +221,7 @@ public class DictionaryController {
 						newquestion.substring(0, 45);
 						newquestion = newquestion + "...";
 					}
+					
 					logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 					List<Dictionary> Avaiable;
 					if(session.getValue("Admin")==null){	
@@ -290,7 +294,7 @@ public class DictionaryController {
 			@RequestParam String actionsubmit , 
 			@ModelAttribute("createQaA") Dictionary diction,
 			Model model,
-			HttpSession session) {
+			HttpSession session, RedirectAttributes attribute) {
 		int UserID =Integer.parseInt(session.getAttribute("login").toString());
 		int page =Integer.parseInt(session.getAttribute("Page").toString());
 		if(actionsubmit.equals("save")){
@@ -309,6 +313,7 @@ public class DictionaryController {
 					newquestion = newquestion + "...";
 				}
 				logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
+				attribute.addFlashAttribute("message", "Câu hỏi đã được Chỉnh sửa thành công");
 				List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
 				model.addAttribute("removelist", remove);
 				

@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 import deadlineteam.admission.quantritudien.bean.UsersBean;
@@ -60,6 +62,14 @@ public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	
+	
+	private MessageSource msgSrc;
+	 @Autowired
+	  public void AccountsController(MessageSource msgSrc) {
+	     this.msgSrc = msgSrc;
+	  }
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -70,14 +80,14 @@ public class UserController {
 	 */
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String login(HttpSession session, Model model,@ModelAttribute("error") String error) {
+	public String login(HttpSession session, Model model,@ModelAttribute("error") String error,Locale locale) {
 		
 		QuestionmanagementService.createIndex();
 		
 		if(session.getValue("login") == null){
 			model.addAttribute("users", new Users());
 			if(error.equals("notlogin")){
-				model.addAttribute("error", "Bạn chưa đăng nhập.");
+				model.addAttribute("error", msgSrc.getMessage("message.user.notlogin", null,locale));
 			}
 			return "login";
 		}else{
@@ -117,12 +127,13 @@ public class UserController {
 	 * Implement when submit login page
 	 */
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ModelAndView loginsubmit(@ModelAttribute("users") Users user, Model model, HttpSession session,BindingResult result) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	public String loginsubmit(@ModelAttribute("users") Users user, Model model, HttpSession session,BindingResult result, RedirectAttributes attribute) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		
 		LoginValidator validator = new LoginValidator();
 		validator.validate(user, result);	     
         if (result.hasErrors()){
-        	 return new ModelAndView("login", "users", user);
+        	model.addAttribute("users",user);
+        	return "login";
         }else {
         	String passmd5 = AeSimpleMD5.MD5(user.getPassword());
         	String checklogin = userService.checkLogin(user.getUserName(), passmd5);
@@ -147,36 +158,33 @@ public class UserController {
 						ListQuestion.get(i).setQuestion(abc.substring(0, 44)+ ".....");
 					}
 				}
-				
 				//model trả về
 				Setting setting = userService.getSetting(UserID);
-				
 				int numOfRecord = setting.getRecordNotRep();
 				int numOfPagin = setting.getPaginDisplayNotRep();
 				
-				model.addAttribute("numOfRecord", ""+numOfRecord);
-				model.addAttribute("numOfPagin", ""+numOfPagin);
-				model.addAttribute("questionmanagements", new Questionmanagement());
+				attribute.addFlashAttribute("numOfPagin", ""+numOfPagin);
+				attribute.addFlashAttribute("questionmanagements", new Questionmanagement());
 				//paging
-				model.addAttribute("curentOfPage",1);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
-				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
-
-				
+				attribute.addFlashAttribute("curentOfPage",1);
+				attribute.addFlashAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+				attribute.addFlashAttribute("noOfDisplay", setting.getPaginDisplayNotRep());	
 				//check is admin
 				if(userService.checkIsAdmin(userService.getIdbyUsername(user.getUserName()))==true){
 					session.setAttribute("Admin", "Yes");
 				}				
 				logger.info("Tài khoản "+user.getUserName()+ " đã đăng nhập vào hệ thống");
 				logger.info("Tài khoản "+user.getUserName()+ " vào trang danh sách chưa trả lời");
-				return new ModelAndView("home", "listquestionmanagement",ListQuestion );
+				attribute.addFlashAttribute("listquestionmanagement",ListQuestion);	
+				return "redirect:/home";
 			}else{	
 				if(checklogin.equals("WrongPass")){
 					model.addAttribute("error", "Bạn đã nhập sai mật khẩu");	
 				}else{
 					model.addAttribute("error", "Bạn đã nhập sai tài khoản hoặc mật khẩu");	
 				}
-				return new ModelAndView("login", "users", user);
+				model.addAttribute("users",user);
+	        	return "login";
 			}
         }
 	}
@@ -408,7 +416,7 @@ public class UserController {
 				@RequestParam(value = "authorization", required = false, defaultValue= "-1") String authorization, 
 				@ModelAttribute("listUser2") Users user,
 				Model model,
-				HttpSession session) {		
+				HttpSession session,Locale locale) {		
 
 				if(actionsubmit.equals("change")){
 					if(authorization.equals("1") || authorization.equals("0") ){
@@ -434,7 +442,7 @@ public class UserController {
 						Users nameuser = userService.getUser(login);
 						Users users = userService.getUser(Id);
 						logger.info("Tài khoản " + users.getUserName() +" đã được cấu hình bởi" +nameuser.getFullName());
-						model.addAttribute("message","Thay đổi cấu hình thành công!");
+						model.addAttribute("message", msgSrc.getMessage("message.changconfig.user.success", null,locale));
 					}else{
 						
 						int Id = Integer.parseInt(session.getAttribute("Id").toString());
@@ -473,8 +481,7 @@ public class UserController {
 		 
 				@RequestMapping(value="/cauhinhhethong", method=RequestMethod.GET)
 				
-				public String settingsystem(
-						HttpSession session, Model model) {
+				public String settingsystem(HttpSession session, Model model,Locale locale) {
 
 					model.addAttribute("driver", driver);
 					model.addAttribute("url", url);
@@ -496,7 +503,7 @@ public class UserController {
 						@RequestParam(value = "driver", required = false, defaultValue= "0") String driver, 
 						@ModelAttribute("listUser") Users user,
 						Model model,
-						HttpSession session) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
+						HttpSession session,Locale locale) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
 					if(actionsubmit.equals("change")){
 						CrunchifyUpdateConfig config = new CrunchifyUpdateConfig();
 						config.ConfigSystem(driver,username,password, url);
@@ -504,7 +511,7 @@ public class UserController {
 						model.addAttribute("url", url);
 						model.addAttribute("username", username);
 						model.addAttribute("password", password);
-						model.addAttribute("message", "Thay đổi cấu hình thành công!");
+						model.addAttribute("message",  msgSrc.getMessage("message.changconfig.system.success", null,locale));
 						int login = Integer.parseInt(session.getAttribute("login").toString());
 						Users users = userService.getUser(login);
 						logger.info("Tài khoản "+ users.getUserName()+" thay đổi cấu hình hệ thống");
@@ -547,7 +554,7 @@ public class UserController {
 						@RequestParam(value = "port", required = false, defaultValue= "0") String port, 
 						@ModelAttribute("listUser") Users user,
 						Model model,
-						HttpSession session) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
+						HttpSession session,Locale locale) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
 					if(actionsubmit.equals("change")){
 						CrunchifyUpdateConfig config = new CrunchifyUpdateConfig();
 						config.ConfigMail(host, port, usernamemail, passwordmail);
@@ -555,7 +562,7 @@ public class UserController {
 						model.addAttribute("port", port);
 						model.addAttribute("usernamemail", usernamemail);
 						model.addAttribute("passwordmail", passwordmail);
-						model.addAttribute("message", "Thay đổi cấu hình thành công!");
+						model.addAttribute("message", msgSrc.getMessage("message.changconfig.mail.success", null,locale));
 					}
 					int login = Integer.parseInt(session.getAttribute("login").toString());
 					Users users = userService.getUser(login);

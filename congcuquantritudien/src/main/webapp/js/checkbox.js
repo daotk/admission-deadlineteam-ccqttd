@@ -14,12 +14,7 @@ $(document).ready(function(){
 	            }
 	        });
 	        if(checked!=""){
-	        	$.msgbox({
-	        		type: 'confirm',
-	        		content: 'Bạn có chắc là muốn xóa tất cả không?',
-	        		title: 'Confirm',
-	        		onClose: function(){
-	        			if (this.val() === true) {
+	        	  if (confirm("bạn có muốn đăng câu hỏi?")){ 
 	   					 var url = window.location.pathname.split( '/' )[2]; 
 						 if(url==""){url="home";}
 				        var form = $('<form action="'+url+'" method="post">' +
@@ -28,9 +23,7 @@ $(document).ready(function(){
 				        		'</form>');
 				        		$('body').append(form);
 				        		$(form).submit();   
-	        			}
 	        		}
-	        	});
 	        }else {
 	        	alert("Bạn chưa chọn câu hỏi để xóa!");
 			}

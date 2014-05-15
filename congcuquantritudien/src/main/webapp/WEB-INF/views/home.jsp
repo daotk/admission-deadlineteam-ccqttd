@@ -22,18 +22,18 @@
 	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
 	<!-- Java Script -->
 	<script src='js/jquery.min.js' type='text/javascript'></script>
-	
+	    <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 	<!-- CK Editor -->
 	<script src="ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
 	<!-- Setting pop box -->
 	<script src='js/popbox.js' type='text/javascript'></script>
 	<!-- Paging -->
-    <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
 		
-	<script type="text/javascript" src="js/jquery.msgbox.i18n.js"></script>
-	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
+
 		
 	<!-- kepp active class -->
 	<script type="text/javascript">

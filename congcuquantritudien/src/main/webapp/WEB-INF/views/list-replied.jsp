@@ -13,10 +13,11 @@
 	<title>Danh sách đã trả lời</title>
 	
 	<!-- CSS -->
-	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css" />
+
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
-	
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css" />
+		
 	<!-- Java Script -->
 	<script src='js/jquery.min.js' type='text/javascript'></script>
 	
