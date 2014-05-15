@@ -15,6 +15,7 @@ import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
+import deadlineteam.admission.quantritudien.service.User.Users_SERVICE;
 
 @Service
 @Transactional
@@ -23,7 +24,8 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	private Dictionary_DAO DictionaryDAO ;
 	@Autowired
 	private Questionmanagement_DAO QuestionmanagementDAO ;
-	
+	@Autowired
+	private Users_SERVICE userservice;
 	public int AddDictionarybyID (int Id, int UserId){
 		Date date = new Date();
 		Questionmanagement questionmanagement = QuestionmanagementDAO.getQuestionmanagementbyIDToCopy(Id);
@@ -306,6 +308,19 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
 	public List<Dictionary> searchIdex(String keyword,String Status, int UserID){
-		return DictionaryDAO.searchIdex(keyword, Status, UserID);
+		List<Dictionary> list = DictionaryDAO.searchIdex(keyword, Status, UserID);
+		List<Dictionary> newlist = new ArrayList<Dictionary>();
+		for(int i = 0 ; i < list.size() ; i++){
+			if(list.get(i).getCreateBy() == UserID){
+				newlist.add(list.get(i));
+			}
+		}
+		Users users = userservice.getUser(UserID);
+		if(users.getAuthorization() ==1){
+			return list;
+		}else{
+			return newlist;
+		}
+		
 	}
 }
