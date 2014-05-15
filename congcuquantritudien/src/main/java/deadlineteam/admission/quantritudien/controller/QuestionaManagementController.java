@@ -1999,7 +1999,7 @@ public class QuestionaManagementController {
 									// Processing restore question
 									int result = QuestionmanagementService.restore(Id);
 									if(result>0){
-										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										
 										QuestionmanagementService.UpdateDelete(Id, login);
 										Users users = userService.getUser(UserID);
 										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -2037,7 +2037,7 @@ public class QuestionaManagementController {
 						// Processing restore question
 						int result = QuestionmanagementService.restore(Id);
 						if(result>0){
-							QuestionmanagementService.UpdateAnwserBy(Id, login);
+							
 							QuestionmanagementService.UpdateDelete(Id, login);
 							Users users = userService.getUser(UserID);
 							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
