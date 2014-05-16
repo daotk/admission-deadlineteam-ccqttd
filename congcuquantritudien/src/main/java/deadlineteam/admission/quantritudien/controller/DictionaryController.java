@@ -653,19 +653,90 @@ public class DictionaryController {
 						
 						
 						}else{
-							// Tim kiem
-							List<Dictionary> avaiable= DictionaryService.searchIdex(actionsubmit, "1", UserID);
-							for(int i=0;i < avaiable.size();i++){
-								if(avaiable.get(i).getQuestion().length() >= check){
-									String abc = avaiable.get(i).getQuestion().toString();
-									avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							if(actionsubmit.equals("upall")){
+								String[] liststring = checkboxdata.split(",");
+								for(int j=0;j<liststring.length;j++){
+									int deleteid = Integer.parseInt(liststring[j].toString());
+									try{
+										Dictionary newdictionary = DictionaryService.getinformation(deleteid);
+										DictionaryRestful dicrestful = new DictionaryRestful();
+										dicrestful.setID(deleteid);
+										dicrestful.setAnwser(newdictionary.getAnwser());
+										dicrestful.setQuestion(newdictionary.getQuestion());
+										RestTemplate restTemplate = new RestTemplate();
+										String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
+										if(result1.equals("success")){
+											model.addAttribute("message","Đăng câu hỏi thành công");
+											
+											
+											// Processing restore question
+											int result = DictionaryService.upload(deleteid);	
+											int update = DictionaryService.updateby(deleteid, UserID);
+											if(result > 0 && update >0){
+												Users users = userService.getUser(UserID);
+										//		Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+												Dictionary question = DictionaryService.getinformation(deleteid);
+												String newquestion = question.getQuestion();
+												if(newquestion.length() > 50){
+													newquestion.substring(0, 45);
+													newquestion = newquestion + "...";
+												}
+												logger.info("Tài khoản " + users.getUserName() + " đã đăng câu hỏi "+newquestion);
+												String user = userService.getFullnameByID(UserID);
+												model.addAttribute("username", user);
+												List<Dictionary> Avaiable;
+												if(session.getValue("Admin")==null){	
+													Avaiable= DictionaryService.availablelist(page-1, UserID);			
+													for(int i=0;i < Avaiable.size();i++){
+														if(Avaiable.get(i).getQuestion().length() >= check){
+															String abc = Avaiable.get(i).getQuestion().toString();
+															Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+														}
+													}
+												}else{
+													Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+													for(int i=0;i < Avaiable.size();i++){
+														if(Avaiable.get(i).getQuestion().length() >= check){
+															String abc = Avaiable.get(i).getQuestion().toString();
+															Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+														}
+													}
+												}
+												
+												model.addAttribute("Avaiable", Avaiable);	
+											}
+											
+											
+											
+											
+											
+										}else{
+											if(result1.equals("fail")){
+												model.addAttribute("message","Đăng câu hỏi không  thành công ");
+											}
+										}
+										
+									}catch(Exception e){
+										model.addAttribute("error","Đăng câu hỏi không thành công");
+									}
+									
 								}
+							}else{
+								// Tim kiem
+								List<Dictionary> avaiable= DictionaryService.searchIdex(actionsubmit, "1", UserID);
+								for(int i=0;i < avaiable.size();i++){
+									if(avaiable.get(i).getQuestion().length() >= check){
+										String abc = avaiable.get(i).getQuestion().toString();
+										avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+								}
+								Users users = userService.getUser(UserID);
+								
+								logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit);
+								model.addAttribute("actionsubmit", actionsubmit);
+								model.addAttribute("Avaiable", avaiable);
 							}
-							Users users = userService.getUser(UserID);
 							
-							logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit);
-							model.addAttribute("actionsubmit", actionsubmit);
-							model.addAttribute("Avaiable", avaiable);
 						}						
 					}
 				}
