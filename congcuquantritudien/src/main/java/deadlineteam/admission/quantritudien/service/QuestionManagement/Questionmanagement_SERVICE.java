@@ -75,4 +75,5 @@ public interface Questionmanagement_SERVICE{
 	public void updateBusyStatus(int Id,int UserId);
 	public void updateBusyStatusAfter(int Id,int UserId);
 	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status);
+	public int geUserIDByIdQuestion(int Id);
 }

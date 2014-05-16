@@ -114,7 +114,7 @@ public class QuestionaManagementController {
 				return "home";
 			}else{
 				if(QuestionmanagementService.checkQuestionIsBusy(Id,UserID)==true){
-					model.addAttribute("warning","Hiện tại tài khoản "+userService.getFullnameByID(UserID)+ " đang làm việc với câu hỏi này.");
+					model.addAttribute("warning","Hiện tại tài khoản "+userService.getFullnameByID(QuestionmanagementService.geUserIDByIdQuestion(Id))+ " đang làm việc với câu hỏi này.");
 					//check is admin
 					List<Questionmanagement> ListQuestion;
 					if(userService.checkIsAdmin(UserID)==true){

@@ -390,7 +390,7 @@ public class Questionmanagement_SERVICE_Implement implements
 
 	@Override
 	public int totalPageQuestiomanagement(int status, int UserID) {
-		int result;
+		int result = 0;
 		List<Questionmanagement> listquestion = QuestionmanagementDAO
 				.getListQuestionmanagementbyStatus(status);
 
@@ -418,7 +418,10 @@ public class Questionmanagement_SERVICE_Implement implements
 					}
 				} else {
 					if (status == 4) {
+						List<Questionmanagement> listdelete = QuestionmanagementDAO.getListQuestionmanagementbyDeleteStatus(1);
+						totalRecord = listdelete.size();
 						if (totalRecord % settings.getRecordDelete() == 0) {
+							
 							result = totalRecord / settings.getRecordDelete();
 						} else {
 							result = (totalRecord / settings.getRecordDelete()) + 1;
@@ -488,9 +491,7 @@ public class Questionmanagement_SERVICE_Implement implements
 													+ 1;
 										}
 
-									} else {
-										result = 0;
-									}
+									} 
 								}
 							}
 						}
@@ -690,4 +691,10 @@ public class Questionmanagement_SERVICE_Implement implements
 			return true;
 		}
 	}
+	public int geUserIDByIdQuestion(int Id) {
+		Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+		int result = question.getBusyStatus();
+		return result;
+	}
+	
 }
