@@ -665,10 +665,7 @@ public class DictionaryController {
 										dicrestful.setQuestion(newdictionary.getQuestion());
 										RestTemplate restTemplate = new RestTemplate();
 										String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
-										if(result1.equals("success")){
-											model.addAttribute("message","Đăng câu hỏi thành công");
-											
-											
+										if(result1.equals("success")){								
 											// Processing restore question
 											int result = DictionaryService.upload(deleteid);	
 											int update = DictionaryService.updateby(deleteid, UserID);
@@ -711,13 +708,10 @@ public class DictionaryController {
 											
 											
 										}else{
-											if(result1.equals("fail")){
-												model.addAttribute("message","Đăng câu hỏi không  thành công ");
-											}
 										}
 										
 									}catch(Exception e){
-										model.addAttribute("error","Đăng câu hỏi không thành công");
+										
 									}
 									
 								}
