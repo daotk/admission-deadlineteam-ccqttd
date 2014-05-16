@@ -268,10 +268,10 @@
 									
 									<c:if test="${not empty Admin}">
 										<div style="width: 100%;height:35px;padding-top: 20px;">
-											<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">ĐĂNG CÂU HỎI</button>
-											<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">XÓA</button>
+											<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">Đăng câu hỏi</button>
+											<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
 											<c:if test="${not empty busystatus}">
-												<button class="buttoncontrol" id="update"><a href="editdictionary2?topic=${diction.ID}">CHỈNH SỬA</a></button>
+												<button class="buttoncontrol" id="update"><a href="editdictionary2?topic=${diction.ID}">Chỉnh sửa</a></button>
 											</c:if>
 										</div>
 									</c:if>
