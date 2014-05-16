@@ -270,7 +270,7 @@
 								</div>
 								<c:if test="${not empty Admin}">
 									<div style="width: 100%;height:35px;">
-										<button class="buttoncontrol" id="remove" type="submit"  name="actionsubmit" value="remove">HẠ CÂU HỎI</button>				
+										<button class="buttoncontrol" id="remove" type="submit"  name="actionsubmit" value="remove">Hạ câu hỏi</button>				
 									</div>
 								</c:if>																
 							</c:if>
