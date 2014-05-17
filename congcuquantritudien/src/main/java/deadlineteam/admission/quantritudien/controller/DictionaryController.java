@@ -80,14 +80,16 @@ public class DictionaryController {
 	
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/editdictionary", method = RequestMethod.GET)
-	public String editdictionary(
-			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id,
-		Model model, HttpSession session) {
-		int UserID = Integer.parseInt(session.getAttribute("login").toString());
-		if(session.getValue("login") == null){
-			model.addAttribute("error", "notlogin");
+	public String editdictionary(@RequestParam(value = "topic", required = false, defaultValue= "0")int Id,
+		Model model, HttpSession session,RedirectAttributes attributes, Locale locale) {
+		
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "editdictionary");
 			return "redirect:/";
 		}else{
+			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			session.setAttribute("Id", Id);
 			Dictionary available = DictionaryService.loadquestion(Id);
 			Users users = userService.getUser(UserID);
@@ -263,12 +265,15 @@ public class DictionaryController {
 	@RequestMapping(value = "/editdictionary2", method = RequestMethod.GET)
 	public String edit2(
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id,
-		Model model, HttpSession session) {
-		int UserID = Integer.parseInt(session.getAttribute("login").toString());
-		if(session.getValue("login") == null){
-			model.addAttribute("error", "notlogin");
+		Model model, HttpSession session,RedirectAttributes attributes, Locale locale) {
+		
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "editdictionary2");
 			return "redirect:/";
 		}else{
+			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			session.setAttribute("Id", Id);
 			Dictionary available = DictionaryService.loadquestion(Id);
 			Users users = userService.getUser(UserID);
@@ -335,12 +340,13 @@ public class DictionaryController {
 	public String botudien(
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-		Model model, HttpSession session) {
+		Model model, HttpSession session,RedirectAttributes attributes, Locale locale ) {
 		
-		
-	if(session.getValue("login") == null){
-		model.addAttribute("error", "notlogin");
-		return "redirect:/";
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "botudien");
+			return "redirect:/";
 	}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(Id, UserID, session);
@@ -787,11 +793,13 @@ public class DictionaryController {
 	public String botudiendaxoa(
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-		Model model, HttpSession session) {
-		int UserID = Integer.parseInt(session.getAttribute("login").toString());
-	if(session.getValue("login") == null){
-		model.addAttribute("error", "notlogin");
-		return "redirect:/";
+		Model model, HttpSession session,RedirectAttributes attributes, Locale locale ) {
+	
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "botudiendaxoa");
+			return "redirect:/";
 	}else{
 		int userID = Integer.parseInt(session.getAttribute("login").toString());
 		if(Id==0){
@@ -821,7 +829,7 @@ public class DictionaryController {
 			model.addAttribute("deletelist", delete);
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
-			Users users = userService.getUser(UserID);
+			Users users = userService.getUser(userID);
 			
 			logger.info("Tài khoản " + users.getUserName() + "vào danh sách câu hỏi đã xóa trong bộ từ điển");
 			return "list-dictionary-delete";
@@ -1038,13 +1046,14 @@ public class DictionaryController {
 	public String botudiendaha(
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-		Model model, HttpSession session) {
-		int UserID = Integer.parseInt(session.getAttribute("login").toString());
-	if(session.getValue("login") == null){
-		model.addAttribute("error", "notlogin");
-		return "redirect:/";
+		Model model, HttpSession session,RedirectAttributes attributes, Locale locale) {
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "botudiendaha");
+			return "redirect:/";
 	}else{
-		
+		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
@@ -1482,11 +1491,13 @@ public class DictionaryController {
 	public String botudienhientai(
 		@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 		@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-		Model model, HttpSession session) {
+		Model model, HttpSession session, RedirectAttributes attributes, Locale locale) {
 		
-	if(session.getValue("login") == null){
-		model.addAttribute("error", "notlogin");
-		return "redirect:/";
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "botudienhientai");
+			return "redirect:/";
 	}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		if(Id==0){
@@ -1779,13 +1790,15 @@ public class DictionaryController {
 
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/taocauhoi", method = RequestMethod.GET)
-	public String taocauhoi(Locale locale, Model model, HttpSession session) {
-		int UserID = Integer.parseInt(session.getAttribute("login").toString());
-		if(session.getValue("login") == null){
-			model.addAttribute("error", "notlogin");
+	public String taocauhoi(Locale locale, Model model, HttpSession session,RedirectAttributes attributes) {
+	
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "taocauhoi");
 			return "redirect:/";
 		}else{
-			
+			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			checkBusyStatus(0, UserID, session);
 			model.addAttribute("createQaA", new Dictionary());
 			model.addAttribute("message", "");
@@ -1838,6 +1851,13 @@ public class DictionaryController {
 	public void checkBusyStatus(int Id,int UserID, HttpSession session){
 		if(session.getValue("BusyStatus") != null){
 			QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
+		}
+	}
+	public boolean checkLogin(HttpSession session, Locale locale){
+		if(session.getValue("login") == null){
+			return false;
+		}else{
+			return true;
 		}
 	}
 }
