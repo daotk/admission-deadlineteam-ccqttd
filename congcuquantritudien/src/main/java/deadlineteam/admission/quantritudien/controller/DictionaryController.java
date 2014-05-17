@@ -615,7 +615,11 @@ public class DictionaryController {
 					}else{
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
+							String[] liststring = checkboxdata.split(",");
 							List<Dictionary> returnlist = DictionaryService.deletealldictionary(checkboxdata, login);
+							int SizeOfList = liststring.length;
+							int successCount = returnlist.size();
+							int failCount =  SizeOfList-successCount;
 							model.addAttribute("message", "Đã xóa.");
 							List<Dictionary> Avaiable;
 							if(session.getValue("Admin")==null){	
@@ -644,9 +648,11 @@ public class DictionaryController {
 										question.substring(0, 45);
 										question = question + "...";
 									}
+									
 									logger.info("Tài khoản "+usersquestion.getUserName()+" xóa câu hỏi " + question);
 								}
 							}
+							model.addAttribute("mess", successCount +" câu hỏi đã xóa, " +failCount+" câu hỏi xóa thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 							model.addAttribute("Avaiable", Avaiable);	
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
@@ -655,6 +661,9 @@ public class DictionaryController {
 						}else{
 							if(actionsubmit.equals("upall")){
 								String[] liststring = checkboxdata.split(",");
+								int SizeOfList = liststring.length;
+								int successCount = 0;
+								int failCount = 0;
 								try{
 									for(int j=0;j<liststring.length;j++){
 										int deleteid = Integer.parseInt(liststring[j].toString());
@@ -701,21 +710,54 @@ public class DictionaryController {
 														}
 													}
 													
-													model.addAttribute("Avaiable", Avaiable);	
+													model.addAttribute("Avaiable", Avaiable);
+													successCount++;
 												}									
 											}else{
+												failCount++;
 											}
 											
 										}catch(Exception e){
-											
+											failCount++;
 										}
 										
 									}
-									model.addAttribute("message", "Đăng câu hỏi thành công");	
+										
 								}catch(Exception e){
-									model.addAttribute("error", "Đăng câu hỏi thất bại");	
+									
 								}
+								List<Dictionary> Avaiable;
+								if(session.getValue("Admin")==null){	
+									Avaiable= DictionaryService.availablelist(page-1, UserID);			
+									for(int i=0;i < Avaiable.size();i++){
+										if(Avaiable.get(i).getQuestion().length() >= check){
+											String abc = Avaiable.get(i).getQuestion().toString();
+											Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}else{
+									Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+									for(int i=0;i < Avaiable.size();i++){
+										if(Avaiable.get(i).getQuestion().length() >= check){
+											String abc = Avaiable.get(i).getQuestion().toString();
+											Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+									}
+								}
+								Setting setting = userService.getSetting(UserID);
 								
+								int numOfRecord = setting.getRecordDictionary();
+								int numOfPagin = setting.getPaginDisplayDictionary();
+								
+								model.addAttribute("numOfRecord", ""+numOfRecord);
+								model.addAttribute("numOfPagin", ""+numOfPagin);
+
+								String user = userService.getFullnameByID(UserID);
+								model.addAttribute("username", user);
+								model.addAttribute("curentOfPage",page);
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+								model.addAttribute("mess", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 							}else{
 								// Tim kiem
 								List<Dictionary> avaiable= DictionaryService.searchIdex(actionsubmit, "1", UserID);
@@ -928,6 +970,11 @@ public class DictionaryController {
 					if(actionsubmit.equals("restoreall")){
 						//xử lý khôi phục tất cả
 						List<Dictionary> returnlist = DictionaryService.restorealldictionary(checkboxdata, userID);
+						
+						String[] liststring = checkboxdata.split(",");
+						int SizeOfList = liststring.length;
+						int successCount = returnlist.size();
+						int failCount = SizeOfList - successCount;
 						List<Dictionary> dele= DictionaryService.deletelist(page-1,userID);
 						for(int i=0;i < dele.size();i++){
 							if(dele.get(i).getQuestion().length() >= check){
@@ -963,6 +1010,7 @@ public class DictionaryController {
 								logger.info("Tài khoản "+usersquestion.getUserName()+" khôi phục câu hỏi " + question);
 							}
 						}
+						model.addAttribute("mess", successCount +" câu hỏi đã khôi phục, " +failCount+" câu hỏi khôi phục thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 						model.addAttribute("message","Khôi phục tất cả thành công.");
 					}else{
 						
@@ -1266,7 +1314,12 @@ public class DictionaryController {
 						}else{
 							if(actionsubmit.equals("deleteall")){
 								int login = Integer.parseInt(session.getAttribute("login").toString());
+								String[] liststring = checkboxdata.split(",");
+								
 								List<Dictionary> returnlist = DictionaryService.deletealldictionary(checkboxdata, login);
+								int SizeOfList = liststring.length;
+								int successCount = returnlist.size();
+								int failCount = SizeOfList - successCount;
 								model.addAttribute("message", "Đã xóa.");
 								List<Dictionary> remove2= DictionaryService.removelist(0, UserID);
 								for(int i=0;i < remove2.size();i++){
@@ -1284,15 +1337,20 @@ public class DictionaryController {
 											question.substring(0, 45);
 											question = question + "...";
 										}
+										
 										logger.info("Tài khoản "+usersquestion.getUserName()+" xóa câu hỏi " + question);
 									}
 								}
+								model.addAttribute("mess", successCount +" câu hỏi đã xóa, " +failCount+" câu hỏi xóa thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 								model.addAttribute("removelist", remove2);
 								String user = userService.getFullnameByID(UserID);
 								model.addAttribute("username", user);
 							}else{
 								if(actionsubmit.equals("upall")){
 									String[] liststring = checkboxdata.split(",");
+									int SizeOfList = liststring.length;
+									int successCount = 0;
+									int failCount = SizeOfList  - successCount;
 									try{
 										for(int j=0;j<liststring.length;j++){
 											int deleteid = Integer.parseInt(liststring[j].toString());
@@ -1344,6 +1402,7 @@ public class DictionaryController {
 													model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 													String user = userService.getFullnameByID(UserID);
 													model.addAttribute("username", user);
+													successCount++;
 													//--------------
 													
 												}else{
@@ -1355,7 +1414,30 @@ public class DictionaryController {
 												
 											}	
 										}
-										model.addAttribute("message","Đăng câu hỏi thành công");
+										
+											List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
+											for(int i=0;i < remove1.size();i++){
+												if(remove1.get(i).getQuestion().length() >= check){
+													String abc = remove1.get(i).getQuestion().toString();
+													remove1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+											}
+											model.addAttribute("removelist", remove1);
+											
+										
+										//--------------
+										Setting setting = userService.getSetting(UserID);
+										
+										int numOfRecord = setting.getRecordDictionary();
+										int numOfPagin = setting.getPaginDisplayDictionary();
+										
+										model.addAttribute("numOfRecord", ""+numOfRecord);
+										model.addAttribute("numOfPagin", ""+numOfPagin);
+										
+										model.addAttribute("curentOfPage",page);
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+										model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+										model.addAttribute("mess", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 									}catch(Exception e){
 										model.addAttribute("error","Đăng câu hỏi thất bại");
 									}
@@ -1601,6 +1683,9 @@ public class DictionaryController {
 					if(actionsubmit.equals("removeall")){
 						try{
 							String[] liststring = checkboxdata.split(",");
+							int SizeOfList = liststring.length;
+							int successCount = 0;
+							int failCount = 0;
 							for(int j=0;j<liststring.length;j++){
 								int deleteid = Integer.parseInt(liststring[j].toString());
 								Dictionary newdictionary = DictionaryService.getinformation(deleteid);
@@ -1649,17 +1734,17 @@ public class DictionaryController {
 										model.addAttribute("diction", new Dictionary());
 										String user = userService.getFullnameByID(UserID);
 										model.addAttribute("username", user);
-										
+										successCount++;
 									}else{
 										if(result1.equals("fail")){
-											
+											failCount++;
 										}
 									}
 								}catch(Exception e){
-									
+									failCount++;
 								}
 							}
-						
+							model.addAttribute("mess", successCount +" câu hỏi đã hạ, " +failCount+" câu hỏi hạ thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 						model.addAttribute("message", "Hạ câu hỏi thành công");
 						}catch(Exception e){
 							model.addAttribute("error", "Hạ câu hỏi thất bại");
