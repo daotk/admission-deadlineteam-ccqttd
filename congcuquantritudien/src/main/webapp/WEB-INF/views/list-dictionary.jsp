@@ -229,7 +229,7 @@
 					
 					<!-- Detail -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">
-						<div>${thongbao}</div>
+						<div>${mess}</div>
 						
 						<form:form method="post" action="botudien" commandName="diction">
 							<c:if test="${not empty error}">
