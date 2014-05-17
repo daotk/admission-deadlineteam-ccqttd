@@ -21,22 +21,6 @@
 	<link href="css/stylesheet.css" rel="stylesheet" />	
 </head>
 <body>
-<!-- 
-<div id="login-box">
-	<div id=logo></div>
-	<div class="header"><h2>Quản trị bộ từ điển</h2></div>
-   	<form:form  method="post" commandName="users" cssClass="dangnhap">
-      <form:input path="UserName" type="text"  placeholder="Tên đăng nhập"/>
-      <form:errors path="UserName" cssClass="error" />
-      <form:input path="Password" type="password" placeholder="Mật khẩu"/>
-      <form:errors path="Password" cssClass="error" />
-      <p class="error">${error}</p>
-      <hr>
-      <a href="./registration" id="register">Bạn chưa có tài khoản?</a>
-      <input type="submit" value="Đăng nhập" class="button" />
-    </form:form>
-</div>
- -->
  
  <table style="width: 100%; height: 640px; margin: 0; padding: 0;">
  
@@ -58,7 +42,6 @@
       <form:errors path="Password" cssClass="error" />
       <p class="error">${error}</p>
       <hr>
-      <a href="./registration" id="register">Bạn chưa có tài khoản?</a>
       <input type="submit" value="ĐĂNG NHẬP" class="button" />
     </form:form>
 </div>

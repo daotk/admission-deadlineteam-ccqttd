@@ -80,15 +80,9 @@ public class UserController {
 	 */
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String login(HttpSession session, Model model,@ModelAttribute("error") String error,Locale locale) {
-		
-		QuestionmanagementService.createIndex();
-		
-		if(session.getValue("login") == null){
+	public String login(HttpSession session, Model model,Locale locale) {
+		if(checkLogin(session, locale)==false){
 			model.addAttribute("users", new Users());
-			if(error.equals("notlogin")){
-				model.addAttribute("error", msgSrc.getMessage("message.user.notlogin", null,locale));
-			}
 			return "login";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -100,28 +94,49 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/trogiup", method=RequestMethod.GET)
-	public String trogiup(HttpSession session, Model model,@ModelAttribute("error") String error) {
+	public String trogiup(HttpSession session, Model model, Locale locale,RedirectAttributes attributes ) {
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "trogiup");
+			return "redirect:/";
+		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
 		Users users = userService.getUser(UserID);
 		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang trợ giúp");
 		return "help";
+		}
 	}
 	@RequestMapping(value="/tienich", method=RequestMethod.GET)
-	public String tienich(HttpSession session, Model model,@ModelAttribute("error") String error) {
+	public String tienich(HttpSession session, Model model, Locale locale,RedirectAttributes attributes) {
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "tienich");
+			return "redirect:/";
+		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
 		Users users = userService.getUser(UserID);
 		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang tiện ích");
 		return "help2";
+		}
 	}
 	@RequestMapping(value="/nguoidung", method=RequestMethod.GET)
-	public String nguoidung(HttpSession session, Model model,@ModelAttribute("error") String error) {
+	public String nguoidung(HttpSession session, Model model,@ModelAttribute("error") String error,Locale locale, RedirectAttributes attributes) {
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "nguoidung");
+			return "redirect:/";
+		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
 		Users users = userService.getUser(UserID);
 		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang người dùng");
 		return "help3";
+		}
 	}
 	/*
 	 * Implement when submit login page
@@ -135,6 +150,34 @@ public class UserController {
         	model.addAttribute("users",user);
         	return "login";
         }else {
+        	if(session.getValue("redirectto") != null){
+        		String redirectto = session.getValue("redirectto").toString();
+        		session.setAttribute("UserId",userService.getIdbyUsername(user.getUserName()));
+				session.setAttribute("UserPassword",user.getPassword());
+				session.setAttribute("sessionfullname",userService.getFullnameByID(userService.getIdbyUsername(user.getUserName())));				
+				//xử lý
+				session.setAttribute("login",userService.getIdbyUsername(user.getUserName()));
+				//check is admin
+				if(userService.checkIsAdmin(userService.getIdbyUsername(user.getUserName()))==true){
+					session.setAttribute("Admin", "Yes");
+				}
+				
+				Setting setting = userService.getSetting(userService.getIdbyUsername(user.getUserName()));
+				int numOfRecord = setting.getRecordNotRep();
+				int numOfPagin = setting.getPaginDisplayNotRep();
+				
+				attribute.addFlashAttribute("numOfPagin", ""+numOfPagin);
+				attribute.addFlashAttribute("questionmanagements", new Questionmanagement());
+				//paging
+				attribute.addFlashAttribute("curentOfPage",1);
+				attribute.addFlashAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, userService.getIdbyUsername(user.getUserName())));
+				attribute.addFlashAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
+				
+				logger.info("Tài khoản "+user.getUserName()+ " đã đăng nhập vào hệ thống");
+				return "redirect:/"+redirectto;
+        		
+        	}else{
+        	
         	String passmd5 = AeSimpleMD5.MD5(user.getPassword());
         	String checklogin = userService.checkLogin(user.getUserName(), passmd5);
 			if(checklogin.equals("Right")){
@@ -186,6 +229,7 @@ public class UserController {
 				model.addAttribute("users",user);
 	        	return "login";
 			}
+        	}
         }
 	}
 	
@@ -281,7 +325,13 @@ public class UserController {
 		
 	//Xử lý khi nhấp chang pass
 	@RequestMapping(value="/changepass", method=RequestMethod.GET)
-	public ModelAndView changpass(HttpSession session, Model model) {
+	public String changpass(HttpSession session, Model model,@ModelAttribute("error") String error,Locale locale,RedirectAttributes attributes) {
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "changepass");
+			return "redirect:/";
+		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
 		model.addAttribute("fullname", userService.getFullnameByID(UserID));
@@ -291,7 +341,9 @@ public class UserController {
 		}
 		Users users = userService.getUser(UserID);
 		logger.info("Tài khoản "+users.getUserName()+" vào trang đổi mật khẩu");
-		return new ModelAndView("change-pass", "users", new UsersBean());
+		model.addAttribute("users", new UsersBean());
+		return "change-pass";
+		}
 	}
 	
 	//Xử lý khi nhấp chang pass
@@ -346,7 +398,13 @@ public class UserController {
 	}
 	//Xử lý khi nhấp view profile
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
-	public ModelAndView profile(HttpSession session, Model model) {
+	public String profile(HttpSession session, Model model,@ModelAttribute("error") String error,Locale locale,RedirectAttributes attributes ) {
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "profile");
+			return "redirect:/";
+		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
 		model.addAttribute("fullname", userService.getFullnameByID(UserID));
@@ -356,24 +414,26 @@ public class UserController {
 		}	
 		Users users = userService.getUser(UserID);
 		logger.info("Tài khoản  "+ users.getUserName() +" vào trang thông tin người dùng");
-		return new ModelAndView("view-profile", "users", userService.getUser(UserID));
+		model.addAttribute("users",userService.getUser(UserID));
+		return "view-profile";
+		}
 	}
 	
 		//implement when call setting page - user setting default
 		@RequestMapping(value="/cauhinh", method=RequestMethod.GET)
 		public String settinguser(
 				@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
-				HttpSession session, Model model) {
-			
-			int UserID = Integer.parseInt(session.getAttribute("login").toString());
-			if(session.getValue("login") == null){
-				model.addAttribute("error", "notlogin");
+				HttpSession session, Model model,Locale locale,RedirectAttributes attributes) {
+			if(checkLogin(session, locale)==false){			
+				attributes.addFlashAttribute("users", new Users());
+				attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+				session.setAttribute("redirectto", "cauhinh");
 				return "redirect:/";
 			}else{
+				int UserID = Integer.parseInt(session.getAttribute("login").toString());
 				if(session.getValue("Admin")==null){
 					return "redirect:/notalow";
 				}else{
-				
 				if(Id==0){
 					//Get List Question
 					List<Users> listUser= userService.getAllUsers();
@@ -479,19 +539,27 @@ public class UserController {
 			@Value("${db.password}")
 	        private String password;
 		 
-				@RequestMapping(value="/cauhinhhethong", method=RequestMethod.GET)
-				
-				public String settingsystem(HttpSession session, Model model,Locale locale) {
-
-					model.addAttribute("driver", driver);
-					model.addAttribute("url", url);
-					model.addAttribute("username", username);
-					model.addAttribute("password", password);
-					int login = Integer.parseInt(session.getAttribute("login").toString());
-					Users users = userService.getUser(login);
-					logger.info("Tài khoản "+users.getUserName() +" vào trang cấu hình hệ thống");
-					return "setting-system";
-				
+				@RequestMapping(value="/cauhinhhethong", method=RequestMethod.GET)		
+				public String settingsystem(HttpSession session, Model model,@ModelAttribute("error") String error,Locale locale, RedirectAttributes attributes) {
+					if(checkLogin(session, locale)==false){			
+						attributes.addFlashAttribute("users", new Users());
+						attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+						session.setAttribute("redirectto", "cauhinhhethong");
+						return "redirect:/";
+					}else{
+						if(session.getValue("Admin")==null){
+							return "redirect:/notalow";
+						}else{
+							model.addAttribute("driver", driver);
+							model.addAttribute("url", url);
+							model.addAttribute("username", username);
+							model.addAttribute("password", password);
+							int login = Integer.parseInt(session.getAttribute("login").toString());
+							Users users = userService.getUser(login);
+							logger.info("Tài khoản "+users.getUserName() +" vào trang cấu hình hệ thống");
+							return "setting-system";
+						}
+					}
 				}
 				//implement when register submit
 				@RequestMapping(value = "/cauhinhhethong", method = RequestMethod.POST)
@@ -532,17 +600,26 @@ public class UserController {
 				
 				@RequestMapping(value="/cauhinhmail", method=RequestMethod.GET)
 				public String settingmail(
-						HttpSession session, Model model) {
-
-					model.addAttribute("host", host);
-					model.addAttribute("port", port);
-					model.addAttribute("usernamemail", usernamemail);
-					model.addAttribute("passwordmail", passwordmail);
-					int login = Integer.parseInt(session.getAttribute("login").toString());
-					Users users = userService.getUser(login);
-					logger.info("Tài khoản "+users.getUserName() +" vào trang cấu hình mail");
-					return "setting-mail";
-				
+						HttpSession session, Model model,@ModelAttribute("error") String error,Locale locale, RedirectAttributes attributes) {
+					if(checkLogin(session, locale)==false){			
+						attributes.addFlashAttribute("users", new Users());
+						attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+						session.setAttribute("redirectto", "cauhinhmail");
+						return "redirect:/";
+					}else{
+						if(session.getValue("Admin")==null){
+							return "redirect:/notalow";
+						}else{
+							model.addAttribute("host", host);
+							model.addAttribute("port", port);
+							model.addAttribute("usernamemail", usernamemail);
+							model.addAttribute("passwordmail", passwordmail);
+							int login = Integer.parseInt(session.getAttribute("login").toString());
+							Users users = userService.getUser(login);
+							logger.info("Tài khoản "+users.getUserName() +" vào trang cấu hình mail");
+							return "setting-mail";
+						}
+					}
 				}
 				//implement when register submit
 				@RequestMapping(value = "/cauhinhmail", method = RequestMethod.POST)
@@ -580,14 +657,25 @@ public class UserController {
 				
 				@RequestMapping(value = "/taoindex", method = RequestMethod.GET)
 				public String taoindex(Model model){
-					String message = FTPClientTransfer.ftp();				
-					model.addAttribute("message", message);
+					//String message = FTPClientTransfer.ftp();				
+					model.addAttribute("message", "Tính năng tạm dừng");
 					return "create-index";
 				}
 				
+				
+				
+				//
 				public void checkBusyStatus(int Id,int UserID, HttpSession session){
 					if(session.getValue("BusyStatus") != null){
 						QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
+					}
+				}
+				
+				public boolean checkLogin(HttpSession session, Locale locale){
+					if(session.getValue("login") == null){
+						return false;
+					}else{
+						return true;
 					}
 				}
 }
