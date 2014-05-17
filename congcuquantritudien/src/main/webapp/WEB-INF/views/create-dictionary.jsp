@@ -13,13 +13,14 @@
 	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/tab-nav.js"></script>
 	<script src='js/popbox.js' type='text/javascript'></script>
-
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 	<script>
 	$(window).bind("load", function() {
 		$('#loading').fadeOut(2000);
@@ -68,12 +69,43 @@
 					<!-- Buttons -->
 					<div style="width: 100%;height:35px;padding-top: 20px;">	
 						<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="margin-right: 3%;">Lưu</button>
-						<p id="quotation" style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">${message}<p>
+						<p id="quotation" style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;"><p>
 					</div>			      
 				</form:form>
         	</table>
         	<!-- Question Title -->
-			
+				<c:if test="${not empty error}">
+								<script type="text/javascript">
+									var mess = '${error}';
+									$.msgbox({
+										type: 'error',
+										content: mess,
+										title: 'Thất bại'
+									});
+								</script>
+							</c:if>	
+							
+							<c:if test="${not empty warning}">
+								<script type="text/javascript">
+									var mess = '${warning}';
+									$.msgbox({
+										type: 'warning',
+										content: mess,
+										title: 'Cảnh báo'
+									});
+								</script>
+							</c:if>	
+							</div>
+							<c:if test="${not empty message}">
+								<script type="text/javascript">
+									var mess = '${message}';
+				        				$.msgbox({
+										type: 'success',
+										content: mess,
+										title: 'Thành công'
+									});
+			        			</script>
+		        			</c:if>	
       	</div>
     </tiles:putAttribute>
 </tiles:insertDefinition>
