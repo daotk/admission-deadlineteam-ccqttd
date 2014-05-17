@@ -1350,7 +1350,7 @@ public class DictionaryController {
 									String[] liststring = checkboxdata.split(",");
 									int SizeOfList = liststring.length;
 									int successCount = 0;
-									int failCount = SizeOfList  - successCount;
+									int failCount = 0;
 									try{
 										for(int j=0;j<liststring.length;j++){
 											int deleteid = Integer.parseInt(liststring[j].toString());
@@ -1360,59 +1360,62 @@ public class DictionaryController {
 											dicrestful.setAnwser(newdictionary.getAnwser());
 											dicrestful.setQuestion(newdictionary.getQuestion());
 											String s = congcuhienthi;
-											try{
-												RestTemplate restTemplate = new RestTemplate();
-												String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
-												if(result1.equals("success")){
-													Users users = userService.getUser(UserID);
-													//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
-													Dictionary userquestion = DictionaryService.getinformation(deleteid);
-													String newquestion =  userquestion.getQuestion();
-													if(newquestion.length() > 50){
-														newquestion.subSequence(0, 45);
-														newquestion = newquestion + "...";
-													}
-													logger.info("Tài khoản " + users.getUserName() + " đã đăng câu hỏi " +newquestion);
-													model.addAttribute("message","Đăng câu hỏi thành công");
-													// Processing restore question
-													int result = DictionaryService.upload(deleteid);
-													int update = DictionaryService.updateby(deleteid, UserID);
-													if(result >0 && update >0){
-														List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
-														for(int i=0;i < remove1.size();i++){
-															if(remove1.get(i).getQuestion().length() >= check){
-																String abc = remove1.get(i).getQuestion().toString();
-																remove1.get(i).setQuestion(abc.substring(0, get)+ ".....");
-															}
+											
+												try{
+													RestTemplate restTemplate = new RestTemplate();
+													String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
+													if(result1.equals("success")){
+														Users users = userService.getUser(UserID);
+														//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+														Dictionary userquestion = DictionaryService.getinformation(deleteid);
+														String newquestion =  userquestion.getQuestion();
+														if(newquestion.length() > 50){
+															newquestion.subSequence(0, 45);
+															newquestion = newquestion + "...";
 														}
-														model.addAttribute("removelist", remove1);
+														logger.info("Tài khoản " + users.getUserName() + " đã đăng câu hỏi " +newquestion);
+														model.addAttribute("message","Đăng câu hỏi thành công");
+														// Processing restore question
+														int result = DictionaryService.upload(deleteid);
+														int update = DictionaryService.updateby(deleteid, UserID);
+														if(result >0 && update >0){
+															List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
+															for(int i=0;i < remove1.size();i++){
+																if(remove1.get(i).getQuestion().length() >= check){
+																	String abc = remove1.get(i).getQuestion().toString();
+																	remove1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+																}
+															}
+															model.addAttribute("removelist", remove1);
+															
+														}
+														//--------------
+														Setting setting = userService.getSetting(UserID);
 														
-													}
-													//--------------
-													Setting setting = userService.getSetting(UserID);
-													
-													int numOfRecord = setting.getRecordDictionary();
-													int numOfPagin = setting.getPaginDisplayDictionary();
-													
-													model.addAttribute("numOfRecord", ""+numOfRecord);
-													model.addAttribute("numOfPagin", ""+numOfPagin);
-													
-													model.addAttribute("curentOfPage",page);
-													model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
-													model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
-													String user = userService.getFullnameByID(UserID);
-													model.addAttribute("username", user);
-													successCount++;
-													//--------------
-													
-												}else{
-													if(result1.equals("fail")){
+														int numOfRecord = setting.getRecordDictionary();
+														int numOfPagin = setting.getPaginDisplayDictionary();
 														
+														model.addAttribute("numOfRecord", ""+numOfRecord);
+														model.addAttribute("numOfPagin", ""+numOfPagin);
+														
+														model.addAttribute("curentOfPage",page);
+														model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+														model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
+														String user = userService.getFullnameByID(UserID);
+														model.addAttribute("username", user);
+														successCount++;
+														//--------------
+														
+													}else{
+														if(result1.equals("fail")){
+															failCount++;
+														}
 													}
-												}
-											}catch(Exception e){
+												}catch(Exception e){
+													failCount++;
+												}	
+											
 												
-											}	
 										}
 										
 											List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
