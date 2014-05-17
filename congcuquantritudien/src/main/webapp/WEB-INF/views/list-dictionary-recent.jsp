@@ -154,9 +154,10 @@
 		       		 
 			       		 	<!-- select form -->
 							<div style="padding: 5px;">
-							  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
-							  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;">Hạ</span>
-						  		
+								<c:if test="${not empty Admin}">
+								  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;">Hạ</span>
+						  		</c:if>
 						  		<!-- configuration -->
 						  		<div id="container-pop">
 									<a class="popup-link-1" style="text-decoration: none;">
