@@ -162,17 +162,6 @@ public class UserController {
 					session.setAttribute("Admin", "Yes");
 				}
 				
-				Setting setting = userService.getSetting(userService.getIdbyUsername(user.getUserName()));
-				int numOfRecord = setting.getRecordNotRep();
-				int numOfPagin = setting.getPaginDisplayNotRep();
-				
-				attribute.addFlashAttribute("numOfPagin", ""+numOfPagin);
-				attribute.addFlashAttribute("questionmanagements", new Questionmanagement());
-				//paging
-				attribute.addFlashAttribute("curentOfPage",1);
-				attribute.addFlashAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, userService.getIdbyUsername(user.getUserName())));
-				attribute.addFlashAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
-				
 				logger.info("Tài khoản "+user.getUserName()+ " đã đăng nhập vào hệ thống");
 				return "redirect:/"+redirectto;
         		

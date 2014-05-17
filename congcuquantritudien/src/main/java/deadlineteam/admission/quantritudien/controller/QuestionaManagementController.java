@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
@@ -68,9 +69,11 @@ public class QuestionaManagementController {
 	public String HomeGetMethod(	 
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 			@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-			Model model, HttpSession session) {	
-		if(session.getValue("login") == null){
-			model.addAttribute("error", "notlogin");
+			Model model, HttpSession session,RedirectAttributes attributes, Locale locale) {	
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "home");
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -574,9 +577,11 @@ public class QuestionaManagementController {
 	@RequestMapping(value = "/dsluutam", method = RequestMethod.GET)
 	public String dsluutam(@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 			@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-			Model model, HttpSession session, Locale locale) {
-		if(session.getValue("login") == null){
-			model.addAttribute("error", "notlogin");
+			Model model, HttpSession session, RedirectAttributes attributes, Locale locale) {
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "dsluutam");
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -1303,10 +1308,12 @@ public class QuestionaManagementController {
 	public String dsdatraloi(
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 			@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-			Model model, HttpSession session,Locale locale) {
+			Model model, HttpSession session, RedirectAttributes attributes, Locale locale) {
 		
-		if(session.getValue("login") == null){
-			model.addAttribute("error", "notlogin");
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "dsdatraloi");
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -1823,10 +1830,12 @@ public class QuestionaManagementController {
 	public String dsdaxoa(
 			@RequestParam(value = "topic", required = false, defaultValue= "0")int Id, 
 			@RequestParam(value = "page", required = false, defaultValue= "1")int page,
-			Model model, HttpSession session) {
+			Model model, HttpSession session, RedirectAttributes attributes, Locale locale) {
 		
-		if(session.getValue("login") == null){
-			model.addAttribute("error", "notlogin");
+		if(checkLogin(session, locale)==false){			
+			attributes.addFlashAttribute("users", new Users());
+			attributes.addFlashAttribute("error", "Bạn chưa đăng nhập!.");
+			session.setAttribute("redirectto", "dsdaxoa");
 			return "redirect:/";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
@@ -2181,5 +2190,13 @@ public class QuestionaManagementController {
 					}
 			}
 		return "list-deleted";
+	}
+	
+	public boolean checkLogin(HttpSession session, Locale locale){
+		if(session.getValue("login") == null){
+			return false;
+		}else{
+			return true;
+		}
 	}
 }
