@@ -111,6 +111,14 @@ public class DictionaryWS {
 		}
 		return message;
 	}
-	
+	@RequestMapping(value="checkconnect/{check}", method=RequestMethod.GET)
+	@ResponseBody
+	public String createQuestion(@PathVariable("check")String check) {
+		String message = "fail";
+		if(check.equals("congcuhienthi")){
+			message = "success";
+		}
+		return message;
+	}
 	
 }
