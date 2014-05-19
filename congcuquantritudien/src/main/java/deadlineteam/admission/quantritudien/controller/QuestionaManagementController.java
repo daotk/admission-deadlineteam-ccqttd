@@ -635,6 +635,8 @@ public class QuestionaManagementController {
 				return "list-saved";
 				
 			}else{
+				
+				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
 				Questionmanagement save = QuestionmanagementService.savequestion(Id);
@@ -679,9 +681,12 @@ public class QuestionaManagementController {
 					model.addAttribute("isAdmin","admin");
 				}	
 				return "list-saved";
+			}else{
+				return "redirect:/notalow";
 			}
 		}
-		
+	}
+	
 	}
 	
 	
@@ -1365,6 +1370,10 @@ public class QuestionaManagementController {
 				return "list-replied";
 				
 			}else{
+				
+				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
+				
+				
 				int login = Integer.parseInt(session.getAttribute("login").toString());
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
@@ -1409,6 +1418,9 @@ public class QuestionaManagementController {
 				model.addAttribute("questionmanagements", delete);
 				model.addAttribute("replylust", Deletequestionlist);
 				return "list-replied";
+			}else{
+				return "redirect:/notalow";
+			}
 			}
 		}
 	}
@@ -1884,6 +1896,10 @@ public class QuestionaManagementController {
 				return "list-deleted";
 				
 			}else{
+				
+				if(QuestionmanagementService.checkDeleteListByUserId(UserID , Id)==true){
+				
+				
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
 				Questionmanagement delete = QuestionmanagementService.deletequestion(Id);
@@ -1923,6 +1939,9 @@ public class QuestionaManagementController {
 				model.addAttribute("deletequestion", delete);
 				model.addAttribute("deletequestionlist", Deletequestionlist);
 				return "list-deleted";
+				}else {
+					return "redirect:/notalow";
+				}
 			}
 		}
 	}

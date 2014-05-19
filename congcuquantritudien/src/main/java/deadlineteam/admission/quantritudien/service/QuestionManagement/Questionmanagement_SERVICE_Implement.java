@@ -16,6 +16,7 @@ import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
+import deadlineteam.admission.quantritudien.service.User.Users_SERVICE;
 
 @Service
 @Transactional
@@ -24,6 +25,9 @@ public class Questionmanagement_SERVICE_Implement implements
 
 	@Autowired
 	private Users_DAO UserDAO;
+	
+	@Autowired
+	private Users_SERVICE UserSERVICE;
 	@Autowired
 	private Questionmanagement_DAO QuestionmanagementDAO;
 	@Autowired
@@ -696,5 +700,35 @@ public class Questionmanagement_SERVICE_Implement implements
 		int result = question.getBusyStatus();
 		return result;
 	}
+	
+	public boolean checkSavaListByUserId(int UserId,int Id) {
+		Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+		if(UserSERVICE.checkIsAdmin(UserId)==true){
+			return true;
+		}else{
+			if(question.getAnswerBy().equals(UserId)){
+				return true;
+			}else {
+				return false;
+			}
+		}
+		
+	}
+	
+	public boolean checkDeleteListByUserId(int UserId,int Id) {
+		Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+		if(UserSERVICE.checkIsAdmin(UserId)==true){
+			return true;
+		}else{
+			if(question.getDeleteBy().equals(UserId)){
+				return true;
+			}else {
+				return false;
+			}
+		}
+		
+	}
+	
+	
 	
 }

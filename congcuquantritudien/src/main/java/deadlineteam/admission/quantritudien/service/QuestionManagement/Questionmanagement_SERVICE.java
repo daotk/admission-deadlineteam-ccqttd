@@ -76,4 +76,6 @@ public interface Questionmanagement_SERVICE{
 	public void updateBusyStatusAfter(int Id,int UserId);
 	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status);
 	public int geUserIDByIdQuestion(int Id);
+	public boolean checkSavaListByUserId(int UserId,int Id);
+	public boolean checkDeleteListByUserId(int UserId,int Id);
 }
