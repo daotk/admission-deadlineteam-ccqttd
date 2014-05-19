@@ -14,8 +14,10 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link rel="stylesheet" href="css/styles.css"/>
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
 	<!-- Java Script -->
 	<script src='js/jquery.min.js' type='text/javascript'></script>
+
 	
 	<!-- Setting pop box -->
 	<script src='js/popbox.js' type='text/javascript'></script>
@@ -24,6 +26,7 @@
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 	
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -194,12 +197,38 @@ $(document).ready(function() {
 									<tr>
 										<td style="width: 25%;"></td>
 										<td style="float: right">
-											<c:if test="${not empty message}">
-												<span class="success">${message}</span>
-											</c:if>
 											<c:if test="${not empty error}">
-												<center><span class="error">${error}</span></center>
+												<script type="text/javascript">
+													var mess = '${error}';
+													$.msgbox({
+														type: 'error',
+														content: mess,
+														title: 'Thất bại'
+													});
+												</script>
 											</c:if>	
+							
+											<c:if test="${not empty warning}">
+												<script type="text/javascript">
+													var mess = '${warning}';
+													$.msgbox({
+														type: 'warning',
+														content: mess,
+														title: 'Cảnh báo'
+													});
+												</script>
+											</c:if>	
+											</div>
+											<c:if test="${not empty message}">
+												<script type="text/javascript">
+													var mess = '${message}';
+								        				$.msgbox({
+														type: 'success',
+														content: mess,
+														title: 'Thành công'
+													});
+							        			</script>
+						        			</c:if>	
 										</td>
 									</tr>
 									<tr>
