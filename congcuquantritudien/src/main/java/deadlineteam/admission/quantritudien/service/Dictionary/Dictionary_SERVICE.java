@@ -42,4 +42,16 @@ public interface Dictionary_SERVICE {
 	public Setting getSetting(int UserId);
 	public boolean checkDictionaryByUserId(int UserId,int Id);
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id);
+	
+	// khang 15/10
+			public List<Dictionary> getDictionaryAvailableForAdmin(int page);
+			public List<Dictionary> getDictionaryAvailableForUser(int page, int UserID);
+			public List<Dictionary> searchDictionaryAvailableForAdmin(int page, String keyword);
+			public List<Dictionary> searchDictionaryAvailableForUser(int page, String keyword, int UserID);
+			public List<Dictionary> getDictionaryUpload(int page);
+			public List<Dictionary> searchDictionaryUpload(int page, String keyword);
+			public List<Dictionary> getDictionaryDown(int page);
+			public List<Dictionary> searchDictionaryDown(int page, String keyword);
+			public List<Dictionary> getDictionaryDelete(int page);
+			public List<Dictionary> searchDictionaryDelete(int page, String keyword);
 }
