@@ -22,7 +22,7 @@ import deadlineteam.admission.quantritudien.service.User.Users_SERVICE;
 @Transactional
 public class Questionmanagement_SERVICE_Implement implements
 		Questionmanagement_SERVICE {
-
+	private int numAndroid = 10;
 	@Autowired
 	private Users_DAO UserDAO;
 	
@@ -700,7 +700,6 @@ public class Questionmanagement_SERVICE_Implement implements
 		int result = question.getBusyStatus();
 		return result;
 	}
-	
 	public boolean checkSavaListByUserId(int UserId,int Id) {
 		Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
 		if(UserSERVICE.checkIsAdmin(UserId)==true){
@@ -729,6 +728,493 @@ public class Questionmanagement_SERVICE_Implement implements
 		
 	}
 	
-	
+
+	// Khang android update 11/05
+		public List<Questionmanagement> getListQuestionmanagementAndroid(int page){
+			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+			
+			List<Questionmanagement> list = QuestionmanagementDAO.getListQuestionmanagementbyStatus(1);
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getQuestionDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getQuestionDate().compareTo(max)>0){
+						max = list.get(i).getQuestionDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+			
+		}
+		public List<Questionmanagement> searchIdexAndroid(int page, String keyword){	
+			List<Questionmanagement> list = QuestionmanagementDAO.searchIdex(keyword, "1");
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getQuestionDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getQuestionDate().compareTo(max)>0){
+						max = list.get(i).getQuestionDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> getSaveListQuestionmanagementAndroid(int page){
+			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+			
+			List<Questionmanagement> list = QuestionmanagementDAO.getListQuestionmanagementbyStatus(2);
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+			
+		}
+		public List<Questionmanagement> getSaveListForUserAndroid(int page, int UserID){
+			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+			
+			List<Questionmanagement> list = QuestionmanagementDAO.getSaveListForUser(0, UserID); // so 0 la do ham co san 
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> searchIdexAndroidSaveListAndroid(int page, String keyword){
+			List<Questionmanagement> list = QuestionmanagementDAO.searchIdex(keyword, "2");
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> searchIdexAndroidSaveListForUserAndroid(int page, String keyword, int UserID){
+			
+			List<Questionmanagement> question =  QuestionmanagementDAO.searchIdex(keyword, "2");
+			
+			List<Questionmanagement> newlistquestion= new ArrayList<Questionmanagement>();
+			int L=0;
+			for(int i=0;i<question.size();i++){
+				if(question.get(i).getAnswerBy().equals(UserID)){
+					newlistquestion.add(L,question.get(i));
+					L++;
+				}
+			}
+			List<Questionmanagement> list = newlistquestion;
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> getReplyListQuestionmanagementAndroid(int page){
+			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+			
+			List<Questionmanagement> list = QuestionmanagementDAO.getRepliedListForAdmin(0,0); // get ds cho admin 0,0 la khong co j
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+			
+		}
+		public List<Questionmanagement> getReplyListForUserAndroid(int page, int UserID){
+			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+			
+			List<Questionmanagement> list = QuestionmanagementDAO.repliedList(0, UserID); // so 0 la do ham co san chu khong co tac dung gi =.=' 
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> searchIdexAndroidReplyListAndroid(int page, String keyword){
+			List<Questionmanagement> list = QuestionmanagementDAO.searchIdex(keyword, "3");
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> searchIdexAndroidReplyListForUserAndroid(int page, String keyword, int UserID){
+			
+			List<Questionmanagement> question =  QuestionmanagementDAO.searchIdex(keyword, "3");
+			
+			List<Questionmanagement> newlistquestion= new ArrayList<Questionmanagement>();
+			int L=0;
+			for(int i=0;i<question.size();i++){
+				if(question.get(i).getAnswerBy().equals(UserID)){
+					newlistquestion.add(L,question.get(i));
+					L++;
+				}
+			}
+			List<Questionmanagement> list = newlistquestion;
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getAnwserDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getAnwserDate().compareTo(max)>0){
+						max = list.get(i).getAnwserDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		
+		public List<Questionmanagement> getDeleteListQuestionmanagementAndroid(int page){
+			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+			
+			List<Questionmanagement> list = QuestionmanagementDAO.getDeleteListForAdmin(0,0); // get ds cho admin 0,0 la khong co j
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getDeleteDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getDeleteDate().compareTo(max)>0){
+						max = list.get(i).getDeleteDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+			
+		}
+		public List<Questionmanagement> getDeleteListForUserAndroid(int page, int UserID){
+			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+			
+			List<Questionmanagement> list = QuestionmanagementDAO.deleteList(0, UserID); // so 0 la do ham co san chu khong co tac dung gi =.=' 
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getDeleteDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getDeleteDate().compareTo(max)>0){
+						max = list.get(i).getDeleteDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> searchIdexAndroidDeleteListAndroid(int page, String keyword){
+			List<Questionmanagement> list = QuestionmanagementDAO.searchIdex(keyword, "4");
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getDeleteDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getDeleteDate().compareTo(max)>0){
+						max = list.get(i).getDeleteDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
+		public List<Questionmanagement> searchIdexAndroidDeleteListForUserAndroid(int page, String keyword, int UserID){
+			
+			List<Questionmanagement> question =  QuestionmanagementDAO.searchIdex(keyword, "4");
+			
+			List<Questionmanagement> newlistquestion= new ArrayList<Questionmanagement>();
+			int L=0;
+			for(int i=0;i<question.size();i++){
+				if(question.get(i).getDeleteBy().equals(UserID)){
+					newlistquestion.add(L,question.get(i));
+					L++;
+				}
+			}
+			List<Questionmanagement> list = newlistquestion;
+			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
+			for(;list.size()>0;){
+				Date max = list.get(0).getDeleteDate();
+				int rememberint =0;
+				for(int i=1;i<list.size();i++){
+					if(list.get(i).getDeleteDate().compareTo(max)>0){
+						max = list.get(i).getDeleteDate();
+						rememberint = i;
+					}
+				}
+				sortlist.add(list.get(rememberint));
+				list.remove(rememberint);
+			}
+			
+			List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
+	         int setting = numAndroid;
+	         int begin = 0;
+	         int end =  page*setting + setting;
+	         if(end > sortlist.size()){
+	         	end = sortlist.size();
+	         }
+	         int l = 0;
+	         for(int k = begin; k< end;k++){
+	         	shortlist.add(l, sortlist.get(k));
+	         	l++;
+	         }
+	         
+			return shortlist;
+		}
 	
 }

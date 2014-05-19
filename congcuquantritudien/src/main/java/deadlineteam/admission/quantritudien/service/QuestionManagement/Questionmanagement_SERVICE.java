@@ -78,4 +78,24 @@ public interface Questionmanagement_SERVICE{
 	public int geUserIDByIdQuestion(int Id);
 	public boolean checkSavaListByUserId(int UserId,int Id);
 	public boolean checkDeleteListByUserId(int UserId,int Id);
+	
+
+	// Khang android update 11/05
+			public List<Questionmanagement> getListQuestionmanagementAndroid(int page);
+			public List<Questionmanagement> searchIdexAndroid(int page, String keyword);
+			
+			public List<Questionmanagement> getSaveListQuestionmanagementAndroid(int page); // for admin
+			public List<Questionmanagement> getSaveListForUserAndroid(int page, int UserID);
+			public List<Questionmanagement> searchIdexAndroidSaveListAndroid(int page, String keyword); // for admin
+			public List<Questionmanagement> searchIdexAndroidSaveListForUserAndroid(int page, String keyword, int UserID);
+			
+			public List<Questionmanagement> getReplyListQuestionmanagementAndroid(int page); // for admin
+			public List<Questionmanagement> getReplyListForUserAndroid(int page, int UserID);
+			public List<Questionmanagement> searchIdexAndroidReplyListAndroid(int page, String keyword); // for admin
+			public List<Questionmanagement> searchIdexAndroidReplyListForUserAndroid(int page, String keyword, int UserID);
+			
+			public List<Questionmanagement> getDeleteListQuestionmanagementAndroid(int page); // for admin
+			public List<Questionmanagement> getDeleteListForUserAndroid(int page, int UserID);
+			public List<Questionmanagement> searchIdexAndroidDeleteListAndroid(int page, String keyword); // for admin
+			public List<Questionmanagement> searchIdexAndroidDeleteListForUserAndroid(int page, String keyword, int UserID);
 }
