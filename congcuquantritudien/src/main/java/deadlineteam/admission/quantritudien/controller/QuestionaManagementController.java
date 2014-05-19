@@ -269,6 +269,14 @@ public class QuestionaManagementController {
 											}
 										}
 										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										Setting setting = userService.getSetting(UserID);
+										int numOfRecord = setting.getRecordNotRep();
+										int numOfPagin = setting.getPaginDisplayNotRep();
+										model.addAttribute("numOfRecord", ""+numOfRecord);
+										model.addAttribute("numOfPagin", ""+numOfPagin);
+										model.addAttribute("curentOfPage",page);
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+										model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 										model.addAttribute("listquestionmanagement", ListQuestion1);														
 									}
 								}else{
@@ -305,6 +313,14 @@ public class QuestionaManagementController {
 													}
 												}
 												QuestionmanagementService.UpdateAnwserBy(Id, login);
+												Setting setting = userService.getSetting(UserID);
+												int numOfRecord = setting.getRecordNotRep();
+												int numOfPagin = setting.getPaginDisplayNotRep();
+												model.addAttribute("numOfRecord", ""+numOfRecord);
+												model.addAttribute("numOfPagin", ""+numOfPagin);
+												model.addAttribute("curentOfPage",page);
+												model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+												model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 												model.addAttribute("listquestionmanagement", ListQuestion1);														
 											}
 										}
@@ -343,6 +359,14 @@ public class QuestionaManagementController {
 										}
 									}
 									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									Setting setting = userService.getSetting(UserID);
+									int numOfRecord = setting.getRecordNotRep();
+									int numOfPagin = setting.getPaginDisplayNotRep();
+									model.addAttribute("numOfRecord", ""+numOfRecord);
+									model.addAttribute("numOfPagin", ""+numOfPagin);
+									model.addAttribute("curentOfPage",page);
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 									model.addAttribute("listquestionmanagement", ListQuestion1);														
 								}
 							}
@@ -357,6 +381,22 @@ public class QuestionaManagementController {
 						}						
 					}
 				}
+				List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+				for(int i=0;i < ListQuestion1.size();i++){
+					if(ListQuestion1.get(i).getQuestion().length() >= check){
+						String abc = ListQuestion1.get(i).getQuestion().toString();
+						ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+				}
+				QuestionmanagementService.UpdateAnwserBy(Id, login);
+				Setting setting = userService.getSetting(UserID);
+				int numOfRecord = setting.getRecordNotRep();
+				int numOfPagin = setting.getPaginDisplayNotRep();
+				model.addAttribute("numOfRecord", ""+numOfRecord);
+				model.addAttribute("numOfPagin", ""+numOfPagin);
+				model.addAttribute("curentOfPage",page);
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 			}else{
 				if(actionsubmit.equals("save")){
 					int Id = Integer.parseInt(session.getAttribute("Id").toString());
@@ -389,6 +429,14 @@ public class QuestionaManagementController {
 												}
 											}
 											model.addAttribute("listquestionmanagement", ListQuestion1);
+											Setting setting = userService.getSetting(UserID);
+											int numOfRecord = setting.getRecordNotRep();
+											int numOfPagin = setting.getPaginDisplayNotRep();
+											model.addAttribute("numOfRecord", ""+numOfRecord);
+											model.addAttribute("numOfPagin", ""+numOfPagin);
+											model.addAttribute("curentOfPage",page);
+											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+											model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 											QuestionmanagementService.UpdateAnwserBy(Id, login);
 											Users users = userService.getUser(UserID);
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -412,6 +460,14 @@ public class QuestionaManagementController {
 										}
 									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
+									Setting setting = userService.getSetting(UserID);
+									int numOfRecord = setting.getRecordNotRep();
+									int numOfPagin = setting.getPaginDisplayNotRep();
+									model.addAttribute("numOfRecord", ""+numOfRecord);
+									model.addAttribute("numOfPagin", ""+numOfPagin);
+									model.addAttribute("curentOfPage",page);
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 									QuestionmanagementService.UpdateAnwserBy(Id, login);
 									model.addAttribute("message",  msgSrc.getMessage("message.save.success", null,locale));
 									Users users = userService.getUser(UserID);
@@ -422,6 +478,22 @@ public class QuestionaManagementController {
 							}
 						}
 					}	
+					List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+					for(int i=0;i < ListQuestion1.size();i++){
+						if(ListQuestion1.get(i).getQuestion().length() >= check){
+							String abc = ListQuestion1.get(i).getQuestion().toString();
+							ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+					model.addAttribute("listquestionmanagement", ListQuestion1);
+					Setting setting = userService.getSetting(UserID);
+					int numOfRecord = setting.getRecordNotRep();
+					int numOfPagin = setting.getPaginDisplayNotRep();
+					model.addAttribute("numOfRecord", ""+numOfRecord);
+					model.addAttribute("numOfPagin", ""+numOfPagin);
+					model.addAttribute("curentOfPage",page);
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 				}else{
 					if(actionsubmit.equals("delete")){
 					//xu ly khi delete
@@ -462,6 +534,14 @@ public class QuestionaManagementController {
 												}
 											}
 											model.addAttribute("listquestionmanagement", ListQuestion1);
+											Setting setting = userService.getSetting(UserID);
+											int numOfRecord = setting.getRecordNotRep();
+											int numOfPagin = setting.getPaginDisplayNotRep();
+											model.addAttribute("numOfRecord", ""+numOfRecord);
+											model.addAttribute("numOfPagin", ""+numOfPagin);
+											model.addAttribute("curentOfPage",page);
+											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+											model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 											
 										}
 									}
@@ -492,6 +572,22 @@ public class QuestionaManagementController {
 							//
 							
 						}
+						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+						for(int i=0;i < ListQuestion1.size();i++){
+							if(ListQuestion1.get(i).getQuestion().length() >= check){
+								String abc = ListQuestion1.get(i).getQuestion().toString();
+								ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						model.addAttribute("listquestionmanagement", ListQuestion1);
+						Setting setting = userService.getSetting(UserID);
+						int numOfRecord = setting.getRecordNotRep();
+						int numOfPagin = setting.getPaginDisplayNotRep();
+						model.addAttribute("numOfRecord", ""+numOfRecord);
+						model.addAttribute("numOfPagin", ""+numOfPagin);
+						model.addAttribute("curentOfPage",page);
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+						model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 					}else{
 						//xủ lý xóa tất cả
 						int login = Integer.parseInt(session.getAttribute("login").toString());
@@ -519,6 +615,14 @@ public class QuestionaManagementController {
 								}
 							}
 							model.addAttribute("listquestionmanagement", ListQuestion1);
+							Setting setting = userService.getSetting(UserID);
+							int numOfRecord = setting.getRecordNotRep();
+							int numOfPagin = setting.getPaginDisplayNotRep();
+							model.addAttribute("numOfRecord", ""+numOfRecord);
+							model.addAttribute("numOfPagin", ""+numOfPagin);
+							model.addAttribute("curentOfPage",page);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 						}else{
 	
 							if(actionsubmit.equals("change")){
@@ -543,7 +647,7 @@ public class QuestionaManagementController {
 									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
 									Users users = userService.getUser(UserID);
-								
+									
 									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 									model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
 			
@@ -558,7 +662,14 @@ public class QuestionaManagementController {
 								}
 							}
 							Users users = userService.getUser(UserID);
-							
+							Setting setting = userService.getSetting(UserID);
+							int numOfRecord = setting.getRecordNotRep();
+							int numOfPagin = setting.getPaginDisplayNotRep();
+							model.addAttribute("numOfRecord", ""+numOfRecord);
+							model.addAttribute("numOfPagin", ""+numOfPagin);
+							model.addAttribute("curentOfPage",page);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+ actionsubmit);
 							model.addAttribute("listquestionmanagement", list);
 							model.addAttribute("actionsubmit", actionsubmit);
@@ -742,6 +853,7 @@ public class QuestionaManagementController {
 							
 						}
 						model.addAttribute("savequestionlist", savelist);
+						
 					}else{
 						model.addAttribute("anwser",questionmanagement.getAnswer());
 						String email = session.getAttribute("email").toString();
@@ -795,7 +907,14 @@ public class QuestionaManagementController {
 											}
 											QuestionmanagementService.UpdateAnwserBy(Id, login);
 										}
-										
+										Setting setting = userService.getSetting(UserID);
+										int numOfRecord = setting.getRecordNotRep();
+										int numOfPagin = setting.getPaginDisplayNotRep();
+										model.addAttribute("numOfRecord", ""+numOfRecord);
+										model.addAttribute("numOfPagin", ""+numOfPagin);
+										model.addAttribute("curentOfPage",page);
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+										model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 										model.addAttribute("savequestionlist", savelist);
 										
 										
@@ -918,6 +1037,37 @@ public class QuestionaManagementController {
 						
 										
 					}
+					List<Questionmanagement> savelist;
+					if(session.getValue("Admin")==null){	
+						//user nomal
+						savelist= QuestionmanagementService.savelist(page-1, UserID);
+						for(int i=0;i < savelist.size();i++){
+							if(savelist.get(i).getQuestion().length() >= check){
+								String abc = savelist.get(i).getQuestion().toString();
+								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						QuestionmanagementService.UpdateAnwserBy(Id, login);
+					}else{
+						//admin
+						savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+						for(int i=0;i < savelist.size();i++){
+							if(savelist.get(i).getQuestion().length() >= check){
+								String abc = savelist.get(i).getQuestion().toString();
+								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						QuestionmanagementService.UpdateAnwserBy(Id, login);
+					}
+					Setting setting = userService.getSetting(UserID);
+					int numOfRecord = setting.getRecordNotRep();
+					int numOfPagin = setting.getPaginDisplayNotRep();
+					model.addAttribute("numOfRecord", ""+numOfRecord);
+					model.addAttribute("numOfPagin", ""+numOfPagin);
+					model.addAttribute("curentOfPage",page);
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
+					model.addAttribute("savequestionlist", savelist);
 				}
 			}else{
 				if(actionsubmit.equals("save")){
@@ -995,6 +1145,7 @@ public class QuestionaManagementController {
 														savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 													}
 												}
+												
 												QuestionmanagementService.UpdateAnwserBy(Id, login);
 											}else{
 												//admin
@@ -1008,7 +1159,14 @@ public class QuestionaManagementController {
 												QuestionmanagementService.UpdateAnwserBy(Id, login);
 												
 											}
-											
+											Setting setting = userService.getSetting(UserID);
+											int numOfRecord = setting.getRecordNotRep();
+											int numOfPagin = setting.getPaginDisplayNotRep();
+											model.addAttribute("numOfRecord", ""+numOfRecord);
+											model.addAttribute("numOfPagin", ""+numOfPagin);
+											model.addAttribute("curentOfPage",page);
+											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+											model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 											model.addAttribute("savequestionlist", savelist);
 										}
 									}
@@ -1058,6 +1216,39 @@ public class QuestionaManagementController {
 						
 						
 					}	
+					List<Questionmanagement> savelist;
+					if(session.getValue("Admin")==null){	
+						//user nomal
+						savelist= QuestionmanagementService.savelist(page-1, UserID);
+						for(int i=0;i < savelist.size();i++){
+							if(savelist.get(i).getQuestion().length() >= check){
+								String abc = savelist.get(i).getQuestion().toString();
+								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						
+						QuestionmanagementService.UpdateAnwserBy(Id, login);
+					}else{
+						//admin
+						savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+						for(int i=0;i < savelist.size();i++){
+							if(savelist.get(i).getQuestion().length() >= check){
+								String abc = savelist.get(i).getQuestion().toString();
+								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+						}
+						QuestionmanagementService.UpdateAnwserBy(Id, login);
+						
+					}
+					Setting setting = userService.getSetting(UserID);
+					int numOfRecord = setting.getRecordNotRep();
+					int numOfPagin = setting.getPaginDisplayNotRep();
+					model.addAttribute("numOfRecord", ""+numOfRecord);
+					model.addAttribute("numOfPagin", ""+numOfPagin);
+					model.addAttribute("curentOfPage",page);
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
+					model.addAttribute("savequestionlist", savelist);
 				}else{
 					if(actionsubmit.equals("delete")){
 					//xu ly khi delete
@@ -1104,6 +1295,14 @@ public class QuestionaManagementController {
 											}
 											
 										}
+										Setting setting = userService.getSetting(UserID);
+										int numOfRecord = setting.getRecordNotRep();
+										int numOfPagin = setting.getPaginDisplayNotRep();
+										model.addAttribute("numOfRecord", ""+numOfRecord);
+										model.addAttribute("numOfPagin", ""+numOfPagin);
+										model.addAttribute("curentOfPage",page);
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+										model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 										model.addAttribute("savequestionlist", savelist);
 									}
 								}else{
@@ -1188,6 +1387,36 @@ public class QuestionaManagementController {
 							//
 							
 						}
+						List<Questionmanagement> savelist;
+						if(session.getValue("Admin")==null){	
+							//user nomal
+							savelist= QuestionmanagementService.savelist(page-1, UserID);
+							for(int i=0;i < savelist.size();i++){
+								if(savelist.get(i).getQuestion().length() >= check){
+									String abc = savelist.get(i).getQuestion().toString();
+									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}else{
+							//admin
+							savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+							for(int i=0;i < savelist.size();i++){
+								if(savelist.get(i).getQuestion().length() >= check){
+									String abc = savelist.get(i).getQuestion().toString();
+									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+							
+						}
+						Setting setting = userService.getSetting(UserID);
+						int numOfRecord = setting.getRecordNotRep();
+						int numOfPagin = setting.getPaginDisplayNotRep();
+						model.addAttribute("numOfRecord", ""+numOfRecord);
+						model.addAttribute("numOfPagin", ""+numOfPagin);
+						model.addAttribute("curentOfPage",page);
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+						model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
+						model.addAttribute("savequestionlist", savelist);
 					}else{
 						//xủ lý xóa tất cả
 						if(actionsubmit.equals("deleteall")){
@@ -1227,6 +1456,14 @@ public class QuestionaManagementController {
 									logger.info("Tài khoản "+users.getUserName()+" xóa câu hỏi " + question);
 								}
 							}
+							Setting setting = userService.getSetting(UserID);
+							int numOfRecord = setting.getRecordNotRep();
+							int numOfPagin = setting.getPaginDisplayNotRep();
+							model.addAttribute("numOfRecord", ""+numOfRecord);
+							model.addAttribute("numOfPagin", ""+numOfPagin);
+							model.addAttribute("curentOfPage",page);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 							model.addAttribute("savequestionlist", savelist);
 						}else{
 							if(actionsubmit.equals("change")){
@@ -1263,6 +1500,7 @@ public class QuestionaManagementController {
 										}
 										
 									}
+									
 									model.addAttribute("savequestionlist", savelist);
 									Users users = userService.getUser(UserID);
 								
@@ -1291,6 +1529,14 @@ public class QuestionaManagementController {
 									}
 								}
 							}
+							Setting setting = userService.getSetting(UserID);
+							int numOfRecord = setting.getRecordNotRep();
+							int numOfPagin = setting.getPaginDisplayNotRep();
+							model.addAttribute("numOfRecord", ""+numOfRecord);
+							model.addAttribute("numOfPagin", ""+numOfPagin);
+							model.addAttribute("curentOfPage",page);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 							model.addAttribute("savequestionlist", list);
 							Users users = userService.getUser(UserID);
 							
@@ -1405,15 +1651,15 @@ public class QuestionaManagementController {
 				
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
-				
+				model.addAttribute("curentOfPage",page);
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 				//check is admin
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
 				}	
 				
-				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
-				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
+				
 				model.addAttribute("fullname",userService.getFullnameByID(UserID));
 				model.addAttribute("questionmanagements", delete);
 				model.addAttribute("replylust", Deletequestionlist);
@@ -1485,7 +1731,15 @@ public class QuestionaManagementController {
 										}
 									}
 								}
-				
+								Setting setting = userService.getSetting(UserID);
+								int numOfRecord = setting.getRecordRepied();
+								int numOfPagin = setting.getPaginDisplayReplied();
+								
+								model.addAttribute("numOfRecord", ""+numOfRecord);
+								model.addAttribute("numOfPagin", ""+numOfPagin);
+								model.addAttribute("curentOfPage",page);
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+								model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 								model.addAttribute("replylust", Deletequestionlist);
 							}
 						}else{
@@ -1569,7 +1823,34 @@ public class QuestionaManagementController {
 					//
 					
 				}
-									
+				List<Questionmanagement> Deletequestionlist;
+				if(session.getValue("Admin")==null){	
+					Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+					for(int i=0;i < Deletequestionlist.size();i++){
+						if(Deletequestionlist.get(i).getQuestion().length() >= check){
+							String abc = Deletequestionlist.get(i).getQuestion().toString();
+							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+				}else{
+					Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+					for(int i=0;i < Deletequestionlist.size();i++){
+						if(Deletequestionlist.get(i).getQuestion().length() >= check){
+							String abc = Deletequestionlist.get(i).getQuestion().toString();
+							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+				}
+				Setting setting = userService.getSetting(UserID);
+				int numOfRecord = setting.getRecordRepied();
+				int numOfPagin = setting.getPaginDisplayReplied();
+				
+				model.addAttribute("numOfRecord", ""+numOfRecord);
+				model.addAttribute("numOfPagin", ""+numOfPagin);
+				model.addAttribute("curentOfPage",page);
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
+				model.addAttribute("replylust", Deletequestionlist);				
 				}else{
 					if(actionsubmit.equals("dictionary")){
 						int login =Integer.parseInt(session.getAttribute("login").toString());
@@ -1726,7 +2007,34 @@ public class QuestionaManagementController {
 							model.addAttribute("replylust", Deletequestionlist);
 						}
 						
+						List<Questionmanagement> Deletequestionlist;
+						if(session.getValue("Admin")==null){	
+							Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+							for(int i=0;i < Deletequestionlist.size();i++){
+								if(Deletequestionlist.get(i).getQuestion().length() >= check){
+									String abc = Deletequestionlist.get(i).getQuestion().toString();
+									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}else{
+							Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+							for(int i=0;i < Deletequestionlist.size();i++){
+								if(Deletequestionlist.get(i).getQuestion().length() >= check){
+									String abc = Deletequestionlist.get(i).getQuestion().toString();
+									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+							}
+						}
+						Setting setting = userService.getSetting(UserID);
+						int numOfRecord = setting.getRecordRepied();
+						int numOfPagin = setting.getPaginDisplayReplied();
 						
+						model.addAttribute("numOfRecord", ""+numOfRecord);
+						model.addAttribute("numOfPagin", ""+numOfPagin);
+						model.addAttribute("curentOfPage",page);
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+						model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
+						model.addAttribute("replylust", Deletequestionlist);	
 					}else{
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
@@ -1750,6 +2058,15 @@ public class QuestionaManagementController {
 									}
 								}
 							}
+							Setting setting = userService.getSetting(UserID);
+							int numOfRecord = setting.getRecordRepied();
+							int numOfPagin = setting.getPaginDisplayReplied();
+							
+							model.addAttribute("numOfRecord", ""+numOfRecord);
+							model.addAttribute("numOfPagin", ""+numOfPagin);
+							model.addAttribute("curentOfPage",page);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 							if(returenlist !=null){
 								for(int i =0; i< returenlist.size();i++){
 									Users users = userService.getUser(UserID);
@@ -1795,6 +2112,7 @@ public class QuestionaManagementController {
 											}
 										}
 									}
+									;
 									model.addAttribute("replylust", Deletequestionlist);
 									Users users = userService.getUser(UserID);
 									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
@@ -1821,7 +2139,15 @@ public class QuestionaManagementController {
 									}
 								}
 							}
+							Setting setting = userService.getSetting(UserID);
+							int numOfRecord = setting.getRecordRepied();
+							int numOfPagin = setting.getPaginDisplayReplied();
 							
+							model.addAttribute("numOfRecord", ""+numOfRecord);
+							model.addAttribute("numOfPagin", ""+numOfPagin);
+							model.addAttribute("curentOfPage",page);
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+							model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 							Users users = userService.getUser(UserID);
 							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+ actionsubmit);
 							model.addAttribute("replylust", list);
@@ -2021,6 +2347,16 @@ public class QuestionaManagementController {
 										}
 									}
 								}
+								Setting setting = userService.getSetting(UserID);
+								
+								int numOfRecord = setting.getRecordDelete();
+								int numOfPagin = setting.getPaginDisplayDelete();
+								
+								model.addAttribute("numOfRecord", ""+numOfRecord);
+								model.addAttribute("numOfPagin", ""+numOfPagin);
+								model.addAttribute("curentOfPage",page);
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+								model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 								model.addAttribute("deletequestionlist", Deletequestionlist);
 							}
 						}else{
@@ -2103,7 +2439,35 @@ public class QuestionaManagementController {
 					}
 					
 				}					
+				List<Questionmanagement> Deletequestionlist;
+				if(session.getValue("Admin")==null){
+					Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+					for(int i=0;i < Deletequestionlist.size();i++){
+						if(Deletequestionlist.get(i).getQuestion().length() >= check){
+							String abc = Deletequestionlist.get(i).getQuestion().toString();
+							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+				}else{
+					Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+					for(int i=0;i < Deletequestionlist.size();i++){
+						if(Deletequestionlist.get(i).getQuestion().length() >= check){
+							String abc = Deletequestionlist.get(i).getQuestion().toString();
+							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+					}
+				}
+				Setting setting = userService.getSetting(UserID);
 				
+				int numOfRecord = setting.getRecordDelete();
+				int numOfPagin = setting.getPaginDisplayDelete();
+				
+				model.addAttribute("numOfRecord", ""+numOfRecord);
+				model.addAttribute("numOfPagin", ""+numOfPagin);
+				model.addAttribute("curentOfPage",page);
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
+				model.addAttribute("deletequestionlist", Deletequestionlist);
 			}else{
 				if(actionsubmit.equals("change")){
 					if(!changeitems.equals("0")){
@@ -2136,6 +2500,7 @@ public class QuestionaManagementController {
 								}
 							}
 						}
+						
 						model.addAttribute("deletequestionlist", Deletequestionlist);
 						Users users = userService.getUser(UserID);
 						logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
@@ -2164,7 +2529,16 @@ public class QuestionaManagementController {
 								}
 							}
 						}
+						Setting setting = userService.getSetting(UserID);
 						
+						int numOfRecord = setting.getRecordDelete();
+						int numOfPagin = setting.getPaginDisplayDelete();
+						
+						model.addAttribute("numOfRecord", ""+numOfRecord);
+						model.addAttribute("numOfPagin", ""+numOfPagin);
+						model.addAttribute("curentOfPage",page);
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+						model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 						if(returnlist !=null){
 							for(int i =0; i< returnlist.size();i++){
 								Users users = userService.getUser(UserID);
