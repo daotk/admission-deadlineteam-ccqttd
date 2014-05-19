@@ -11,15 +11,10 @@ public class AndroidUtil {
 		    if (string == null || string.length() == 0) {
 		        return string;
 		    }
-		    string = string.replace("%5C","\\");
-		    string = string.replace("%7C","|");
-		    string = string.replace("%5B","[");
-		    string = string.replace("%5D","]");
-		    string = string.replace("%22","\"");
-		    string = string.replace("%2f","/");
+
 		    string = string.replace("commas",",");
+		    string = string.replace("enter","<br/>");
 		    
-		    Matcher m = REMOVE_TAGS.matcher(string);
-		    return m.replaceAll("");
+		    return string;
 		}
 }
