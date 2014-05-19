@@ -40,4 +40,6 @@ public interface Dictionary_SERVICE {
 	public void updatedelete(int Id, int userID);
 	public Users getusername(int ID);
 	public Setting getSetting(int UserId);
+	public boolean checkDictionaryByUserId(int UserId,int Id);
+	public boolean checkDictionaryDeleteByUserId(int UserId,int Id);
 }

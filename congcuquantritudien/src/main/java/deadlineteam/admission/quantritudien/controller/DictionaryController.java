@@ -402,6 +402,9 @@ public class DictionaryController {
 			return "list-dictionary";
 			
 		}else{
+			
+			if(DictionaryService.checkDictionaryByUserId(UserID,Id)==true){
+				
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			List<Dictionary> Avaiable;
@@ -450,6 +453,9 @@ public class DictionaryController {
 				model.addAttribute("busystatus", available.getBusyStatus().toString());
 			}	
 			return "list-dictionary";
+			}else{
+				return "redirect:/notalow";
+			}
 		}
 	}
 }
@@ -939,6 +945,7 @@ public class DictionaryController {
 			return "list-dictionary-delete";
 			
 		}else{
+			if(DictionaryService.checkDictionaryDeleteByUserId(userID,Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			List<Dictionary> deletelist= DictionaryService.deletelist(page-1, userID);	
@@ -973,6 +980,9 @@ public class DictionaryController {
 			model.addAttribute("deleteuser", deleteuser.getFullName().toString());
 			model.addAttribute("curentOfPage", page);
 			return "list-dictionary-delete";
+			}else{
+				return "redirect:/notalow";
+			}
 		}
 	}
 }
@@ -1207,6 +1217,8 @@ public class DictionaryController {
 			return "list-dictionary-down";
 			
 		}else{
+			
+			if(DictionaryService.checkDictionaryByUserId(UserID , Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);	
@@ -1246,6 +1258,9 @@ public class DictionaryController {
 			Users newusername = DictionaryService.getusername(removequestion.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-down";
+		}else{
+			return "redirect:/notalow";
+		}
 		}
 	}
 }
@@ -1697,6 +1712,7 @@ public class DictionaryController {
 			return "list-dictionary-recent";
 			
 		}else{
+			if(DictionaryService.checkDictionaryByUserId(UserID , Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 
@@ -1734,6 +1750,9 @@ public class DictionaryController {
 			Users newusername = DictionaryService.getusername(recent.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-recent";
+		}else{
+			return "redirect:/notalow";
+		}
 		}
 	}
 }
