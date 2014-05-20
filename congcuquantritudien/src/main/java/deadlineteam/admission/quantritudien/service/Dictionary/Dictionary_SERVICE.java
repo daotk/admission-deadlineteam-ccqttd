@@ -42,6 +42,7 @@ public interface Dictionary_SERVICE {
 	public Setting getSetting(int UserId);
 	public boolean checkDictionaryByUserId(int UserId,int Id);
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id);
+	public boolean checkIdDictionary(int Id);
 	
 	// khang 15/10
 			public List<Dictionary> getDictionaryAvailableForAdmin(int page);

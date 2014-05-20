@@ -53,6 +53,13 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 
          return (List<Dictionary>) q.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getAllDictionary() {
+		// TODO Auto-generated method stub
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary ");
+         return (List<Dictionary>) q.list();
+	}
 
 	@Override
 	public Dictionary availablequestion(int Id) {

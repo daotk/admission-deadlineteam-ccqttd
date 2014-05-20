@@ -31,6 +31,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Questionmanagement> getAllQuestionmanagement() {
+		return getCurrentSession().createQuery(" from Questionmanagement ").list();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getListQuestionmanagement() {
 		return getCurrentSession().createQuery(" from Questionmanagement where Status = 1").list();

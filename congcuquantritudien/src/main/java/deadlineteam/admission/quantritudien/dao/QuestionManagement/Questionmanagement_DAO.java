@@ -8,6 +8,7 @@ import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 
 public interface Questionmanagement_DAO {
+	public List<Questionmanagement> getAllQuestionmanagement();
 	public List<Questionmanagement> findpage1(String keyword);
 	public List<Questionmanagement> getListQuestionmanagement();
 	public Questionmanagement getQuestionmanagementbyID(int Id);

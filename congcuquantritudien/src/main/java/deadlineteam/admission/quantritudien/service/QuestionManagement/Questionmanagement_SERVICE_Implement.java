@@ -701,31 +701,56 @@ public class Questionmanagement_SERVICE_Implement implements
 		return result;
 	}
 	public boolean checkSavaListByUserId(int UserId,int Id) {
-		Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
-		if(UserSERVICE.checkIsAdmin(UserId)==true){
-			return true;
-		}else{
-			if(question.getAnswerBy().equals(UserId)){
+		try {
+			Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+			if(UserSERVICE.checkIsAdmin(UserId)==true){
 				return true;
-			}else {
-				return false;
+			}else{
+				if(question.getAnswerBy().equals(UserId)){
+					return true;
+				}else {
+					return false;
+				}
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
 		}
+		
 		
 	}
 	
 	public boolean checkDeleteListByUserId(int UserId,int Id) {
-		Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
-		if(UserSERVICE.checkIsAdmin(UserId)==true){
-			return true;
-		}else{
-			if(question.getDeleteBy().equals(UserId)){
+		try {
+			Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+			if(UserSERVICE.checkIsAdmin(UserId)==true){
 				return true;
-			}else {
-				return false;
+			}else{
+				if(question.getDeleteBy().equals(UserId)){
+					return true;
+				}else {
+					return false;
+				}
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
 		}
 		
+		
+	}
+	
+	
+	public boolean checkIdQuestion(int Id) {
+		List<Questionmanagement> listquestion = QuestionmanagementDAO.getAllQuestionmanagement();
+		boolean result = false;
+		for (int i = 0; i < listquestion.size(); i++) {
+			if(listquestion.get(i).getID().equals(Id)){
+				result = true;
+				break;
+			}
+		}
+		return result;
 	}
 	
 

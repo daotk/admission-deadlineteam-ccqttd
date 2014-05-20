@@ -116,6 +116,7 @@ public class QuestionaManagementController {
 				logger.info("Tài khoản "+users.getUserName() +" đã vào danh sách chưa trả lời");
 				return "home";
 			}else{
+				if(QuestionmanagementService.checkIdQuestion(Id)==true){
 				if(QuestionmanagementService.checkQuestionIsBusy(Id,UserID)==true){
 					model.addAttribute("warning","Hiện tại tài khoản "+userService.getFullnameByID(QuestionmanagementService.geUserIDByIdQuestion(Id))+ " đang làm việc với câu hỏi này.");
 					//check is admin
@@ -180,7 +181,11 @@ public class QuestionaManagementController {
 					QuestionmanagementService.updateBusyStatus(Id,UserID);
 					session.setAttribute("BusyStatus",UserID);
 					return "home";
+					}
+				}else {
+					return "redirect:/notalow";
 				}
+				
 			}
 		}
 		
@@ -746,7 +751,7 @@ public class QuestionaManagementController {
 				return "list-saved";
 				
 			}else{
-				
+				if(QuestionmanagementService.checkIdQuestion(Id)==true){
 				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
@@ -792,6 +797,9 @@ public class QuestionaManagementController {
 					model.addAttribute("isAdmin","admin");
 				}	
 				return "list-saved";
+			}else{
+				return "redirect:/notalow";
+			}
 			}else{
 				return "redirect:/notalow";
 			}
@@ -1616,7 +1624,7 @@ public class QuestionaManagementController {
 				return "list-replied";
 				
 			}else{
-				
+				if(QuestionmanagementService.checkIdQuestion(Id)==true){
 				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
 				
 				
@@ -1664,6 +1672,9 @@ public class QuestionaManagementController {
 				model.addAttribute("questionmanagements", delete);
 				model.addAttribute("replylust", Deletequestionlist);
 				return "list-replied";
+			}else{
+				return "redirect:/notalow";
+			}
 			}else{
 				return "redirect:/notalow";
 			}
@@ -2222,7 +2233,7 @@ public class QuestionaManagementController {
 				return "list-deleted";
 				
 			}else{
-				
+				if(QuestionmanagementService.checkIdQuestion(Id)==true){
 				if(QuestionmanagementService.checkDeleteListByUserId(UserID , Id)==true){
 				
 				
@@ -2266,6 +2277,9 @@ public class QuestionaManagementController {
 				model.addAttribute("deletequestionlist", Deletequestionlist);
 				return "list-deleted";
 				}else {
+					return "redirect:/notalow";
+				}
+				}else{
 					return "redirect:/notalow";
 				}
 			}

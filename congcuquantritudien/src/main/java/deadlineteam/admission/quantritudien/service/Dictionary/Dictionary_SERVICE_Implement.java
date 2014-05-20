@@ -328,39 +328,52 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 	
 	public boolean checkDictionaryByUserId(int UserId,int Id) {
-		Dictionary dictionary = DictionaryDAO.getinformation(Id);
-		if(UserSERVICE.checkIsAdmin(UserId)==true){
-			return true;
-		}else{
-			if(dictionary.getUpdateBy()!=null){
-				if(dictionary.getUpdateBy().equals(UserId)){
-					return true;
-				}else {
-					return false;
-				}
+			Dictionary dictionary = DictionaryDAO.getinformation(Id);
+			if(UserSERVICE.checkIsAdmin(UserId)==true){
+				return true;
 			}else{
-				if(dictionary.getAnwserBy().equals(UserId)){
-					return true;
-				}else {
-					return false;
+				if(dictionary.getUpdateBy()!=null){
+					if(dictionary.getUpdateBy().equals(UserId)){
+						return true;
+					}else {
+						return false;
+					}
+				}else{
+					if(dictionary.getAnwserBy().equals(UserId)){
+						return true;
+					}else {
+						return false;
+					}
 				}
-			}
-		}
-		
+			}	
 	}
 		
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id) {
-		Dictionary dictionary = DictionaryDAO.getinformation(Id);
-		if(UserSERVICE.checkIsAdmin(UserId)==true){
-			return true;
-		}else{
-				if(dictionary.getDeleteBy().equals(UserId)){
-					return true;
-				}else {
-					return false;
-				}
-		}
+			Dictionary dictionary = DictionaryDAO.getinformation(Id);
+			if(UserSERVICE.checkIsAdmin(UserId)==true){
+				return true;
+			}else{
+					if(dictionary.getDeleteBy().equals(UserId)){
+						return true;
+					}else {
+						return false;
+					}
+			}	
 	}
+	
+	public boolean checkIdDictionary(int Id) {
+		
+		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionary();
+		boolean result = false;
+		for (int i = 0; i < listdictionary.size(); i++) {
+			if(listdictionary.get(i).getID().equals(Id)){
+				result =  true;
+				break;
+			}
+		}
+		return result;
+	}
+	
 	// Khang android update 15/05
 		public List<Dictionary> getDictionaryAvailableForAdmin(int page){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
