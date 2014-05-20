@@ -282,11 +282,11 @@
 										
 									</div>	
 								</c:if>								
-									<c:if test="${empty Admin}">
+								<c:if test="${empty Admin}">
 									<div class="buttoncontrol" id="change" style="text-align: center;">
-									<a href="editdictionary?topic=${diction.ID}" style="text-decoration: none; color: white; margin-top: 10px;margin-right: 3px;float: right;width: 100%;height: 45%;">Chỉnh sửa</a>
+									<a href="editdictionary?topic=${diction.ID}" style="text-decoration: none; color: white; margin-top: 10px; margin-bottom: 6px; margin-right: 3px;float: right;width: 100%;height: 45%; font-weight: normal;">Chỉnh sửa</a>
 									</div>
-									</c:if>
+								</c:if>
 							</c:if>
 						</form:form>										
 					</td>      		

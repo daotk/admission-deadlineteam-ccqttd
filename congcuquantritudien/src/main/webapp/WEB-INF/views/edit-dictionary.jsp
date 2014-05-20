@@ -8,6 +8,8 @@
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 	<script src="ckeditor/ckeditor.js"></script>
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 </head>
 <body>
 <tiles:insertDefinition name="defaultTemplate">
@@ -45,9 +47,29 @@
 					<!-- Buttons -->
 					<div style="width: 100%;height:35px;padding-top: 20px;">
 						<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" style="margin-right: 40px;">Lưu</button>
-						<p id="quotation" style="style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">${message}<p>
 					</div>
 	        	</div>
+	        	<c:if test="${not empty error}">
+								<script type="text/javascript">
+									var mess = '${error}';
+									$.msgbox({
+										type: 'error',
+										content: mess,
+										title: 'Thất bại'
+									});
+								</script>
+							</c:if>	
+							</div>
+							<c:if test="${not empty message}">
+								<script type="text/javascript">
+									var mess = '${message}';
+				        				$.msgbox({
+										type: 'success',
+										content: mess,
+										title: 'Thành công'
+									});
+			        			</script>
+		        			</c:if>	
  			</form:form>
  		</table>
     </tiles:putAttribute>
