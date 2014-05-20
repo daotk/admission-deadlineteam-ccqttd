@@ -571,6 +571,7 @@ public class DictionaryController {
 							}
 						}
 					}
+					model.addAttribute("Avaiable", Avaiable);	
 					Setting setting = userService.getSetting(UserID);
 					
 					int numOfRecord = setting.getRecordDictionary();
@@ -614,6 +615,7 @@ public class DictionaryController {
 								}
 							}
 						}
+						model.addAttribute("Avaiable", Avaiable);
 						Setting setting = userService.getSetting(UserID);
 						
 						int numOfRecord = setting.getRecordDictionary();
@@ -672,7 +674,7 @@ public class DictionaryController {
 								}
 							}
 							
-							
+							model.addAttribute("Avaiable", Avaiable);
 							model.addAttribute("numOfRecord", ""+numOfRecord);
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 
@@ -716,6 +718,7 @@ public class DictionaryController {
 									}
 								}
 							}
+							model.addAttribute("Avaiable", Avaiable);
 							Setting setting = userService.getSetting(UserID);
 							
 							int numOfRecord = setting.getRecordDictionary();
@@ -847,6 +850,7 @@ public class DictionaryController {
 										}
 									}
 								}
+								model.addAttribute("Avaiable", Avaiable);
 								Setting setting = userService.getSetting(UserID);
 								
 								int numOfRecord = setting.getRecordDictionary();
