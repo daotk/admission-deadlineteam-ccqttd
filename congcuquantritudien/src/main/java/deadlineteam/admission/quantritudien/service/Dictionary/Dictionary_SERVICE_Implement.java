@@ -348,7 +348,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		}
 		
 	}
-	
+		
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id) {
 		Dictionary dictionary = DictionaryDAO.getinformation(Id);
 		if(UserSERVICE.checkIsAdmin(UserId)==true){
