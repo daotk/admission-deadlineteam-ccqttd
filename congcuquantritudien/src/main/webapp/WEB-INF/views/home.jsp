@@ -235,7 +235,7 @@
 					
 					<!-- Detail of question is received -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">			
-						<form:form method="post" action="home" commandName="questionmanagements">
+						<form:form method="post" action="home?page=${curentOfPage}" commandName="questionmanagements">
 							<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
 							<c:if test="${not empty error}">
 								<script type="text/javascript">

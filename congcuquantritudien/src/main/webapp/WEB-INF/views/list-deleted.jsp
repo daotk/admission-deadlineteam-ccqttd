@@ -217,7 +217,7 @@
 					
 					<!-- Detail of question is deleted-->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top" >
-						<form:form method="post" action="dsdaxoa" commandName="deletequestion">
+						<form:form method="post" action="dsdaxoa?page=${curentOfPage}" commandName="deletequestion">
 							<c:if test="${not empty error}">
 								<script type="text/javascript">
 									var mess = '${error}';

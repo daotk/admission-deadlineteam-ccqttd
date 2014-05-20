@@ -227,7 +227,7 @@
 					<!-- Cot thu 3 -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">
 					<div>${mess}</div>
-						<form:form method="post" action="botudiendaha" commandName="diction">
+						<form:form method="post" action="botudiendaha?page=${curentOfPage}" commandName="diction">
 						<c:if test="${not empty error}">
 								<script type="text/javascript">
 									var mess = '${error}';

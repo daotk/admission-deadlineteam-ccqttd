@@ -213,7 +213,7 @@
 				
 					<!-- Detail of question is replied -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">	
-						<form:form method="post" action="dsdatraloi" commandName="questionmanagements">
+						<form:form method="post" action="dsdatraloi?page=${curentOfPage}" commandName="questionmanagements">
 							<c:if test="${not empty error}">
 								<script type="text/javascript">
 									var mess = '${error}';

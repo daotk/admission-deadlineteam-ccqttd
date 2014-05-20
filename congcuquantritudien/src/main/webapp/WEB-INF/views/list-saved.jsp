@@ -232,7 +232,7 @@
 									});
 			        			</script>
 		        			</c:if>	
-						<form:form method="post" action="dsluutam" commandName="questionmanagements">
+						<form:form method="post" action="dsluutam?page=${curentOfPage}" commandName="questionmanagements">
 							<c:if test="${not empty questionmanagements.question}">
 								<div id="questionarea">
 								
