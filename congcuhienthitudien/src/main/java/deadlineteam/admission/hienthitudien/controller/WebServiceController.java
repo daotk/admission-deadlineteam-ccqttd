@@ -14,7 +14,7 @@ import deadlineteam.admission.hienthitudien.domain.Dictionary;
 
 @Controller
 @RequestMapping("api")
-public class RESTful_Controller {
+public class WebServiceController {
 	@Autowired
 	private DictionaryService dictionaryService;
 	
