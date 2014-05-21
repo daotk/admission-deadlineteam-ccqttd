@@ -20,6 +20,7 @@
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/tab-nav.js"></script>
 	<script src='js/popbox.js' type='text/javascript'></script>
+	<script src="ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 	<script>
 	$(window).bind("load", function() {
@@ -55,13 +56,13 @@
 						<span style="font-size: 10pt; font-weight: normal;">Nội dung câu trả lời:</span>
 						<div style="width: 100%;">
 							<form:textarea path="Anwser" style="width: 100%; margin: 0px;" cssClass="createQaA-answer" name="editor1" id="editor1" rows="10" cols="10"></form:textarea>
-				            <form:errors path="Anwser" cssClass="error" />
 				            <script>
 				            	// Replace the <textarea id="editor1"> with a CKEditor
 				            	// instance, using default configuration.
 				                CKEDITOR.replace( 'editor1' );
 				                CKEDITOR.config.resize_enabled = false;
 				            </script>
+				           <form:errors path="Anwser" cssClass="error" />
 						</div>
 					</div>
 					
