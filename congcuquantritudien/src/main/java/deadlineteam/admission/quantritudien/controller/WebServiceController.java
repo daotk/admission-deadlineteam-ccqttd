@@ -19,7 +19,7 @@ import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionm
 
 @Controller
 @RequestMapping("api")
-public class RESTfulController {
+public class WebServiceController {
 	@Autowired
 	private Questionmanagement_SERVICE QuestionmanagementService;
 	
