@@ -403,7 +403,7 @@ public class DictionaryController {
 			
 		}else{
 			
-			if(DictionaryService.checkIdDictionary(Id)==true){
+			if(DictionaryService.checkIdDictionaryAvaiable(Id)==true){
 				
 			
 			if(DictionaryService.checkDictionaryByUserId(UserID,Id)==true){
@@ -955,7 +955,7 @@ public class DictionaryController {
 			return "list-dictionary-delete";
 			
 		}else{
-			if(DictionaryService.checkIdDictionary(Id)==true){
+			if(DictionaryService.checkIdDictionaryDeleted(Id)==true){
 			if(DictionaryService.checkDictionaryDeleteByUserId(userID,Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
@@ -1231,7 +1231,7 @@ public class DictionaryController {
 			return "list-dictionary-down";
 			
 		}else{
-			if(DictionaryService.checkIdDictionary(Id)==true){
+			if(DictionaryService.checkIdDictionaryDown(Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);	
@@ -1725,7 +1725,7 @@ public class DictionaryController {
 			return "list-dictionary-recent";
 			
 		}else{
-			if(DictionaryService.checkIdDictionary(Id)==true){
+			if(DictionaryService.checkIdDictionaryUp(Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 

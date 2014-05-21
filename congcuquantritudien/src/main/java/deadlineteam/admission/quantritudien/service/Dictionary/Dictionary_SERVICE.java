@@ -43,6 +43,10 @@ public interface Dictionary_SERVICE {
 	public boolean checkDictionaryByUserId(int UserId,int Id);
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id);
 	public boolean checkIdDictionary(int Id);
+	public boolean checkIdDictionaryAvaiable(int Id);
+	public boolean checkIdDictionaryDeleted(int Id);
+	public boolean checkIdDictionaryUp(int Id);
+	public boolean checkIdDictionaryDown(int Id) ;
 	
 	// khang 15/10
 			public List<Dictionary> getDictionaryAvailableForAdmin(int page);

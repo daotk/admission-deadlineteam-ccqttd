@@ -374,6 +374,58 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return result;
 	}
 	
+public boolean checkIdDictionaryAvaiable(int Id) {
+		
+		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryAvailable();
+		boolean result = false;
+		for (int i = 0; i < listdictionary.size(); i++) {
+			if(listdictionary.get(i).getID().equals(Id)){
+				result =  true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	public boolean checkIdDictionaryDeleted(int Id) {
+		
+		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryDeleted();
+		boolean result = false;
+		for (int i = 0; i < listdictionary.size(); i++) {
+			if(listdictionary.get(i).getID().equals(Id)){
+				result =  true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+public boolean checkIdDictionaryUp(int Id) {
+		
+		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryUp();
+		boolean result = false;
+		for (int i = 0; i < listdictionary.size(); i++) {
+			if(listdictionary.get(i).getID().equals(Id)){
+				result =  true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	public boolean checkIdDictionaryDown(int Id) {
+		
+		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryDown();
+		boolean result = false;
+		for (int i = 0; i < listdictionary.size(); i++) {
+			if(listdictionary.get(i).getID().equals(Id)){
+				result =  true;
+				break;
+			}
+		}
+		return result;
+	}
+		
 	// Khang android update 15/05
 		public List<Dictionary> getDictionaryAvailableForAdmin(int page){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);

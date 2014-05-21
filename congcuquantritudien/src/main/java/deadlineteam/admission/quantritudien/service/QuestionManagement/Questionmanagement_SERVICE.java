@@ -78,8 +78,10 @@ public interface Questionmanagement_SERVICE{
 	public int geUserIDByIdQuestion(int Id);
 	public boolean checkSavaListByUserId(int UserId,int Id);
 	public boolean checkDeleteListByUserId(int UserId,int Id);
-	public boolean checkIdQuestion(int Id) ;
-	
+	public boolean checkIdQuestionNotReply(int Id) ;
+	public boolean checkIdQuestionSave(int Id) ;
+	public boolean checkIdQuestionReplied(int Id) ;
+	public boolean checkIdQuestionDeleted(int Id);
 
 	// Khang android update 11/05
 			public List<Questionmanagement> getListQuestionmanagementAndroid(int page);

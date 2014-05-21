@@ -37,6 +37,10 @@ public interface Dictionary_DAO {
 	public int updaterestore(int Id);
 	public Users getusername(int ID);
 	public List<Dictionary> getAllDictionary();
+	public List<Dictionary> getAllDictionaryAvailable();
+	public List<Dictionary> getAllDictionaryDeleted();
+	public List<Dictionary> getAllDictionaryUp() ;
+	public List<Dictionary> getAllDictionaryDown();
 	
 	public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby,Date CreateDate, int status, int deletestatus,int busystatus);
 }

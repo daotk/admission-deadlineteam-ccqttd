@@ -741,8 +741,44 @@ public class Questionmanagement_SERVICE_Implement implements
 	}
 	
 	
-	public boolean checkIdQuestion(int Id) {
-		List<Questionmanagement> listquestion = QuestionmanagementDAO.getAllQuestionmanagement();
+	public boolean checkIdQuestionNotReply(int Id) {
+		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionmanagementbyStatus(1);
+		boolean result = false;
+		for (int i = 0; i < listquestion.size(); i++) {
+			if(listquestion.get(i).getID().equals(Id)){
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public boolean checkIdQuestionSave(int Id) {
+		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionmanagementbyStatus(2);
+		boolean result = false;
+		for (int i = 0; i < listquestion.size(); i++) {
+			if(listquestion.get(i).getID().equals(Id)){
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public boolean checkIdQuestionReplied(int Id) {
+		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionmanagementbyStatus(3);
+		boolean result = false;
+		for (int i = 0; i < listquestion.size(); i++) {
+			if(listquestion.get(i).getID().equals(Id)){
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public boolean checkIdQuestionDeleted(int Id) {
+		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionmanagementbyDeleteStatus(1);
 		boolean result = false;
 		for (int i = 0; i < listquestion.size(); i++) {
 			if(listquestion.get(i).getID().equals(Id)){

@@ -116,7 +116,7 @@ public class QuestionaManagementController {
 				logger.info("Tài khoản "+users.getUserName() +" đã vào danh sách chưa trả lời");
 				return "home";
 			}else{
-				if(QuestionmanagementService.checkIdQuestion(Id)==true){
+				if(QuestionmanagementService.checkIdQuestionNotReply(Id)==true){
 				if(QuestionmanagementService.checkQuestionIsBusy(Id,UserID)==true){
 					model.addAttribute("warning","Hiện tại tài khoản "+userService.getFullnameByID(QuestionmanagementService.geUserIDByIdQuestion(Id))+ " đang làm việc với câu hỏi này.");
 					//check is admin
@@ -751,7 +751,7 @@ public class QuestionaManagementController {
 				return "list-saved";
 				
 			}else{
-				if(QuestionmanagementService.checkIdQuestion(Id)==true){
+				if(QuestionmanagementService.checkIdQuestionSave(Id)==true){
 				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
@@ -1624,7 +1624,7 @@ public class QuestionaManagementController {
 				return "list-replied";
 				
 			}else{
-				if(QuestionmanagementService.checkIdQuestion(Id)==true){
+				if(QuestionmanagementService.checkIdQuestionReplied(Id)==true){
 				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
 				
 				
@@ -2233,7 +2233,7 @@ public class QuestionaManagementController {
 				return "list-deleted";
 				
 			}else{
-				if(QuestionmanagementService.checkIdQuestion(Id)==true){
+				if(QuestionmanagementService.checkIdQuestionDeleted(Id)==true){
 				if(QuestionmanagementService.checkDeleteListByUserId(UserID , Id)==true){
 				
 				

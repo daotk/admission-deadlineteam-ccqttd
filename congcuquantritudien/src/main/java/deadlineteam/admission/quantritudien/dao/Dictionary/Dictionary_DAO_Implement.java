@@ -55,6 +55,34 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Dictionary> getAllDictionaryAvailable() {
+		// TODO Auto-generated method stub
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary where Status = 1  and DeleteStatus = 0");
+         return (List<Dictionary>) q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getAllDictionaryDeleted() {
+		// TODO Auto-generated method stub
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary where DeleteStatus = 1");
+         return (List<Dictionary>) q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getAllDictionaryUp() {
+		// TODO Auto-generated method stub
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary where Status = 2  and DeleteStatus = 0");
+         return (List<Dictionary>) q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getAllDictionaryDown() {
+		// TODO Auto-generated method stub
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary where DeleteStatus = 4  and DeleteStatus = 0");
+         return (List<Dictionary>) q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Dictionary> getAllDictionary() {
 		// TODO Auto-generated method stub
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary ");
