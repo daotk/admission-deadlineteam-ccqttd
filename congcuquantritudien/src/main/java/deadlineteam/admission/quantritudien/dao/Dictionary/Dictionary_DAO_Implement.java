@@ -78,7 +78,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	@SuppressWarnings("unchecked")
 	public List<Dictionary> getAllDictionaryDown() {
 		// TODO Auto-generated method stub
-		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary where DeleteStatus = 4  and DeleteStatus = 0");
+		Query q = (Query) sessionFactory.getCurrentSession().createQuery(" from Dictionary where Status = 4  and DeleteStatus = 0");
          return (List<Dictionary>) q.list();
 	}
 	
