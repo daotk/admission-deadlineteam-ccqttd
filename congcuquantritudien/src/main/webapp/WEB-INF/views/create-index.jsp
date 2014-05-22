@@ -12,9 +12,11 @@
 	<link href="./images/icon-browser.ico" rel="shortcut icon" type="image/x-icon" />  
 	<link href="css/stylesheet1.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="images/bootstrap/css/jquery.msgbox.css"/>
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/tab-nav.js"></script>
 	<script src='js/popbox.js' type='text/javascript'></script>
@@ -36,7 +38,16 @@
 				Tạo index
 			</div>
 			<div style="float: left; margin-left: 25px; margin-top: 10px;">
-			${message}
+			<c:if test="${not empty message}">
+								<script type="text/javascript">
+									var mess = '${message}';
+				        				$.msgbox({
+										type: 'success',
+										content: mess,
+										title: 'Thành công'
+									});
+			        			</script>
+		        			</c:if>	
 			</div>
 		</div>
     </tiles:putAttribute>
