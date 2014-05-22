@@ -156,7 +156,7 @@
 							<div style="padding: 5px;">
 								<c:if test="${not empty Admin}">
 								  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
-								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;">Hạ</span>
+								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/down.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Hạ</span>
 						  		</c:if>
 						  		<!-- configuration -->
 						  		<div id="container-pop">
