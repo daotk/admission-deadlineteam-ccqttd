@@ -71,7 +71,18 @@ public class DictionaryService_Implement implements DictionaryService {
 				sortlist.add(list.get(rememberint));
 				list.remove(rememberint);
 			}
-		return sortlist;
+			List<Dictionary> returnlist = new ArrayList<Dictionary>();
+			int begin = page * record;
+			int end = begin + record;
+			if (end > sortlist.size()) {
+				end = sortlist.size();
+			}
+			int l = 0;
+			for (int k = begin; k < end; k++) {
+				returnlist.add(l, sortlist.get(k));
+				l++;
+			}
+		return returnlist;
 	}
 
 	public List<Dictionary> searchIdex(String keyword){

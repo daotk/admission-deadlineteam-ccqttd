@@ -46,8 +46,6 @@ public class DictionaryDAO_Implement implements DictionaryDAO{
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
                 "from Dictionary");
          
-         q.setFirstResult(page * record); 
-         q.setMaxResults(record);
          return (List<Dictionary>) q.list();
 	}
 
