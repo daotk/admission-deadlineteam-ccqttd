@@ -180,10 +180,13 @@ public class HomeController {
 					int number = (i+1) + ((page-1)*record) ;
 					list.get(i).setID(number);
 				}
-	
+				
 				model.addAttribute("curentkeyword", actionsubmit);
 				model.addAttribute("listdictionary", list);
 				model.addAttribute("question", new Questionmanagement());	
+				if(actionsubmit !=""){
+					model.addAttribute("result","Có "+list.size()+" kết quả" );
+				}	
 				return "home";
 			}	
 		}

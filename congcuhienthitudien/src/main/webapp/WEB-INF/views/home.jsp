@@ -101,12 +101,14 @@ $(document).ready(function() {
 								<label>
 									<span style="margin-left: 3%;">Tìm kiếm: </span>
 									<c:if test="${empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 85%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 70%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
 									</c:if>
 						 			<c:if test="${not empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 85%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 70%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
 									</c:if>
+									<button class="button" type="submit"  style=" margin-left: 15px; margin-bottom: 10px;">Tìm kiếm</button>
 								</label>
+								
 							</form>
 						</div>
 						<!-- End search -->						
@@ -152,7 +154,11 @@ $(document).ready(function() {
 						<div style="height: 3%;float: left; width: 100%;">
 							<p style="font-size: 13pt; font-weight: bold; margin-left: 20px;color:rgb(100,150,200);">Hỏi - đáp</p>
 						</div>
-						
+						<span style="margin-left: 20px;">
+								<c:if test="${not empty result}">
+									${result}
+								</c:if>
+						</span>
 						<!-- list dictionary -->
 						<div style="height: 88%;float: left; width: 100%;">
 							<form>
