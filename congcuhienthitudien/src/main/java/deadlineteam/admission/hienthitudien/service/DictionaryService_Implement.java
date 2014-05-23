@@ -19,6 +19,8 @@ public class DictionaryService_Implement implements DictionaryService {
 	@Autowired
 	private DictionaryDAO DictionaryDAO ;
 
+	int numAndroid = 10;
+	
 	@Override
 	public List<Dictionary> getalldictionary(int page) {
 		// TODO Auto-generated method stub		
@@ -42,7 +44,7 @@ public class DictionaryService_Implement implements DictionaryService {
 		}
 		
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
-         int setting = 3;
+         int setting = numAndroid;
          int begin = 0;
          int end =  page*setting + setting;
          if(end > sortlist.size()){
