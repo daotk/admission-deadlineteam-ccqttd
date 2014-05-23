@@ -651,7 +651,7 @@ public class UserController {
 				
 				@RequestMapping(value = "/taoindex", method = RequestMethod.GET)
 				public String taoindex(Model model){
-					//String message = FTPClientTransfer.ftp();				
+					QuestionmanagementService.createIndex();
 					model.addAttribute("message", "Tạo index thành công. Tính năng truyền file index lên công cụ hiển thị tạm dừng");
 					return "create-index";
 				}
