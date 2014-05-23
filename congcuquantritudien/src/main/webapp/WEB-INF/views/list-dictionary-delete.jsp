@@ -152,7 +152,7 @@
        		 				<!-- select form -->
 							<div style="padding: 5px;">
 									<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
-									<span id="restore_all"  style="cursor: pointer;padding-left: 10px;">Khôi phục</span> 		
+									<span id="restore_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();">Khôi phục</span> 		
 						  		<!-- configuration -->
 						  		<div id="container-pop">
 									<a class="popup-link-1" style="text-decoration: none;">
@@ -267,7 +267,7 @@
 								</div>
 								<c:if test="${not empty Admin}">
 									<div style="width: 100%;height:35px;padding-top: 20px;">
-										<button class="buttoncontrol" id="backup" type="submit"  name="actionsubmit" value="restore">khôi phục</button>
+										<button class="buttoncontrol" id="backup" type="submit"  name="actionsubmit" value="restore" onclick="$('#loading').show();">khôi phục</button>
 									</div>		
 								</c:if>															
 							</c:if>

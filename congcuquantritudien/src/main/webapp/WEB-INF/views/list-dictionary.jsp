@@ -155,7 +155,7 @@
 				       		 <!-- select form -->
 							<div style="padding: 5px;">
 								<span id="select_all" style="cursor: pointer;"><!-- img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px;" /-->Chọn tất cả</span>
-								<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
+								<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 								<c:if test="${not empty Admin}">
 						  		<span id="up_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/upload.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Đăng</span>
 						  		</c:if>
@@ -275,8 +275,8 @@
 								<c:if test="${not empty Admin}">
 									<!-- Button -->
 									<div style="width: 100%;height:35px;padding-top: 20px;">
-										<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload">Đăng câu hỏi</button>
-										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
+										<button class="buttoncontrol" id="upload" type="submit"  name="actionsubmit" value="upload" onclick="$('#loading').show();">Đăng câu hỏi</button>
+										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete" onclick="$('#loading').show();">Xóa</button>
 										<div class="buttoncontrol" id="change" style="text-align: center;"><a href="editdictionary?topic=${diction.ID} " style="text-decoration: none; color: white; margin-top: 10px;margin-right: 3px;float: right;width: 100%;height: 45%;">Chỉnh sửa</a></div>
 										<!-- button chỉnh sửa -->
 										

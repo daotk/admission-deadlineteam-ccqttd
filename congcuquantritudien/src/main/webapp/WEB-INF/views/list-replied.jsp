@@ -145,7 +145,7 @@
 					 	<!-- select form -->
 						<div style="padding: 5px;">
 						  	<span id="select_all" style="cursor: pointer;"><!-- img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" /-->Chọn tất cả</span>
-						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
+						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px;" />Xóa</span>
 					  		
 					  		<!-- configuration -->
 					  		<div id="container-pop">
@@ -282,8 +282,8 @@
 								
 								<!-- button -->
 								<div style="width: 100%;height:35px;padding-top: 20px;">
-									<button class="buttoncontrol" id="input" type="submit"  name="actionsubmit" value="dictionary">Đưa vào bộ từ điển</button>
-									<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
+									<button class="buttoncontrol" id="input" type="submit"  name="actionsubmit" value="dictionary" onclick="$('#loading').show();">Đưa vào bộ từ điển</button>
+									<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete" onclick="$('#loading').show();">Xóa</button>
 								</div>	
 							</c:if> 																
 						</form:form>

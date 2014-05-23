@@ -141,7 +141,7 @@
  						<tr>
  							<td></td>
  							<td>
- 								<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="float: right; height: 35px; margin-right: 0;">Lưu</button>
+ 								<button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="change" style="float: right; height: 35px; margin-right: 0;" onclick="$('#loading').show();">Lưu</button>
 							</td>
  						</tr>
 						</table>

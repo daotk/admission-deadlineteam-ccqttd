@@ -76,7 +76,6 @@
 		$('#loading').fadeOut(2000);
 	});
 	</script>
-	
 	<!-- Info Paging -->
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -159,8 +158,8 @@
 				  	
 					  	<!-- Select form -->
 					  	<div style="padding: 5px;">
-						  	<span id="select_all" style="cursor: pointer;"><!-- img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" /-->Chọn tất cả</span>
-						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>
+						  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>
 					  		
 					  		<!-- configuration -->
 					  		<div id="container-pop">
@@ -235,7 +234,7 @@
 					
 					<!-- Detail of question is received -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">			
-						<form:form method="post" action="home?page=${curentOfPage}" commandName="questionmanagements">
+						<form:form method="post" action="home?page=${curentOfPage}" commandName="questionmanagements" >
 							<div style="font: bold 12px 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif;">
 							<c:if test="${not empty error}">
 								<script type="text/javascript">
@@ -309,9 +308,9 @@
 								
 								<!-- Button -->			
 								<div style="width: 100%;height:35px;padding-top: 20px;">
-										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete">Xóa</button>
-										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save">Lưu</button>
-										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send">Gửi</button>
+										<button class="buttoncontrol" id="delete" type="submit"  name="actionsubmit" value="delete" onclick="$('#loading').show();">Xóa</button>
+										<button class="buttoncontrol" id="save" type="submit"  name="actionsubmit" value="save" onclick="$('#loading').show();">Lưu</button>
+										<button class="buttoncontrol" id="send" type="submit"  name="actionsubmit" value="send" onclick="$('#loading').show();">Gửi</button>
 									
 								</div>
 							</c:if>								

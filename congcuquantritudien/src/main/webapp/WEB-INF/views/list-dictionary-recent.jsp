@@ -156,7 +156,7 @@
 							<div style="padding: 5px;">
 								<c:if test="${not empty Admin}">
 								  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
-								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;"><img src="images/down.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Hạ</span>
+								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;" onclick="$('#loading').show();"><img src="images/down.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Hạ</span>
 						  		</c:if>
 						  		<!-- configuration -->
 						  		<div id="container-pop">
@@ -272,7 +272,7 @@
 								</div>
 								<c:if test="${not empty Admin}">
 									<div style="width: 100%;height:35px;">
-										<button class="buttoncontrol" id="remove" type="submit"  name="actionsubmit" value="remove">Hạ câu hỏi</button>				
+										<button class="buttoncontrol" id="remove" type="submit"  name="actionsubmit" value="remove" onclick="$('#loading').show();">Hạ câu hỏi</button>				
 									</div>
 								</c:if>																
 							</c:if>
