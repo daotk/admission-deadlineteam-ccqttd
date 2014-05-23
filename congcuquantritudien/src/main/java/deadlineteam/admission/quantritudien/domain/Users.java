@@ -18,6 +18,7 @@ public class Users {
 	private String Password;
 	private String Email;
 	private Integer Authorization;
+	private Integer Status;
 	
 	public Integer getID() {
 		return ID;
@@ -66,5 +67,13 @@ public class Users {
 
 	public void setEmail(String email) {
 		Email = email;
+	}
+
+	public Integer getStatus() {
+		return Status;
+	}
+
+	public void setStatus(Integer status) {
+		Status = status;
 	}
 }

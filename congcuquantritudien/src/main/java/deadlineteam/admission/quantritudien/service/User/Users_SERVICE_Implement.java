@@ -53,12 +53,16 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 		List<Users> users = getAllUsers();
 		int count=0;
 		for(int i=0; i<users.size();i++){
+			if(users.get(i).getStatus().equals(0)){
 			if(users.get(i).getUserName().equals(username)){
 				count= count+1;
 				if(users.get(i).getPassword().equals(password)){
 					count= count+1;
 					break;
+					}
 				}
+			}else{
+				return "notallow";
 			}
 		}
 		if(count==2){

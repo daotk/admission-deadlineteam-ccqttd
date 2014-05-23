@@ -213,7 +213,11 @@ public class UserController {
 				if(checklogin.equals("WrongPass")){
 					model.addAttribute("error", "Bạn đã nhập sai mật khẩu");	
 				}else{
-					model.addAttribute("error", "Bạn đã nhập sai tài khoản hoặc mật khẩu");	
+					if(checklogin.equals("notallow")){
+						model.addAttribute("error", "Tài khoản bị cấm");	
+					}else{
+						model.addAttribute("error", "Bạn đã nhập sai tài khoản hoặc mật khẩu");	
+					}
 				}
 				model.addAttribute("users",user);
 	        	return "login";
@@ -244,6 +248,7 @@ public class UserController {
 			user.setPassword(passmd5);
 			user.setEmail(userbean.getEmail());
 			user.setAuthorization(0);
+			user.setStatus(0);
 			if(userService.checkUsername(user.getUserName()) ==true){
 				model.addAttribute("error", "Tài khoản đã tồn tại. Xin nhập tài khoản khác.");	
 			}else{
