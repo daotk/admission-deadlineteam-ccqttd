@@ -440,16 +440,16 @@ public class UserController {
 					List<Users> listUser= userService.getAllUsers();
 					
 					model.addAttribute("listUser", listUser);
-					List<Users> getUser = userService.getUserDetail(Id);
+					Users getUser = userService.getUser(Id);
 					
 					Users test = new Users();
-					test.setFullName(getUser.get(0).getFullName());
+					test.setFullName(getUser.getFullName());
 					model.addAttribute("listUser2", test);
 					
-					model.addAttribute("fullName", getUser.get(0).getFullName());
-					model.addAttribute("userName", getUser.get(0).getUserName());
-					model.addAttribute("email", getUser.get(0).getEmail());
-					model.addAttribute("authorization", getUser.get(0).getAuthorization());
+					model.addAttribute("fullName", getUser.getFullName());
+					model.addAttribute("userName", getUser.getUserName());
+					model.addAttribute("email", getUser.getEmail());
+					model.addAttribute("authorization", getUser.getAuthorization());
 					//session.setAttribute("fullName",getUser.get(0).getFullName());
 				}
 				Users users = userService.getUser(UserID);
@@ -482,16 +482,16 @@ public class UserController {
 						
 						List<Users> listUser= userService.getAllUsers();
 						model.addAttribute("listUser", listUser);
-						List<Users> getUser = userService.getUserDetail(Id);
-						model.addAttribute("fullName", getUser.get(0).getFullName());
-						model.addAttribute("userName", getUser.get(0).getUserName());
-						model.addAttribute("email", getUser.get(0).getEmail());
-						model.addAttribute("authorization", getUser.get(0).getAuthorization());
+						Users getUser = userService.getUser(Id);
+						model.addAttribute("fullName", getUser.getFullName());
+						model.addAttribute("userName", getUser.getUserName());
+						model.addAttribute("email", getUser.getEmail());
+						model.addAttribute("authorization", getUser.getAuthorization());
 						
 					
 						
 						Users test = new Users();
-						test.setFullName(getUser.get(0).getFullName());
+						test.setFullName(getUser.getFullName());
 						model.addAttribute("listUser2", test);
 						Users nameuser = userService.getUser(login);
 						Users users = userService.getUser(Id);
@@ -505,16 +505,16 @@ public class UserController {
 						
 						List<Users> listUser= userService.getAllUsers();
 						model.addAttribute("listUser", listUser);
-						List<Users> getUser = userService.getUserDetail(Id);
-						model.addAttribute("fullName", getUser.get(0).getFullName());
-						model.addAttribute("userName", getUser.get(0).getUserName());
-						model.addAttribute("email", getUser.get(0).getEmail());
-						model.addAttribute("authorization", getUser.get(0).getAuthorization());
+						Users getUser = userService.getUser(Id);
+						model.addAttribute("fullName", getUser.getFullName());
+						model.addAttribute("userName", getUser.getUserName());
+						model.addAttribute("email", getUser.getEmail());
+						model.addAttribute("authorization", getUser.getAuthorization());
 						
 					
 						
 						Users test = new Users();
-						test.setFullName(getUser.get(0).getFullName());
+						test.setFullName(getUser.getFullName());
 						model.addAttribute("listUser2", test);
 						model.addAttribute("message","Bạn phải nhập 0 hoặc 1 ");
 					}

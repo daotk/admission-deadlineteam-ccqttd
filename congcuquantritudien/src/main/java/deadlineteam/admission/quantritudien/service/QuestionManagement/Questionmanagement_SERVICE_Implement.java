@@ -575,7 +575,7 @@ public class Questionmanagement_SERVICE_Implement implements
 			Questionmanagement question = getQuestionmanagementbyID(deleteid);
 			if (question.getDeleteBy() != null) {
 				// Xu ly thao tac song song
-				Users information = UserDAO.getUser(userid);
+				Users information = UserDAO.getUserByUserID(userid);
 				int author = information.getAuthorization();
 				if (userid == question.getDeleteBy()) {
 					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
@@ -584,7 +584,7 @@ public class Questionmanagement_SERVICE_Implement implements
 					returnlist.add(question);
 				} else {
 					if (author == 1) {
-						Users otheruser = UserDAO.getUser(question
+						Users otheruser = UserDAO.getUserByUserID(question
 								.getDeleteBy());
 						int otherauthor = otheruser.getAuthorization();
 						if (otherauthor == 1) {
@@ -617,7 +617,7 @@ public class Questionmanagement_SERVICE_Implement implements
 			Questionmanagement question = getQuestionmanagementbyID(deleteid);
 			if (question.getDeleteBy() != null) {
 				// Xu ly thao tac song song
-				Users information = UserDAO.getUser(userid);
+				Users information = UserDAO.getUserByUserID(userid);
 				int author = information.getAuthorization();
 				if (userid == question.getDeleteBy()) {
 					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
@@ -625,7 +625,7 @@ public class Questionmanagement_SERVICE_Implement implements
 					returnlist.add(question);
 				} else {
 					if (author == 1) {
-						Users otheruser = UserDAO.getUser(question
+						Users otheruser = UserDAO.getUserByUserID(question
 								.getDeleteBy());
 						int otherauthor = otheruser.getAuthorization();
 						if (otherauthor == 1) {

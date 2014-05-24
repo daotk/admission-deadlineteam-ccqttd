@@ -38,11 +38,11 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	}
 
 	public Users getUser(int ID) {
-		return usersDAO.getUser(ID);
+		return usersDAO.getUserByUserID(ID);
 	}
 
 	public void deleteUser(int ID) {
-		usersDAO.deleteUser(ID);
+		usersDAO.deleteUserByUserID(ID);
 	}
 
 	public List<Users> getAllUsers() {
@@ -89,7 +89,7 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	}
 	
 	public int changePassword(int Id,String newpassword){
-		return usersDAO.changePassword(Id, newpassword);
+		return usersDAO.changePasswordByUserID(Id, newpassword);
 	}
 	public boolean checkIsAdmin(int Id){
 		boolean result= false;
@@ -124,11 +124,8 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	public int UpdateSettingDelete(int UserId, int Record, int Pagin){
 		return usersDAO.UpdateSettingDelete(UserId, Record, Pagin);
 	}
-	public List<Users> getUserDetail(int ID){
-		return usersDAO.getUserDetail(ID);
-	}
 	public int UpdateStatusUser(int UserId, int Authorization){
-		return usersDAO.UpdateStatusUser(UserId, Authorization);
+		return usersDAO.updateAuthorizationUser(UserId, Authorization);
 	}
 	public int UpdateSettingDictionary(int UserId, int Record, int Pagin){
 		return usersDAO.UpdateSettingDictionary(UserId, Record, Pagin);

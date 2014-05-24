@@ -21,13 +21,21 @@ public class Users_DAO_Implement implements Users_DAO {
 		return sessionFactory.getCurrentSession();
 	}
 
+	/**
+	 * Add User to Database
+	 * @param user {@link Users}
+	 */
 	public void addUser(Users user) {
 		getCurrentSession().save(user);
 		
 	}
 
+	/**
+	 * Update User
+	 * @param User {@link Users}
+	 */
 	public void updateUser(Users User) {
-		Users userToUpdate = getUser(User.getID());
+		Users userToUpdate = getUserByUserID(User.getID());
 		
 		userToUpdate.setFullName(User.getFullName());
 		userToUpdate.setUserName(User.getUserName());
@@ -38,23 +46,42 @@ public class Users_DAO_Implement implements Users_DAO {
 		
 	}
 
-	public Users getUser(int ID) {
+	/**
+	 * Get User By ID
+	 * @param ID {@link Integer}
+	 * @return {@link Users}
+	 */
+	public Users getUserByUserID(int ID) {
 		Users User = (Users) getCurrentSession().get(Users.class, ID);
 		return User;
 	}
 
-	public void deleteUser(int ID) {
-		Users User = getUser(ID);
+	/**
+	 * Delete User By ID
+	 * @param ID {@link Integer}
+	 */
+	public void deleteUserByUserID(int ID) {
+		Users User = getUserByUserID(ID);
 		if (User != null)
 			getCurrentSession().delete(User);
 	}
 
+	/**
+	 * Get All User
+	 * @return {@link List} All User
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Users> getAllUsers() {
 		return getCurrentSession().createQuery(" from Users").list();
 	}
 	
-	public int changePassword(int Id,String newpassword){
+	/**
+	 * Change Password By ID
+	 * @param Id {@link Integer}
+	 * @param newpassword {@link String}
+	 * @return {@link Integer}
+	 */
+	public int changePasswordByUserID(int Id,String newpassword){
 		String sqlstring = "update Users set Password= :answer where ID = :Id ";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		q.setParameter("answer", newpassword);
@@ -62,15 +89,32 @@ public class Users_DAO_Implement implements Users_DAO {
 		int result= q.executeUpdate();
 		return result;
 	}
+	
+	/**
+	 * Add Setting for User
+	 * @param setting {@link Setting}
+	 */
 	public void addSettingUser (Setting setting){
 		getCurrentSession().save(setting);
 	}
+	
+	/**
+	 * Get Setting By ID
+	 * @param Id {@link Integer}
+	 * @return {@link Setting}
+	 */
 	public Setting getSetting(int Id){
 		Setting temp =  (Setting)getCurrentSession().createQuery("from Setting where UserID = "+Id ).uniqueResult();
 		return temp;
 	}
 	
-// Function updates a number of record in setting
+	/**
+	 * Update Setting
+	 * @param UserId {@link Integer}
+	 * @param Record {@link Integer}
+	 * @param Pagin {@link Integer}
+	 * @return {@link Integer}
+	 */
 	public int UpdateSetting(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordNotRep = :record, PaginDisplayNotRep = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -79,6 +123,14 @@ public class Users_DAO_Implement implements Users_DAO {
 		 int result= q.executeUpdate();
 		return result;
 	}
+	
+	/**
+	 * Update Setting Save List
+	 * @param UserId {@link Integer}
+	 * @param Record {@link Integer}
+	 * @param Pagin {@link Integer}
+	 * @return {@link Integer}
+	 */
 	public int UpdateSettingSaved(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordTemp = :record, PaginDisplayTemp = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -87,6 +139,14 @@ public class Users_DAO_Implement implements Users_DAO {
 		 int result= q.executeUpdate();
 		return result;
 	}
+	
+	/**
+	 * Update Setting Replied List
+	 * @param UserId {@link Integer}
+	 * @param Record {@link Integer}
+	 * @param Pagin {@link Integer}
+	 * @return {@link Integer}
+	 */
 	public int UpdateSettingReplied(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordRepied = :record, PaginDisplayReplied = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -95,6 +155,14 @@ public class Users_DAO_Implement implements Users_DAO {
 		 int result= q.executeUpdate();
 		return result;
 	}
+	
+	/**
+	 * Update Setting Delete List
+	 * @param UserId {@link Integer}
+	 * @param Record {@link Integer}
+	 * @param Pagin {@link Integer}
+	 * @return {@link Integer}
+	 */
 	public int UpdateSettingDelete(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordDelete = :record, PaginDisplayDelete = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -103,6 +171,14 @@ public class Users_DAO_Implement implements Users_DAO {
 		 int result= q.executeUpdate();
 		return result;
 	}
+	
+	/**
+	 * Update Setting Dictionary List
+	 * @param UserId {@link Integer}
+	 * @param Record {@link Integer}
+	 * @param Pagin {@link Integer}
+	 * @return {@link Integer}
+	 */
 	public int UpdateSettingDictionary(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordDictionary = :record, PaginDisplayDictionary = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -112,11 +188,13 @@ public class Users_DAO_Implement implements Users_DAO {
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Users> getUserDetail(int ID) {
-		return getCurrentSession().createQuery(" from Users where ID ="+ID).list();
-	}
-	public int UpdateStatusUser(int UserId, int Authorization){
+	/**
+	 * Update User Authorization
+	 * @param UserId {@link Integer}
+	 * @param Authorization {@link Integer}
+	 * @return {@link Integer}
+	 */
+	public int updateAuthorizationUser(int UserId, int Authorization){
 		String sqlstring = "update Users set Authorization = :authorization where ID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("authorization", Authorization);

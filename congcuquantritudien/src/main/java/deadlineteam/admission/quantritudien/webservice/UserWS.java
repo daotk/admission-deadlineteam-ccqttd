@@ -107,10 +107,10 @@ public class UserWS {
 			// get id from username
 			int id = Integer.parseInt(idUser);
 			// get user entity from id
-			List<Users> temp = userService.getUserDetail(id);
-			us.ID = temp.get(0).getID();
-			us.FullName = temp.get(0).getFullName();
-			us.Authorization = temp.get(0).getAuthorization();
+			Users temp = userService.getUser(id);
+			us.ID = temp.getID();
+			us.FullName = temp.getFullName();
+			us.Authorization = temp.getAuthorization();
 		}
 		return us;
 	}
