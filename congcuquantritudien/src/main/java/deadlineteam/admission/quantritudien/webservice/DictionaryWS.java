@@ -47,6 +47,8 @@ import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 @RequestMapping("android")
 public class DictionaryWS {
 	
+	AndroidUtil util;
+	
 	@Autowired
 	private Users_SERVICE userService;
 	
@@ -246,6 +248,10 @@ public class DictionaryWS {
 							Users information = userService.getUser(idUser);
 							int author = information.getAuthorization();
 							if(idUser == ques.getCreateBy()){
+								
+								answer = util.restoreTags(answer);
+								question = util.restoreTags(question);
+								
 								int execute = DictionaryService.update(idQues, answer, question);
 								int updatecreateby = DictionaryService.updateCreateby(idQues, idUser);
 								int restart = DictionaryService.busystatus(idQues);

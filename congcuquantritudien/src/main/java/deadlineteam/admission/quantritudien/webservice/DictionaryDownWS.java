@@ -47,6 +47,8 @@ import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 @RequestMapping("android")
 public class DictionaryDownWS {
 	
+	AndroidUtil util;
+	
 	@Autowired
 	private Users_SERVICE userService;
 	
@@ -231,6 +233,9 @@ public class DictionaryDownWS {
 						// get id from username
 						int idUser = userService.getIdbyUsername(username);
 						int idQues = Integer.parseInt(IdQuestion);
+						
+						answer = util.restoreTags(answer);
+						question = util.restoreTags(question);
 						
 						int execute = DictionaryService.update(idQues, answer, question);
 
