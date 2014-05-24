@@ -66,7 +66,7 @@ public interface Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSetting(int UserId, int record, int pagin);
+	public int updateSetting(int UserId, int record, int pagin);
 	
 	/**
 	 * Update Setting Save List
@@ -75,7 +75,7 @@ public interface Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingSaved(int UserId, int Record, int Pagin);
+	public int updateSettingSaved(int UserId, int Record, int Pagin);
 	
 	/**
 	 * Update Setting Replied List
@@ -84,7 +84,7 @@ public interface Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingReplied(int UserId, int Record, int Pagin);
+	public int updateSettingReplied(int UserId, int Record, int Pagin);
 	
 	/**
 	 * Update Setting Delete List
@@ -93,7 +93,7 @@ public interface Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingDelete(int UserId, int Record, int Pagin);
+	public int updateSettingDelete(int UserId, int Record, int Pagin);
 	
 	/**
 	 * Update Setting Dictionary List
@@ -102,7 +102,7 @@ public interface Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingDictionary(int UserId, int Record, int Pagin);
+	public int updateSettingDictionary(int UserId, int Record, int Pagin);
 	
 	/**
 	 * Update User Authorization

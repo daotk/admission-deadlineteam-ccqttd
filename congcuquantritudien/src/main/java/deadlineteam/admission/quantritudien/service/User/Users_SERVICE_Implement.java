@@ -37,11 +37,11 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 		usersDAO.updateUser(user);
 	}
 
-	public Users getUser(int ID) {
+	public Users getUserByUserID(int ID) {
 		return usersDAO.getUserByUserID(ID);
 	}
 
-	public void deleteUser(int ID) {
+	public void deleteUserByUserID(int ID) {
 		usersDAO.deleteUserByUserID(ID);
 	}
 
@@ -88,12 +88,12 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 		return result;
 	}
 	
-	public int changePassword(int Id,String newpassword){
+	public int changePasswordByUserID(int Id,String newpassword){
 		return usersDAO.changePasswordByUserID(Id, newpassword);
 	}
 	public boolean checkIsAdmin(int Id){
 		boolean result= false;
-		Users users = getUser(Id);
+		Users users = getUserByUserID(Id);
 		if(users.getAuthorization().equals(1)){
 			result = true;
 		}else{
@@ -103,7 +103,7 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	}
 	
 	public String getFullnameByID(int Id){
-		Users users = getUser(Id);
+		Users users = getUserByUserID(Id);
 		return users.getFullName();
 		}
 	public void addSettingUser (Setting setting){
@@ -112,23 +112,23 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	public Setting getSetting(int Id){
 		return usersDAO.getSetting(Id);
 	}
-	public int UpdateSetting(int UserId, int Record, int Pagin){
-		return usersDAO.UpdateSetting(UserId, Record, Pagin);
+	public int updateSetting(int UserId, int Record, int Pagin){
+		return usersDAO.updateSetting(UserId, Record, Pagin);
 	}
-	public int UpdateSettingSaved(int UserId, int Record, int Pagin){
-		return usersDAO.UpdateSettingSaved(UserId, Record, Pagin);
+	public int updateSettingSaved(int UserId, int Record, int Pagin){
+		return usersDAO.updateSettingSaved(UserId, Record, Pagin);
 	}
-	public int UpdateSettingReplied(int UserId, int Record, int Pagin){
-		return usersDAO.UpdateSettingReplied(UserId, Record, Pagin);
+	public int updateSettingReplied(int UserId, int Record, int Pagin){
+		return usersDAO.updateSettingReplied(UserId, Record, Pagin);
 	}
-	public int UpdateSettingDelete(int UserId, int Record, int Pagin){
-		return usersDAO.UpdateSettingDelete(UserId, Record, Pagin);
+	public int updateSettingDelete(int UserId, int Record, int Pagin){
+		return usersDAO.updateSettingDelete(UserId, Record, Pagin);
 	}
-	public int UpdateStatusUser(int UserId, int Authorization){
+	public int updateSettingDictionary(int UserId, int Authorization){
 		return usersDAO.updateAuthorizationUser(UserId, Authorization);
 	}
-	public int UpdateSettingDictionary(int UserId, int Record, int Pagin){
-		return usersDAO.UpdateSettingDictionary(UserId, Record, Pagin);
+	public int updateSettingDictionary(int UserId, int Record, int Pagin){
+		return usersDAO.updateSettingDictionary(UserId, Record, Pagin);
 	}
 }
 

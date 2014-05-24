@@ -103,7 +103,7 @@ public class UserController {
 		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
-		Users users = userService.getUser(UserID);
+		Users users = userService.getUserByUserID(UserID);
 		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang trợ giúp");
 		return "help";
 		}
@@ -118,7 +118,7 @@ public class UserController {
 		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
-		Users users = userService.getUser(UserID);
+		Users users = userService.getUserByUserID(UserID);
 		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang tiện ích");
 		return "help2";
 		}
@@ -133,7 +133,7 @@ public class UserController {
 		}else{
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
-		Users users = userService.getUser(UserID);
+		Users users = userService.getUserByUserID(UserID);
 		logger.info("Tài khoản "+ users.getUserName() +" đã vào trang người dùng");
 		return "help3";
 		}
@@ -304,7 +304,7 @@ public class UserController {
 	public String logout(HttpSession session) {
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 		checkBusyStatus(0, UserID, session);
-		Users users = userService.getUser(UserID);
+		Users users = userService.getUserByUserID(UserID);
 		logger.info("Tài khoản "+ users.getUserName() + " đã thoát khỏi hệ thống");
 		session.invalidate();
 		
@@ -333,7 +333,7 @@ public class UserController {
 		if(userService.checkIsAdmin(UserID)==true){
 			model.addAttribute("isAdmin","admin");
 		}
-		Users users = userService.getUser(UserID);
+		Users users = userService.getUserByUserID(UserID);
 		logger.info("Tài khoản "+users.getUserName()+" vào trang đổi mật khẩu");
 		model.addAttribute("users", new UsersBean());
 		return "change-pass";
@@ -348,7 +348,7 @@ public class UserController {
 		ChangePassValidator validator = new ChangePassValidator();
 		validator.validate(user, result);	 
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
-		Users getinfor = userService.getUser(UserID);
+		Users getinfor = userService.getUserByUserID(UserID);
 		getinfor.getPassword();
         if (result.hasErrors()){
         	user.setPassword("");
@@ -368,7 +368,7 @@ public class UserController {
         		}else{
         			String passmd5 = AeSimpleMD5.MD5(user.getNewPassword());
         			user.setPassword(passmd5);
-                	int message = userService.changePassword(UserID, passmd5);
+                	int message = userService.changePasswordByUserID(UserID, passmd5);
                 	if(message>0){
                 		model.addAttribute("message", "Bạn đã thay đổi mật khẩu thành công");
                 		logger.info("Tài khoản "+ user.getUserName() + " đã đổi mật khẩu");
@@ -406,9 +406,9 @@ public class UserController {
 		if(userService.checkIsAdmin(UserID)==true){
 			model.addAttribute("isAdmin","admin");
 		}	
-		Users users = userService.getUser(UserID);
+		Users users = userService.getUserByUserID(UserID);
 		logger.info("Tài khoản  "+ users.getUserName() +" vào trang thông tin người dùng");
-		model.addAttribute("users",userService.getUser(UserID));
+		model.addAttribute("users",userService.getUserByUserID(UserID));
 		return "view-profile";
 		}
 	}
@@ -440,7 +440,7 @@ public class UserController {
 					List<Users> listUser= userService.getAllUsers();
 					
 					model.addAttribute("listUser", listUser);
-					Users getUser = userService.getUser(Id);
+					Users getUser = userService.getUserByUserID(Id);
 					
 					Users test = new Users();
 					test.setFullName(getUser.getFullName());
@@ -452,7 +452,7 @@ public class UserController {
 					model.addAttribute("authorization", getUser.getAuthorization());
 					//session.setAttribute("fullName",getUser.get(0).getFullName());
 				}
-				Users users = userService.getUser(UserID);
+				Users users = userService.getUserByUserID(UserID);
 				logger.info("Tài khoản "+ users.getUserName() +" vào trang cấu hình người dùng");
 			
 				return "setting-user";
@@ -478,11 +478,11 @@ public class UserController {
 						int Id = Integer.parseInt(session.getAttribute("Id").toString());
 						//userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
 						int login = Integer.parseInt(session.getAttribute("login").toString());
-						userService.UpdateStatusUser(Id, num);
+						userService.updateSettingDictionary(Id, num);
 						
 						List<Users> listUser= userService.getAllUsers();
 						model.addAttribute("listUser", listUser);
-						Users getUser = userService.getUser(Id);
+						Users getUser = userService.getUserByUserID(Id);
 						model.addAttribute("fullName", getUser.getFullName());
 						model.addAttribute("userName", getUser.getUserName());
 						model.addAttribute("email", getUser.getEmail());
@@ -493,8 +493,8 @@ public class UserController {
 						Users test = new Users();
 						test.setFullName(getUser.getFullName());
 						model.addAttribute("listUser2", test);
-						Users nameuser = userService.getUser(login);
-						Users users = userService.getUser(Id);
+						Users nameuser = userService.getUserByUserID(login);
+						Users users = userService.getUserByUserID(Id);
 						logger.info("Tài khoản " + users.getUserName() +" đã được cấu hình bởi" +nameuser.getFullName());
 						model.addAttribute("message", msgSrc.getMessage("message.changconfig.user.success", null,locale));
 					}else{
@@ -505,7 +505,7 @@ public class UserController {
 						
 						List<Users> listUser= userService.getAllUsers();
 						model.addAttribute("listUser", listUser);
-						Users getUser = userService.getUser(Id);
+						Users getUser = userService.getUserByUserID(Id);
 						model.addAttribute("fullName", getUser.getFullName());
 						model.addAttribute("userName", getUser.getUserName());
 						model.addAttribute("email", getUser.getEmail());
@@ -549,7 +549,7 @@ public class UserController {
 							model.addAttribute("username", username);
 							model.addAttribute("password", password);
 							int login = Integer.parseInt(session.getAttribute("login").toString());
-							Users users = userService.getUser(login);
+							Users users = userService.getUserByUserID(login);
 							logger.info("Tài khoản "+users.getUserName() +" vào trang cấu hình hệ thống");
 							return "setting-system";
 						}
@@ -575,7 +575,7 @@ public class UserController {
 						model.addAttribute("password", password);
 						model.addAttribute("message",  msgSrc.getMessage("message.changconfig.system.success", null,locale));
 						int login = Integer.parseInt(session.getAttribute("login").toString());
-						Users users = userService.getUser(login);
+						Users users = userService.getUserByUserID(login);
 						logger.info("Tài khoản "+ users.getUserName()+" thay đổi cấu hình hệ thống");
 					}
 					
@@ -609,7 +609,7 @@ public class UserController {
 							model.addAttribute("usernamemail", usernamemail);
 							model.addAttribute("passwordmail", passwordmail);
 							int login = Integer.parseInt(session.getAttribute("login").toString());
-							Users users = userService.getUser(login);
+							Users users = userService.getUserByUserID(login);
 							logger.info("Tài khoản "+users.getUserName() +" vào trang cấu hình mail");
 							return "setting-mail";
 						}
@@ -636,7 +636,7 @@ public class UserController {
 						model.addAttribute("message", msgSrc.getMessage("message.changconfig.mail.success", null,locale));
 					}
 					int login = Integer.parseInt(session.getAttribute("login").toString());
-					Users users = userService.getUser(login);
+					Users users = userService.getUserByUserID(login);
 					logger.info("Tài khoản "+ users.getUserName()+" thay đổi cấu hình mail");
 						
 					return "setting-mail";

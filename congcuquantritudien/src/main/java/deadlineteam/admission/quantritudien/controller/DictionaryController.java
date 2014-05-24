@@ -99,7 +99,7 @@ public class DictionaryController {
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			session.setAttribute("Id", Id);
 			Dictionary available = DictionaryService.loadquestion(Id);
-			Users users = userService.getUser(UserID);
+			Users users = userService.getUserByUserID(UserID);
 			String question = available.getQuestion();
 			if(available.getQuestion().length() > 50){
 				question.subSequence(0, 45);
@@ -128,13 +128,13 @@ public class DictionaryController {
 				Dictionary question = DictionaryService.getinformation(Id);
 				if(question.getCreateBy() != null){
 					// Xu ly thao tac song song
-					Users information = userService.getUser(UserID);
+					Users information = userService.getUserByUserID(UserID);
 					int author = information.getAuthorization();
 					if(UserID == question.getCreateBy()){
 						int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 						int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
 						int restart = DictionaryService.busystatus(Id);
-						Users users = userService.getUser(UserID);
+						Users users = userService.getUserByUserID(UserID);
 						//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 						Dictionary userquestion = DictionaryService.getinformation(Id);
 						String newquestion = userquestion.getQuestion();
@@ -166,7 +166,7 @@ public class DictionaryController {
 						model.addAttribute("Avaiable", Avaiable);
 					}else{
 						if(author ==1){
-							Users otheruser = userService.getUser(question.getCreateBy());
+							Users otheruser = userService.getUserByUserID(question.getCreateBy());
 							int otherauthor = otheruser.getAuthorization();
 							if(otherauthor ==1){
 								// null
@@ -177,7 +177,7 @@ public class DictionaryController {
 								int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 								int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
 								int restart = DictionaryService.busystatus(Id);
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 							//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								Dictionary userquestion = DictionaryService.getinformation(Id);
 								String newquestion = userquestion.getQuestion();
@@ -210,7 +210,7 @@ public class DictionaryController {
 							}
 						}else{
 							// null
-							Users otheruser = userService.getUser(question.getCreateBy());
+							Users otheruser = userService.getUserByUserID(question.getCreateBy());
 							attribute.addFlashAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" Chỉnh sửa");
 						}
 					}
@@ -222,7 +222,7 @@ public class DictionaryController {
 					int updatecreateby = DictionaryService.updateCreateby(Id, UserID);
 					int restart = DictionaryService.busystatus(Id);
 					
-					Users users = userService.getUser(UserID);
+					Users users = userService.getUserByUserID(UserID);
 					//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 					Dictionary userquestion = DictionaryService.getinformation(Id);
 					String newquestion = userquestion.getQuestion();
@@ -283,7 +283,7 @@ public class DictionaryController {
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			session.setAttribute("Id", Id);
 			Dictionary available = DictionaryService.loadquestion(Id);
-			Users users = userService.getUser(UserID);
+			Users users = userService.getUserByUserID(UserID);
 			String question = available.getQuestion();
 			if(available.getQuestion().length() > 50){
 				question.subSequence(0, 45);
@@ -316,7 +316,7 @@ public class DictionaryController {
 				int result = DictionaryService.update(Id, diction.getAnwser(), diction.getQuestion());
 				int restart = DictionaryService.busystatus(Id);
 				
-				Users users = userService.getUser(UserID);
+				Users users = userService.getUserByUserID(UserID);
 				//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 				Dictionary userquestion = DictionaryService.getinformation(Id);
 				String newquestion = userquestion.getQuestion();
@@ -397,7 +397,7 @@ public class DictionaryController {
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
 			model.addAttribute("curentOfPage", page);
-			Users users = userService.getUser(UserID);
+			Users users = userService.getUserByUserID(UserID);
 			logger.info("Tài khoản "+users.getUserName()+" vào danh sách câu hỏi chờ sẵn");
 			return "list-dictionary";
 			
@@ -431,7 +431,7 @@ public class DictionaryController {
 			
 			model.addAttribute("Avaiable", Avaiable);				
 			Dictionary available = DictionaryService.availablequestion(Id);
-			Users newusername = userService.getUser(available.getAnwserBy());
+			Users newusername = userService.getUserByUserID(available.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			model.addAttribute("diction", available);
 			
@@ -501,7 +501,7 @@ public class DictionaryController {
 							int result = DictionaryService.upload(Id);	
 							int update = DictionaryService.updateby(Id, UserID);
 							if(result > 0 && update >0){
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 						//		Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								Dictionary question = DictionaryService.getinformation(Id);
 								String newquestion = question.getQuestion();
@@ -637,7 +637,7 @@ public class DictionaryController {
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						
 						model.addAttribute("username", user);
-						Users users = userService.getUser(UserID);
+						Users users = userService.getUserByUserID(UserID);
 					//	Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 						Dictionary question = DictionaryService.getinformation(Id);
 						String newquestion = question.getQuestion();
@@ -653,7 +653,7 @@ public class DictionaryController {
 						if(!changeitems.equals("0")){
 							int numOfRecord = Integer.parseInt(changeitems);
 							int numOfPagin = Integer.parseInt(changepagin);
-							userService.UpdateSettingDictionary(UserID, numOfRecord, numOfPagin);
+							userService.updateSettingDictionary(UserID, numOfRecord, numOfPagin);
 					
 							model.addAttribute("numOfRecord",changeitems);
 							model.addAttribute("numOfPagin",changepagin);
@@ -691,7 +691,7 @@ public class DictionaryController {
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							
 							model.addAttribute("username", user);
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							
 							logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang");
 							model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
@@ -740,7 +740,7 @@ public class DictionaryController {
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							if(returnlist !=null){
 								for(int i =0; i< returnlist.size();i++){
-									Users usersquestion = userService.getUser(UserID);
+									Users usersquestion = userService.getUserByUserID(UserID);
 									
 									String question = returnlist.get(i).getQuestion();
 									if(question.length() > 50){
@@ -779,7 +779,7 @@ public class DictionaryController {
 												int result = DictionaryService.upload(deleteid);	
 												int update = DictionaryService.updateby(deleteid, UserID);
 												if(result > 0 && update >0){
-													Users users = userService.getUser(UserID);
+													Users users = userService.getUserByUserID(UserID);
 											//		Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 													Dictionary question = DictionaryService.getinformation(deleteid);
 													String newquestion = question.getQuestion();
@@ -893,7 +893,7 @@ public class DictionaryController {
 								model.addAttribute("curentOfPage",page);
 								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								
 								logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit);
 								model.addAttribute("actionsubmit", actionsubmit);
@@ -949,7 +949,7 @@ public class DictionaryController {
 			model.addAttribute("deletelist", delete);
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
-			Users users = userService.getUser(userID);
+			Users users = userService.getUserByUserID(userID);
 			
 			logger.info("Tài khoản " + users.getUserName() + "vào danh sách câu hỏi đã xóa trong bộ từ điển");
 			return "list-dictionary-delete";
@@ -985,8 +985,8 @@ public class DictionaryController {
 			model.addAttribute("diction", delete);
 			String userdelete = userService.getFullnameByID(delete.getDeleteBy());
 			model.addAttribute("usernamedelete", userdelete);
-			Users newusername = userService.getUser(delete.getAnwserBy());
-			Users deleteuser = userService.getUser(delete.getDeleteBy());
+			Users newusername = userService.getUserByUserID(delete.getAnwserBy());
+			Users deleteuser = userService.getUserByUserID(delete.getDeleteBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			model.addAttribute("deleteuser", deleteuser.getFullName().toString());
 			model.addAttribute("curentOfPage", page);
@@ -1055,7 +1055,7 @@ public class DictionaryController {
 					String user = userService.getFullnameByID(userID);
 					model.addAttribute("username", user);
 					model.addAttribute("deletelist", dele);
-					Users users = userService.getUser(userID);
+					Users users = userService.getUserByUserID(userID);
 				//	Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 					Dictionary question = DictionaryService.getinformation(Id);
 					String newquestion = question.getQuestion();
@@ -1077,7 +1077,7 @@ public class DictionaryController {
 					if(!changeitems.equals("0")){
 						int numOfRecord = Integer.parseInt(changeitems);
 						int numOfPagin = Integer.parseInt(changepagin);
-						userService.UpdateSettingDictionary(userID, numOfRecord, numOfPagin);
+						userService.updateSettingDictionary(userID, numOfRecord, numOfPagin);
 				
 						model.addAttribute("numOfRecord",changeitems);
 						model.addAttribute("numOfPagin",changepagin);
@@ -1096,7 +1096,7 @@ public class DictionaryController {
 						model.addAttribute("deletelist", dele);
 						String user = userService.getFullnameByID(userID);
 						model.addAttribute("username", user);
-						Users users = userService.getUser(userID);
+						Users users = userService.getUserByUserID(userID);
 						
 						logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang");
 						model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
@@ -1132,11 +1132,11 @@ public class DictionaryController {
 						String user = userService.getFullnameByID(userID);
 						model.addAttribute("username", user);
 						model.addAttribute("deletelist", dele);
-						Users users = userService.getUser(userID);
+						Users users = userService.getUserByUserID(userID);
 						
 						if(returnlist !=null){
 							for(int i =0; i< returnlist.size();i++){
-								Users usersquestion = userService.getUser(userID);
+								Users usersquestion = userService.getUserByUserID(userID);
 								
 								String question = returnlist.get(i).getQuestion();
 								if(question.length() > 50){
@@ -1173,7 +1173,7 @@ public class DictionaryController {
 					model.addAttribute("curentOfPage",page);
 					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
-					Users users = userService.getUser(userID);
+					Users users = userService.getUserByUserID(userID);
 					
 					logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit);
 					model.addAttribute("actionsubmit", actionsubmit);
@@ -1225,7 +1225,7 @@ public class DictionaryController {
 			//-----------
 			model.addAttribute("diction", new Dictionary());
 			model.addAttribute("curentOfPage", page);
-			Users users = userService.getUser(UserID);
+			Users users = userService.getUserByUserID(UserID);
 			
 			logger.info("Tài khoản " + users.getUserName() + " vào danh sách câu hỏi đã hạ khỏi bộ từ điển ");
 			return "list-dictionary-down";
@@ -1268,7 +1268,7 @@ public class DictionaryController {
 				model.addAttribute("busystatus", removequestion.getBusyStatus().toString());
 			}
 			model.addAttribute("curentOfPage", page);
-			Users newusername =userService.getUser(removequestion.getAnwserBy());
+			Users newusername =userService.getUserByUserID(removequestion.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-down";
 		}else{
@@ -1314,7 +1314,7 @@ public class DictionaryController {
 						RestTemplate restTemplate = new RestTemplate();
 						String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
 						if(result1.equals("success")){
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							Dictionary userquestion = DictionaryService.getinformation(Id);
 							String newquestion =  userquestion.getQuestion();
@@ -1417,7 +1417,7 @@ public class DictionaryController {
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
-						Users users = userService.getUser(UserID);
+						Users users = userService.getUserByUserID(UserID);
 						//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 						Dictionary userquestion = DictionaryService.getinformation(Id);
 						String newquestion =  userquestion.getQuestion();
@@ -1465,7 +1465,7 @@ public class DictionaryController {
 							if(!changeitems.equals("0")){
 								int numOfRecord = Integer.parseInt(changeitems);
 								int numOfPagin = Integer.parseInt(changepagin);
-								userService.UpdateSettingDictionary(UserID, numOfRecord, numOfPagin);
+								userService.updateSettingDictionary(UserID, numOfRecord, numOfPagin);
 						
 								model.addAttribute("numOfRecord",changeitems);
 								model.addAttribute("numOfPagin",changepagin);
@@ -1484,7 +1484,7 @@ public class DictionaryController {
 								model.addAttribute("removelist", remove2);
 								String user = userService.getFullnameByID(UserID);
 								model.addAttribute("username", user);
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								
 								logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang " );
 								model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
@@ -1509,7 +1509,7 @@ public class DictionaryController {
 								}
 								if(returnlist !=null){
 									for(int i =0; i< returnlist.size();i++){
-										Users usersquestion = userService.getUser(UserID);
+										Users usersquestion = userService.getUserByUserID(UserID);
 										
 										String question = returnlist.get(i).getQuestion();
 										if(question.length() > 50){
@@ -1555,7 +1555,7 @@ public class DictionaryController {
 													RestTemplate restTemplate = new RestTemplate();
 													String result1 = restTemplate.postForObject(congcuhienthi+"/api/question", dicrestful, String.class);
 													if(result1.equals("success")){
-														Users users = userService.getUser(UserID);
+														Users users = userService.getUserByUserID(UserID);
 														//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 														Dictionary userquestion = DictionaryService.getinformation(deleteid);
 														String newquestion =  userquestion.getQuestion();
@@ -1658,7 +1658,7 @@ public class DictionaryController {
 									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 									model.addAttribute("actionsubmit", actionsubmit);
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									
 									logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit );
 									model.addAttribute("removelist", remove2);
@@ -1719,7 +1719,7 @@ public class DictionaryController {
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
 			model.addAttribute("curentOfPage", page);
-			Users users = userService.getUser(UserID);
+			Users users = userService.getUserByUserID(UserID);
 			
 			logger.info("Tài khoản " + users.getUserName() + " vào danh sách câu hỏi trên bộ từ điển" );
 			return "list-dictionary-recent";
@@ -1760,7 +1760,7 @@ public class DictionaryController {
 			String userrecent = userService.getFullnameByID(recent.getUpdateBy());
 			model.addAttribute("usernamerecent", userrecent);
 			model.addAttribute("curentOfPage", page);
-			Users newusername = userService.getUser(recent.getAnwserBy());
+			Users newusername = userService.getUserByUserID(recent.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-recent";
 		}else{
@@ -1811,7 +1811,7 @@ public class DictionaryController {
 						
 						if(result1.equals("success")){
 							model.addAttribute("message", msgSrc.getMessage("message.dictionary.down.success", null,locale));
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 						//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							Dictionary userquestion = DictionaryService.getinformation(Id);
 							String newquestion =  userquestion.getQuestion();
@@ -1882,7 +1882,7 @@ public class DictionaryController {
 					if(!changeitems.equals("0")){
 						int numOfRecord = Integer.parseInt(changeitems);
 						int numOfPagin = Integer.parseInt(changepagin);
-						userService.UpdateSettingDictionary(UserID, numOfRecord, numOfPagin);
+						userService.updateSettingDictionary(UserID, numOfRecord, numOfPagin);
 				
 						model.addAttribute("numOfRecord",changeitems);
 						model.addAttribute("numOfPagin",changepagin);
@@ -1901,7 +1901,7 @@ public class DictionaryController {
 						model.addAttribute("Recentlist", rece);
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
-						Users users = userService.getUser(UserID);
+						Users users = userService.getUserByUserID(UserID);
 								
 								logger.info("Tài khoản " + users.getUserName() + " đã thay đổi cấu hình phân trang " );
 						model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
@@ -1928,7 +1928,7 @@ public class DictionaryController {
 									
 									if(result1.equals("success")){
 										
-										Users users = userService.getUser(UserID);
+										Users users = userService.getUserByUserID(UserID);
 									//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 										Dictionary userquestion = DictionaryService.getinformation(deleteid);
 										String newquestion =  userquestion.getQuestion();
@@ -2020,7 +2020,7 @@ public class DictionaryController {
 						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						model.addAttribute("actionsubmit", actionsubmit);
-						Users users = userService.getUser(UserID);
+						Users users = userService.getUserByUserID(UserID);
 						
 						logger.info("Tài khoản " + users.getUserName() + " tìm kiếm "+actionsubmit );
 						model.addAttribute("Recentlist", rece1);
@@ -2046,7 +2046,7 @@ public class DictionaryController {
 			checkBusyStatus(0, UserID, session);
 			model.addAttribute("createQaA", new Dictionary());
 			model.addAttribute("message", "");
-			Users users = userService.getUser(UserID);
+			Users users = userService.getUserByUserID(UserID);
 			
 			logger.info("Tài khoản " + users.getUserName() + " vào trang tạo câu hỏi " );
 			return "create-dictionary";
@@ -2077,7 +2077,7 @@ public class DictionaryController {
 				dictionary.setBusyStatus(0);
 			
 				DictionaryService.AddDictionary(dictionary);
-				Users users = userService.getUser(userID);
+				Users users = userService.getUserByUserID(userID);
 			
 				String newquestion =  dictionary.getQuestion();
 				if(newquestion.length() > 50){

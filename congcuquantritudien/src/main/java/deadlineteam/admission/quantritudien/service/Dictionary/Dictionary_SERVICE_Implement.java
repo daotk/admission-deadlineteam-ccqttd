@@ -307,7 +307,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 				newlist.add(list.get(i));
 			}
 		}
-		Users users = userservice.getUser(UserID);
+		Users users = userservice.getUserByUserID(UserID);
 		if(users.getAuthorization() ==1){
 			return list;
 		}else{

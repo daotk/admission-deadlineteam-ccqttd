@@ -115,7 +115,7 @@ public class Users_DAO_Implement implements Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSetting(int UserId, int Record, int Pagin){
+	public int updateSetting(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordNotRep = :record, PaginDisplayNotRep = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("record", Record);
@@ -131,7 +131,7 @@ public class Users_DAO_Implement implements Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingSaved(int UserId, int Record, int Pagin){
+	public int updateSettingSaved(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordTemp = :record, PaginDisplayTemp = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("record", Record);
@@ -147,7 +147,7 @@ public class Users_DAO_Implement implements Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingReplied(int UserId, int Record, int Pagin){
+	public int updateSettingReplied(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordRepied = :record, PaginDisplayReplied = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("record", Record);
@@ -163,7 +163,7 @@ public class Users_DAO_Implement implements Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingDelete(int UserId, int Record, int Pagin){
+	public int updateSettingDelete(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordDelete = :record, PaginDisplayDelete = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("record", Record);
@@ -179,7 +179,7 @@ public class Users_DAO_Implement implements Users_DAO {
 	 * @param Pagin {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int UpdateSettingDictionary(int UserId, int Record, int Pagin){
+	public int updateSettingDictionary(int UserId, int Record, int Pagin){
 		String sqlstring = "update Setting set RecordDictionary = :record, PaginDisplayDictionary = :pagin where UserID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("record", Record);

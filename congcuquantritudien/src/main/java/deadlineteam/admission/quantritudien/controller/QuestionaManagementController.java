@@ -112,7 +112,7 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());				
 				model.addAttribute("fullname",userService.getFullnameByID(UserId));
 				model.addAttribute("questionmanagements", new Questionmanagement());
-				Users users = userService.getUser(UserID);
+				Users users = userService.getUserByUserID(UserID);
 				logger.info("Tài khoản "+users.getUserName() +" đã vào danh sách chưa trả lời");
 				return "home";
 			}else{
@@ -245,7 +245,7 @@ public class QuestionaManagementController {
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
-								Users information = userService.getUser(UserID);
+								Users information = userService.getUserByUserID(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getAnswerBy()){
 									
@@ -257,7 +257,7 @@ public class QuestionaManagementController {
 									// sends the e-mail
 									mailSender.send(mimeMessage);
 									
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
@@ -286,7 +286,7 @@ public class QuestionaManagementController {
 									}
 								}else{
 									if(author ==1){
-										Users otheruser = userService.getUser(question.getAnswerBy());
+										Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 										int otherauthor = otheruser.getAuthorization();
 										if(otherauthor ==1){
 											// null
@@ -302,7 +302,7 @@ public class QuestionaManagementController {
 											// sends the e-mail
 											mailSender.send(mimeMessage);
 											
-											Users users = userService.getUser(UserID);
+											Users users = userService.getUserByUserID(UserID);
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
@@ -331,7 +331,7 @@ public class QuestionaManagementController {
 										}
 									}else{
 										// null
-										Users otheruser = userService.getUser(question.getAnswerBy());
+										Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 									}
 									// ket thuc xu ly thao tac song song
@@ -347,7 +347,7 @@ public class QuestionaManagementController {
 								// sends the e-mail
 								mailSender.send(mimeMessage);
 								
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
@@ -414,10 +414,10 @@ public class QuestionaManagementController {
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
-								Users information = userService.getUser(UserID);
+								Users information = userService.getUserByUserID(UserID);
 								int author = information.getAuthorization();
 								if(author ==1){
-									Users otheruser = userService.getUser(question.getAnswerBy());
+									Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 									int otherauthor = otheruser.getAuthorization();
 									if(otherauthor ==1){
 										// null
@@ -443,7 +443,7 @@ public class QuestionaManagementController {
 											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
 											model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 											QuestionmanagementService.UpdateAnwserBy(Id, login);
-											Users users = userService.getUser(UserID);
+											Users users = userService.getUserByUserID(UserID);
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -451,7 +451,7 @@ public class QuestionaManagementController {
 										}
 									}
 								}else{
-									Users otheruser = userService.getUser(question.getAnswerBy());
+									Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 								}
 							}else{
@@ -475,7 +475,7 @@ public class QuestionaManagementController {
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 									QuestionmanagementService.UpdateAnwserBy(Id, login);
 									model.addAttribute("message",  msgSrc.getMessage("message.save.success", null,locale));
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -513,10 +513,10 @@ public class QuestionaManagementController {
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getDeleteBy() != null){
 								// Xu ly thao tac song song
-								Users information = userService.getUser(UserID);
+								Users information = userService.getUserByUserID(UserID);
 								int author = information.getAuthorization();
 								if(author ==1){
-									Users otheruser = userService.getUser(question.getDeleteBy());
+									Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 									int otherauthor = otheruser.getAuthorization();
 									if(otherauthor ==1){
 										// null
@@ -526,7 +526,7 @@ public class QuestionaManagementController {
 										int result = QuestionmanagementService.delete(Id);
 										if(result>0){
 											QuestionmanagementService.UpdateDelete(Id, login);
-											Users users = userService.getUser(UserID);
+											Users users = userService.getUserByUserID(UserID);
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -551,14 +551,14 @@ public class QuestionaManagementController {
 										}
 									}
 								}else{
-									Users otheruser = userService.getUser(question.getDeleteBy());
+									Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 								}
 							}else{
 								int result = QuestionmanagementService.delete(Id);
 								if(result>0){
 									QuestionmanagementService.UpdateDelete(Id, login);
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -609,7 +609,7 @@ public class QuestionaManagementController {
 							}
 							if(returnlist !=null){
 								for(int i =0; i< returnlist.size();i++){
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									
 									String question = returnlist.get(i).getQuestion();
 									if(question.length() > 50){
@@ -634,7 +634,7 @@ public class QuestionaManagementController {
 								if(!changeitems.equals("0")){
 									int numOfRecord = Integer.parseInt(changeitems);
 									int numOfPagin = Integer.parseInt(changepagin);
-									userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
+									userService.updateSetting(UserID, numOfRecord, numOfPagin);
 							
 									model.addAttribute("numOfRecord",changeitems);
 									model.addAttribute("numOfPagin",changepagin);
@@ -651,7 +651,7 @@ public class QuestionaManagementController {
 										}
 									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									
 									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 									model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
@@ -666,7 +666,7 @@ public class QuestionaManagementController {
 									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
 							}
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							Setting setting = userService.getSetting(UserID);
 							int numOfRecord = setting.getRecordNotRep();
 							int numOfPagin = setting.getPaginDisplayNotRep();
@@ -746,7 +746,7 @@ public class QuestionaManagementController {
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
 				}	
-				Users users = userService.getUser(UserID);
+				Users users = userService.getUserByUserID(UserID);
 				logger.info("Tài khoản "+users.getUserName()+" đã vào danh sách lưu tạm");
 				return "list-saved";
 				
@@ -875,7 +875,7 @@ public class QuestionaManagementController {
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
-								Users information = userService.getUser(UserID);
+								Users information = userService.getUserByUserID(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getAnswerBy()){
 									
@@ -886,7 +886,7 @@ public class QuestionaManagementController {
 									 message.setText(body, true);
 									// sends the e-mail
 									mailSender.send(mimeMessage);
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 									
@@ -929,7 +929,7 @@ public class QuestionaManagementController {
 								}	
 								}else{
 									if(author ==1){
-										Users otheruser = userService.getUser(question.getAnswerBy());
+										Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 										int otherauthor = otheruser.getAuthorization();
 										if(otherauthor ==1){
 											// null
@@ -945,7 +945,7 @@ public class QuestionaManagementController {
 											 message.setText(body, true);
 											// sends the e-mail
 											mailSender.send(mimeMessage);
-											Users users = userService.getUser(UserID);
+											Users users = userService.getUserByUserID(UserID);
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 											logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 											
@@ -982,7 +982,7 @@ public class QuestionaManagementController {
 										}
 									}else{
 										// null
-										Users otheruser = userService.getUser(question.getAnswerBy());
+										Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 									}
 								}
@@ -998,7 +998,7 @@ public class QuestionaManagementController {
 								 message.setText(body, true);
 								// sends the e-mail
 								mailSender.send(mimeMessage);
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 								
@@ -1088,12 +1088,12 @@ public class QuestionaManagementController {
 						Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 						if(question.getAnswerBy() != null){
 							// Xu ly thao tac song song
-							Users information = userService.getUser(UserID);
+							Users information = userService.getUserByUserID(UserID);
 							int author = information.getAuthorization();
 							if(UserID == question.getAnswerBy()){
 								int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
 								if(result>0){
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1128,7 +1128,7 @@ public class QuestionaManagementController {
 							
 							}else{
 								if(author ==1){
-									Users otheruser = userService.getUser(question.getAnswerBy());
+									Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 									int otherauthor = otheruser.getAuthorization();
 									if(otherauthor ==1){
 										// null
@@ -1137,7 +1137,7 @@ public class QuestionaManagementController {
 									}else{
 										int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
 										if(result>0){
-											Users users = userService.getUser(UserID);
+											Users users = userService.getUserByUserID(UserID);
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1179,7 +1179,7 @@ public class QuestionaManagementController {
 										}
 									}
 								}else{
-									Users otheruser = userService.getUser(question.getAnswerBy());
+									Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 								}
 							}
@@ -1187,7 +1187,7 @@ public class QuestionaManagementController {
 						}else{
 							int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
 							if(result>0){
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1270,13 +1270,13 @@ public class QuestionaManagementController {
 							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							if(question.getDeleteBy() != null){
 								// Xu ly thao tac song song
-								Users information = userService.getUser(UserID);
+								Users information = userService.getUserByUserID(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getDeleteBy()){
 									int result = QuestionmanagementService.deletesavequestion(Id);
 									
 									if(result>0){
-										Users users = userService.getUser(UserID);
+										Users users = userService.getUserByUserID(UserID);
 										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1315,7 +1315,7 @@ public class QuestionaManagementController {
 									}
 								}else{
 									if(author ==1){
-										Users otheruser = userService.getUser(question.getDeleteBy());
+										Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 										int otherauthor = otheruser.getAuthorization();
 										if(otherauthor ==1){
 											// null
@@ -1352,7 +1352,7 @@ public class QuestionaManagementController {
 											}
 										}
 									}else{
-										Users otheruser = userService.getUser(question.getDeleteBy());
+										Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 									}
 								}
@@ -1362,7 +1362,7 @@ public class QuestionaManagementController {
 								
 								if(result>0){
 									QuestionmanagementService.UpdateDelete(Id, login);
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1454,7 +1454,7 @@ public class QuestionaManagementController {
 							}
 							if(returnlist !=null){
 								for(int i =0; i< returnlist.size();i++){
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									
 									String question = returnlist.get(i).getQuestion();
 									if(question.length() > 50){
@@ -1478,7 +1478,7 @@ public class QuestionaManagementController {
 								if(!changeitems.equals("0")){
 									int numOfRecord = Integer.parseInt(changeitems);
 									int numOfPagin = Integer.parseInt(changepagin);
-									userService.UpdateSettingSaved(UserID, numOfRecord, numOfPagin);
+									userService.updateSettingSaved(UserID, numOfRecord, numOfPagin);
 							
 									model.addAttribute("numOfRecord",changeitems);
 									model.addAttribute("numOfPagin",changepagin);
@@ -1510,7 +1510,7 @@ public class QuestionaManagementController {
 									}
 									
 									model.addAttribute("savequestionlist", savelist);
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 								
 									
 									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
@@ -1546,7 +1546,7 @@ public class QuestionaManagementController {
 							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 							model.addAttribute("savequestionlist", list);
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							
 							
 							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+actionsubmit);
@@ -1619,7 +1619,7 @@ public class QuestionaManagementController {
 				if(userService.checkIsAdmin(UserID)==true){
 					model.addAttribute("isAdmin","admin");
 				}	
-				Users users = userService.getUser(UserID);				
+				Users users = userService.getUserByUserID(UserID);				
 				logger.info("Tài khoản "+users.getUserName()+" vào danh sách câu hỏi đã trả lời");
 				return "list-replied";
 				
@@ -1713,13 +1713,13 @@ public class QuestionaManagementController {
 					Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 					if(question.getDeleteBy() != null){
 						// Xu ly thao tac song song
-						Users information = userService.getUser(UserID);
+						Users information = userService.getUserByUserID(UserID);
 						int author = information.getAuthorization();
 						if(UserID == question.getDeleteBy()){
 							int result = QuestionmanagementService.deleterepliedquestion(Id);
 							if(result>0){
 								QuestionmanagementService.UpdateDelete(Id, login);
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1755,7 +1755,7 @@ public class QuestionaManagementController {
 							}
 						}else{
 							if(author ==1){
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								int otherauthor = otheruser.getAuthorization();
 								if(otherauthor ==1){
 									// null
@@ -1766,7 +1766,7 @@ public class QuestionaManagementController {
 									int result = QuestionmanagementService.deleterepliedquestion(Id);
 									if(result>0){
 										QuestionmanagementService.UpdateDelete(Id, login);
-										Users users = userService.getUser(UserID);
+										Users users = userService.getUserByUserID(UserID);
 										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1794,7 +1794,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 							}
 						}
@@ -1804,7 +1804,7 @@ public class QuestionaManagementController {
 						int result = QuestionmanagementService.deleterepliedquestion(Id);
 						if(result>0){
 							QuestionmanagementService.UpdateDelete(Id, login);
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							
 							logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -1871,7 +1871,7 @@ public class QuestionaManagementController {
 						Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 						if(question.getUpdateBy() != null){
 							// Xu ly thao tac song song
-							Users information = userService.getUser(UserID);
+							Users information = userService.getUserByUserID(UserID);
 							int author = information.getAuthorization();
 							if(UserID == question.getUpdateBy()){
 								//
@@ -1909,7 +1909,7 @@ public class QuestionaManagementController {
 										}
 									}
 								}
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
@@ -1917,7 +1917,7 @@ public class QuestionaManagementController {
 								model.addAttribute("replylust", Deletequestionlist);
 							}else{
 								if(author ==1){
-									Users otheruser = userService.getUser(question.getUpdateBy());
+									Users otheruser = userService.getUserByUserID(question.getUpdateBy());
 									int otherauthor = otheruser.getAuthorization();
 									if(otherauthor ==1){
 										// null
@@ -1959,7 +1959,7 @@ public class QuestionaManagementController {
 												}
 											}
 										}
-										Users users = userService.getUser(UserID);
+										Users users = userService.getUserByUserID(UserID);
 										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
@@ -1968,7 +1968,7 @@ public class QuestionaManagementController {
 									}
 								}else{
 									// null
-									Users otheruser = userService.getUser(question.getUpdateBy());
+									Users otheruser = userService.getUserByUserID(question.getUpdateBy());
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" đưa vào bộ từ điển");
 								}
 							}
@@ -2010,7 +2010,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							
 							logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
@@ -2080,7 +2080,7 @@ public class QuestionaManagementController {
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 							if(returenlist !=null){
 								for(int i =0; i< returenlist.size();i++){
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									
 									String question = returenlist.get(i).getQuestion();
 									if(question.length() > 50){
@@ -2096,7 +2096,7 @@ public class QuestionaManagementController {
 								if(!changeitems.equals("0")){
 									int numOfRecord = Integer.parseInt(changeitems);
 									int numOfPagin = Integer.parseInt(changepagin);
-									userService.UpdateSettingReplied(UserID, numOfRecord, numOfPagin);
+									userService.updateSettingReplied(UserID, numOfRecord, numOfPagin);
 							
 									model.addAttribute("numOfRecord",changeitems);
 									model.addAttribute("numOfPagin",changepagin);
@@ -2125,7 +2125,7 @@ public class QuestionaManagementController {
 									}
 									;
 									model.addAttribute("replylust", Deletequestionlist);
-									Users users = userService.getUser(UserID);
+									Users users = userService.getUserByUserID(UserID);
 									logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 									model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
 			
@@ -2159,7 +2159,7 @@ public class QuestionaManagementController {
 							model.addAttribute("curentOfPage",page);
 							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+ actionsubmit);
 							model.addAttribute("replylust", list);
 							model.addAttribute("actionsubmit", actionsubmit);
@@ -2228,7 +2228,7 @@ public class QuestionaManagementController {
 				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 				model.addAttribute("deletequestion", new Questionmanagement());
-				Users users = userService.getUser(UserID);				
+				Users users = userService.getUserByUserID(UserID);				
 				logger.info("Tài khoản "+users.getUserName()+" vào danh sách câu hỏi đã xóa");
 				return "list-deleted";
 				
@@ -2319,7 +2319,7 @@ public class QuestionaManagementController {
 					Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
 					if(question.getDeleteBy() != null){
 						// Xu ly thao tac song song
-						Users information = userService.getUser(UserID);
+						Users information = userService.getUserByUserID(UserID);
 						int author = information.getAuthorization();
 						if(UserID == question.getDeleteBy()){
 							// Processing restore question
@@ -2327,7 +2327,7 @@ public class QuestionaManagementController {
 							if(result>0){
 							
 								QuestionmanagementService.UpdateDelete(Id, login);
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -2375,7 +2375,7 @@ public class QuestionaManagementController {
 							}
 						}else{
 							if(author ==1){
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								int otherauthor = otheruser.getAuthorization();
 								if(otherauthor ==1){
 									// null
@@ -2387,7 +2387,7 @@ public class QuestionaManagementController {
 									if(result>0){
 										
 										QuestionmanagementService.UpdateDelete(Id, login);
-										Users users = userService.getUser(UserID);
+										Users users = userService.getUserByUserID(UserID);
 										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -2414,7 +2414,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" khôi phục");
 							}
 						}
@@ -2425,7 +2425,7 @@ public class QuestionaManagementController {
 						if(result>0){
 							
 							QuestionmanagementService.UpdateDelete(Id, login);
-							Users users = userService.getUser(UserID);
+							Users users = userService.getUserByUserID(UserID);
 							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 							
 							logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
@@ -2487,7 +2487,7 @@ public class QuestionaManagementController {
 					if(!changeitems.equals("0")){
 						int numOfRecord = Integer.parseInt(changeitems);
 						int numOfPagin = Integer.parseInt(changepagin);
-						userService.UpdateSettingDelete(UserID, numOfRecord, numOfPagin);
+						userService.updateSettingDelete(UserID, numOfRecord, numOfPagin);
 				
 						model.addAttribute("numOfRecord",changeitems);
 						model.addAttribute("numOfPagin",changepagin);
@@ -2516,7 +2516,7 @@ public class QuestionaManagementController {
 						}
 						
 						model.addAttribute("deletequestionlist", Deletequestionlist);
-						Users users = userService.getUser(UserID);
+						Users users = userService.getUserByUserID(UserID);
 						logger.info("Tài khoản "+users.getUserName()+" thay đổi cấu hình phân trang");
 						model.addAttribute("message",msgSrc.getMessage("message.changconfig.paging.success", null,locale));
 
@@ -2555,7 +2555,7 @@ public class QuestionaManagementController {
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 						if(returnlist !=null){
 							for(int i =0; i< returnlist.size();i++){
-								Users users = userService.getUser(UserID);
+								Users users = userService.getUserByUserID(UserID);
 								
 								String question = returnlist.get(i).getQuestion();
 								if(question.length() > 50){
@@ -2589,7 +2589,7 @@ public class QuestionaManagementController {
 						}
 						
 					}
-					Users users = userService.getUser(UserID);
+					Users users = userService.getUserByUserID(UserID);
 					logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+actionsubmit);
 					model.addAttribute("deletequestionlist", list);
 					model.addAttribute("actionsubmit", actionsubmit);

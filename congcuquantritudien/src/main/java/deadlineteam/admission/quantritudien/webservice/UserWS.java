@@ -71,7 +71,7 @@ public class UserWS {
 			
 			int idUser = userService.getIdbyUsername(username);
 			
-			Users information = userService.getUser(idUser);
+			Users information = userService.getUserByUserID(idUser);
 			int author = information.getAuthorization();
 			if(author == 1){
 				result = "success," + "1";
@@ -107,7 +107,7 @@ public class UserWS {
 			// get id from username
 			int id = Integer.parseInt(idUser);
 			// get user entity from id
-			Users temp = userService.getUser(id);
+			Users temp = userService.getUserByUserID(id);
 			us.ID = temp.getID();
 			us.FullName = temp.getFullName();
 			us.Authorization = temp.getAuthorization();
