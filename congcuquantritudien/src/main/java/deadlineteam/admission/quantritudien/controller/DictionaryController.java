@@ -431,7 +431,7 @@ public class DictionaryController {
 			
 			model.addAttribute("Avaiable", Avaiable);				
 			Dictionary available = DictionaryService.availablequestion(Id);
-			Users newusername = DictionaryService.getusername(available.getAnwserBy());
+			Users newusername = userService.getUser(available.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			model.addAttribute("diction", available);
 			
@@ -985,8 +985,8 @@ public class DictionaryController {
 			model.addAttribute("diction", delete);
 			String userdelete = userService.getFullnameByID(delete.getDeleteBy());
 			model.addAttribute("usernamedelete", userdelete);
-			Users newusername = DictionaryService.getusername(delete.getAnwserBy());
-			Users deleteuser = DictionaryService.getusername(delete.getDeleteBy());
+			Users newusername = userService.getUser(delete.getAnwserBy());
+			Users deleteuser = userService.getUser(delete.getDeleteBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			model.addAttribute("deleteuser", deleteuser.getFullName().toString());
 			model.addAttribute("curentOfPage", page);
@@ -1268,7 +1268,7 @@ public class DictionaryController {
 				model.addAttribute("busystatus", removequestion.getBusyStatus().toString());
 			}
 			model.addAttribute("curentOfPage", page);
-			Users newusername = DictionaryService.getusername(removequestion.getAnwserBy());
+			Users newusername =userService.getUser(removequestion.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-down";
 		}else{
@@ -1760,7 +1760,7 @@ public class DictionaryController {
 			String userrecent = userService.getFullnameByID(recent.getUpdateBy());
 			model.addAttribute("usernamerecent", userrecent);
 			model.addAttribute("curentOfPage", page);
-			Users newusername = DictionaryService.getusername(recent.getAnwserBy());
+			Users newusername = userService.getUser(recent.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-recent";
 		}else{

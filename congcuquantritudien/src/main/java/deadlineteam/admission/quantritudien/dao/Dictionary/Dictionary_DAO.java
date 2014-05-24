@@ -26,36 +26,117 @@ public interface Dictionary_DAO {
 	 * @return {@link List} List Available Dictionary for Administrator
 	 */
 	public List<Dictionary> getAvailableListForAdministrator();
-	public Dictionary availablequestion(int Id);
-	public List<Dictionary> recentlist(int page, int UserID);
-	public Dictionary recentquestion(int Id);
-	public List<Dictionary> deletelist(int page, int UserID);
-	public Dictionary question(int Id);
+	
+	/**
+	 * Get All Available List Dictionary
+	 * @return {@link List} List Available
+	 */
+	public List<Dictionary> getAllDictionaryAvailable();
+	
+	/**
+	 * Get All Deleted List Dictionary
+	 * @return {@link List} List Deleted
+	 */
+	public List<Dictionary> getAllDictionaryDeleted();
+	
+	/**
+	 * Get All Recent List Dictionary
+	 * @return {@link List} List Recent
+	 */
+	public List<Dictionary> getAllDictionaryRecent() ;
+	
+	/**
+	 * Get All Down List Dictionary
+	 * @return {@link List} List Down
+	 */
+	public List<Dictionary> getAllDictionaryDown();
+	
+	/**
+	 * Get All Dictionary
+	 * @return List All Dictionary
+	 */
+	public List<Dictionary> getAllDictionary();
+	
+	/**
+	 * Get Available Dictionary By ID
+	 * @param Id {@link Integer}
+	 * @return {@link Dictionary}
+	 */
+	public Dictionary getAvailableDictionaryByID(int Id);
+	
+	/**
+	 * Get Recent Dictionary By ID
+	 * @param Id {@link Integer}
+	 * @return {@link Dictionary}
+	 */
+	public Dictionary getRecentDictionaryByID(int Id);
+
+	/**
+	 * Get Dictionary By ID
+	 * @param Id {@link Integer}
+	 * @return {@link Dictionary}
+	 */
+	public Dictionary getDictionaryByID(int Id);
+	
+	/**
+	 * Update Dictionary when Upload Dictionary
+	 * @param Id {@link Integer}
+	 * @return {@link Integer}
+	 */
+	public int updateDictionaryWhenUpload(int Id);
+	
+	/**
+	 * Update Dictionary When Down Dictionary
+	 * @param Id {@link Integer}
+	 * @return {@link Integer}
+	 */
+	public int updateDictionaryWhenDown(int Id);
+	
+	/**
+	 * Update Dictionary When Restore
+	 * @param Id {@link Integer}
+	 * @return {@link Integer}
+	 */
+	public int updateDictionaryWhenRestore(int Id);
+	
+	/**
+	 * Update Dictionary When Delete
+	 * @param Id {@link Integer}
+	 * @return {@link Integer}
+	 */
+	public int updateDictionaryWhenDelete(int Id);
+	
+	
+	/**
+	 * Get Down Dictionary By ID
+	 * @param Id {@link Integer}
+	 * @return {@link Dictionary}
+	 */
+	public Dictionary getDownDictionaryByID(int Id);
+	
+	/**
+	 * Search Index
+	 * @param keyword {@link String}
+	 * @param Status {@link String}
+	 * @param UserID {@link Integer}
+	 * @return {@link List}
+	 */
 	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
-	public List<Dictionary> removelist(int page, int UserID);
-	public Dictionary removequestion(int Id);
-	public Dictionary getinformation(int ID);
+	
+	
 	public Dictionary loadquestion(int Id);
-	public int upload(int Id);
+	
 	public int updateby(int Id,int UserID);
-	public int remove(int Id);
-	public int restore(int Id);
-	public int delete(int Id);
+	
+	
+	
 	public int update(int Id,String Anwser, String Question);
-	public void addDictionaryAnswer(String title, String question, String answer);
-	//public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby, Date CreateDate, int status, int deletestatus);
 	public int busystatusupdate(int Id);
 	public int updateCreateby(int Id, int UserID);
 	public int busystatus(int Id);
 	public void updateRemove(int Id, int userID);
 	public void updatedelete(int Id, int userID);
-	public int updaterestore(int Id);
-	public Users getusername(int ID);
-	public List<Dictionary> getAllDictionary();
-	public List<Dictionary> getAllDictionaryAvailable();
-	public List<Dictionary> getAllDictionaryDeleted();
-	public List<Dictionary> getAllDictionaryUp() ;
-	public List<Dictionary> getAllDictionaryDown();
-	
-	public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby,Date CreateDate, int status, int deletestatus,int busystatus);
+	public int updaterestore(int Id);	
+
+
 }

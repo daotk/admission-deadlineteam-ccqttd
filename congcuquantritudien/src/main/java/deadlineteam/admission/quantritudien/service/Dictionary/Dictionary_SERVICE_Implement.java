@@ -1,7 +1,6 @@
 package deadlineteam.admission.quantritudien.service.Dictionary;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -118,7 +117,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	
 	public Dictionary availablequestion(int Id) {
 		// TODO Auto-generated method stub
-		return DictionaryDAO.availablequestion(Id);
+		return DictionaryDAO.getAvailableDictionaryByID(Id);
 		
 	}
 	public List<Dictionary> restorealldictionary(String checkbox, int login){
@@ -126,9 +125,9 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		String[] liststring = checkbox.split(",");
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
-			Dictionary question = DictionaryDAO.getinformation(deleteid);
+			Dictionary question = DictionaryDAO.getDictionaryByID(deleteid);
 			DictionaryDAO.updatedelete(deleteid, login);
-			DictionaryDAO.restore(deleteid);
+			DictionaryDAO.updateDictionaryWhenRestore(deleteid);
 			DictionaryDAO.updaterestore(deleteid);
 			returnlist.add(question);
 		}
@@ -139,9 +138,9 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		String[] liststring = checkbox.split(",");
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
-			Dictionary question = DictionaryDAO.getinformation(deleteid);
+			Dictionary question = DictionaryDAO.getDictionaryByID(deleteid);
 			DictionaryDAO.updatedelete(deleteid, login);
-			DictionaryDAO.delete(deleteid);
+			DictionaryDAO.updateDictionaryWhenDelete(deleteid);
 			
 			returnlist.add(question);
 		}
@@ -151,7 +150,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public List<Dictionary> recentlist(int page, int UserID) {
 		// TODO Auto-generated method stub
 		
-		List<Dictionary> list=  DictionaryDAO.recentlist(page, UserID);
+		List<Dictionary> list=  DictionaryDAO.getAllDictionaryRecent();
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
 		for(;list.size()>0;){
 			Date max = list.get(0).getUpdateDate();
@@ -181,7 +180,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 	public Dictionary recentquestion(int Id) {
 		// TODO Auto-generated method stub
-		return DictionaryDAO.recentquestion(Id);
+		return DictionaryDAO.getRecentDictionaryByID(Id);
 	}
 	public int updaterestore(int Id){
 		return DictionaryDAO.updaterestore(Id);
@@ -189,7 +188,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public List<Dictionary> deletelist(int page, int UserID) {
 		// TODO Auto-generated method stub
 		
-		List<Dictionary> list=  DictionaryDAO.deletelist(page, UserID);
+		List<Dictionary> list=  DictionaryDAO.getAllDictionaryDeleted();
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
 		for(;list.size()>0;){
 			Date max = list.get(0).getDeleteDate();
@@ -219,14 +218,14 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 	public Dictionary question(int Id) {
 		// TODO Auto-generated method stub
-		return DictionaryDAO.question(Id);	
+		return DictionaryDAO.getDictionaryByID(Id);	
 	}
 	public Dictionary getinformation(int ID){
-		return DictionaryDAO.getinformation(ID);
+		return DictionaryDAO.getDictionaryByID(ID);
 	}
 	public int upload(int Id){
 		// TODO Auto-generated method stub
-		return DictionaryDAO.upload(Id);
+		return DictionaryDAO.updateDictionaryWhenUpload(Id);
 	}
 	public int updateby(int Id, int UserID){
 		// TODO Auto-generated method stub
@@ -234,28 +233,20 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 	public int remove(int Id){
 		// TODO Auto-generated method stub
-		return DictionaryDAO.remove(Id);
+		return DictionaryDAO.updateDictionaryWhenDown(Id);
 	}
 	public int restore(int Id){
 		// TODO Auto-generated method stub
-		return DictionaryDAO.restore(Id);
+		return DictionaryDAO.updateDictionaryWhenRestore(Id);
 	}
 	public int delete(int Id){
 		// TODO Auto-generated method stub
-		return DictionaryDAO.delete(Id);
+		return DictionaryDAO.updateDictionaryWhenDelete(Id);
 	}
-	
-	@Override
-	public void addDictionaryAnswer(String title, String question, String answer)
-	{
-		DictionaryDAO.addDictionaryAnswer(title,question,answer);
-	}
-	public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby,Date CreateDate, int status, int deletestatus,int busystatus){
-		DictionaryDAO.addDictionaryAnswer2(title,question,createby,answer,answerby,CreateDate,status,deletestatus,busystatus);
-	}
+
 	public List<Dictionary> removelist(int page, int UserID){
 		
-		List<Dictionary> list=  DictionaryDAO.removelist(page, UserID);
+		List<Dictionary> list=  DictionaryDAO.getAllDictionaryDown();
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
 		for(;list.size()>0;){
 			Date max = list.get(0).getUpdateDate();
@@ -284,7 +275,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return newlist;
 	}
 	public Dictionary removequestion(int Id){
-		return DictionaryDAO.removequestion(Id);
+		return DictionaryDAO.getDownDictionaryByID(Id);
 	}
 	public int update(int Id,String Anwser,  String Question){
 		return DictionaryDAO.update(Id, Anwser, Question);
@@ -304,9 +295,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	public void updatedelete(int Id, int userID){
 		DictionaryDAO.updatedelete(Id, userID);
 	}
-	public Users getusername(int ID){
-		return DictionaryDAO.getusername(ID);
-	}
+
 	public Setting getSetting(int UserId){
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
@@ -328,7 +317,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 	
 	public boolean checkDictionaryByUserId(int UserId,int Id) {
-			Dictionary dictionary = DictionaryDAO.getinformation(Id);
+			Dictionary dictionary = DictionaryDAO.getDictionaryByID(Id);
 			if(UserSERVICE.checkIsAdmin(UserId)==true){
 				return true;
 			}else{
@@ -349,7 +338,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 		
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id) {
-			Dictionary dictionary = DictionaryDAO.getinformation(Id);
+			Dictionary dictionary = DictionaryDAO.getDictionaryByID(Id);
 			if(UserSERVICE.checkIsAdmin(UserId)==true){
 				return true;
 			}else{
@@ -402,7 +391,7 @@ public boolean checkIdDictionaryAvaiable(int Id) {
 	
 public boolean checkIdDictionaryUp(int Id) {
 		
-		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryUp();
+		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryRecent();
 		boolean result = false;
 		for (int i = 0; i < listdictionary.size(); i++) {
 			if(listdictionary.get(i).getID().equals(Id)){
@@ -570,7 +559,7 @@ public boolean checkIdDictionaryUp(int Id) {
 		public List<Dictionary> getDictionaryUpload(int page){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
 			
-			List<Dictionary> list = DictionaryDAO.recentlist(0,0);
+			List<Dictionary> list = DictionaryDAO.getAllDictionaryRecent();
 			List<Dictionary> sortlist = new ArrayList<Dictionary>();
 			for(;list.size()>0;){
 				Date max = list.get(0).getUpdateDate();
@@ -636,7 +625,7 @@ public boolean checkIdDictionaryUp(int Id) {
 		public List<Dictionary> getDictionaryDown(int page){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
 			
-			List<Dictionary> list = DictionaryDAO.removelist(0,0);
+			List<Dictionary> list = DictionaryDAO.getAllDictionaryDown();
 			List<Dictionary> sortlist = new ArrayList<Dictionary>();
 			for(;list.size()>0;){
 				Date max = list.get(0).getUpdateDate();
@@ -702,7 +691,7 @@ public boolean checkIdDictionaryUp(int Id) {
 		public List<Dictionary> getDictionaryDelete(int page){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
 			
-			List<Dictionary> list = DictionaryDAO.deletelist(0,0);
+			List<Dictionary> list = DictionaryDAO.getAllDictionaryDeleted();
 			List<Dictionary> sortlist = new ArrayList<Dictionary>();
 			for(;list.size()>0;){
 				Date max = list.get(0).getDeleteDate();

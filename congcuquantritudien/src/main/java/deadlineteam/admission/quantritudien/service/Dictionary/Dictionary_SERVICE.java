@@ -1,11 +1,9 @@
 package deadlineteam.admission.quantritudien.service.Dictionary;
 
-import java.util.Date;
 import java.util.List;
 
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Setting;
-import deadlineteam.admission.quantritudien.domain.Users;
 
 public interface Dictionary_SERVICE {
 	public int AddDictionarybyID (int Id,int UserId);
@@ -27,8 +25,6 @@ public interface Dictionary_SERVICE {
 	public int remove(int Id);
 	public int restore(int Id);
 	public int delete(int Id);
-	public void addDictionaryAnswer(String title, String question, String answer);
-	public void addDictionaryAnswer2(String title, String question,int createby, String answer, int answerby,Date CreateDate, int status, int deletestatus,int busystatus);
 	public int update(int Id,String Anwser, String Question);
 	public int busystatusupdate(int Id);
 	public int busystatus(int Id);
@@ -38,7 +34,6 @@ public interface Dictionary_SERVICE {
 	public void AddDictionary(Dictionary dictionary);
 	public void updateRemove(int Id, int userID);
 	public void updatedelete(int Id, int userID);
-	public Users getusername(int ID);
 	public Setting getSetting(int UserId);
 	public boolean checkDictionaryByUserId(int UserId,int Id);
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id);
