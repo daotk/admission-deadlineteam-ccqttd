@@ -8,9 +8,24 @@ import deadlineteam.admission.quantritudien.domain.Users;
 
 
 public interface Dictionary_DAO {	
+	/**
+	* Add dictionary to database *
+	* @param dictionary 
+	*/
 	public void  AddDictionary (Dictionary  dictionary);
-	public List<Dictionary> availablelist(int page , int UserID) ;
-	public List<Dictionary> availablelistadmin(int page , int UserID);
+	
+	/**
+	* Get List Available Dictionary for UserID *
+	* @param UserID {@link Integer}
+	* @return {@link List}  List Available Dictionary for UserID
+	*/
+	public List<Dictionary> getAvailableListDictionaryForUser(int UserID) ;
+	
+	/**
+	 * Get Available List For Administrator *
+	 * @return {@link List} List Available Dictionary for Administrator
+	 */
+	public List<Dictionary> getAvailableListForAdministrator();
 	public Dictionary availablequestion(int Id);
 	public List<Dictionary> recentlist(int page, int UserID);
 	public Dictionary recentquestion(int Id);

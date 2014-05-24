@@ -55,7 +55,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}
 	public List<Dictionary> availablelist(int page, int UserID) {
 		// TODO Auto-generated method stub
-		List<Dictionary> list=  DictionaryDAO.availablelist(page, UserID);
+		List<Dictionary> list=  DictionaryDAO.getAvailableListDictionaryForUser(UserID);
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
 		for(;list.size()>0;){
 			Date max = list.get(0).getCreateDate();
@@ -86,7 +86,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	}	
 	public List<Dictionary> availablelistadmin(int page, int UserID) {
 		// TODO Auto-generated method stub
-		List<Dictionary> list=  DictionaryDAO.availablelistadmin(page, UserID);
+		List<Dictionary> list=  DictionaryDAO.getAvailableListForAdministrator();
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
 		for(;list.size()>0;){
 			Date max = list.get(0).getCreateDate();
@@ -430,7 +430,7 @@ public boolean checkIdDictionaryUp(int Id) {
 		public List<Dictionary> getDictionaryAvailableForAdmin(int page){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
 			
-			List<Dictionary> list = DictionaryDAO.availablelistadmin(0,0);
+			List<Dictionary> list = DictionaryDAO.getAvailableListForAdministrator();
 			List<Dictionary> sortlist = new ArrayList<Dictionary>();
 			for(;list.size()>0;){
 				Date max = list.get(0).getCreateDate();
@@ -463,7 +463,7 @@ public boolean checkIdDictionaryUp(int Id) {
 		}
 		public List<Dictionary> getDictionaryAvailableForUser(int page, int UserID){
 			
-			List<Dictionary> list = DictionaryDAO.availablelist(0,UserID);
+			List<Dictionary> list = DictionaryDAO.getAvailableListDictionaryForUser(UserID);
 			List<Dictionary> sortlist = new ArrayList<Dictionary>();
 			for(;list.size()>0;){
 				Date max = list.get(0).getCreateDate();
