@@ -14,7 +14,6 @@ public interface Questionmanagement_SERVICE{
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page, int UserID);
 	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin(int page, int UserID);
 	public int updateAnswerbyId(int Id,String Answer);
-	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record);
 	
 	public boolean checkQuestionIsBusy(int Id,int UserId) ;
 	//delete question that is selected
@@ -36,9 +35,6 @@ public interface Questionmanagement_SERVICE{
 	//Load save-question list for admin
 	public List<Questionmanagement> getSaveListForAdmin(int page,int UserID );
 	//delete save-question that is selected
-	public int deletesavequestion(int Id);
-	//save save-question
-	public int SaveAnwser(int Id,String Answer);
 	//send save-question
 	public int SendAnwser(int Id,String Answer);
 	// Save Temporaty

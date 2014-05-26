@@ -48,59 +48,163 @@ public interface Questionmanagement_DAO {
 	 */
 	public List<Questionmanagement> getQuestionNotReplyForAdmin();
 	
+	/**
+	 * Save Temporary
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int saveTemporaryQuestion(int Id,String Answer);
 	
-	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record);
-	public int updateAnswerbyId(int Id,String Answer);
+	/**
+	 * Update Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int updateAnswer(int Id,String Answer);
+	
+	/**
+	 * Delete Question
+	 * @param Id
+	 * @return
+	 */
+	public int deleteQuestion(int Id);
+	
+	/**
+	 * Get Question Was Delete
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getDeletedQuestion(int Id);
+	
+	/**
+	 * Get List Question Deleted For User
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getListDeletedForUser(int UserID);
+	
+	/**
+	 * Get List Question Deleted For Administrator
+	 * @return
+	 */
+	public List<Questionmanagement> getListDeletedForAdmin();
+	
+	/**
+	 * Restore Question
+	 * @param Id
+	 * @return
+	 */
+	public int restoreQuestion(int Id);
+	
+	/**
+	 * Get List Save Question For User
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getSaveListForUser(int UserID);
+	
+	/**
+	 * Get List Save Question For Administrator
+	 * @return
+	 */
+	public List<Questionmanagement> getSaveListForAdmin();
+	
+	/**
+	 * Get Save Question 
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getSaveQuestion(int Id);
+	
+	/**
+	 * Update When Send Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int updateQuestionWhenSendAnwser(int Id,String Answer);
+	
+	/**
+	 * Update DeleteBy And DeleteDate
+	 * @param ID
+	 * @return
+	 */
+	public int updateDeleteByAndDeleteDate(int ID);
+	
+	/**
+	 * Get List Replied Question For User
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> repliedList(int UserID);
+
+	/**
+	 * Get List Replied Question For Administrator
+	 * @return
+	 */
+	public List<Questionmanagement> getRepliedListForAdmin();
+	
+	/**
+	 * Get Reply Question
+	 * @param ID
+	 * @return
+	 */
+	public Questionmanagement getRepliedQuestion(int ID);
+	
+	/**
+	 * Get List Question By Status
+	 * @param status
+	 * @return
+	 */
+	public List<Questionmanagement> getListQuestionbyStatus(int status);
+	
+	/**
+	 * Get List Question By Delete Status
+	 * @param status
+	 * @return
+	 */
+	public List<Questionmanagement> getListQuestionByDeleteStatus(int status);
+	
+	/**
+	 * Create Index
+	 */
+	public void createIndex();	
+	
+	/**
+	 * Search index
+	 * @param keyword
+	 * @param Status
+	 * @return
+	 */
+	public List<Questionmanagement> searchIdex(String keyword,String Status);
+	
+	/**
+	 * Add Question (RESTfull)
+	 * @param question
+	 */
+	public void addQuestion(Questionmanagement question);
+	
+	
+	
 	
 	public List<Dictionary> getListDictionarybyStatus(int status);
-	//delete question that is selected
-	public int delete(int Id);
-	//---------------------- Delete Page
-	// delete question-list page
-	public List<Questionmanagement> deleteList(int page, int UserID);
-	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID);
-	//Load deletequestion-list
-	public Questionmanagement deletequestion(int Id);
+	
+	
 	public void ResetUpdateAnwserBy(int Id, int userid);
-	//restore question that is selected
-	public int restore(int Id);
 	
-	//--------------------- Save Page
-	// delete question-list page
-	public List<Questionmanagement> getSaveListForUser(int page, int UserID);
-	public List<Questionmanagement> getSaveListForAdmin(int page);
-	//Load deletequestion-list
 	public List<Dictionary> getListDictionaryDelete(int status);
-	public Questionmanagement savequestion(int Id);
-	//delete save-question that is selected
-	public int deletesavequestion(int Id);
-	//save save-question
-	public int SaveAnwser(int Id,String Answer);
-	//send save-question
-	public int SendAnwser(int Id,String Answer);
-	//Save Temporary Answer
-	public int SaveTemporaryAnswerbyId(int Id,String Answer);
+
 	
-	//---------------------- Replied page
-	// replied question-list page
-	public List<Questionmanagement> repliedList(int page, int UserID);
-	// replied question-list page
-	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID);
 	
-	// load replied question-list
-	public Questionmanagement repliedquestion(int ID);
 	
-	//delete replied question that is selected
-	public int deleterepliedquestion (int ID);
-	public int updatedelete(int ID);
 	
-	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status);
-	public List<Questionmanagement> getListQuestionmanagementbyDeleteStatus(int status);
 	
-	public void createIndex();	
-	public List<Questionmanagement> searchIdex(String keyword,String Status);
+
+	
 	//-------------------- RESTful web service----------
-	public void addquestion(Questionmanagement question);
+
 	public void TransferToDictionary(int Id, int userid);
 	public void UpdateDelete(int Id, int userid);
 	public void UpdateAnwserBy(int Id, int userid);

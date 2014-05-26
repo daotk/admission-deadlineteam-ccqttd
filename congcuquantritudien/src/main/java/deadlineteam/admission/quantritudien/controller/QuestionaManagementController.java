@@ -209,8 +209,6 @@ public class QuestionaManagementController {
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			
-		//	List<Questionmanagement> ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage_setting(page-1, 5);
-			
 			model.addAttribute("fullname",userService.getFullnameByID(UserID));
 //			model.addAttribute("listquestionmanagement", ListQuestion);
 			model.addAttribute("questionmanagements", new Questionmanagement());
@@ -379,7 +377,6 @@ public class QuestionaManagementController {
 							
 																						
 						} catch (MessagingException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 							
 							model.addAttribute("error",  msgSrc.getMessage("message.sendmail.fail", null,locale));
@@ -1091,7 +1088,7 @@ public class QuestionaManagementController {
 							Users information = userService.getUserByUserID(UserID);
 							int author = information.getAuthorization();
 							if(UserID == question.getAnswerBy()){
-								int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
+								int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
 								if(result>0){
 									Users users = userService.getUserByUserID(UserID);
 									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -1135,7 +1132,7 @@ public class QuestionaManagementController {
 										
 										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 									}else{
-										int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
+										int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
 										if(result>0){
 											Users users = userService.getUserByUserID(UserID);
 											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -1185,7 +1182,7 @@ public class QuestionaManagementController {
 							}
 							
 						}else{
-							int result = QuestionmanagementService.SaveAnwser(Id,questionmanagement.getAnswer());
+							int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
 							if(result>0){
 								Users users = userService.getUserByUserID(UserID);
 								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -1273,7 +1270,7 @@ public class QuestionaManagementController {
 								Users information = userService.getUserByUserID(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getDeleteBy()){
-									int result = QuestionmanagementService.deletesavequestion(Id);
+									int result = QuestionmanagementService.delete(Id);
 									
 									if(result>0){
 										Users users = userService.getUserByUserID(UserID);
@@ -1322,7 +1319,7 @@ public class QuestionaManagementController {
 											
 											model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 										}else{
-											int result = QuestionmanagementService.deletesavequestion(Id);
+											int result = QuestionmanagementService.delete(Id);
 											
 											if(result>0){
 												QuestionmanagementService.UpdateDelete(Id, login);
@@ -1358,7 +1355,7 @@ public class QuestionaManagementController {
 								}
 								
 							}else{
-								int result = QuestionmanagementService.deletesavequestion(Id);
+								int result = QuestionmanagementService.delete(Id);
 								
 								if(result>0){
 									QuestionmanagementService.UpdateDelete(Id, login);

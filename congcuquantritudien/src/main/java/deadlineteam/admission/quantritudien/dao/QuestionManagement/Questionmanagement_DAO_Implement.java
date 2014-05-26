@@ -72,7 +72,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where Status = 3 and ID = "+Id ).uniqueResult();
 		return question;
 	}
-	
+
+	/**
+	 * Get Question Not Reply For User
+	 * @param UserID
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getQuestionNotReplyForUser(int UserID) {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
@@ -80,6 +85,10 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	         return (List<Questionmanagement>) q.list();
 	}
 	
+	/**
+	 * Get Question Not Reply For Administrator
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getQuestionNotReplyForAdmin() {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
@@ -87,19 +96,13 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	         return (List<Questionmanagement>) q.list();
 	}
 	
-
-	
-	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record){
-		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Questionmanagement where Status = 1 AND DeleteStatus = 0");
-         
-         q.setFirstResult(page * record); 
-         q.setMaxResults(record);
-         return (List<Questionmanagement>) q.list();
-	}
-	//Luu tam cau tra loi
-	public int SaveTemporaryAnswerbyId(int Id,String Answer){
+	/**
+	 * Save Temporary
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int saveTemporaryQuestion(int Id,String Answer){
 		String sqlstring = "update Questionmanagement set Answer = :answer,  Status = '2' where ID = :Id AND DeleteStatus = 0";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("answer", Answer);
@@ -113,7 +116,15 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		return result;
 	}
 	
-	public int updateAnswerbyId(int Id,String Answer){
+
+	
+	/**
+	 * Update Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int updateAnswer(int Id,String Answer){
 		String sqlstring = "update Questionmanagement set Answer = :answer,  Status = '3' where ID = :Id AND DeleteStatus = 0";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("answer", Answer);
@@ -127,10 +138,13 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		
 		return result;
 	}
-	/*Author:Phu Ta
-	 * Delete question that is selected
+	
+	/**
+	 * Delete Question
+	 * @param Id
+	 * @return
 	 */
-	public int delete(int Id){
+	public int deleteQuestion(int Id){
 		String sqlstring = "update Questionmanagement set DeleteStatus = '1' where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
@@ -142,34 +156,48 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		return result;
 		
 	}
-	//--------------------------Delete Page
-	/*Author: Phu Ta
-	 * Load delete question-list
+	
+	/**
+	 * Get Question Was Delete
+	 * @param Id
+	 * @return
 	 */
-	public Questionmanagement deletequestion(int Id){
+	public Questionmanagement getDeletedQuestion(int Id){
 		Questionmanagement deletestatus =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where DeleteStatus = 1 and ID = "+Id ).uniqueResult();
 		return deletestatus;
 	}
+	
+	/**
+	 * Get List Question Deleted For User
+	 * @param UserID
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> deleteList(int page,int UserID){
+	public List<Questionmanagement> getListDeletedForUser(int UserID){
 		   Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where DeleteStatus = 1 and DeleteBy ="+UserID);
 		  
 	         return (List<Questionmanagement>) q.list();
 	}
 	
+	/**
+	 * Get List Question Deleted For Administrator
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID){
+	public List<Questionmanagement> getListDeletedForAdmin(){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where DeleteStatus = 1");
 		  
 	         return (List<Questionmanagement>) q.list();
 	}
 
-	/*Author: Phu Ta
-	 * Restore question that is selected
+	/**
+	 * Restore Question
+	 * @param Id
+	 * @return
 	 */
-	public int restore(int Id){
+	public int restoreQuestion(int Id){
 		String sqlstring = "update Questionmanagement set DeleteStatus = '0' where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
@@ -182,66 +210,49 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		return result;
 		
 	}
-	/*
-	 * Author: Phu Ta
-	 * Load save-question list
+	
+	/**
+	 * Get List Save Question For User
+	 * @param UserID
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getSaveListForUser(int page,int UserID){
+	public List<Questionmanagement> getSaveListForUser(int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0 and AnswerBy = "+UserID);
 		
 	         return (List<Questionmanagement>) q.list();	
 	}
-	/*
-	 * Author: Dao Khau
-	 * Load save-question list For Admin
+
+	/**
+	 * Get List Save Question For Administrator
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getSaveListForAdmin(int page){
+	public List<Questionmanagement> getSaveListForAdmin(){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 2 AND DeleteStatus = 0");
 		
 	         return (List<Questionmanagement>) q.list();	
 	}
 	
-	
-	public Questionmanagement savequestion(int Id){
+	/**
+	 * Get Save Question 
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getSaveQuestion(int Id){
 		Questionmanagement savequestion =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where Status = 2 and ID = "+Id +" and DeleteStatus = 0" ).uniqueResult();
 		return savequestion;
 	}
-	/*
-	 * Author: Phu Ta
-	 * delete save-question 
+	
+	/**
+	 * Update When Send Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
 	 */
-	public int deletesavequestion(int Id){
-		String sqlstring = "update Questionmanagement set DeleteStatus = '1' where ID = :Id";
-		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
-		 q.setParameter("Id", Id);
-		 int result= q.executeUpdate();
-		return result;
-	}
-	/*
-	 * Author: Phu Ta
-	 * save save-question 
-	 */
-	public int SaveAnwser(int Id,String Answer){
-		String sqlstring = "update Questionmanagement set Answer = :answer,  Status = '2' where ID = :Id AND DeleteStatus = 0";
-		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
-		 q.setParameter("answer", Answer);
-		 q.setParameter("Id", Id);
-		 int result= q.executeUpdate();
-		 Questionmanagement question = getQuestionByID(Id);
-		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
-		fullTextSession.purge( Questionmanagement.class,Id);
-		fullTextSession.index(question);
-		return result;		
-	}
-	/*
-	 * Author: Phu Ta
-	 * send save-question 
-	 */
-	public int SendAnwser(int Id,String Answer){
+	public int updateQuestionWhenSendAnwser(int Id,String Answer){
 		String sqlstring = "update Questionmanagement set Answer = :answer,  Status = '3' where ID = :Id AND DeleteStatus = 0";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("answer", Answer);
@@ -252,9 +263,14 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
 		return result;
-		
 	}
-	public int updatedelete(int ID){
+	
+	/**
+	 * Update DeleteBy And DeleteDate
+	 * @param ID
+	 * @return
+	 */
+	public int updateDeleteByAndDeleteDate(int ID){
 		String sqlstring = "update Questionmanagement set DeleteBy = :delete,  DeleteDate =:date where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("delete", null);
@@ -264,73 +280,65 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 
 		return result;
 	}
-	/*
-	 * Author: Chau Le
-	 * Delete question-list page
+	
+	/**
+	 * Get List Replied Question For User
+	 * @param UserID
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> repliedList(int page, int UserID){
+	public List<Questionmanagement> repliedList(int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 3 AND DeleteStatus = 0 and AnswerBy ="+UserID);
 		
 	         return (List<Questionmanagement>) q.list();	
 	}
-	/*
-	 * Author: Dao Khau
-	 * Get Reply question-list for Admin 
+	
+	/**
+	 * Get List Replied Question For Administrator
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID){
+	public List<Questionmanagement> getRepliedListForAdmin(){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 3 AND DeleteStatus = 0");
 		
 	         return (List<Questionmanagement>) q.list();	
 	}
 	
-	/*
-	 * Author: Chau Le
-	 * load replied question-list
+	/**
+	 * Get Reply Question
+	 * @param ID
+	 * @return
 	 */
-	public Questionmanagement repliedquestion(int ID){
+	public Questionmanagement getRepliedQuestion(int ID){
 		Questionmanagement savequestion =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where ID = "+ID +" and DeleteStatus = 0" ).uniqueResult();
 		return savequestion;
 	}
-	
-	/*
-	 * Author: Chau Le
-	 * delete replied question that is selected 
+
+	/**
+	 * Get List Question By Status
+	 * @param status
+	 * @return
 	 */
-	public int deleterepliedquestion(int ID){
-		String sqlstring = "update Questionmanagement set DeleteStatus = '1' where ID = :Id";
-		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
-		 q.setParameter("Id", ID);
-		 int result= q.executeUpdate();
-		 
-		 Questionmanagement question = getQuestionByID(ID);
-		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
-		fullTextSession.purge( Questionmanagement.class,ID);
-		fullTextSession.index(question);
-		 
-		return result;
-	}
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status){
+	public List<Questionmanagement> getListQuestionbyStatus(int status){
 		return getCurrentSession().createQuery(" from Questionmanagement where Status = "+status+" AND DeleteStatus =0").list();
 	}
 	
+	/**
+	 * Get List Question By Delete Status
+	 * @param status
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Dictionary> getListDictionarybyStatus(int status){
-		return getCurrentSession().createQuery(" from Dictionary where Status = "+status+" AND DeleteStatus =0").list();
-	}
-	@SuppressWarnings("unchecked")
-	public List<Dictionary> getListDictionaryDelete(int status){
-		return getCurrentSession().createQuery(" from Dictionary where DeleteStatus =1").list();
-	}
-	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getListQuestionmanagementbyDeleteStatus(int status){
+	public List<Questionmanagement> getListQuestionByDeleteStatus(int status){
 		return getCurrentSession().createQuery(" from Questionmanagement where DeleteStatus = "+status).list();
 	}
 	
+	/**
+	 * Create Index
+	 */
 	public void createIndex(){
 		
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
@@ -342,6 +350,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		}
 	}
 	
+	/**
+	 * Search index
+	 * @param keyword
+	 * @param Status
+	 * @return
+	 */
 	public List<Questionmanagement> searchIdex(String keyword,String Status){
 		
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
@@ -402,14 +416,19 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		}
 
 	}
-
-	//-----------------------RESTful web service
-	public void addquestion(Questionmanagement question){
+	
+	/**
+	 * Add Question (RESTfull)
+	 * @param question
+	 */
+	public void addQuestion(Questionmanagement question){
 		getCurrentSession().save(question);	
 		FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.index(question);
 		
 	}
+	
+	
 	public void TransferToDictionary(int Id, int userid){
 		String sqlstring = "update Questionmanagement set Status = '4', UpdateBy =:userid, UpdateDate =:now where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -424,6 +443,8 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 fullTextSession.purge( Questionmanagement.class,Id);
 		 fullTextSession.index(question);
 	}
+	
+	
 	public void UpdateDelete(int Id, int userid){
 		String sqlstring = "update Questionmanagement set DeleteBy =:userid, DeleteDate =:now where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -438,6 +459,9 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
 	}
+	
+	
+	
 	public void UpdateAnwserBy(int Id, int userid){
 		String sqlstring = "update Questionmanagement set AnswerBy =:userid, AnwserDate =:now where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -447,6 +471,8 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("now", now);
 		 q.executeUpdate();
 	}
+	
+	
 	public void ResetUpdateAnwserBy(int Id, int userid){
 		String sqlstring = "update Questionmanagement set AnswerBy =:userid, AnwserDate =:now where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
@@ -456,14 +482,20 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("now", null);
 		 q.executeUpdate();
 	}
+	
+	
 	public Users getusername(int username){
 		Users question =  (Users)getCurrentSession().createQuery(" from Users where ID = "+username ).uniqueResult();
 		return question;
 	}
+	
+	
+	
 	public Setting getSetting(int UserID){
 		Setting temp =  (Setting)getCurrentSession().createQuery("from Setting where UserID = "+UserID ).uniqueResult();
 		return temp;
 	}
+	
 	
 	public void updateBusyStatus(int Id, int UserId){
 		String sqlstring = "update Questionmanagement set BusyStatus = :userid where ID = :Id";
@@ -473,6 +505,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.executeUpdate();
 	}
 	
+	
 	//update status when do nothing
 	public void updateBusyStatusAfter(int Id, int UserId){	
 		String sqlstring = "update Questionmanagement set BusyStatus = 0 where BusyStatus = :userid";
@@ -480,5 +513,16 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("userid", UserId);
 		 q.executeUpdate();
 	}
+
 	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getListDictionarybyStatus(int status){
+		return getCurrentSession().createQuery(" from Dictionary where Status = "+status+" AND DeleteStatus =0").list();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Dictionary> getListDictionaryDelete(int status){
+		return getCurrentSession().createQuery(" from Dictionary where DeleteStatus =1").list();
+	}
 }
