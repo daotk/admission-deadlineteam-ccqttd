@@ -133,7 +133,7 @@ $(document).ready(function() {
 					  				</tr>
 					  				<tr>
 					  					<td></td>
-					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="settingrecord" style="float: right;">Thay đổi</button></td>
+					  					<td><button class="buttoncontrol" id="change" type="submit"  name="actionsubmit" value="settingrecord" style="float: right;">Lưu</button></td>
 					  				</tr>
 					  			</table>
 					  			</form>
