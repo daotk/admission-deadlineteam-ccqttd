@@ -97,7 +97,7 @@ public class DictionaryWS {
 				DictionaryEntity us = new DictionaryEntity();
 				us.ID = quesTemp.get(i).getID();;
 				us.Question = quesTemp.get(i).getQuestion();
-				us.Anwser = quesTemp.get(i).getAnwser();
+				us.Anwser = quesTemp.get(i).getAnwser().replace("&nbsp;", " ");
 				us.AnwserBy = quesTemp.get(i).getAnwserBy();
 				us.CreateBy = quesTemp.get(i).getCreateBy();
 				dicList.getDictionaryList().add(us);
@@ -132,7 +132,7 @@ public class DictionaryWS {
 				DictionaryEntity us = new DictionaryEntity();
 				us.ID = quesTemp.get(i).getID();;
 				us.Question = quesTemp.get(i).getQuestion();
-				us.Anwser = quesTemp.get(i).getAnwser();
+				us.Anwser = quesTemp.get(i).getAnwser().replace("&nbsp;", " ");
 				us.AnwserBy = quesTemp.get(i).getAnwserBy();
 				us.CreateBy = quesTemp.get(i).getCreateBy();
 				dicList.getDictionaryList().add(us);
@@ -241,7 +241,7 @@ public class DictionaryWS {
 						// get id from username
 						int idUser = userService.getIdbyUsername(username);
 						int idQues = Integer.parseInt(IdQuestion);
-						
+
 						Dictionary ques = DictionaryService.getDictionaryByID(idQues);
 						if(ques.getCreateBy() != null){
 							// Xu ly thao tac song song

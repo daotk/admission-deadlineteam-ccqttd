@@ -93,7 +93,7 @@ public class DictionaryDownWS {
 				DictionaryEntity us = new DictionaryEntity();
 				us.ID = quesTemp.get(i).getID();;
 				us.Question = quesTemp.get(i).getQuestion();
-				us.Anwser = quesTemp.get(i).getAnwser();
+				us.Anwser = quesTemp.get(i).getAnwser().replace("&nbsp;", " ");
 				us.AnwserBy = quesTemp.get(i).getAnwserBy();
 				us.CreateBy = quesTemp.get(i).getCreateBy();
 				dicList.getDictionaryList().add(us);
@@ -124,7 +124,7 @@ public class DictionaryDownWS {
 				DictionaryEntity us = new DictionaryEntity();
 				us.ID = quesTemp.get(i).getID();;
 				us.Question = quesTemp.get(i).getQuestion();
-				us.Anwser = quesTemp.get(i).getAnwser();
+				us.Anwser = quesTemp.get(i).getAnwser().replace("&nbsp;", " ");
 				us.AnwserBy = quesTemp.get(i).getAnwserBy();
 				us.CreateBy = quesTemp.get(i).getCreateBy();
 				dicList.getDictionaryList().add(us);

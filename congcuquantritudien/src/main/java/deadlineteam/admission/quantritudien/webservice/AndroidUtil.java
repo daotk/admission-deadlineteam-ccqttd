@@ -28,7 +28,7 @@ public class AndroidUtil {
 //		    string = string.replace("%2f","/");
 		    string = string.replace("commas",",");
 		    string = string.replace("enter","<br/>");
-		    
+		    string = string.replace("%2f","/");
 //		    Matcher m = REMOVE_TAGS.matcher(string);
 //		    return m.replaceAll("");
 		    return string;
