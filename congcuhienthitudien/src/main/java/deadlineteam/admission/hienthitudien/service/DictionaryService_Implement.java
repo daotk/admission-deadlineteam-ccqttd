@@ -20,13 +20,7 @@ public class DictionaryService_Implement implements DictionaryService {
 	private DictionaryDAO DictionaryDAO ;
 
 	int numAndroid = 10;
-	
-	@Override
-	public List<Dictionary> getalldictionary(int page) {
-		// TODO Auto-generated method stub		
-		List<Dictionary> returnlist = DictionaryDAO.getalldictionary(page);		
-		return returnlist;
-	}
+
 	public List<Dictionary> getall(int page){
 		List<Dictionary> list = DictionaryDAO.getall();
 		List<Dictionary> sortlist = new ArrayList<Dictionary>();

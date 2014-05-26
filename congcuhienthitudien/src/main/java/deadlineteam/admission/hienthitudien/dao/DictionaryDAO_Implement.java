@@ -22,17 +22,7 @@ public class DictionaryDAO_Implement implements DictionaryDAO{
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Dictionary> getalldictionary(int page) {
-		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-                "from Dictionary");
-         
-         q.setFirstResult(page * 10); 
-         q.setMaxResults(10);
-         return (List<Dictionary>) q.list();
-		
-	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dictionary> getall() {
