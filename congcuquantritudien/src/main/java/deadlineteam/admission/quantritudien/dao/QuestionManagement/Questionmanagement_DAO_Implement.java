@@ -4,12 +4,9 @@ package deadlineteam.admission.quantritudien.dao.QuestionManagement;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -32,66 +29,65 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		return sessionFactory.getCurrentSession();
 	}
 	
+	/**
+	 * Get All Question
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getAllQuestionmanagement() {
+	public List<Questionmanagement> getAllQuestion() {
 		return getCurrentSession().createQuery(" from Questionmanagement ").list();
 	}
 		
+	/**
+	 * Get All Question in Not Reply
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getListQuestionmanagement() {
+	public List<Questionmanagement> getListQuestionNotReply() {
 		return getCurrentSession().createQuery(" from Questionmanagement where Status = 1").list();
 	}
+	
+	/**
+	 * Get Question by ID
+	 * @param Id
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public Questionmanagement getQuestionmanagementbyID(int Id) {
+	public Questionmanagement getQuestionByID(int Id) {
 		// TODO Auto-generated method stub	
 		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where ID = "+Id ).uniqueResult();
 		return question;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Questionmanagement getQuestionmanagementbyIDToIndex(int Id) {
-		// TODO Auto-generated method stub	
-		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where ID = "+Id ).uniqueResult();
-		return question;
-	}
+
 	
-	//get question copy to dictionary
+	/**
+	 * Get Question By ID to Copy
+	 * @param Id
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public Questionmanagement getQuestionmanagementbyIDToCopy(int Id) {
+	public Questionmanagement getQuestionByIDToCopy(int Id) {
 		// TODO Auto-generated method stub	
 		Questionmanagement question =  (Questionmanagement)getCurrentSession().createQuery(" from Questionmanagement where Status = 3 and ID = "+Id ).uniqueResult();
 		return question;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> findpage1(String keyword) {
-		// TODO Auto-generated method stub	
-		return getCurrentSession().createQuery(" from Questionmanagement where Status = 3").list();
-	}
-	
-	//private static final int limitResultsPerPage = 5;
-
-	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getQuestionmanagementbyPage(int page , int UserID) {
+	public List<Questionmanagement> getQuestionNotReplyForUser(int UserID) {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 AND (BusyStatus = 0 OR BusyStatus = "+UserID+")");        
 	         return (List<Questionmanagement>) q.list();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Questionmanagement checkQuestionIsBusy(int Id) {
-		Questionmanagement question = (Questionmanagement) getCurrentSession().get(Questionmanagement.class, Id);
-		return question;
-
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin() {
+	public List<Questionmanagement> getQuestionNotReplyForAdmin() {
 	        Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	        		"from Questionmanagement where Status = 1 AND DeleteStatus = 0 ");
 	         return (List<Questionmanagement>) q.list();
 	}
+	
+
 	
 	@SuppressWarnings("unchecked")
 	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record){
@@ -110,7 +106,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
 				 
-		Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
@@ -123,7 +119,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("answer", Answer);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
@@ -139,7 +135,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
@@ -179,7 +175,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
 		 
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
@@ -235,7 +231,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("answer", Answer);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
@@ -251,7 +247,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("answer", Answer);
 		 q.setParameter("Id", Id);
 		 int result= q.executeUpdate();
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);
@@ -310,7 +306,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("Id", ID);
 		 int result= q.executeUpdate();
 		 
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(ID);
+		 Questionmanagement question = getQuestionByID(ID);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,ID);
 		fullTextSession.index(question);
@@ -423,7 +419,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("now", now);
 		 q.executeUpdate();
 		 
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		 fullTextSession.purge( Questionmanagement.class,Id);
 		 fullTextSession.index(question);
@@ -437,7 +433,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("now", now);
 		 q.executeUpdate();
 		 
-		 Questionmanagement question = getQuestionmanagementbyIDToIndex(Id);
+		 Questionmanagement question = getQuestionByID(Id);
 		 FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
 		fullTextSession.purge( Questionmanagement.class,Id);
 		fullTextSession.index(question);

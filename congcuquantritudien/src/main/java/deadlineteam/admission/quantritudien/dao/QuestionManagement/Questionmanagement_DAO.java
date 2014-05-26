@@ -8,17 +8,51 @@ import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 
 public interface Questionmanagement_DAO {
-	public List<Questionmanagement> getAllQuestionmanagement();
-	public List<Questionmanagement> findpage1(String keyword);
-	public List<Questionmanagement> getListQuestionmanagement();
-	public Questionmanagement getQuestionmanagementbyID(int Id);
-	public List<Questionmanagement> getQuestionmanagementbyPage(int page, int UserID);
-	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin();
+	
+	/**
+	 * Get All Question
+	 * @return
+	 */
+	public List<Questionmanagement> getAllQuestion();
+	
+	/**
+	 * Get All Question in Not Reply
+	 * @return
+	 */
+	public List<Questionmanagement> getListQuestionNotReply();
+	
+	/**
+	 * Get Question by ID
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getQuestionByID(int Id);
+	
+	/**
+	 * Get Question By ID to Copy
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getQuestionByIDToCopy(int Id);
+	
+	/**
+	 * Get Question Not Reply For User
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getQuestionNotReplyForUser(int UserID);
+	
+	/**
+	 * Get Question Not Reply For Administrator
+	 * @return
+	 */
+	public List<Questionmanagement> getQuestionNotReplyForAdmin();
+	
+	
 	public List<Questionmanagement> getQuestionmanagementbyPage_setting(int page, int record);
 	public int updateAnswerbyId(int Id,String Answer);
-	public Questionmanagement getQuestionmanagementbyIDToCopy(int Id);
+	
 	public List<Dictionary> getListDictionarybyStatus(int status);
-	public Questionmanagement checkQuestionIsBusy(int Id) ;
 	//delete question that is selected
 	public int delete(int Id);
 	//---------------------- Delete Page

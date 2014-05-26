@@ -32,7 +32,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	
 	public int AddDictionarybyID (int Id, int UserId){
 		Date date = new Date();
-		Questionmanagement questionmanagement = QuestionmanagementDAO.getQuestionmanagementbyIDToCopy(Id);
+		Questionmanagement questionmanagement = QuestionmanagementDAO.getQuestionByIDToCopy(Id);
 		Dictionary dictionary = new Dictionary();
 		dictionary.setQuestion(questionmanagement.getQuestion());
 		dictionary.setCreateBy(2);

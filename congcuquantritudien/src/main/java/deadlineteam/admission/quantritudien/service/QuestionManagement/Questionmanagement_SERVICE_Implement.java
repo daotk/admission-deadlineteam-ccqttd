@@ -37,18 +37,18 @@ public class Questionmanagement_SERVICE_Implement implements
 	private int get = 44;
 
 	public List<Questionmanagement> getListQuestionmanagement() {
-		return QuestionmanagementDAO.getListQuestionmanagement();
+		return QuestionmanagementDAO.getListQuestionNotReply();
 	}
 
 	public Questionmanagement getQuestionmanagementbyID(int Id) {
-		return QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+		return QuestionmanagementDAO.getQuestionByID(Id);
 	}
 
 	@Override
 	public List<Questionmanagement> findpage1(String keyword) {
 		// TODO Auto-generated method stub
 		List<Questionmanagement> list = QuestionmanagementDAO
-				.getListQuestionmanagement();
+				.getListQuestionNotReply();
 		List<Questionmanagement> newlisst = new ArrayList<Questionmanagement>();
 
 		return newlisst;
@@ -57,7 +57,7 @@ public class Questionmanagement_SERVICE_Implement implements
 	public List<Questionmanagement> getQuestionmanagementbyPage(int page,
 			int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
-				.getQuestionmanagementbyPage(page, UserID);
+				.getQuestionNotReplyForUser(UserID);
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
 
 		for (int i = 0; i < list.size(); i++) {
@@ -84,7 +84,7 @@ public class Questionmanagement_SERVICE_Implement implements
 	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin(
 			int page, int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
-				.getQuestionmanagementbyPageForAdmin();
+				.getQuestionNotReplyForAdmin();
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
 
 		for (int i = 0; i < list.size(); i++) {
@@ -687,7 +687,7 @@ public class Questionmanagement_SERVICE_Implement implements
 
 	public boolean checkQuestionIsBusy(int Id, int UserId) {
 		Questionmanagement question = QuestionmanagementDAO
-				.checkQuestionIsBusy(Id);
+				.getQuestionByID(Id);
 		if (question.getBusyStatus().equals(0)
 				|| question.getBusyStatus().equals(UserId)) {
 			return false;
@@ -696,13 +696,13 @@ public class Questionmanagement_SERVICE_Implement implements
 		}
 	}
 	public int geUserIDByIdQuestion(int Id) {
-		Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+		Questionmanagement question = QuestionmanagementDAO.getQuestionByID(Id);
 		int result = question.getBusyStatus();
 		return result;
 	}
 	public boolean checkSavaListByUserId(int UserId,int Id) {
 		try {
-			Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+			Questionmanagement question = QuestionmanagementDAO.getQuestionByID(Id);
 			if(UserSERVICE.checkIsAdmin(UserId)==true){
 				return true;
 			}else{
@@ -722,7 +722,7 @@ public class Questionmanagement_SERVICE_Implement implements
 	
 	public boolean checkDeleteListByUserId(int UserId,int Id) {
 		try {
-			Questionmanagement question = QuestionmanagementDAO.getQuestionmanagementbyID(Id);
+			Questionmanagement question = QuestionmanagementDAO.getQuestionByID(Id);
 			if(UserSERVICE.checkIsAdmin(UserId)==true){
 				return true;
 			}else{
