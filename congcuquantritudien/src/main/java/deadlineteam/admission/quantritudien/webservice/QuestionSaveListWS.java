@@ -81,7 +81,7 @@ public class QuestionSaveListWS {
 				us.Question = quesTemp.get(i).getQuestion();
 				us.QuestionBy = quesTemp.get(i).getQuestionBy();
 				us.QuestionEmail = quesTemp.get(i).getQuestionEmail();
-				us.Answer = quesTemp.get(i).getAnswer();
+				us.Answer = quesTemp.get(i).getAnswer().replace("&nbsp;", " ");
 				quesList.getQuestionList().add(us);
 			}
 		}
@@ -116,7 +116,7 @@ public class QuestionSaveListWS {
 				us.Question = quesTemp.get(i).getQuestion();
 				us.QuestionBy = quesTemp.get(i).getQuestionBy();
 				us.QuestionEmail = quesTemp.get(i).getQuestionEmail();
-				us.Answer = quesTemp.get(i).getAnswer();
+				us.Answer = quesTemp.get(i).getAnswer().replace("&nbsp;", " ");
 				quesList.getQuestionList().add(us);
 			}
 		}
@@ -257,7 +257,7 @@ public class QuestionSaveListWS {
 					Users information = userService.getUserByUserID(idUser);
 					int author = information.getAuthorization();
 					if(idUser == question.getAnswerBy()){
-						int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+						int execute = quesSer.SaveAnwser(idQues,body);
 						if(execute>0){
 							result = "success";
 							quesSer.UpdateAnwserBy(idQues, idUser);
@@ -271,7 +271,7 @@ public class QuestionSaveListWS {
 								// null
 								result = "confict,"+otheruser.getID();
 							}else{
-								int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+								int execute = quesSer.SaveAnwser(idQues,body);
 								if(execute>0){
 									result = "success";
 									quesSer.UpdateAnwserBy(idQues, idUser);
@@ -284,7 +284,7 @@ public class QuestionSaveListWS {
 					}
 					
 				}else{
-					int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+					int execute = quesSer.SaveAnwser(idQues,body);
 					if(execute>0){
 						result = "success";
 						quesSer.UpdateAnwserBy(idQues, idUser);
@@ -318,7 +318,7 @@ public class QuestionSaveListWS {
 								Users information = userService.getUserByUserID(idUser);
 								int author = information.getAuthorization();
 								if(idUser == question.getDeleteBy()){
-									int execute = quesSer.deleterepliedquestion(idQues);
+									int execute = quesSer.deletesavequestion(idQues);
 									
 									if(execute>0){
 										result = "success";
@@ -332,7 +332,7 @@ public class QuestionSaveListWS {
 											// null
 											result = "confict,"+otheruser.getID();
 										}else{
-											int execute = quesSer.deleterepliedquestion(idQues);
+											int execute = quesSer.deletesavequestion(idQues);
 											
 											if(execute>0){
 												result = "success";
@@ -346,7 +346,7 @@ public class QuestionSaveListWS {
 									}
 								}
 							}else{
-								int execute = quesSer.deleterepliedquestion(idQues);
+								int execute = quesSer.deletesavequestion(idQues);
 								
 								if(execute>0){
 									result = "success";
