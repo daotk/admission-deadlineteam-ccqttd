@@ -148,10 +148,10 @@ public class QuestionListWS {
 					Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
 					if(question.getAnswerBy() != null){
 						// Xu ly thao tac song song
-						Users information = userService.getUser(idUser);
+						Users information = userService.getUserByUserID(idUser);
 						int author = information.getAuthorization();
 						if(author ==1){
-							Users otheruser = userService.getUser(question.getAnswerBy());
+							Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 							int otherauthor = otheruser.getAuthorization();
 							if(otherauthor == 1){
 								// null
@@ -166,7 +166,7 @@ public class QuestionListWS {
 							}
 						}else{
 							// null
-							Users otheruser = userService.getUser(question.getAnswerBy());
+							Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 							result = "confict,"+otheruser.getID();
 //							
 						}
@@ -208,10 +208,10 @@ public class QuestionListWS {
 				Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
 				if(question.getAnswerBy() != null){
 					// Xu ly thao tac song song
-					Users information = userService.getUser(idUser);
+					Users information = userService.getUserByUserID(idUser);
 					int author = information.getAuthorization();
 					if(author ==1){
-						Users otheruser = userService.getUser(question.getAnswerBy());
+						Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 						int otherauthor = otheruser.getAuthorization();
 						if(otherauthor ==1){
 							// null
@@ -226,7 +226,7 @@ public class QuestionListWS {
 							}
 						}
 					}else{
-						Users otheruser = userService.getUser(question.getAnswerBy());
+						Users otheruser = userService.getUserByUserID(question.getAnswerBy());
 						result = "confict,"+otheruser.getID();
 					}
 				}else{
@@ -259,10 +259,10 @@ public class QuestionListWS {
 						Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
 						if(question.getDeleteBy() != null){
 							// Xu ly thao tac song song
-							Users information = userService.getUser(idUser);
+							Users information = userService.getUserByUserID(idUser);
 							int author = information.getAuthorization();
 							if(author ==1){
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								int otherauthor = otheruser.getAuthorization();
 								if(otherauthor == 1){
 									// null
@@ -277,7 +277,7 @@ public class QuestionListWS {
 								}
 							}else{
 								
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								result = "confict,"+otheruser.getID();
 							}
 						}else{
@@ -309,7 +309,7 @@ public class QuestionListWS {
 						
 						if(quesSer.checkQuestionIsBusy(idQues,idUser)==true){
 							Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
-							Users otheruser = userService.getUser(question.getBusyStatus());						
+							Users otheruser = userService.getUserByUserID(question.getBusyStatus());						
 							result = "busy,"+otheruser.getID();
 						}
 					}

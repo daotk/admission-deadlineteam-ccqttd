@@ -28,6 +28,8 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	private Questionmanagement_DAO QuestionmanagementDAO ;
 	@Autowired
 	private Users_SERVICE userservice;
+	
+	
 	public int AddDictionarybyID (int Id, int UserId){
 		Date date = new Date();
 		Questionmanagement questionmanagement = QuestionmanagementDAO.getQuestionmanagementbyIDToCopy(Id);
@@ -46,8 +48,8 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		DictionaryDAO.AddDictionary(dictionary);
 		return 1;
 	}
-	public int updateCreateby(int Id, int UserID){
-		return DictionaryDAO.updateCreateby(Id, UserID);
+	public int updateCreatebyWhenEdit(int Id, int UserID){
+		return DictionaryDAO.updateCreatebyWhenEdit(Id, UserID);
 	}
 	public void AddDictionary(Dictionary dictionary){
 		 DictionaryDAO.AddDictionary(dictionary);
@@ -115,7 +117,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		
 	}	
 	
-	public Dictionary availablequestion(int Id) {
+	public Dictionary getAvailableDictionaryByID(int Id) {
 		// TODO Auto-generated method stub
 		return DictionaryDAO.getAvailableDictionaryByID(Id);
 		
@@ -126,9 +128,9 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
 			Dictionary question = DictionaryDAO.getDictionaryByID(deleteid);
-			DictionaryDAO.updatedelete(deleteid, login);
+			DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(deleteid, login);
 			DictionaryDAO.updateDictionaryWhenRestore(deleteid);
-			DictionaryDAO.updaterestore(deleteid);
+			DictionaryDAO.updateDeleteByAndDeleteDateWhenRestore(deleteid);
 			returnlist.add(question);
 		}
 		return returnlist;
@@ -139,7 +141,7 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
 			Dictionary question = DictionaryDAO.getDictionaryByID(deleteid);
-			DictionaryDAO.updatedelete(deleteid, login);
+			DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(deleteid, login);
 			DictionaryDAO.updateDictionaryWhenDelete(deleteid);
 			
 			returnlist.add(question);
@@ -178,12 +180,12 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		}
 		return newlist;
 	}
-	public Dictionary recentquestion(int Id) {
+	public Dictionary getRecentDictionaryByID(int Id) {
 		// TODO Auto-generated method stub
 		return DictionaryDAO.getRecentDictionaryByID(Id);
 	}
-	public int updaterestore(int Id){
-		return DictionaryDAO.updaterestore(Id);
+	public int updateDeleteByAndDeleteDateWhenRestore(int Id){
+		return DictionaryDAO.updateDeleteByAndDeleteDateWhenRestore(Id);
 	}
 	public List<Dictionary> deletelist(int page, int UserID) {
 		// TODO Auto-generated method stub
@@ -216,30 +218,27 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		}
 		return newlist;
 	}
-	public Dictionary question(int Id) {
-		// TODO Auto-generated method stub
-		return DictionaryDAO.getDictionaryByID(Id);	
-	}
-	public Dictionary getinformation(int ID){
+
+	public Dictionary getDictionaryByID(int ID){
 		return DictionaryDAO.getDictionaryByID(ID);
 	}
-	public int upload(int Id){
+	public int updateDictionaryWhenUpload(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenUpload(Id);
 	}
-	public int updateby(int Id, int UserID){
+	public int updateUpdateByWhenUpload(int Id, int UserID){
 		// TODO Auto-generated method stub
-		return DictionaryDAO.updateby(Id, UserID);
+		return DictionaryDAO.updateUpdateByWhenUpload(Id, UserID);
 	}
-	public int remove(int Id){
+	public int updateDictionaryWhenDown(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenDown(Id);
 	}
-	public int restore(int Id){
+	public int updateDictionaryWhenRestore(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenRestore(Id);
 	}
-	public int delete(int Id){
+	public int updateDictionaryWhenDelete(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenDelete(Id);
 	}
@@ -274,26 +273,21 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		}
 		return newlist;
 	}
-	public Dictionary removequestion(int Id){
+	public Dictionary getDownDictionaryByID(int Id){
 		return DictionaryDAO.getDownDictionaryByID(Id);
 	}
-	public int update(int Id,String Anwser,  String Question){
-		return DictionaryDAO.update(Id, Anwser, Question);
+	public int updateQuesionAndAnwserDictionary(int Id,String Anwser,  String Question){
+		return DictionaryDAO.updateQuesionAndAnwserDictionary(Id, Anwser, Question);
 	}
-	public int busystatusupdate(int Id){
-		return DictionaryDAO.busystatusupdate(Id);
+
+	public Dictionary getDictionaryByIDNotDelete(int Id){
+		return DictionaryDAO.getDictionaryByIDNotDelete(Id);
 	}
-	public int busystatus(int Id){
-		return DictionaryDAO.busystatus(Id);
+	public void updateUpdateByAndUpdateDateWhenDown(int Id, int userID){
+		DictionaryDAO.updateUpdateByAndUpdateDateWhenDown(Id, userID);
 	}
-	public Dictionary loadquestion(int Id){
-		return DictionaryDAO.loadquestion(Id);
-	}
-	public void updateRemove(int Id, int userID){
-		DictionaryDAO.updateRemove(Id, userID);
-	}
-	public void updatedelete(int Id, int userID){
-		DictionaryDAO.updatedelete(Id, userID);
+	public void updateDeleteByAndDeleteDateWhenDelete(int Id, int userID){
+		DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(Id, userID);
 	}
 
 	public Setting getSetting(int UserId){

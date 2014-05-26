@@ -148,7 +148,7 @@ public class QuestionReplyListWS {
 				Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
 				if(question.getUpdateBy() != null){
 					// Xu ly thao tac song song
-					Users information = userService.getUser(idUser);
+					Users information = userService.getUserByUserID(idUser);
 					int author = information.getAuthorization();
 					if(idUser == question.getUpdateBy()){
 
@@ -170,7 +170,7 @@ public class QuestionReplyListWS {
 							result = "success";
 					}else{
 						if(author ==1){
-							Users otheruser = userService.getUser(question.getUpdateBy());
+							Users otheruser = userService.getUserByUserID(question.getUpdateBy());
 							int otherauthor = otheruser.getAuthorization();
 							if(otherauthor ==1){
 								// null
@@ -197,7 +197,7 @@ public class QuestionReplyListWS {
 							}
 						}else{
 							// null
-							Users otheruser = userService.getUser(question.getUpdateBy());
+							Users otheruser = userService.getUserByUserID(question.getUpdateBy());
 							result = "confict,"+otheruser.getID();
 						}
 					}
@@ -245,7 +245,7 @@ public class QuestionReplyListWS {
 					Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
 					if(question.getDeleteBy() != null){
 						// Xu ly thao tac song song
-						Users information = userService.getUser(idUser);
+						Users information = userService.getUserByUserID(idUser);
 						int author = information.getAuthorization();
 						if(idUser == question.getDeleteBy()){
 							int execute = quesSer.deleterepliedquestion(idQues);
@@ -256,7 +256,7 @@ public class QuestionReplyListWS {
 							}
 						}else{
 							if(author ==1){
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								int otherauthor = otheruser.getAuthorization();
 								if(otherauthor ==1){
 									// null
@@ -270,7 +270,7 @@ public class QuestionReplyListWS {
 									}
 								}
 							}else{
-								Users otheruser = userService.getUser(question.getDeleteBy());
+								Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 								result = "confict,"+otheruser.getID();
 							}
 						}

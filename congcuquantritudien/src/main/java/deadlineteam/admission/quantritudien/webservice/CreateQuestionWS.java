@@ -88,7 +88,7 @@ public class CreateQuestionWS {
 					dictionary.setBusyStatus(0);
 				
 					DictionaryService.AddDictionary(dictionary);
-					Users users = userService.getUser(idUser);
+					Users users = userService.getUserByUserID(idUser);
 				
 					String newquestion =  dictionary.getQuestion();
 					

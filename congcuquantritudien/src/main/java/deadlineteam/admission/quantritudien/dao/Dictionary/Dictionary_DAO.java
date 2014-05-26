@@ -123,20 +123,57 @@ public interface Dictionary_DAO {
 	 */
 	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
 	
+	/**
+	 * Get Dictionary By Id Not Delete
+	 * @param Id {@link Integer}
+	 * @return
+	 */
+	public Dictionary getDictionaryByIDNotDelete(int Id);
 	
-	public Dictionary loadquestion(int Id);
+	/**
+	 * Update CreateBy When edit dictionary
+	 * @param Id
+	 * @param UserID
+	 * @return
+	 */
+	public int updateCreatebyWhenEdit(int Id, int UserID);
 	
-	public int updateby(int Id,int UserID);
+	/**
+	 * Update UpdateBy dictionary When Upload Dictionary
+	 * @param Id
+	 * @param UserID
+	 * @return
+	 */
+	public int updateUpdateByWhenUpload(int Id,int UserID);
 	
+	/**
+	 * Update Answer and Question Dictionary
+	 * @param Id
+	 * @param Anwser
+	 * @param Question
+	 * @return
+	 */
+	public int updateQuesionAndAnwserDictionary(int Id,String Anwser, String Question);
 	
+	/**
+	 * Update UpdateBy and UpdateDate When Down
+	 * @param Id
+	 * @param userID
+	 */
+	public void updateUpdateByAndUpdateDateWhenDown(int Id, int userID);
 	
-	public int update(int Id,String Anwser, String Question);
-	public int busystatusupdate(int Id);
-	public int updateCreateby(int Id, int UserID);
-	public int busystatus(int Id);
-	public void updateRemove(int Id, int userID);
-	public void updatedelete(int Id, int userID);
-	public int updaterestore(int Id);	
-
+	/**
+	 * Update DeleteBy and DeleteDate When Delete
+	 * @param Id
+	 * @param userID
+	 */
+	public void updateDeleteByAndDeleteDateWhenDelete(int Id, int userID);
+	
+	/**
+	 * Update DeleteBy and DeleteDate When Restore
+	 * @param Id
+	 * @return
+	 */
+	public int updateDeleteByAndDeleteDateWhenRestore(int Id);	
 
 }

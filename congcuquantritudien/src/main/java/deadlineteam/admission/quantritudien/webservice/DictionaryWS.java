@@ -158,7 +158,7 @@ public class DictionaryWS {
 				int idQues = Integer.parseInt(IdQuestion);
 				
 				try{
-					Dictionary newdictionary = DictionaryService.getinformation(idQues);
+					Dictionary newdictionary = DictionaryService.getDictionaryByID(idQues);
 					DictionaryRestful dicrestful = new DictionaryRestful();
 					dicrestful.setID(idQues);
 					dicrestful.setAnwser(newdictionary.getAnwser());
@@ -168,11 +168,11 @@ public class DictionaryWS {
 					if(execute1.equals("success")){
 						result = "success";
 						// Processing restore question
-						int execute = DictionaryService.upload(idQues);	
-						int update = DictionaryService.updateby(idQues, idUser);
+						int execute = DictionaryService.updateDictionaryWhenUpload(idQues);	
+						int update = DictionaryService.updateUpdateByWhenUpload(idQues, idUser);
 						if(execute > 0 && update >0){
-							Users users = userService.getUser(idUser);
-							Dictionary question = DictionaryService.getinformation(idQues);
+							Users users = userService.getUserByUserID(idUser);
+							Dictionary question = DictionaryService.getDictionaryByID(idQues);
 							String newquestion = question.getQuestion();
 							if(newquestion.length() > 50){
 								newquestion.substring(0, 45);
@@ -209,11 +209,11 @@ public class DictionaryWS {
 						int idUser = userService.getIdbyUsername(username);
 						int idQues = Integer.parseInt(IdQuestion);
 						
-						int execute = DictionaryService.delete(idQues);
-						DictionaryService.updatedelete(idQues, idUser);
+						int execute = DictionaryService.updateDictionaryWhenDelete(idQues);
+						DictionaryService.updateDeleteByAndDeleteDateWhenDelete(idQues, idUser);
 						
-						Users users = userService.getUser(idUser);
-						Dictionary question = DictionaryService.getinformation(idQues);
+						Users users = userService.getUserByUserID(idUser);
+						Dictionary question = DictionaryService.getDictionaryByID(idQues);
 						String newquestion = question.getQuestion();
 						if(newquestion.length() > 50){
 							newquestion.substring(0, 45);
@@ -242,22 +242,22 @@ public class DictionaryWS {
 						int idUser = userService.getIdbyUsername(username);
 						int idQues = Integer.parseInt(IdQuestion);
 						
-						Dictionary ques = DictionaryService.getinformation(idQues);
+						Dictionary ques = DictionaryService.getDictionaryByID(idQues);
 						if(ques.getCreateBy() != null){
 							// Xu ly thao tac song song
-							Users information = userService.getUser(idUser);
+							Users information = userService.getUserByUserID(idUser);
 							int author = information.getAuthorization();
 							if(idUser == ques.getCreateBy()){
 								
 								answer = util.restoreTags(answer);
 								question = util.restoreTags(question);
 								
-								int execute = DictionaryService.update(idQues, answer, question);
-								int updatecreateby = DictionaryService.updateCreateby(idQues, idUser);
-								int restart = DictionaryService.busystatus(idQues);
-								Users users = userService.getUser(idUser);
+								int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
+								int updatecreateby = DictionaryService.updateCreatebyWhenEdit(idQues, idUser);
+								//int restart = DictionaryService.busystatus(idQues);
+								Users users = userService.getUserByUserID(idUser);
 								//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
-								Dictionary userquestion = DictionaryService.getinformation(idQues);
+								Dictionary userquestion = DictionaryService.getDictionaryByID(idQues);
 								String newquestion = userquestion.getQuestion();
 								if(newquestion.length() > 50){
 									newquestion.substring(0, 45);
@@ -267,19 +267,19 @@ public class DictionaryWS {
 								result = "success";
 							}else{
 								if(author ==1){
-									Users otheruser = userService.getUser(ques.getCreateBy());
+									Users otheruser = userService.getUserByUserID(ques.getCreateBy());
 									int otherauthor = otheruser.getAuthorization();
 									if(otherauthor ==1){
 										// null
 										result = "confict,"+otheruser.getID();
 									}else{
 										//
-										int execute = DictionaryService.update(idQues, answer, question);
-										int updatecreateby = DictionaryService.updateCreateby(idQues, idUser);
-										int restart = DictionaryService.busystatus(idQues);
-										Users users = userService.getUser(idUser);
+										int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
+										int updatecreateby = DictionaryService.updateCreatebyWhenEdit(idQues, idUser);
+									//	int restart = DictionaryService.busystatus(idQues);
+										Users users = userService.getUserByUserID(idUser);
 									//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
-										Dictionary userquestion = DictionaryService.getinformation(idQues);
+										Dictionary userquestion = DictionaryService.getDictionaryByID(idQues);
 										String newquestion = userquestion.getQuestion();
 										if(newquestion.length() > 50){
 											newquestion.substring(0, 45);
@@ -290,7 +290,7 @@ public class DictionaryWS {
 									}
 								}else{
 									// null
-									Users otheruser = userService.getUser(ques.getCreateBy());
+									Users otheruser = userService.getUserByUserID(ques.getCreateBy());
 									result = "confict,"+otheruser.getID();
 								}
 							}
@@ -298,13 +298,13 @@ public class DictionaryWS {
 							// ket thuc xu ly thao tac song song
 						}else{
 							//
-							int execute = DictionaryService.update(idQues, answer, question);
-							int updatecreateby = DictionaryService.updateCreateby(idQues, idUser);
-							int restart = DictionaryService.busystatus(idQues);
+							int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
+							int updatecreateby = DictionaryService.updateCreatebyWhenEdit(idQues, idUser);
+							//int restart = DictionaryService.busystatus(idQues);
 							
-							Users users = userService.getUser(idUser);
+							Users users = userService.getUserByUserID(idUser);
 							//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
-							Dictionary userquestion = DictionaryService.getinformation(idQues);
+							Dictionary userquestion = DictionaryService.getDictionaryByID(idQues);
 							String newquestion = userquestion.getQuestion();
 							if(newquestion.length() > 50){
 								newquestion.substring(0, 45);

@@ -147,7 +147,7 @@ public class DictionaryUploadWS {
 				int idUser = userService.getIdbyUsername(username);
 				int idQues = Integer.parseInt(IdQuestion);
 				
-				Dictionary newdictionary = DictionaryService.getinformation(idQues);
+				Dictionary newdictionary = DictionaryService.getDictionaryByID(idQues);
 				
 				DictionaryRestful dicrestful = new DictionaryRestful();
 				dicrestful.setID(idQues);
@@ -158,9 +158,9 @@ public class DictionaryUploadWS {
 					String execute1 = restTemplate.postForObject(congcuhienthi+"/api/romovequestion", dicrestful, String.class);
 					
 					if(execute1.equals("success")){
-						Users users = userService.getUser(idUser);
+						Users users = userService.getUserByUserID(idUser);
 					//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
-						Dictionary userquestion = DictionaryService.getinformation(idQues);
+						Dictionary userquestion = DictionaryService.getDictionaryByID(idQues);
 						String newquestion =  userquestion.getQuestion();
 						if(newquestion.length() > 50){
 							newquestion.subSequence(0, 45);
@@ -168,8 +168,8 @@ public class DictionaryUploadWS {
 						}
 						logger.info("Tài khoản " + users.getUserName() + " đã hạ câu hỏi " +newquestion);
 						// Processing restore question
-						int down = DictionaryService.remove(idQues);
-						int update = DictionaryService.updateby(idQues, idUser);
+						int down = DictionaryService.updateDictionaryWhenDown(idQues);
+						int update = DictionaryService.updateUpdateByWhenUpload(idQues, idUser);
 						result = "success";
 					}else{
 						if(execute1.equals("fail")){

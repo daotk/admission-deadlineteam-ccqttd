@@ -150,7 +150,7 @@ public class DictionaryDownWS {
 				int idQues = Integer.parseInt(IdQuestion);
 				
 				try{
-					Dictionary newdictionary = DictionaryService.getinformation(idQues);
+					Dictionary newdictionary = DictionaryService.getDictionaryByID(idQues);
 					DictionaryRestful dicrestful = new DictionaryRestful();
 					dicrestful.setID(idQues);
 					dicrestful.setAnwser(newdictionary.getAnwser());
@@ -160,11 +160,11 @@ public class DictionaryDownWS {
 					if(execute1.equals("success")){
 						result = "success";
 						// Processing restore question
-						int execute = DictionaryService.upload(idQues);	
-						int update = DictionaryService.updateby(idQues, idUser);
+						int execute = DictionaryService.updateDictionaryWhenUpload(idQues);	
+						int update = DictionaryService.updateUpdateByWhenUpload(idQues, idUser);
 						if(execute > 0 && update >0){
-							Users users = userService.getUser(idUser);
-							Dictionary question = DictionaryService.getinformation(idQues);
+							Users users = userService.getUserByUserID(idUser);
+							Dictionary question = DictionaryService.getDictionaryByID(idQues);
 							String newquestion = question.getQuestion();
 							if(newquestion.length() > 50){
 								newquestion.substring(0, 45);
@@ -201,11 +201,11 @@ public class DictionaryDownWS {
 					int idUser = userService.getIdbyUsername(username);
 					int idQues = Integer.parseInt(IdQuestion);
 					
-					int execute = DictionaryService.delete(idQues);
-					DictionaryService.updatedelete(idQues, idUser);
+					int execute = DictionaryService.updateDictionaryWhenDelete(idQues);
+					DictionaryService.updateDeleteByAndDeleteDateWhenDelete(idQues, idUser);
 					
-					Users users = userService.getUser(idUser);
-					Dictionary question = DictionaryService.getinformation(idQues);
+					Users users = userService.getUserByUserID(idUser);
+					Dictionary question = DictionaryService.getDictionaryByID(idQues);
 					String newquestion = question.getQuestion();
 					if(newquestion.length() > 50){
 						newquestion.substring(0, 45);
@@ -237,11 +237,11 @@ public class DictionaryDownWS {
 						answer = util.restoreTags(answer);
 						question = util.restoreTags(question);
 						
-						int execute = DictionaryService.update(idQues, answer, question);
+						int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
 
-						Users users = userService.getUser(idUser);
+						Users users = userService.getUserByUserID(idUser);
 						//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
-						Dictionary userquestion = DictionaryService.getinformation(idQues);
+						Dictionary userquestion = DictionaryService.getDictionaryByID(idQues);
 						String newquestion = userquestion.getQuestion();
 						if(newquestion.length() > 50){
 							newquestion.substring(0, 45);

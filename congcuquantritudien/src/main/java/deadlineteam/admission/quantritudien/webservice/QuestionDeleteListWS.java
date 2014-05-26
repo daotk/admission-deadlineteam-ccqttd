@@ -160,7 +160,7 @@ public class QuestionDeleteListWS {
 				Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
 				if(question.getDeleteBy() != null){
 					// Xu ly thao tac song song
-					Users information = userService.getUser(idUser);
+					Users information = userService.getUserByUserID(idUser);
 					int author = information.getAuthorization();
 					if(idUser == question.getDeleteBy()){
 						// Processing restore question
@@ -173,7 +173,7 @@ public class QuestionDeleteListWS {
 						}
 					}else{
 						if(author ==1){
-							Users otheruser = userService.getUser(question.getDeleteBy());
+							Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 							int otherauthor = otheruser.getAuthorization();
 							if(otherauthor ==1){
 								// null	
@@ -189,7 +189,7 @@ public class QuestionDeleteListWS {
 								}
 							}
 						}else{
-							Users otheruser = userService.getUser(question.getDeleteBy());
+							Users otheruser = userService.getUserByUserID(question.getDeleteBy());
 							result = "confict,"+otheruser.getID();
 						}
 					}

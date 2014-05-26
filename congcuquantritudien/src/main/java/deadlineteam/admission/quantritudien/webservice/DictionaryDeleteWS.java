@@ -151,11 +151,11 @@ public class DictionaryDeleteWS {
 				int idUser = userService.getIdbyUsername(username);
 				int idQues = Integer.parseInt(IdQuestion);
 				
-				int execute = DictionaryService.restore(idQues);
+				int execute = DictionaryService.updateDictionaryWhenRestore(idQues);
 				
-				Users users = userService.getUser(idUser);
+				Users users = userService.getUserByUserID(idUser);
 			//	Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
-				Dictionary question = DictionaryService.getinformation(idQues);
+				Dictionary question = DictionaryService.getDictionaryByID(idQues);
 				String newquestion = question.getQuestion();
 				if(newquestion.length() > 50){
 					newquestion.substring(0, 45);

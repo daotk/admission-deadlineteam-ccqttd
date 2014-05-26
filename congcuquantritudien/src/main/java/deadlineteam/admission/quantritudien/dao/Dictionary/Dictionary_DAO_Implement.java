@@ -2,6 +2,7 @@ package deadlineteam.admission.quantritudien.dao.Dictionary;
 
 import java.util.Date;
 import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -352,7 +353,13 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		}
 	}
 	
-	public Dictionary loadquestion(int Id) {
+	
+	/**
+	 * Get Dictionary By Id Not Delete
+	 * @param Id {@link Integer}
+	 * @return
+	 */
+	public Dictionary getDictionaryByIDNotDelete(int Id) {
 		// TODO Auto-generated method stub
 		Dictionary avaiablequestion = (Dictionary) getCurrentSession()
 				.createQuery(
@@ -362,10 +369,13 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	}
 	
 	/**
-	 * Update 
+	 * Update CreateBy When edit dictionary
+	 * @param Id
+	 * @param UserID
+	 * @return
 	 */
 	@Override
-	public int updateCreateby(int Id, int UserID) {
+	public int updateCreatebyWhenEdit(int Id, int UserID) {
 		String sqlstring = "update Dictionary set CreateBy =:userid , CreateDate =:mow where ID = :Id";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 				sqlstring);
@@ -378,8 +388,14 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		return result;
 	}
 	
+	/**
+	 * Update UpdateBy dictionary When Upload Dictionary
+	 * @param Id
+	 * @param UserID
+	 * @return
+	 */
 	@Override
-	public int updateby(int Id, int UserID) {
+	public int updateUpdateByWhenUpload(int Id, int UserID) {
 		String sqlstring = "update Dictionary set UpdateBy =:userid, UpdateDate =:now where ID = :Id AND DeleteStatus = 0";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 				sqlstring);
@@ -391,8 +407,10 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		return result;
 	}
 
+	
+	
 	@Override
-	public int update(int Id, String Anwser, String Question) {
+	public int updateQuesionAndAnwserDictionary(int Id, String Anwser, String Question) {
 		String sqlstring = "update Dictionary set Anwser = :anwser, Question =:question where ID = :Id ";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 				sqlstring);
@@ -404,29 +422,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 	}
 
 	
-	public int busystatusupdate(int Id) {
-		String sqlstring = "update Dictionary set BusyStatus =:busy where ID = :Id ";
-		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-				sqlstring);
-		q.setParameter("busy", 1);
-		q.setParameter("Id", Id);
-		int result = q.executeUpdate();
-		return result;
-	}
-
-	public int busystatus(int Id) {
-		String sqlstring = "update Dictionary set BusyStatus =:busy where ID = :Id ";
-		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
-				sqlstring);
-		q.setParameter("busy", 0);
-		q.setParameter("Id", Id);
-		int result = q.executeUpdate();
-		return result;
-	}
-
-
-	
-	public void updateRemove(int Id, int userID) {
+	public void updateUpdateByAndUpdateDateWhenDown(int Id, int userID) {
 		String sqlstring = "update Dictionary set UpdateBy =:userid, UpdateDate =:now where ID = :Id";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 				sqlstring);
@@ -436,8 +432,13 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		q.setParameter("now", now);
 		q.executeUpdate();
 	}
-
-	public void updatedelete(int Id, int userID) {
+	
+	/**
+	 * Update DeleteBy and DeleteDate When Delete
+	 * @param Id
+	 * @param userID
+	 */
+	public void updateDeleteByAndDeleteDateWhenDelete(int Id, int userID) {
 		String sqlstring = "update Dictionary set DeleteBy =:userid, DeleteDate =:now where ID = :Id";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 				sqlstring);
@@ -448,7 +449,7 @@ public class Dictionary_DAO_Implement implements Dictionary_DAO {
 		q.executeUpdate();
 	}
 
-	public int updaterestore(int Id) {
+	public int updateDeleteByAndDeleteDateWhenRestore(int Id) {
 		String sqlstring = "update Dictionary set DeleteBy =:userid, DeleteDate =:now where ID = :Id";
 		Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 				sqlstring);
