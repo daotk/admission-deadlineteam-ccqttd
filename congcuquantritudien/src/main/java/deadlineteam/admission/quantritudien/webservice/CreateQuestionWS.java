@@ -85,7 +85,7 @@ public class CreateQuestionWS {
 					dictionary.setCreateDate(now);
 					dictionary.setStatus(1);
 					dictionary.setDeleteStatus(0);
-					dictionary.setBusyStatus(0);
+	
 				
 					DictionaryService.AddDictionary(dictionary);
 					Users users = userService.getUserByUserID(idUser);

@@ -163,7 +163,6 @@ public class QuestionReplyListWS {
 							newdic.setAnwserBy(question1.getAnswerBy());
 							newdic.setStatus(1);
 							newdic.setDeleteStatus(0);
-							newdic.setBusyStatus(0);
 							DictionaryService.AddDictionary(newdic);
 							quesSer.TransferToDictionary(idQues, idUser);
 							
@@ -189,7 +188,6 @@ public class QuestionReplyListWS {
 									newdic.setAnwserBy(question1.getAnswerBy());
 									newdic.setStatus(1);
 									newdic.setDeleteStatus(0);
-									newdic.setBusyStatus(0);
 									DictionaryService.AddDictionary(newdic);
 									quesSer.TransferToDictionary(idQues, idUser);
 								
@@ -216,7 +214,6 @@ public class QuestionReplyListWS {
 						newdic.setAnwserBy(question1.getAnswerBy());
 						newdic.setStatus(1);
 						newdic.setDeleteStatus(0);
-						newdic.setBusyStatus(0);
 						DictionaryService.AddDictionary(newdic);
 						quesSer.TransferToDictionary(idQues, idUser);
 					

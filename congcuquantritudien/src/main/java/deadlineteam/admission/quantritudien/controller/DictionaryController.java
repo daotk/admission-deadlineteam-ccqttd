@@ -286,14 +286,7 @@ public class DictionaryController {
 				question.subSequence(0, 45);
 				question = question +"...";
 			}
-			logger.info("Tài khoản " + users.getUserName() +" vào trang chỉnh sửa câu hỏi " + question);
-			if(available.getBusyStatus().equals(1)){
-				model.addAttribute("message",  msgSrc.getMessage("message.dictionary.edit.warming", null,locale));
-				return "list-dictionary";
-			}else{
-				model.addAttribute("createQaA", available);
-				return "edit-dictionary";
-			}
+			return "edit-dictionary";
 		}
 	}
 	
@@ -445,11 +438,7 @@ public class DictionaryController {
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			
 			model.addAttribute("curentOfPage", page);
-			if( available.getBusyStatus()== 1){
-				model.addAttribute("busystatus",null);
-			}else{
-				model.addAttribute("busystatus", available.getBusyStatus().toString());
-			}	
+
 			return "list-dictionary";
 			}else{
 				return "redirect:/notalow";
@@ -1257,11 +1246,7 @@ public class DictionaryController {
 			
 			//-----------------------
 			model.addAttribute("diction", removequestion);
-			if( removequestion.getBusyStatus()== 1){
-				model.addAttribute("busystatus",null);
-			}else{
-				model.addAttribute("busystatus", removequestion.getBusyStatus().toString());
-			}
+
 			model.addAttribute("curentOfPage", page);
 			Users newusername =userService.getUserByUserID(removequestion.getAnwserBy());
 			model.addAttribute("username", newusername.getFullName().toString());
@@ -2069,7 +2054,7 @@ public class DictionaryController {
 				dictionary.setCreateDate(now);
 				dictionary.setStatus(1);
 				dictionary.setDeleteStatus(0);
-				dictionary.setBusyStatus(0);
+
 			
 				DictionaryService.AddDictionary(dictionary);
 				Users users = userService.getUserByUserID(userID);

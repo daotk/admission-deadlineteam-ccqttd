@@ -45,8 +45,6 @@ public class Dictionary {
 	private Integer DeleteBy;
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private Date DeleteDate;
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
-	private int BusyStatus;
 	public Integer getID() {
 		return ID;
 	}
@@ -119,10 +117,5 @@ public class Dictionary {
 	public void setDeleteDate(Date deleteDate) {
 		DeleteDate = deleteDate;
 	}
-	public Integer getBusyStatus() {
-		return BusyStatus;
-	}
-	public void setBusyStatus(Integer busyStatus) {
-		BusyStatus = busyStatus;
-	}
+
 }

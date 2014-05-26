@@ -1887,7 +1887,6 @@ public class QuestionaManagementController {
 									newdic.setAnwserBy(question1.getAnswerBy());
 									newdic.setStatus(1);
 									newdic.setDeleteStatus(0);
-									newdic.setBusyStatus(0);
 									DictionaryService.AddDictionary(newdic);
 									QuestionmanagementService.TransferToDictionary(Id, login);
 								
@@ -1937,7 +1936,6 @@ public class QuestionaManagementController {
 											newdic.setAnwserBy(question1.getAnswerBy());
 											newdic.setStatus(1);
 											newdic.setDeleteStatus(0);
-											newdic.setBusyStatus(0);
 											DictionaryService.AddDictionary(newdic);
 											QuestionmanagementService.TransferToDictionary(Id, login);
 										
@@ -1988,7 +1986,6 @@ public class QuestionaManagementController {
 								newdic.setAnwserBy(question1.getAnswerBy());
 								newdic.setStatus(1);
 								newdic.setDeleteStatus(0);
-								newdic.setBusyStatus(0);
 								DictionaryService.AddDictionary(newdic);
 								QuestionmanagementService.TransferToDictionary(Id, login);
 							
