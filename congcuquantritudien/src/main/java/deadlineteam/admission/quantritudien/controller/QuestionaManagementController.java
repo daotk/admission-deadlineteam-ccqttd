@@ -1647,7 +1647,7 @@ public class QuestionaManagementController {
 						}
 					}
 				}
-				Users username = QuestionmanagementService.getusername(login);
+				Users username = userService.getUserByUserID(login);
 				model.addAttribute("username",username.getFullName());
 				
 				Setting setting = userService.getSetting(UserID);

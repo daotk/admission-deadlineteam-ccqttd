@@ -257,7 +257,7 @@ public class QuestionSaveListWS {
 					Users information = userService.getUserByUserID(idUser);
 					int author = information.getAuthorization();
 					if(idUser == question.getAnswerBy()){
-						int execute = quesSer.SaveAnwser(idQues,body);
+						int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
 						if(execute>0){
 							result = "success";
 							quesSer.UpdateAnwserBy(idQues, idUser);
@@ -271,7 +271,7 @@ public class QuestionSaveListWS {
 								// null
 								result = "confict,"+otheruser.getID();
 							}else{
-								int execute = quesSer.SaveAnwser(idQues,body);
+								int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
 								if(execute>0){
 									result = "success";
 									quesSer.UpdateAnwserBy(idQues, idUser);
@@ -284,7 +284,7 @@ public class QuestionSaveListWS {
 					}
 					
 				}else{
-					int execute = quesSer.SaveAnwser(idQues,body);
+					int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
 					if(execute>0){
 						result = "success";
 						quesSer.UpdateAnwserBy(idQues, idUser);
@@ -318,7 +318,7 @@ public class QuestionSaveListWS {
 								Users information = userService.getUserByUserID(idUser);
 								int author = information.getAuthorization();
 								if(idUser == question.getDeleteBy()){
-									int execute = quesSer.deletesavequestion(idQues);
+									int execute = quesSer.delete(idQues);
 									
 									if(execute>0){
 										result = "success";
@@ -332,7 +332,7 @@ public class QuestionSaveListWS {
 											// null
 											result = "confict,"+otheruser.getID();
 										}else{
-											int execute = quesSer.deletesavequestion(idQues);
+											int execute = quesSer.delete(idQues);
 											
 											if(execute>0){
 												result = "success";
@@ -346,7 +346,7 @@ public class QuestionSaveListWS {
 									}
 								}
 							}else{
-								int execute = quesSer.deletesavequestion(idQues);
+								int execute = quesSer.delete(idQues);
 								
 								if(execute>0){
 									result = "success";

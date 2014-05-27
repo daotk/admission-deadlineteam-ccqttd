@@ -428,8 +428,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		
 	}
 	
-	
-	public void TransferToDictionary(int Id, int userid){
+	/**
+	 * Transfer Question to Dictionary
+	 * @param Id
+	 * @param userid
+	 */
+	public void copyQuestionToDictionary(int Id, int userid){
 		String sqlstring = "update Questionmanagement set Status = '4', UpdateBy =:userid, UpdateDate =:now where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
@@ -444,8 +448,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 fullTextSession.index(question);
 	}
 	
-	
-	public void UpdateDelete(int Id, int userid){
+	/**
+	 * Update DeleteBy and DeleteDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateDeleteByAndDeleteDate(int Id, int userid){
 		String sqlstring = "update Questionmanagement set DeleteBy =:userid, DeleteDate =:now where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
@@ -460,9 +468,12 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		fullTextSession.index(question);
 	}
 	
-	
-	
-	public void UpdateAnwserBy(int Id, int userid){
+	/**
+	 * Update AnswerBy And AnswerDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateAnwserByAndAnwserDate(int Id, int userid){
 		String sqlstring = "update Questionmanagement set AnswerBy =:userid, AnwserDate =:now where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
@@ -471,33 +482,23 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.setParameter("now", now);
 		 q.executeUpdate();
 	}
-	
-	
-	public void ResetUpdateAnwserBy(int Id, int userid){
-		String sqlstring = "update Questionmanagement set AnswerBy =:userid, AnwserDate =:now where ID = :Id";
-		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
-		 q.setParameter("Id", null);
-		 q.setParameter("userid", userid);
-		 Date now = new Date();
-		 q.setParameter("now", null);
-		 q.executeUpdate();
-	}
-	
-	
-	public Users getusername(int username){
-		Users question =  (Users)getCurrentSession().createQuery(" from Users where ID = "+username ).uniqueResult();
-		return question;
-	}
-	
-	
-	
+		
+	/**
+	 * Get Setting
+	 * @param Id
+	 * @return
+	 */
 	public Setting getSetting(int UserID){
 		Setting temp =  (Setting)getCurrentSession().createQuery("from Setting where UserID = "+UserID ).uniqueResult();
 		return temp;
 	}
 	
-	
-	public void updateBusyStatus(int Id, int UserId){
+	/**
+	 * Update Busy Status when click question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void updateBusyStatusQuestion(int Id, int UserId){
 		String sqlstring = "update Questionmanagement set BusyStatus = :userid where ID = :Id";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("Id", Id);
@@ -505,24 +506,16 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		 q.executeUpdate();
 	}
 	
-	
-	//update status when do nothing
-	public void updateBusyStatusAfter(int Id, int UserId){	
+	/**
+	 * Update Busy Status when lick another question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void resetBusyStatusQuestion(int Id, int UserId){	
 		String sqlstring = "update Questionmanagement set BusyStatus = 0 where BusyStatus = :userid";
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("userid", UserId);
 		 q.executeUpdate();
 	}
-
 	
-	@SuppressWarnings("unchecked")
-	public List<Dictionary> getListDictionarybyStatus(int status){
-		return getCurrentSession().createQuery(" from Dictionary where Status = "+status+" AND DeleteStatus =0").list();
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Dictionary> getListDictionaryDelete(int status){
-		return getCurrentSession().createQuery(" from Dictionary where DeleteStatus =1").list();
-	}
 }

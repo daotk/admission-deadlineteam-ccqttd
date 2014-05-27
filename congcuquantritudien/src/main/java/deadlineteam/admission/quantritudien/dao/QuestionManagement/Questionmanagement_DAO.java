@@ -186,31 +186,45 @@ public interface Questionmanagement_DAO {
 	 */
 	public void addQuestion(Questionmanagement question);
 	
+	/**
+	 * Transfer Question to Dictionary
+	 * @param Id
+	 * @param userid
+	 */
+	public void copyQuestionToDictionary(int Id, int userid);
 	
-	
-	
-	public List<Dictionary> getListDictionarybyStatus(int status);
-	
-	
-	public void ResetUpdateAnwserBy(int Id, int userid);
-	
-	public List<Dictionary> getListDictionaryDelete(int status);
+	/**
+	 * Update DeleteBy and DeleteDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateDeleteByAndDeleteDate(int Id, int userid);
 
+	/**
+	 * Update AnswerBy And AnswerDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateAnwserByAndAnwserDate(int Id, int userid);
 	
-	
-	
-	
-	
-
-	
-	//-------------------- RESTful web service----------
-
-	public void TransferToDictionary(int Id, int userid);
-	public void UpdateDelete(int Id, int userid);
-	public void UpdateAnwserBy(int Id, int userid);
-	public Users getusername(int username);
-	
+	/**
+	 * Get Setting
+	 * @param Id
+	 * @return
+	 */
 	public Setting getSetting(int Id);
-	public void updateBusyStatus(int Id,int UserId);
-	public void updateBusyStatusAfter(int Id, int UserId);
+	
+	/**
+	 * Update Busy Status when click question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void updateBusyStatusQuestion(int Id,int UserId);
+	
+	/**
+	 * Update Busy Status when lick another question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void resetBusyStatusQuestion(int Id, int UserId);
 }

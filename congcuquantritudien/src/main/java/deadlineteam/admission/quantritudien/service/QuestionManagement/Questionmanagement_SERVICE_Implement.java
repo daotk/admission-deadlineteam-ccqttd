@@ -112,12 +112,6 @@ public class Questionmanagement_SERVICE_Implement implements
 	}
 
 
-	/*
-	 * Author: Phu Ta delete question that is selected
-	 */
-	public void ResetUpdateAnwserBy(int Id, int userid) {
-		QuestionmanagementDAO.ResetUpdateAnwserBy(Id, userid);
-	}
 
 	public int delete(int Id) {
 		return QuestionmanagementDAO.deleteQuestion(Id);
@@ -412,8 +406,7 @@ public class Questionmanagement_SERVICE_Implement implements
 						}
 					} else {
 						if (status == 5) {
-							List<Dictionary> list = QuestionmanagementDAO
-									.getListDictionarybyStatus(1);
+							List<Dictionary> list = Dictionary_DAO.getAllDictionaryAvailable();
 							int totaldictionary = list.size();
 
 							if (totaldictionary
@@ -426,8 +419,7 @@ public class Questionmanagement_SERVICE_Implement implements
 							}
 						} else {
 							if (status == 6) {
-								List<Dictionary> list = QuestionmanagementDAO
-										.getListDictionarybyStatus(2);
+								List<Dictionary> list = Dictionary_DAO.getAllDictionaryRecent();
 								int totaldictionary = list.size();
 								if (totaldictionary
 										% settings.getRecordDictionary() == 0) {
@@ -441,8 +433,7 @@ public class Questionmanagement_SERVICE_Implement implements
 
 							} else {
 								if (status == 7) {
-									List<Dictionary> list = QuestionmanagementDAO
-											.getListDictionarybyStatus(4);
+									List<Dictionary> list =Dictionary_DAO.getAllDictionaryDown();
 									int totaldictionary = list.size();
 									if (totaldictionary
 											% settings.getRecordDictionary() == 0) {
@@ -459,8 +450,7 @@ public class Questionmanagement_SERVICE_Implement implements
 								} else {
 									if (status == 8) {
 
-										List<Dictionary> list = QuestionmanagementDAO
-												.getListDictionaryDelete(4);
+										List<Dictionary> list = Dictionary_DAO.getAllDictionaryDeleted();
 										int totaldictionary = list.size();
 										if (totaldictionary
 												% settings
@@ -485,10 +475,6 @@ public class Questionmanagement_SERVICE_Implement implements
 			}
 		}
 		return result;
-	}
-
-	public List<Dictionary> getListDictionaryDelete(int status) {
-		return QuestionmanagementDAO.getListDictionaryDelete(status);
 	}
 
 	@Override
@@ -558,7 +544,7 @@ public class Questionmanagement_SERVICE_Implement implements
 				Users information = UserDAO.getUserByUserID(userid);
 				int author = information.getAuthorization();
 				if (userid == question.getDeleteBy()) {
-					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+					QuestionmanagementDAO.updateDeleteByAndDeleteDate(deleteid, userid);
 					QuestionmanagementDAO.restoreQuestion(deleteid);
 					QuestionmanagementDAO.updateDeleteByAndDeleteDate(deleteid);
 					returnlist.add(question);
@@ -571,7 +557,7 @@ public class Questionmanagement_SERVICE_Implement implements
 							// Null
 						} else {
 							QuestionmanagementDAO
-									.UpdateDelete(deleteid, userid);
+									.updateDeleteByAndDeleteDate(deleteid, userid);
 							QuestionmanagementDAO.restoreQuestion(deleteid);
 							returnlist.add(question);
 						}
@@ -579,7 +565,7 @@ public class Questionmanagement_SERVICE_Implement implements
 				}
 
 			} else {
-				QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+				QuestionmanagementDAO.updateDeleteByAndDeleteDate(deleteid, userid);
 				QuestionmanagementDAO.restoreQuestion(deleteid);
 				returnlist.add(question);
 			}
@@ -600,7 +586,7 @@ public class Questionmanagement_SERVICE_Implement implements
 				Users information = UserDAO.getUserByUserID(userid);
 				int author = information.getAuthorization();
 				if (userid == question.getDeleteBy()) {
-					QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+					QuestionmanagementDAO.updateDeleteByAndDeleteDate(deleteid, userid);
 					QuestionmanagementDAO.deleteQuestion(deleteid);
 					returnlist.add(question);
 				} else {
@@ -612,7 +598,7 @@ public class Questionmanagement_SERVICE_Implement implements
 							// Null
 						} else {
 							QuestionmanagementDAO
-									.UpdateDelete(deleteid, userid);
+									.updateDeleteByAndDeleteDate(deleteid, userid);
 							QuestionmanagementDAO.deleteQuestion(deleteid);
 							returnlist.add(question);
 						}
@@ -620,7 +606,7 @@ public class Questionmanagement_SERVICE_Implement implements
 				}
 
 			} else {
-				QuestionmanagementDAO.UpdateDelete(deleteid, userid);
+				QuestionmanagementDAO.updateDeleteByAndDeleteDate(deleteid, userid);
 				QuestionmanagementDAO.deleteQuestion(deleteid);
 				returnlist.add(question);
 			}
@@ -634,21 +620,16 @@ public class Questionmanagement_SERVICE_Implement implements
 	}
 
 	public void TransferToDictionary(int Id, int userid) {
-		QuestionmanagementDAO.TransferToDictionary(Id, userid);
+		QuestionmanagementDAO.copyQuestionToDictionary(Id, userid);
 	}
 
 	public void UpdateDelete(int Id, int userid) {
-		QuestionmanagementDAO.UpdateDelete(Id, userid);
+		QuestionmanagementDAO.updateDeleteByAndDeleteDate(Id, userid);
 	}
 
 	public void UpdateAnwserBy(int Id, int userid) {
-		QuestionmanagementDAO.UpdateAnwserBy(Id, userid);
+		QuestionmanagementDAO.updateAnwserByAndAnwserDate(Id, userid);
 	}
-
-	public Users getusername(int username) {
-		return QuestionmanagementDAO.getusername(username);
-	}
-
 	public Setting getSetting(int UserId) {
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
@@ -658,11 +639,11 @@ public class Questionmanagement_SERVICE_Implement implements
 	}
 
 	public void updateBusyStatus(int Id, int UserId) {
-		QuestionmanagementDAO.updateBusyStatus(Id, UserId);
+		QuestionmanagementDAO.updateBusyStatusQuestion(Id, UserId);
 	}
 
 	public void updateBusyStatusAfter(int Id, int UserId) {
-		QuestionmanagementDAO.updateBusyStatusAfter(Id, UserId);
+		QuestionmanagementDAO.resetBusyStatusQuestion(Id, UserId);
 	}
 
 	public boolean checkQuestionIsBusy(int Id, int UserId) {

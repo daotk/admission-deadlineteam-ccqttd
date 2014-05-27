@@ -18,8 +18,6 @@ public interface Questionmanagement_SERVICE{
 	public boolean checkQuestionIsBusy(int Id,int UserId) ;
 	//delete question that is selected
 	public int delete(int Id);
-	//--------------------- Delete Page
-	public List<Dictionary> getListDictionaryDelete(int status);
 	// Delete question-list page
 	public List<Questionmanagement> deleteList(int page, int UserID);
 	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID);
@@ -40,7 +38,6 @@ public interface Questionmanagement_SERVICE{
 	// Save Temporaty
 	public int updatedelete(int ID);
 	public int SaveTemporaryAnswerbyId(int Id,String Answer);
-	public void ResetUpdateAnwserBy(int Id, int userid);
 	//-------------------------replied page
 	//replied question-list page
 	public List<Questionmanagement> repliedList(int page, int UserID);
@@ -65,7 +62,6 @@ public interface Questionmanagement_SERVICE{
 	public void TransferToDictionary(int Id, int userid);
 	public void UpdateDelete(int Id, int userid);
 	public void UpdateAnwserBy(int Id, int userid);
-	public Users getusername(int username);
 	public Setting getSetting(int UserId);
 	//update Busy Status when user click question
 	public void updateBusyStatus(int Id,int UserId);
