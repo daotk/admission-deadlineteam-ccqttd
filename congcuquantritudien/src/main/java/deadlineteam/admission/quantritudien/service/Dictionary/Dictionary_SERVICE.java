@@ -142,41 +142,184 @@ public interface Dictionary_SERVICE {
 	 */
 	public List<Dictionary> getAllListDownDictionary(int page, int UserID);
 	
-	
+	/**
+	 * Get Down Dictionary By ID
+	 * @param Id
+	 * @return
+	 */
 	public Dictionary getDownDictionaryByID(int Id);
 	
+	/**
+	 * Update Question And Answer Dictionary
+	 * @param Id
+	 * @param Anwser
+	 * @param Question
+	 * @return
+	 */
+	public int updateQuesionAndAnwserDictionary(int Id,String Anwser, String Question);
 	
-	
-
-	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
+	/**
+	 * get Dictionary Not Delete By ID
+	 * @param Id
+	 * @return
+	 */
 	public Dictionary getDictionaryByIDNotDelete(int Id);
 	
-	
-	
-	public int updateQuesionAndAnwserDictionary(int Id,String Anwser, String Question);
-
-	
-	
+	/**
+	 * Update UpdateBy And UpdateDate When Down Dictionary
+	 * @param Id
+	 * @param userID
+	 */
 	public void updateUpdateByAndUpdateDateWhenDown(int Id, int userID);
+	
+	/**
+	 * Update DeleteBy And DeleteDate When Delete Dictionary
+	 * @param Id
+	 * @param userID
+	 */
 	public void updateDeleteByAndDeleteDateWhenDelete(int Id, int userID);
+	
+	/**
+	 * Get Setting
+	 * @param UserId
+	 * @return
+	 */
 	public Setting getSetting(int UserId);
+	
+	/**
+	 * Search Index
+	 * @param keyword
+	 * @param Status
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
+	
+	/**
+	 * Check Dictionary By UserID
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkDictionaryByUserId(int UserId,int Id);
+	
+	/**
+	 * Check Dictionary Delete By UserID
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id);
+	
+	/**
+	 * Check ID Dictionary Is Existed
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionary(int Id);
+	
+	/**
+	 * Check Id Dictionary In Available List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionaryAvaiable(int Id);
+	
+	/**
+	 * Check ID Dictionary Delete
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionaryDeleted(int Id);
+	
+	/**
+	 * Check Id Dictionary Upload
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionaryUp(int Id);
+	
+	/**
+	 * Check ID Dictionary Down
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionaryDown(int Id) ;
 	
+
 	// khang 15/10
-			public List<Dictionary> getDictionaryAvailableForAdmin(int page);
-			public List<Dictionary> getDictionaryAvailableForUser(int page, int UserID);
-			public List<Dictionary> searchDictionaryAvailableForAdmin(int page, String keyword);
-			public List<Dictionary> searchDictionaryAvailableForUser(int page, String keyword, int UserID);
-			public List<Dictionary> getDictionaryUpload(int page);
-			public List<Dictionary> searchDictionaryUpload(int page, String keyword);
-			public List<Dictionary> getDictionaryDown(int page);
-			public List<Dictionary> searchDictionaryDown(int page, String keyword);
-			public List<Dictionary> getDictionaryDelete(int page);
-			public List<Dictionary> searchDictionaryDelete(int page, String keyword);
+	
+	/**
+	 * Get List Available Dictionary For Administrator
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryAvailableForAdmin(int page);
+	
+	/**
+	 * Get List Available Dictionary For User
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryAvailableForUser(int page, int UserID);
+	
+	/**
+	 * Search Available Dictionary For Administrator
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryAvailableForAdmin(int page, String keyword);
+	
+	/**
+	 * Search Available Dictionary For User
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryAvailableForUser(int page, String keyword, int UserID);
+	
+	/**
+	 * Get Dictionary Upload
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryUpload(int page);
+	
+	/**
+	 * Search Dictionary Upload
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryUpload(int page, String keyword);
+	
+	/**
+	 * Get Dictionary Down
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryDown(int page);
+	
+	/**
+	 * Search Dictionary Down
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryDown(int page, String keyword);
+	
+	/**
+	 * Get Dictionary Delete
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryDelete(int page);
+	
+	/**
+	 * Search Dictionary Delete
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryDelete(int page, String keyword);
 }

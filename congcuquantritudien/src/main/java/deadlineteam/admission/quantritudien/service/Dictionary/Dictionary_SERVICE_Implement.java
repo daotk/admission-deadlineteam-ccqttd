@@ -369,27 +369,69 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return newlist;
 	}
 	
-	
+	/**
+	 * Get Down Dictionary By ID
+	 * @param Id
+	 * @return
+	 */
 	public Dictionary getDownDictionaryByID(int Id){
 		return DictionaryDAO.getDownDictionaryByID(Id);
 	}
+
+	/**
+	 * Update Question And Answer Dictionary
+	 * @param Id
+	 * @param Anwser
+	 * @param Question
+	 * @return
+	 */
 	public int updateQuesionAndAnwserDictionary(int Id,String Anwser,  String Question){
 		return DictionaryDAO.updateQuesionAndAnwserDictionary(Id, Anwser, Question);
 	}
 
+	/**
+	 * get Dictionary Not Delete By ID
+	 * @param Id
+	 * @return
+	 */
 	public Dictionary getDictionaryByIDNotDelete(int Id){
 		return DictionaryDAO.getDictionaryByIDNotDelete(Id);
 	}
+	
+	/**
+	 * Update UpdateBy And UpdateDate When Down Dictionary
+	 * @param Id
+	 * @param userID
+	 */
 	public void updateUpdateByAndUpdateDateWhenDown(int Id, int userID){
 		DictionaryDAO.updateUpdateByAndUpdateDateWhenDown(Id, userID);
 	}
+	
+	/**
+	 * Update DeleteBy And DeleteDate When Delete Dictionary
+	 * @param Id
+	 * @param userID
+	 */
 	public void updateDeleteByAndDeleteDateWhenDelete(int Id, int userID){
 		DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(Id, userID);
 	}
 
+	/**
+	 * Get Setting
+	 * @param UserId
+	 * @return
+	 */
 	public Setting getSetting(int UserId){
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
+	
+	/**
+	 * Search Index
+	 * @param keyword
+	 * @param Status
+	 * @param UserID
+	 * @return
+	 */
 	public List<Dictionary> searchIdex(String keyword,String Status, int UserID){
 		List<Dictionary> list = DictionaryDAO.searchIdex(keyword, Status, UserID);
 		List<Dictionary> newlist = new ArrayList<Dictionary>();
@@ -407,6 +449,13 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		
 	}
 	
+
+	/**
+	 * Check Dictionary By UserID
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkDictionaryByUserId(int UserId,int Id) {
 			Dictionary dictionary = DictionaryDAO.getDictionaryByID(Id);
 			if(UserSERVICE.checkIsAdmin(UserId)==true){
@@ -428,6 +477,12 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 			}	
 	}
 		
+	/**
+	 * Check Dictionary Delete By UserID
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkDictionaryDeleteByUserId(int UserId,int Id) {
 			Dictionary dictionary = DictionaryDAO.getDictionaryByID(Id);
 			if(UserSERVICE.checkIsAdmin(UserId)==true){
@@ -441,6 +496,11 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 			}	
 	}
 	
+	/**
+	 * Check ID Dictionary Is Existed
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionary(int Id) {
 		
 		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionary();
@@ -454,7 +514,12 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return result;
 	}
 	
-public boolean checkIdDictionaryAvaiable(int Id) {
+	/**
+	 * Check Id Dictionary In Available List
+	 * @param Id
+	 * @return
+	 */
+	public boolean checkIdDictionaryAvaiable(int Id) {
 		
 		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryAvailable();
 		boolean result = false;
@@ -467,6 +532,11 @@ public boolean checkIdDictionaryAvaiable(int Id) {
 		return result;
 	}
 
+	/**
+	 * Check ID Dictionary Delete
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionaryDeleted(int Id) {
 		
 		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryDeleted();
@@ -480,7 +550,12 @@ public boolean checkIdDictionaryAvaiable(int Id) {
 		return result;
 	}
 	
-public boolean checkIdDictionaryUp(int Id) {
+	/**
+	 * Check Id Dictionary Upload
+	 * @param Id
+	 * @return
+	 */
+	public boolean checkIdDictionaryUp(int Id) {
 		
 		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryRecent();
 		boolean result = false;
@@ -492,7 +567,12 @@ public boolean checkIdDictionaryUp(int Id) {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * Check ID Dictionary Down
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdDictionaryDown(int Id) {
 		
 		List<Dictionary> listdictionary = DictionaryDAO.getAllDictionaryDown();
@@ -506,343 +586,407 @@ public boolean checkIdDictionaryUp(int Id) {
 		return result;
 	}
 		
+	
 	// Khang android update 15/05
-		public List<Dictionary> getDictionaryAvailableForAdmin(int page){
-			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
-			
-			List<Dictionary> list = DictionaryDAO.getAvailableListForAdministrator();
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getCreateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getCreateDate().compareTo(max)>0){
-						max = list.get(i).getCreateDate();
-						rememberint = i;
-					}
+	
+	/**
+	 * Get List Available Dictionary For Administrator
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryAvailableForAdmin(int page){			
+		List<Dictionary> list = DictionaryDAO.getAvailableListForAdministrator();
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> getDictionaryAvailableForUser(int page, int UserID){
-			
-			List<Dictionary> list = DictionaryDAO.getAvailableListDictionaryForUser(UserID);
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getCreateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getCreateDate().compareTo(max)>0){
-						max = list.get(i).getCreateDate();
-						rememberint = i;
-					}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
+	
+	/**
+	 * Get List Available Dictionary For User
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryAvailableForUser(int page, int UserID){
+		
+		List<Dictionary> list = DictionaryDAO.getAvailableListDictionaryForUser(UserID);
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> searchDictionaryAvailableForAdmin(int page, String keyword){
-			List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "1", 0); // 0 la khong co su dung so 0
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getCreateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getCreateDate().compareTo(max)>0){
-						max = list.get(i).getCreateDate();
-						rememberint = i;
-					}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+	}
+	
+	/**
+	 * Search Available Dictionary For Administrator
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryAvailableForAdmin(int page, String keyword){
+		List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "1", 0); // 0 la khong co su dung so 0
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> searchDictionaryAvailableForUser(int page, String keyword, int UserID){
-			
-			List<Dictionary> question = DictionaryDAO.searchIdex(keyword, "1", UserID);
-			
-			List<Dictionary> newlistquestion= new ArrayList<Dictionary>();
-			int L=0;
-			for(int i=0;i<question.size();i++){
-				if(question.get(i).getCreateBy().equals(UserID)){
-					newlistquestion.add(L,question.get(i));
-					L++;
-				}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
+	/**
+	 * Search Available Dictionary For User
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryAvailableForUser(int page, String keyword, int UserID){
+		
+		List<Dictionary> question = DictionaryDAO.searchIdex(keyword, "1", UserID);
+		
+		List<Dictionary> newlistquestion= new ArrayList<Dictionary>();
+		int L=0;
+		for(int i=0;i<question.size();i++){
+			if(question.get(i).getCreateBy().equals(UserID)){
+				newlistquestion.add(L,question.get(i));
+				L++;
 			}
-			List<Dictionary> list = newlistquestion;
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getCreateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getCreateDate().compareTo(max)>0){
-						max = list.get(i).getCreateDate();
-						rememberint = i;
-					}
-				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
-			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
 		}
-		public List<Dictionary> getDictionaryUpload(int page){
-			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
-			
-			List<Dictionary> list = DictionaryDAO.getAllDictionaryRecent();
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getUpdateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getUpdateDate().compareTo(max)>0){
-						max = list.get(i).getUpdateDate();
-						rememberint = i;
-					}
+		List<Dictionary> list = newlistquestion;
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getCreateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getCreateDate().compareTo(max)>0){
+					max = list.get(i).getCreateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> searchDictionaryUpload(int page, String keyword){
-			List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "2", 0); // 0 la khong co su dung so 0
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getUpdateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getUpdateDate().compareTo(max)>0){
-						max = list.get(i).getUpdateDate();
-						rememberint = i;
-					}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+	}
+	
+	/**
+	 * Get Dictionary Upload
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryUpload(int page){
+		//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+		
+		List<Dictionary> list = DictionaryDAO.getAllDictionaryRecent();
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getUpdateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getUpdateDate().compareTo(max)>0){
+					max = list.get(i).getUpdateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> getDictionaryDown(int page){
-			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
-			
-			List<Dictionary> list = DictionaryDAO.getAllDictionaryDown();
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getUpdateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getUpdateDate().compareTo(max)>0){
-						max = list.get(i).getUpdateDate();
-						rememberint = i;
-					}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
+	
+	
+	/**
+	 * Search Dictionary Upload
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryUpload(int page, String keyword){
+		List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "2", 0); // 0 la khong co su dung so 0
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getUpdateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getUpdateDate().compareTo(max)>0){
+					max = list.get(i).getUpdateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> searchDictionaryDown(int page, String keyword){
-			List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "3", 0); // 0 la khong co su dung so 0
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getUpdateDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getUpdateDate().compareTo(max)>0){
-						max = list.get(i).getUpdateDate();
-						rememberint = i;
-					}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
+	
+
+	/**
+	 * Get Dictionary Down
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryDown(int page){
+		//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+		
+		List<Dictionary> list = DictionaryDAO.getAllDictionaryDown();
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getUpdateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getUpdateDate().compareTo(max)>0){
+					max = list.get(i).getUpdateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> getDictionaryDelete(int page){
-			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
-			
-			List<Dictionary> list = DictionaryDAO.getAllDictionaryDeleted();
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getDeleteDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getDeleteDate().compareTo(max)>0){
-						max = list.get(i).getDeleteDate();
-						rememberint = i;
-					}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
+	
+	/**
+	 * Search Dictionary Down
+	 * @param page
+	 * @param keyword
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryDown(int page, String keyword){
+		List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "3", 0); // 0 la khong co su dung so 0
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getUpdateDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getUpdateDate().compareTo(max)>0){
+					max = list.get(i).getUpdateDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
-		public List<Dictionary> searchDictionaryDelete(int page, String keyword){
-			List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "4", 0); // 0 la khong co su dung so 0
-			List<Dictionary> sortlist = new ArrayList<Dictionary>();
-			for(;list.size()>0;){
-				Date max = list.get(0).getDeleteDate();
-				int rememberint =0;
-				for(int i=1;i<list.size();i++){
-					if(list.get(i).getDeleteDate().compareTo(max)>0){
-						max = list.get(i).getDeleteDate();
-						rememberint = i;
-					}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
+	
+	/**
+	 * Get Dictionary Delete
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> getDictionaryDelete(int page){
+		//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
+		
+		List<Dictionary> list = DictionaryDAO.getAllDictionaryDeleted();
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getDeleteDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getDeleteDate().compareTo(max)>0){
+					max = list.get(i).getDeleteDate();
+					rememberint = i;
 				}
-				sortlist.add(list.get(rememberint));
-				list.remove(rememberint);
 			}
-			
-			List<Dictionary> shortlist = new ArrayList<Dictionary>();
-	         int setting = numAndroid;
-	         int begin = 0;
-	         int end =  page*setting + setting;
-	         if(end > sortlist.size()){
-	         	end = sortlist.size();
-	         }
-	         int l = 0;
-	         for(int k = begin; k< end;k++){
-	         	shortlist.add(l, sortlist.get(k));
-	         	l++;
-	         }
-	         
-			return shortlist;
-			
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
 		}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
+	
+	/**
+	 * Search Dictionary Delete
+	 * @param page
+	 * @return
+	 */
+	public List<Dictionary> searchDictionaryDelete(int page, String keyword){
+		List<Dictionary> list = DictionaryDAO.searchIdex(keyword, "4", 0); // 0 la khong co su dung so 0
+		List<Dictionary> sortlist = new ArrayList<Dictionary>();
+		for(;list.size()>0;){
+			Date max = list.get(0).getDeleteDate();
+			int rememberint =0;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).getDeleteDate().compareTo(max)>0){
+					max = list.get(i).getDeleteDate();
+					rememberint = i;
+				}
+			}
+			sortlist.add(list.get(rememberint));
+			list.remove(rememberint);
+		}
+		
+		List<Dictionary> shortlist = new ArrayList<Dictionary>();
+         int setting = numAndroid;
+         int begin = 0;
+         int end =  page*setting + setting;
+         if(end > sortlist.size()){
+         	end = sortlist.size();
+         }
+         int l = 0;
+         for(int k = begin; k< end;k++){
+         	shortlist.add(l, sortlist.get(k));
+         	l++;
+         }
+         
+		return shortlist;
+		
+	}
 }
