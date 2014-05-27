@@ -559,27 +559,31 @@ public class UserController {
 				@RequestMapping(value = "/cauhinhhethong", method = RequestMethod.POST)
 				public String cauhinhhethongpost( 	
 						@RequestParam String actionsubmit ,
-						@RequestParam(value = "username", required = false, defaultValue= "0") String username, 
-						@RequestParam(value = "password", required = false, defaultValue= "0") String password, 
-						@RequestParam(value = "url", required = false, defaultValue= "0") String url, 
-						@RequestParam(value = "driver", required = false, defaultValue= "0") String driver, 
+						@RequestParam(value = "username", required = false) String username, 
+						@RequestParam(value = "password", required = false) String password, 
+						@RequestParam(value = "url", required = false) String url, 
+						@RequestParam(value = "driver", required = false) String driver, 
 						@ModelAttribute("listUser") Users user,
 						Model model,
 						HttpSession session,Locale locale) throws ConfigurationException, org.apache.commons.configuration.ConfigurationException {		
 					if(actionsubmit.equals("change")){
-						CrunchifyUpdateConfig config = new CrunchifyUpdateConfig();
-						config.ConfigSystem(driver,username,password, url);
-						model.addAttribute("driver", driver);
-						model.addAttribute("url", url);
-						model.addAttribute("username", username);
-						model.addAttribute("password", password);
-						model.addAttribute("message",  msgSrc.getMessage("message.changconfig.system.success", null,locale));
-						int login = Integer.parseInt(session.getAttribute("login").toString());
-						Users users = userService.getUserByUserID(login);
-						logger.info("Tài khoản "+ users.getUserName()+" thay đổi cấu hình hệ thống");
+						if(username !="" && password !=""){
+							CrunchifyUpdateConfig config = new CrunchifyUpdateConfig();
+							config.ConfigSystem(driver,username,password, url);
+							model.addAttribute("driver", driver);
+							model.addAttribute("url", url);
+							model.addAttribute("username", username);
+							model.addAttribute("password", password);
+							model.addAttribute("message",  msgSrc.getMessage("message.changconfig.system.success", null,locale));
+							int login = Integer.parseInt(session.getAttribute("login").toString());
+							Users users = userService.getUserByUserID(login);
+							logger.info("Tài khoản "+ users.getUserName()+" thay đổi cấu hình hệ thống");
+						}else{
+							model.addAttribute("error", msgSrc.getMessage("message.dictionary.setting.fail", null,locale));
+						}
+						
 					}
 					
-						
 					return "setting-system";
 				}
 		

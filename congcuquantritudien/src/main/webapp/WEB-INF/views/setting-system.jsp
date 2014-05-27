@@ -58,7 +58,27 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td><b style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif; float: left;">${message}</b></td>
+						<c:if test="${not empty error}">
+								<script type="text/javascript">
+									var mess = '${error}';
+									$.msgbox({
+										type: 'error',
+										content: mess,
+										title: 'Thất bại'
+									});
+								</script>
+							</c:if>	
+							</div>
+							<c:if test="${not empty message}">
+								<script type="text/javascript">
+									var mess = '${message}';
+				        				$.msgbox({
+										type: 'success',
+										content: mess,
+										title: 'Thành công'
+									});
+			        			</script>
+		        			</c:if>	
 					</tr>
 					<tr>
 						<td></td>
