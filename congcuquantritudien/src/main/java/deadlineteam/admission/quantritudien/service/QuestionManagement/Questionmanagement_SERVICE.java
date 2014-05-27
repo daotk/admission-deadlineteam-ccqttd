@@ -8,71 +8,325 @@ import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 
 public interface Questionmanagement_SERVICE{
-	public List<Questionmanagement> findpage1(String keyword);
-	public List<Questionmanagement> getListQuestionmanagement();
-	public Questionmanagement getQuestionmanagementbyID(int Id) ;
-	public List<Questionmanagement> getQuestionmanagementbyPage(int page, int UserID);
-	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin(int page, int UserID);
-	public int updateAnswerbyId(int Id,String Answer);
 	
-	public boolean checkQuestionIsBusy(int Id,int UserId) ;
-	//delete question that is selected
-	public int delete(int Id);
-	// Delete question-list page
-	public List<Questionmanagement> deleteList(int page, int UserID);
-	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID);
-	//Load deletequestion-list
-	public Questionmanagement deletequestion(int Id);
-	//restore question that is selected
-	public int restore(int Id);
-	//--------------------- Save Page
-	//Save-question list page
-	public Questionmanagement savequestion(int Id);
-	//Load save-question list for user
-	public List<Questionmanagement> savelist(int page, int UserID);
-	//Load save-question list for admin
-	public List<Questionmanagement> getSaveListForAdmin(int page,int UserID );
-	//delete save-question that is selected
-	//send save-question
-	public int SendAnwser(int Id,String Answer);
-	// Save Temporaty
-	public int updatedelete(int ID);
-	public int SaveTemporaryAnswerbyId(int Id,String Answer);
-	//-------------------------replied page
-	//replied question-list page
-	public List<Questionmanagement> repliedList(int page, int UserID);
-	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID);
+	/**
+	 * Get List Question Not Reply
+	 * @return
+	 */
+	public List<Questionmanagement> getListQuestionNotReply();
 	
-	//load replied question-list
-	public Questionmanagement repliedquestion(int ID);
+	/**
+	 * Get Question By ID
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getQuestionByID(int Id) ;
 	
-	//delete replied question that is selected
-	public int deleterepliedquestion(int ID);
+	/**
+	 * Get Question Not Reply By Page For User
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getQuestionNotReplyByPageForUser(int page, int UserID);
 	
-	public int totalPageQuestiomanagement(int status, int UserID);
-	public int totalPageQuestiomanagementDelete(int status);
+	/**
+	 * Get Question Not Reply By Page For Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getQuestionNotReplyByPageForAdmin(int page, int UserID);
+	
+	/**
+	 * Update Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int updateAnswer(int Id,String Answer);
+	
+	/**
+	 * Delete Question
+	 * @param Id
+	 * @return
+	 */
+	public int deleteQuestion(int Id);
+	
+	/**
+	 * Get Question Was Delete
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getDeletedQuestion(int Id);
+	
+	/**
+	 * Get All Deleted Question By Page for User
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getListDeletedQuestionByPageForUser(int page, int UserID);
+	
+	/**
+	 * Get All Deleted Question By Page for Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getListDeletedQuestionByPageForAdmin(int page, int UserID);
+	
+	/**
+	 * Update DeleteBy and DeleteDate
+	 * @param ID
+	 * @return
+	 */
+	public int updateDeleteByAndDeleteDate(int ID);
+	
+	/**
+	 * Restore Question
+	 * @param Id
+	 * @return
+	 */
+	public int restoreQuestion(int Id);
+	
+	/**
+	 * Get Save Question
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getSaveQuestion(int Id);
+	
+	/**
+	 * Get List Save Question By Page For User
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getSaveListByPageForUser(int page, int UserID);
+	
+	/**
+	 * Get List Save Question By Page For Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getSaveListByPageForAdmin(int page,int UserID );
+	
+	/**
+	 * Update Question When Send Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int updateQuestionWhenSendAnwser(int Id,String Answer);
+	
+	/**
+	 * Save Question
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int saveTemporaryQuestion(int Id,String Answer);
+	
+	/**
+	 * Get List Replied Question By Page For User
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getRepliedListByPageForUser(int page, int UserID);
+	/**
+	 * Get List Replied Question By Page For Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getRepliedListByPageForAdmin(int page, int UserID);
+	
+	/**
+	 * Get Replied Question By ID
+	 * @param ID
+	 * @return
+	 */
+	public Questionmanagement getRepliedQuestion(int ID);
+	
+	/**
+	 * Get Total Page Question and Dictionary By Status and User
+	 * @param status
+	 * @param UserID
+	 * @return
+	 */
+	public int totalPageQuestionAndDictionary(int status, int UserID);
+	
+	/**
+	 * Get Total Page Question Delete
+	 * @param status
+	 * @return
+	 */
+	public int totalPageQuestionDeleted(int status);
+	
+	/**
+	 * Create Index
+	 */
 	public void createIndex();
-	public List<Questionmanagement> searchIdex(String keyword,String Status);
-	public List<Questionmanagement> searchIdexForAdmin(String keyword,String Status,int UserID);
-	public List<Questionmanagement> searchIdexDeleteListForAdmin(String keyword,String Status,int UserID);
-	public List<Questionmanagement> deleteall (String listdelete, int userid);
-	public List<Questionmanagement> restoreall (String listdelete, int userid);
+	
+	/**
+	 * Search Index For Administrator
+	 * @param keyword
+	 * @param Status
+	 * @return
+	 */
+	public List<Questionmanagement> searchIndexForAdmin(String keyword,String Status);
+	
+	/**
+	 * Search Index For User
+	 * @param keyword
+	 * @param Status
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> searchIndexForUser(String keyword,String Status,int UserID);
+	
+	/**
+	 * Search Index Delete Question For User
+	 * @param keyword
+	 * @param Status
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> searchIndexDeleteListForUser(String keyword,String Status,int UserID);
+	
+	/**
+	 * Restore Multiple Question
+	 * @param listdelete
+	 * @param userid
+	 * @return
+	 */
+	public List<Questionmanagement> restoreMultipleQuestion (String listdelete, int userid);
+	
+	/**
+	 * Delete Multiple Question
+	 * @param listdelete
+	 * @param userid
+	 * @return
+	 */
+	public List<Questionmanagement> deleteMultipleQuestion (String listdelete, int userid);
+
+	
 	//----------------RESTful web service
+	/**
+	 * Add Question
+	 * @param question
+	 */
 	public void addQuestionRESTful(Questionmanagement question);
+	
+	/**
+	 * Copy Question to Dictionary
+	 * @param Id
+	 * @param userid
+	 */
 	public void TransferToDictionary(int Id, int userid);
-	public void UpdateDelete(int Id, int userid);
-	public void UpdateAnwserBy(int Id, int userid);
+	
+	/**
+	 * Update DeleteBy And DeleteDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateDeleteByAndDeleteDate(int Id, int userid);
+	
+	/**
+	 * Update AnwserBy and AnwserDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateAnwserByAndAnwserDate(int Id, int userid);
+	
+	/**
+	 * Get Setting
+	 * @param UserId
+	 * @return
+	 */
 	public Setting getSetting(int UserId);
-	//update Busy Status when user click question
-	public void updateBusyStatus(int Id,int UserId);
-	public void updateBusyStatusAfter(int Id,int UserId);
-	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status);
+	
+	/**
+	 * Get List Question by Status
+	 * @param status
+	 * @return
+	 */
+	public List<Questionmanagement> getListQuestionbyStatus(int status);
+	
+	/**
+	 * Update BusyStatus Question When Click Question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void updateBusyStatusQuestion(int Id,int UserId);
+	
+	/**
+	 * Reset BusyStatus Question When Click Question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void resetBusyStatusQuestion(int Id,int UserId);
+
+	/**
+	 * Check Question Is Busy
+	 * @param Id
+	 * @param UserId
+	 * @return
+	 */
+	public boolean checkQuestionIsBusy(int Id,int UserId) ;
+	
+	/**
+	 * Get UserID in Busy Status By ID Question
+	 * @param Id
+	 * @return
+	 */
 	public int geUserIDByIdQuestion(int Id);
-	public boolean checkSavaListByUserId(int UserId,int Id);
+	
+	/**
+	 * Check UserID can use ID Question in Save List
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
+	public boolean checkSaveListByUserId(int UserId,int Id);
+	
+	/**
+	 * Check UserID can use ID Question in Delete List
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkDeleteListByUserId(int UserId,int Id);
+	
+	/**
+	 * Check ID Question in Not Reply List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionNotReply(int Id) ;
+	
+	/**
+	 * Check ID Question in Not Save List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionSave(int Id) ;
+	
+	/**
+	 * Check ID Question in Not Reply List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionReplied(int Id) ;
+	
+	/**
+	 * Check ID Question in Not Delete List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionDeleted(int Id);
 
 	// Khang android update 11/05

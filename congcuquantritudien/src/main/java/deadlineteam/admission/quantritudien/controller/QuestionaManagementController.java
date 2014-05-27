@@ -91,9 +91,9 @@ public class QuestionaManagementController {
 				//check is admin
 				List<Questionmanagement> ListQuestion;
 				if(userService.checkIsAdmin(UserId)==true){
-					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(page-1,  UserID);
+					ListQuestion= QuestionmanagementService.getQuestionNotReplyByPageForAdmin(page-1,  UserID);
 				}else{
-					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
+					ListQuestion= QuestionmanagementService.getQuestionNotReplyByPageForUser( page-1,  UserID);;
 				}
 				for(int i=0;i < ListQuestion.size();i++){
 					if(ListQuestion.get(i).getQuestion().length() >= check){
@@ -108,7 +108,7 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserId));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserId));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());				
 				model.addAttribute("fullname",userService.getFullnameByID(UserId));
 				model.addAttribute("questionmanagements", new Questionmanagement());
@@ -122,9 +122,9 @@ public class QuestionaManagementController {
 					//check is admin
 					List<Questionmanagement> ListQuestion;
 					if(userService.checkIsAdmin(UserID)==true){
-						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(page-1,  UserID);
+						ListQuestion= QuestionmanagementService.getQuestionNotReplyByPageForAdmin(page-1,  UserID);
 					}else{
-						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
+						ListQuestion= QuestionmanagementService.getQuestionNotReplyByPageForUser( page-1,  UserID);;
 					}
 					for(int i=0;i < ListQuestion.size();i++){
 						if(ListQuestion.get(i).getQuestion().length() >= check){
@@ -138,7 +138,7 @@ public class QuestionaManagementController {
 					model.addAttribute("numOfRecord", ""+numOfRecord);
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 					model.addAttribute("listquestionmanagement", ListQuestion);
 					return "home";
@@ -147,15 +147,15 @@ public class QuestionaManagementController {
 					session.setAttribute("Id", Id);
 					session.setAttribute("Page",page );
 					model.addAttribute("abc", Id);
-					QuestionmanagementService.updateBusyStatusAfter(Id,UserID);
-					Questionmanagement questionmanagement = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					QuestionmanagementService.resetBusyStatusQuestion(Id,UserID);
+					Questionmanagement questionmanagement = QuestionmanagementService.getQuestionByID(Id);
 					
 					//check is admin
 					List<Questionmanagement> ListQuestion;
 					if(userService.checkIsAdmin(UserID)==true){
-						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(page-1,  UserID);
+						ListQuestion= QuestionmanagementService.getQuestionNotReplyByPageForAdmin(page-1,  UserID);
 					}else{
-						ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage( page-1,  UserID);;
+						ListQuestion= QuestionmanagementService.getQuestionNotReplyByPageForUser( page-1,  UserID);;
 					}
 					for(int i=0;i < ListQuestion.size();i++){
 						if(ListQuestion.get(i).getQuestion().length() >= check){
@@ -170,7 +170,7 @@ public class QuestionaManagementController {
 					model.addAttribute("numOfRecord", ""+numOfRecord);
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 					model.addAttribute("listquestionmanagement", ListQuestion);
 					model.addAttribute("fullname", userService.getFullnameByID(UserID));
@@ -178,7 +178,7 @@ public class QuestionaManagementController {
 					session.setAttribute("email",questionmanagement.getQuestionEmail());
 					
 					//update busy status when user click question
-					QuestionmanagementService.updateBusyStatus(Id,UserID);
+					QuestionmanagementService.updateBusyStatusQuestion(Id,UserID);
 					session.setAttribute("BusyStatus",UserID);
 					return "home";
 					}
@@ -193,7 +193,7 @@ public class QuestionaManagementController {
 	
 	public void checkBusyStatus(int Id,int UserID, HttpSession session){
 		if(session.getValue("BusyStatus") != null){
-			QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
+			QuestionmanagementService.resetBusyStatusQuestion(Id,UserID); 
 		}
 	}
 	
@@ -225,7 +225,7 @@ public class QuestionaManagementController {
 					//xu ly luu cau tra loi va gui mail
 					if(questionmanagement.getAnswer() ==""){
 						model.addAttribute("error", "Bạn chưa nhập câu trả lời.");
-						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 						for(int i=0;i < ListQuestion1.size();i++){
 							if(ListQuestion1.get(i).getQuestion().length() >= check){
 								String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -240,7 +240,7 @@ public class QuestionaManagementController {
 						MimeMessage mimeMessage = mailSender.createMimeMessage();
 						try {
 							
-							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUserByUserID(UserID);
@@ -256,29 +256,29 @@ public class QuestionaManagementController {
 									mailSender.send(mimeMessage);
 									
 									Users users = userService.getUserByUserID(UserID);
-									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
 									
 									model.addAttribute("message", msgSrc.getMessage("message.sendmail.success", null,locale));
-									int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+									int result = QuestionmanagementService.updateAnswer(Id,questionmanagement.getAnswer());
 									if(result>0){
 										
-										List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+										List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 										for(int i=0;i < ListQuestion1.size();i++){
 											if(ListQuestion1.get(i).getQuestion().length() >= check){
 												String abc = ListQuestion1.get(i).getQuestion().toString();
 												ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
 										}
-										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 										Setting setting = userService.getSetting(UserID);
 										int numOfRecord = setting.getRecordNotRep();
 										int numOfPagin = setting.getPaginDisplayNotRep();
 										model.addAttribute("numOfRecord", ""+numOfRecord);
 										model.addAttribute("numOfPagin", ""+numOfPagin);
 										model.addAttribute("curentOfPage",page);
-										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 										model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 										model.addAttribute("listquestionmanagement", ListQuestion1);														
 									}
@@ -301,28 +301,28 @@ public class QuestionaManagementController {
 											mailSender.send(mimeMessage);
 											
 											Users users = userService.getUserByUserID(UserID);
-											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
 											model.addAttribute("message", msgSrc.getMessage("message.sendmail.success", null,locale));
-											int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+											int result = QuestionmanagementService.updateAnswer(Id,questionmanagement.getAnswer());
 											if(result>0){
 												
-												List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+												List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 												for(int i=0;i < ListQuestion1.size();i++){
 													if(ListQuestion1.get(i).getQuestion().length() >= check){
 														String abc = ListQuestion1.get(i).getQuestion().toString();
 														ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 													}
 												}
-												QuestionmanagementService.UpdateAnwserBy(Id, login);
+												QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 												Setting setting = userService.getSetting(UserID);
 												int numOfRecord = setting.getRecordNotRep();
 												int numOfPagin = setting.getPaginDisplayNotRep();
 												model.addAttribute("numOfRecord", ""+numOfRecord);
 												model.addAttribute("numOfPagin", ""+numOfPagin);
 												model.addAttribute("curentOfPage",page);
-												model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+												model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 												model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 												model.addAttribute("listquestionmanagement", ListQuestion1);														
 											}
@@ -346,29 +346,29 @@ public class QuestionaManagementController {
 								mailSender.send(mimeMessage);
 								
 								Users users = userService.getUserByUserID(UserID);
-								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho "+ userquestion.getQuestionBy());
 								
 								model.addAttribute("message",  msgSrc.getMessage("message.sendmail.success", null,locale));
-								int result = QuestionmanagementService.updateAnswerbyId(Id,questionmanagement.getAnswer());
+								int result = QuestionmanagementService.updateAnswer(Id,questionmanagement.getAnswer());
 								if(result>0){
 									
-									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
 										if(ListQuestion1.get(i).getQuestion().length() >= check){
 											String abc = ListQuestion1.get(i).getQuestion().toString();
 											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
 									}
-									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									Setting setting = userService.getSetting(UserID);
 									int numOfRecord = setting.getRecordNotRep();
 									int numOfPagin = setting.getPaginDisplayNotRep();
 									model.addAttribute("numOfRecord", ""+numOfRecord);
 									model.addAttribute("numOfPagin", ""+numOfPagin);
 									model.addAttribute("curentOfPage",page);
-									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 									model.addAttribute("listquestionmanagement", ListQuestion1);														
 								}
@@ -383,21 +383,21 @@ public class QuestionaManagementController {
 						}						
 					}
 				}
-				List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+				List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 				for(int i=0;i < ListQuestion1.size();i++){
 					if(ListQuestion1.get(i).getQuestion().length() >= check){
 						String abc = ListQuestion1.get(i).getQuestion().toString();
 						ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
-				QuestionmanagementService.UpdateAnwserBy(Id, login);
+				QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 				Setting setting = userService.getSetting(UserID);
 				int numOfRecord = setting.getRecordNotRep();
 				int numOfPagin = setting.getPaginDisplayNotRep();
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 			}else{
 				if(actionsubmit.equals("save")){
@@ -408,7 +408,7 @@ public class QuestionaManagementController {
 						if(checkboxdata!="0"){
 							
 						
-							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUserByUserID(UserID);
@@ -421,9 +421,9 @@ public class QuestionaManagementController {
 										
 										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 									}else{
-										int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
+										int result = QuestionmanagementService.saveTemporaryQuestion(Id,questionmanagement.getAnswer());
 										if(result>0){			
-											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 											for(int i=0;i < ListQuestion1.size();i++){
 												if(ListQuestion1.get(i).getQuestion().length() >= check){
 													String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -437,11 +437,11 @@ public class QuestionaManagementController {
 											model.addAttribute("numOfRecord", ""+numOfRecord);
 											model.addAttribute("numOfPagin", ""+numOfPagin);
 											model.addAttribute("curentOfPage",page);
-											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 											model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
-											QuestionmanagementService.UpdateAnwserBy(Id, login);
+											QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 											Users users = userService.getUserByUserID(UserID);
-											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 											model.addAttribute("message",  msgSrc.getMessage("message.save.success", null,locale));
@@ -452,9 +452,9 @@ public class QuestionaManagementController {
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 								}
 							}else{
-								int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
+								int result = QuestionmanagementService.saveTemporaryQuestion(Id,questionmanagement.getAnswer());
 								if(result>0){			
-									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
 										if(ListQuestion1.get(i).getQuestion().length() >= check){
 											String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -468,19 +468,19 @@ public class QuestionaManagementController {
 									model.addAttribute("numOfRecord", ""+numOfRecord);
 									model.addAttribute("numOfPagin", ""+numOfPagin);
 									model.addAttribute("curentOfPage",page);
-									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
-									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									model.addAttribute("message",  msgSrc.getMessage("message.save.success", null,locale));
 									Users users = userService.getUserByUserID(UserID);
-									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 								}
 							}
 						}
 					}	
-					List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+					List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 					for(int i=0;i < ListQuestion1.size();i++){
 						if(ListQuestion1.get(i).getQuestion().length() >= check){
 							String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -494,7 +494,7 @@ public class QuestionaManagementController {
 					model.addAttribute("numOfRecord", ""+numOfRecord);
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 				}else{
 					if(actionsubmit.equals("delete")){
@@ -507,7 +507,7 @@ public class QuestionaManagementController {
 						if(session.getAttribute("Id") !="0"){
 							
 							//xu ly luu cau tra loi va gui mail
-							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 							if(question.getDeleteBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUserByUserID(UserID);
@@ -520,15 +520,15 @@ public class QuestionaManagementController {
 										
 										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 									}else{
-										int result = QuestionmanagementService.delete(Id);
+										int result = QuestionmanagementService.deleteQuestion(Id);
 										if(result>0){
-											QuestionmanagementService.UpdateDelete(Id, login);
+											QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 											Users users = userService.getUserByUserID(UserID);
-											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 											model.addAttribute("message",  msgSrc.getMessage("message.delete.success", null,locale));
-											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+											List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 											for(int i=0;i < ListQuestion1.size();i++){
 												if(ListQuestion1.get(i).getQuestion().length() >= check){
 													String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -542,7 +542,7 @@ public class QuestionaManagementController {
 											model.addAttribute("numOfRecord", ""+numOfRecord);
 											model.addAttribute("numOfPagin", ""+numOfPagin);
 											model.addAttribute("curentOfPage",page);
-											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 											model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 											
 										}
@@ -552,15 +552,15 @@ public class QuestionaManagementController {
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 								}
 							}else{
-								int result = QuestionmanagementService.delete(Id);
+								int result = QuestionmanagementService.deleteQuestion(Id);
 								if(result>0){
-									QuestionmanagementService.UpdateDelete(Id, login);
+									QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 									Users users = userService.getUserByUserID(UserID);
-									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 									model.addAttribute("message", msgSrc.getMessage("message.delete.success", null,locale));
-									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
 										if(ListQuestion1.get(i).getQuestion().length() >= check){
 											String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -574,7 +574,7 @@ public class QuestionaManagementController {
 							//
 							
 						}
-						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+						List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 						for(int i=0;i < ListQuestion1.size();i++){
 							if(ListQuestion1.get(i).getQuestion().length() >= check){
 								String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -588,16 +588,16 @@ public class QuestionaManagementController {
 						model.addAttribute("numOfRecord", ""+numOfRecord);
 						model.addAttribute("numOfPagin", ""+numOfPagin);
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 					}else{
 						//xủ lý xóa tất cả
 						int login = Integer.parseInt(session.getAttribute("login").toString());
 						if(actionsubmit.equals("deleteall")){
-							List<Questionmanagement> returnlist = QuestionmanagementService.deleteall(checkboxdata,login);
+							List<Questionmanagement> returnlist = QuestionmanagementService.deleteMultipleQuestion(checkboxdata,login);
 							
 							model.addAttribute("message",msgSrc.getMessage("message.deletemulti.success", null,locale));
-							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( page-1,  UserID);
+							List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( page-1,  UserID);
 							for(int i=0;i < ListQuestion1.size();i++){
 								if(ListQuestion1.get(i).getQuestion().length() >= check){
 									String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -623,7 +623,7 @@ public class QuestionaManagementController {
 							model.addAttribute("numOfRecord", ""+numOfRecord);
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 						}else{
 	
@@ -637,10 +637,10 @@ public class QuestionaManagementController {
 									model.addAttribute("numOfPagin",changepagin);
 									
 									Setting setting = userService.getSetting(UserID);
-									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 									
-									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionmanagementbyPage( 0,  UserID);
+									List<Questionmanagement> ListQuestion1= QuestionmanagementService. getQuestionNotReplyByPageForUser( 0,  UserID);
 									for(int i=0;i < ListQuestion1.size();i++){
 										if(ListQuestion1.get(i).getQuestion().length() >= check){
 											String abc = ListQuestion1.get(i).getQuestion().toString();
@@ -656,7 +656,7 @@ public class QuestionaManagementController {
 								}
 							}else{
 							//xu ly tim kiem
-							List<Questionmanagement> list = QuestionmanagementService.searchIdex(actionsubmit,"1");
+							List<Questionmanagement> list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"1");
 							for(int i=0;i < list.size();i++){
 								if(list.get(i).getQuestion().length() >= check){
 									String abc = list.get(i).getQuestion().toString();
@@ -670,7 +670,7 @@ public class QuestionaManagementController {
 							model.addAttribute("numOfRecord", ""+numOfRecord);
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+ actionsubmit);
 							model.addAttribute("listquestionmanagement", list);
@@ -682,7 +682,7 @@ public class QuestionaManagementController {
 				}
 			}
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 			return "home";
 	}
 
@@ -705,7 +705,7 @@ public class QuestionaManagementController {
 				List<Questionmanagement> savelist;
 				if(session.getValue("Admin")==null){	
 					//user nomal
-					savelist= QuestionmanagementService.savelist(page-1, UserID);
+					savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 					for(int i=0;i < savelist.size();i++){
 						if(savelist.get(i).getQuestion().length() >= check){
 							String abc = savelist.get(i).getQuestion().toString();
@@ -714,7 +714,7 @@ public class QuestionaManagementController {
 					}
 				}else{
 					//admin
-					savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+					savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 					for(int i=0;i < savelist.size();i++){
 						if(savelist.get(i).getQuestion().length() >= check){
 							String abc = savelist.get(i).getQuestion().toString();
@@ -735,7 +735,7 @@ public class QuestionaManagementController {
 				
 				model.addAttribute("fullname",userService.getFullnameByID(UserID));
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(2, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayTemp());
 				model.addAttribute("savequestionlist", savelist);
 				model.addAttribute("questionmanagements", new Questionmanagement());
@@ -749,14 +749,14 @@ public class QuestionaManagementController {
 				
 			}else{
 				if(QuestionmanagementService.checkIdQuestionSave(Id)==true){
-				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
+				if(QuestionmanagementService.checkSaveListByUserId(UserID , Id)==true){
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
-				Questionmanagement save = QuestionmanagementService.savequestion(Id);
+				Questionmanagement save = QuestionmanagementService.getSaveQuestion(Id);
 				List<Questionmanagement> savelist;
 				if(session.getValue("Admin")==null){	
 					//user nomal
-					savelist= QuestionmanagementService.savelist(page-1, UserID);
+					savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 					for(int i=0;i < savelist.size();i++){
 						if(savelist.get(i).getQuestion().length() >= check){
 							String abc = savelist.get(i).getQuestion().toString();
@@ -765,7 +765,7 @@ public class QuestionaManagementController {
 					}
 				}else{
 					//admin
-					savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+					savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 					for(int i=0;i < savelist.size();i++){
 						if(savelist.get(i).getQuestion().length() >= check){
 							String abc = savelist.get(i).getQuestion().toString();
@@ -783,7 +783,7 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(2, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayTemp());
 				model.addAttribute("questionmanagements", save);
 				model.addAttribute("savequestionlist", savelist);
@@ -818,9 +818,9 @@ public class QuestionaManagementController {
 		int UserID = Integer.parseInt(session.getAttribute("login").toString());
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(2, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
 			
-			List<Questionmanagement> savequestionlist= QuestionmanagementService.savelist(page-1, UserID);
+			List<Questionmanagement> savequestionlist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 			model.addAttribute("savequestionlist", savequestionlist);
 			model.addAttribute("questionmanagements", new Questionmanagement());
 			model.addAttribute("fullname",userService.getFullnameByID(UserID));
@@ -839,7 +839,7 @@ public class QuestionaManagementController {
 						List<Questionmanagement> savelist;
 						if(session.getValue("Admin")==null){	
 							//user nomal
-							savelist= QuestionmanagementService.savelist(page-1, UserID);
+							savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 							for(int i=0;i < savelist.size();i++){
 								if(savelist.get(i).getQuestion().length() >= check){
 									String abc = savelist.get(i).getQuestion().toString();
@@ -848,7 +848,7 @@ public class QuestionaManagementController {
 							}
 						}else{
 							//admin
-							savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+							savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 							for(int i=0;i < savelist.size();i++){
 								if(savelist.get(i).getQuestion().length() >= check){
 									String abc = savelist.get(i).getQuestion().toString();
@@ -869,7 +869,7 @@ public class QuestionaManagementController {
 						
 						try {
 			
-							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 							if(question.getAnswerBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUserByUserID(UserID);
@@ -884,33 +884,33 @@ public class QuestionaManagementController {
 									// sends the e-mail
 									mailSender.send(mimeMessage);
 									Users users = userService.getUserByUserID(UserID);
-									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 									logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 									
 									model.addAttribute("message",msgSrc.getMessage("message.sendmail.success", null,locale));
-									int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
+									int result = QuestionmanagementService.updateQuestionWhenSendAnwser(Id,questionmanagement.getAnswer());
 									if(result>0){
 										List<Questionmanagement> savelist;
 										if(session.getValue("Admin")==null){	
 											//user nomal
-											savelist= QuestionmanagementService.savelist(page-1, UserID);
+											savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 											for(int i=0;i < savelist.size();i++){
 												if(savelist.get(i).getQuestion().length() >= check){
 													String abc = savelist.get(i).getQuestion().toString();
 													savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
 											}
-											QuestionmanagementService.UpdateAnwserBy(Id, login);
+											QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 										}else{
 											//admin
-											savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+											savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 											for(int i=0;i < savelist.size();i++){
 												if(savelist.get(i).getQuestion().length() >= check){
 													String abc = savelist.get(i).getQuestion().toString();
 													savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
 											}
-											QuestionmanagementService.UpdateAnwserBy(Id, login);
+											QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 										}
 										Setting setting = userService.getSetting(UserID);
 										int numOfRecord = setting.getRecordNotRep();
@@ -918,7 +918,7 @@ public class QuestionaManagementController {
 										model.addAttribute("numOfRecord", ""+numOfRecord);
 										model.addAttribute("numOfPagin", ""+numOfPagin);
 										model.addAttribute("curentOfPage",page);
-										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 										model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 										model.addAttribute("savequestionlist", savelist);
 										
@@ -943,33 +943,33 @@ public class QuestionaManagementController {
 											// sends the e-mail
 											mailSender.send(mimeMessage);
 											Users users = userService.getUserByUserID(UserID);
-											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 											logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 											
 											model.addAttribute("message",msgSrc.getMessage("message.sendmail.success", null,locale));
-											int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
+											int result = QuestionmanagementService.updateQuestionWhenSendAnwser(Id,questionmanagement.getAnswer());
 											if(result>0){
 												List<Questionmanagement> savelist;
 												if(session.getValue("Admin")==null){	
 													//user nomal
-													savelist= QuestionmanagementService.savelist(page-1, UserID);
+													savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 													for(int i=0;i < savelist.size();i++){
 														if(savelist.get(i).getQuestion().length() >= check){
 															String abc = savelist.get(i).getQuestion().toString();
 															savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 														}
 													}
-													QuestionmanagementService.UpdateAnwserBy(Id, login);
+													QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 												}else{
 													//admin
-													savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+													savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 													for(int i=0;i < savelist.size();i++){
 														if(savelist.get(i).getQuestion().length() >= check){
 															String abc = savelist.get(i).getQuestion().toString();
 															savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 														}
 													}
-													QuestionmanagementService.UpdateAnwserBy(Id, login);
+													QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 												}
 												
 												model.addAttribute("savequestionlist", savelist);
@@ -996,33 +996,33 @@ public class QuestionaManagementController {
 								// sends the e-mail
 								mailSender.send(mimeMessage);
 								Users users = userService.getUserByUserID(UserID);
-								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 								logger.info("Tài khoản "+users.getUserName()+" đã gửi trả lời cho người hỏi "+userquestion.getQuestionBy());
 								
 								model.addAttribute("message",msgSrc.getMessage("message.sendmail.success", null,locale));
-								int result = QuestionmanagementService.SendAnwser(Id,questionmanagement.getAnswer());
+								int result = QuestionmanagementService.updateQuestionWhenSendAnwser(Id,questionmanagement.getAnswer());
 								if(result>0){
 									List<Questionmanagement> savelist;
 									if(session.getValue("Admin")==null){	
 										//user nomal
-										savelist= QuestionmanagementService.savelist(page-1, UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
 										}
-										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									}else{
 										//admin
-										savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
 										}
-										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 										
 									}
 									
@@ -1045,24 +1045,24 @@ public class QuestionaManagementController {
 					List<Questionmanagement> savelist;
 					if(session.getValue("Admin")==null){	
 						//user nomal
-						savelist= QuestionmanagementService.savelist(page-1, UserID);
+						savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 						for(int i=0;i < savelist.size();i++){
 							if(savelist.get(i).getQuestion().length() >= check){
 								String abc = savelist.get(i).getQuestion().toString();
 								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
 						}
-						QuestionmanagementService.UpdateAnwserBy(Id, login);
+						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 					}else{
 						//admin
-						savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+						savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 						for(int i=0;i < savelist.size();i++){
 							if(savelist.get(i).getQuestion().length() >= check){
 								String abc = savelist.get(i).getQuestion().toString();
 								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
 						}
-						QuestionmanagementService.UpdateAnwserBy(Id, login);
+						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 					}
 					Setting setting = userService.getSetting(UserID);
 					int numOfRecord = setting.getRecordNotRep();
@@ -1070,7 +1070,7 @@ public class QuestionaManagementController {
 					model.addAttribute("numOfRecord", ""+numOfRecord);
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 					model.addAttribute("savequestionlist", savelist);
 				}
@@ -1082,41 +1082,41 @@ public class QuestionaManagementController {
 					if(session.getAttribute("Id") !="0"){
 						//xu ly luu cau tra loi va gui mail
 
-						Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+						Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 						if(question.getAnswerBy() != null){
 							// Xu ly thao tac song song
 							Users information = userService.getUserByUserID(UserID);
 							int author = information.getAuthorization();
 							if(UserID == question.getAnswerBy()){
-								int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
+								int result = QuestionmanagementService.saveTemporaryQuestion(Id,questionmanagement.getAnswer());
 								if(result>0){
 									Users users = userService.getUserByUserID(UserID);
-									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 									model.addAttribute("message",msgSrc.getMessage("message.save.success", null,locale));
-									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									List<Questionmanagement> savelist;
 									if(session.getValue("Admin")==null){	
 										//user nomal
-										savelist= QuestionmanagementService.savelist(page-1, UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
 										}
-										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									}else{
 										//admin
-										savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
 										}
-										QuestionmanagementService.UpdateAnwserBy(Id, login);
+										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 										
 									}
 									
@@ -1132,18 +1132,18 @@ public class QuestionaManagementController {
 										
 										model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 									}else{
-										int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
+										int result = QuestionmanagementService.saveTemporaryQuestion(Id,questionmanagement.getAnswer());
 										if(result>0){
 											Users users = userService.getUserByUserID(UserID);
-											Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+											Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 											
 											logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 											model.addAttribute("message",msgSrc.getMessage("message.save.success", null,locale));
-											QuestionmanagementService.UpdateAnwserBy(Id, login);
+											QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 											List<Questionmanagement> savelist;
 											if(session.getValue("Admin")==null){	
 												//user nomal
-												savelist= QuestionmanagementService.savelist(page-1, UserID);
+												savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 												for(int i=0;i < savelist.size();i++){
 													if(savelist.get(i).getQuestion().length() >= check){
 														String abc = savelist.get(i).getQuestion().toString();
@@ -1151,17 +1151,17 @@ public class QuestionaManagementController {
 													}
 												}
 												
-												QuestionmanagementService.UpdateAnwserBy(Id, login);
+												QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 											}else{
 												//admin
-												savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+												savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 												for(int i=0;i < savelist.size();i++){
 													if(savelist.get(i).getQuestion().length() >= check){
 														String abc = savelist.get(i).getQuestion().toString();
 														savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 													}
 												}
-												QuestionmanagementService.UpdateAnwserBy(Id, login);
+												QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 												
 											}
 											Setting setting = userService.getSetting(UserID);
@@ -1170,7 +1170,7 @@ public class QuestionaManagementController {
 											model.addAttribute("numOfRecord", ""+numOfRecord);
 											model.addAttribute("numOfPagin", ""+numOfPagin);
 											model.addAttribute("curentOfPage",page);
-											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+											model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 											model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 											model.addAttribute("savequestionlist", savelist);
 										}
@@ -1182,35 +1182,35 @@ public class QuestionaManagementController {
 							}
 							
 						}else{
-							int result = QuestionmanagementService.SaveTemporaryAnswerbyId(Id,questionmanagement.getAnswer());
+							int result = QuestionmanagementService.saveTemporaryQuestion(Id,questionmanagement.getAnswer());
 							if(result>0){
 								Users users = userService.getUserByUserID(UserID);
-								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã lưu câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 								model.addAttribute("message","Lưu thành công");
-								QuestionmanagementService.UpdateAnwserBy(Id, login);
+								QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 								List<Questionmanagement> savelist;
 								if(session.getValue("Admin")==null){	
 									//user nomal
-									savelist= QuestionmanagementService.savelist(page-1, UserID);
+									savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 									for(int i=0;i < savelist.size();i++){
 										if(savelist.get(i).getQuestion().length() >= check){
 											String abc = savelist.get(i).getQuestion().toString();
 											savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
 									}
-									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 								}else{
 									//admin
-									savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+									savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 									for(int i=0;i < savelist.size();i++){
 										if(savelist.get(i).getQuestion().length() >= check){
 											String abc = savelist.get(i).getQuestion().toString();
 											savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
 									}
-									QuestionmanagementService.UpdateAnwserBy(Id, login);
+									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									
 								}
 								
@@ -1224,7 +1224,7 @@ public class QuestionaManagementController {
 					List<Questionmanagement> savelist;
 					if(session.getValue("Admin")==null){	
 						//user nomal
-						savelist= QuestionmanagementService.savelist(page-1, UserID);
+						savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 						for(int i=0;i < savelist.size();i++){
 							if(savelist.get(i).getQuestion().length() >= check){
 								String abc = savelist.get(i).getQuestion().toString();
@@ -1232,17 +1232,17 @@ public class QuestionaManagementController {
 							}
 						}
 						
-						QuestionmanagementService.UpdateAnwserBy(Id, login);
+						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 					}else{
 						//admin
-						savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+						savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 						for(int i=0;i < savelist.size();i++){
 							if(savelist.get(i).getQuestion().length() >= check){
 								String abc = savelist.get(i).getQuestion().toString();
 								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
 						}
-						QuestionmanagementService.UpdateAnwserBy(Id, login);
+						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 						
 					}
 					Setting setting = userService.getSetting(UserID);
@@ -1251,7 +1251,7 @@ public class QuestionaManagementController {
 					model.addAttribute("numOfRecord", ""+numOfRecord);
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 					model.addAttribute("savequestionlist", savelist);
 				}else{
@@ -1264,25 +1264,25 @@ public class QuestionaManagementController {
 						if(session.getAttribute("Id") !="0"){
 							//xu ly luu cau tra loi va gui mail
 							//xu ly luu cau tra loi va gui mail
-							Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 							if(question.getDeleteBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUserByUserID(UserID);
 								int author = information.getAuthorization();
 								if(UserID == question.getDeleteBy()){
-									int result = QuestionmanagementService.delete(Id);
+									int result = QuestionmanagementService.deleteQuestion(Id);
 									
 									if(result>0){
 										Users users = userService.getUserByUserID(UserID);
-										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
-										QuestionmanagementService.UpdateDelete(Id, login);
+										QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 										model.addAttribute("message", msgSrc.getMessage("message.delete.success", null,locale));
 										List<Questionmanagement> savelist;
 										if(session.getValue("Admin")==null){	
 											//user nomal
-											savelist= QuestionmanagementService.savelist(page-1, UserID);
+											savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 											for(int i=0;i < savelist.size();i++){
 												if(savelist.get(i).getQuestion().length() >= check){
 													String abc = savelist.get(i).getQuestion().toString();
@@ -1291,7 +1291,7 @@ public class QuestionaManagementController {
 											}
 										}else{
 											//admin
-											savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+											savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 											for(int i=0;i < savelist.size();i++){
 												if(savelist.get(i).getQuestion().length() >= check){
 													String abc = savelist.get(i).getQuestion().toString();
@@ -1306,7 +1306,7 @@ public class QuestionaManagementController {
 										model.addAttribute("numOfRecord", ""+numOfRecord);
 										model.addAttribute("numOfPagin", ""+numOfPagin);
 										model.addAttribute("curentOfPage",page);
-										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 										model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 										model.addAttribute("savequestionlist", savelist);
 									}
@@ -1319,15 +1319,15 @@ public class QuestionaManagementController {
 											
 											model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 										}else{
-											int result = QuestionmanagementService.delete(Id);
+											int result = QuestionmanagementService.deleteQuestion(Id);
 											
 											if(result>0){
-												QuestionmanagementService.UpdateDelete(Id, login);
+												QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 												model.addAttribute("message", msgSrc.getMessage("message.delete.success", null,locale));
 												List<Questionmanagement> savelist;
 												if(session.getValue("Admin")==null){	
 													//user nomal
-													savelist= QuestionmanagementService.savelist(page-1, UserID);
+													savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 													for(int i=0;i < savelist.size();i++){
 														if(savelist.get(i).getQuestion().length() >= check){
 															String abc = savelist.get(i).getQuestion().toString();
@@ -1336,7 +1336,7 @@ public class QuestionaManagementController {
 													}
 												}else{
 													//admin
-													savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+													savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 													for(int i=0;i < savelist.size();i++){
 														if(savelist.get(i).getQuestion().length() >= check){
 															String abc = savelist.get(i).getQuestion().toString();
@@ -1355,19 +1355,19 @@ public class QuestionaManagementController {
 								}
 								
 							}else{
-								int result = QuestionmanagementService.delete(Id);
+								int result = QuestionmanagementService.deleteQuestion(Id);
 								
 								if(result>0){
-									QuestionmanagementService.UpdateDelete(Id, login);
+									QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 									Users users = userService.getUserByUserID(UserID);
-									Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+									Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 									
 									logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 									model.addAttribute("message", msgSrc.getMessage("message.delete.success", null,locale));
 									List<Questionmanagement> savelist;
 									if(session.getValue("Admin")==null){	
 										//user nomal
-										savelist= QuestionmanagementService.savelist(page-1, UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
@@ -1376,7 +1376,7 @@ public class QuestionaManagementController {
 										}
 									}else{
 										//admin
-										savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
@@ -1395,7 +1395,7 @@ public class QuestionaManagementController {
 						List<Questionmanagement> savelist;
 						if(session.getValue("Admin")==null){	
 							//user nomal
-							savelist= QuestionmanagementService.savelist(page-1, UserID);
+							savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 							for(int i=0;i < savelist.size();i++){
 								if(savelist.get(i).getQuestion().length() >= check){
 									String abc = savelist.get(i).getQuestion().toString();
@@ -1404,7 +1404,7 @@ public class QuestionaManagementController {
 							}
 						}else{
 							//admin
-							savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+							savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 							for(int i=0;i < savelist.size();i++){
 								if(savelist.get(i).getQuestion().length() >= check){
 									String abc = savelist.get(i).getQuestion().toString();
@@ -1419,19 +1419,19 @@ public class QuestionaManagementController {
 						model.addAttribute("numOfRecord", ""+numOfRecord);
 						model.addAttribute("numOfPagin", ""+numOfPagin);
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 						model.addAttribute("savequestionlist", savelist);
 					}else{
 						//xủ lý xóa tất cả
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
-							List<Questionmanagement> returnlist =QuestionmanagementService.deleteall(checkboxdata,login);
+							List<Questionmanagement> returnlist =QuestionmanagementService.deleteMultipleQuestion(checkboxdata,login);
 							model.addAttribute("message", msgSrc.getMessage("message.deletemulti.success", null,locale));
 							List<Questionmanagement> savelist;
 							if(session.getValue("Admin")==null){	
 								//user nomal
-								savelist= QuestionmanagementService.savelist(page-1, UserID);
+								savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 								for(int i=0;i < savelist.size();i++){
 									if(savelist.get(i).getQuestion().length() >= check){
 										String abc = savelist.get(i).getQuestion().toString();
@@ -1440,7 +1440,7 @@ public class QuestionaManagementController {
 								}
 							}else{
 								//admin
-								savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+								savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 								for(int i=0;i < savelist.size();i++){
 									if(savelist.get(i).getQuestion().length() >= check){
 										String abc = savelist.get(i).getQuestion().toString();
@@ -1467,7 +1467,7 @@ public class QuestionaManagementController {
 							model.addAttribute("numOfRecord", ""+numOfRecord);
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 							model.addAttribute("savequestionlist", savelist);
 						}else{
@@ -1481,13 +1481,13 @@ public class QuestionaManagementController {
 									model.addAttribute("numOfPagin",changepagin);
 									
 									Setting setting = userService.getSetting(UserID);
-									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(2, UserID));
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayTemp());
 									
 									List<Questionmanagement> savelist;
 									if(session.getValue("Admin")==null){	
 										//user nomal
-										savelist= QuestionmanagementService.savelist(page-1, UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
@@ -1496,7 +1496,7 @@ public class QuestionaManagementController {
 										}
 									}else{
 										//admin
-										savelist= QuestionmanagementService.getSaveListForAdmin(page-1,UserID);
+										savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
 										for(int i=0;i < savelist.size();i++){
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
@@ -1518,7 +1518,7 @@ public class QuestionaManagementController {
 							//xu ly tim kiem							
 							List<Questionmanagement> list;
 							if(session.getValue("Admin")!=null){
-								list = QuestionmanagementService.searchIdex(actionsubmit,"2");
+								list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"2");
 								for(int i=0;i < list.size();i++){
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
@@ -1526,7 +1526,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								list = QuestionmanagementService.searchIdexForAdmin(actionsubmit,"2",UserID);
+								list = QuestionmanagementService.searchIndexForUser(actionsubmit,"2",UserID);
 								for(int i=0;i < list.size();i++){
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
@@ -1540,7 +1540,7 @@ public class QuestionaManagementController {
 							model.addAttribute("numOfRecord", ""+numOfRecord);
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayNotRep());
 							model.addAttribute("savequestionlist", list);
 							Users users = userService.getUserByUserID(UserID);
@@ -1554,7 +1554,7 @@ public class QuestionaManagementController {
 				}
 			}
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(2, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
 			
 			return "list-saved";
 	}
@@ -1581,7 +1581,7 @@ public class QuestionaManagementController {
 				
 				List<Questionmanagement> Deletequestionlist;
 				if(session.getValue("Admin")==null){	
-					Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1589,7 +1589,7 @@ public class QuestionaManagementController {
 						}
 					}
 				}else{
-					Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1609,7 +1609,7 @@ public class QuestionaManagementController {
 				
 				model.addAttribute("fullname",userService.getFullnameByID(UserID));
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 				model.addAttribute("questionmanagements", new Questionmanagement());
 				//check is admin
@@ -1622,16 +1622,16 @@ public class QuestionaManagementController {
 				
 			}else{
 				if(QuestionmanagementService.checkIdQuestionReplied(Id)==true){
-				if(QuestionmanagementService.checkSavaListByUserId(UserID , Id)==true){
+				if(QuestionmanagementService.checkSaveListByUserId(UserID , Id)==true){
 				
 				
 				int login = Integer.parseInt(session.getAttribute("login").toString());
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
-				Questionmanagement delete = QuestionmanagementService.repliedquestion(Id);
+				Questionmanagement delete = QuestionmanagementService.getRepliedQuestion(Id);
 				List<Questionmanagement> Deletequestionlist;
 				if(session.getValue("Admin")==null){	
-					Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1639,7 +1639,7 @@ public class QuestionaManagementController {
 						}
 					}
 				}else{
-					Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1657,7 +1657,7 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 				//check is admin
 				if(userService.checkIsAdmin(UserID)==true){
@@ -1697,7 +1697,7 @@ public class QuestionaManagementController {
 				model.addAttribute("isAdmin","admin");
 			}	
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 			model.addAttribute("fullname",userService.getFullnameByID(UserID));
 			if(actionsubmit.equals("delete")){
 				int Id = Integer.parseInt(session.getAttribute("Id").toString());// get ID
@@ -1707,23 +1707,23 @@ public class QuestionaManagementController {
 				if(session.getAttribute("Id") !="0"){
 					
 					//xu ly luu cau tra loi va gui mail
-					Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 					if(question.getDeleteBy() != null){
 						// Xu ly thao tac song song
 						Users information = userService.getUserByUserID(UserID);
 						int author = information.getAuthorization();
 						if(UserID == question.getDeleteBy()){
-							int result = QuestionmanagementService.deleterepliedquestion(Id);
+							int result = QuestionmanagementService.deleteQuestion(Id);
 							if(result>0){
-								QuestionmanagementService.UpdateDelete(Id, login);
+								QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 								Users users = userService.getUserByUserID(UserID);
-								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 								model.addAttribute("message",msgSrc.getMessage("message.delete.success", null, locale));
 								List<Questionmanagement> Deletequestionlist;
 								if(session.getValue("Admin")==null){	
-									Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+									Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 									for(int i=0;i < Deletequestionlist.size();i++){
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1731,7 +1731,7 @@ public class QuestionaManagementController {
 										}
 									}
 								}else{
-									Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+									Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 									for(int i=0;i < Deletequestionlist.size();i++){
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1746,7 +1746,7 @@ public class QuestionaManagementController {
 								model.addAttribute("numOfRecord", ""+numOfRecord);
 								model.addAttribute("numOfPagin", ""+numOfPagin);
 								model.addAttribute("curentOfPage",page);
-								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 								model.addAttribute("replylust", Deletequestionlist);
 							}
@@ -1760,17 +1760,17 @@ public class QuestionaManagementController {
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" xóa");
 								}else{
 									// Processing restore question
-									int result = QuestionmanagementService.deleterepliedquestion(Id);
+									int result = QuestionmanagementService.deleteQuestion(Id);
 									if(result>0){
-										QuestionmanagementService.UpdateDelete(Id, login);
+										QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 										Users users = userService.getUserByUserID(UserID);
-										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 										model.addAttribute("message",msgSrc.getMessage("message.delete.success", null,locale));
 										List<Questionmanagement> Deletequestionlist;
 										if(session.getValue("Admin")==null){	
-											Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+											Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 											for(int i=0;i < Deletequestionlist.size();i++){
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1778,7 +1778,7 @@ public class QuestionaManagementController {
 												}
 											}
 										}else{
-											Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+											Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 											for(int i=0;i < Deletequestionlist.size();i++){
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1798,17 +1798,17 @@ public class QuestionaManagementController {
 						
 					}else{
 						// Processing restore question
-						int result = QuestionmanagementService.deleterepliedquestion(Id);
+						int result = QuestionmanagementService.deleteQuestion(Id);
 						if(result>0){
-							QuestionmanagementService.UpdateDelete(Id, login);
+							QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 							Users users = userService.getUserByUserID(UserID);
-							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 							
 							logger.info("Tài khoản "+users.getUserName()+" đã xóa câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 							model.addAttribute("message","Xóa thành công");
 							List<Questionmanagement> Deletequestionlist;
 							if(session.getValue("Admin")==null){	
-								Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1816,7 +1816,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1833,7 +1833,7 @@ public class QuestionaManagementController {
 				}
 				List<Questionmanagement> Deletequestionlist;
 				if(session.getValue("Admin")==null){	
-					Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1841,7 +1841,7 @@ public class QuestionaManagementController {
 						}
 					}
 				}else{
-					Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1856,7 +1856,7 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 				model.addAttribute("replylust", Deletequestionlist);				
 				}else{
@@ -1865,7 +1865,7 @@ public class QuestionaManagementController {
 						int Id =Integer.parseInt(session.getAttribute("Id").toString());
 						
 						//
-						Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+						Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 						if(question.getUpdateBy() != null){
 							// Xu ly thao tac song song
 							Users information = userService.getUserByUserID(UserID);
@@ -1874,7 +1874,7 @@ public class QuestionaManagementController {
 								//
 								model.addAttribute("mess",Id);
 								Dictionary newdic = new Dictionary();
-								Questionmanagement question1 = QuestionmanagementService.repliedquestion(Id);
+								Questionmanagement question1 = QuestionmanagementService.getRepliedQuestion(Id);
 							
 									newdic.setAnwser(question1.getAnswer());
 									newdic.setQuestion(question1.getQuestion());
@@ -1889,7 +1889,7 @@ public class QuestionaManagementController {
 								
 								List<Questionmanagement> Deletequestionlist;
 								if(session.getValue("Admin")==null){	
-									Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+									Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 									for(int i=0;i < Deletequestionlist.size();i++){
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1897,7 +1897,7 @@ public class QuestionaManagementController {
 										}
 									}
 								}else{
-									Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+									Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 									for(int i=0;i < Deletequestionlist.size();i++){
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1906,7 +1906,7 @@ public class QuestionaManagementController {
 									}
 								}
 								Users users = userService.getUserByUserID(UserID);
-								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
 								model.addAttribute("message", msgSrc.getMessage("message.inserttodictionary.success", null,locale));
@@ -1923,7 +1923,7 @@ public class QuestionaManagementController {
 										//
 										model.addAttribute("mess",Id);
 										Dictionary newdic = new Dictionary();
-										Questionmanagement question1 = QuestionmanagementService.repliedquestion(Id);
+										Questionmanagement question1 = QuestionmanagementService.getRepliedQuestion(Id);
 									
 											newdic.setAnwser(question1.getAnswer());
 											newdic.setQuestion(question1.getQuestion());
@@ -1938,7 +1938,7 @@ public class QuestionaManagementController {
 										
 										List<Questionmanagement> Deletequestionlist;
 										if(session.getValue("Admin")==null){	
-											Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+											Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 											for(int i=0;i < Deletequestionlist.size();i++){
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1946,7 +1946,7 @@ public class QuestionaManagementController {
 												}
 											}
 										}else{
-											Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+											Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 											for(int i=0;i < Deletequestionlist.size();i++){
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1955,7 +1955,7 @@ public class QuestionaManagementController {
 											}
 										}
 										Users users = userService.getUserByUserID(UserID);
-										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
 										model.addAttribute("message",msgSrc.getMessage("message.inserttodictionary.success", null,locale));
@@ -1973,7 +1973,7 @@ public class QuestionaManagementController {
 							//
 							model.addAttribute("mess",Id);
 							Dictionary newdic = new Dictionary();
-							Questionmanagement question1 = QuestionmanagementService.repliedquestion(Id);
+							Questionmanagement question1 = QuestionmanagementService.getRepliedQuestion(Id);
 						
 								newdic.setAnwser(question1.getAnswer());
 								newdic.setQuestion(question1.getQuestion());
@@ -1988,7 +1988,7 @@ public class QuestionaManagementController {
 							
 							List<Questionmanagement> Deletequestionlist;
 							if(session.getValue("Admin")==null){	
-								Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -1996,7 +1996,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2005,7 +2005,7 @@ public class QuestionaManagementController {
 								}
 							}
 							Users users = userService.getUserByUserID(UserID);
-							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 							
 							logger.info("Tài khoản "+users.getUserName()+" đã đưa câu hỏi của người hỏi "+ userquestion.getQuestionBy() +" vào bộ từ điển");
 							model.addAttribute("message", msgSrc.getMessage("message.inserttodictionary.success", null,locale));
@@ -2014,7 +2014,7 @@ public class QuestionaManagementController {
 						
 						List<Questionmanagement> Deletequestionlist;
 						if(session.getValue("Admin")==null){	
-							Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+							Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 							for(int i=0;i < Deletequestionlist.size();i++){
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2022,7 +2022,7 @@ public class QuestionaManagementController {
 								}
 							}
 						}else{
-							Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+							Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 							for(int i=0;i < Deletequestionlist.size();i++){
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2037,17 +2037,17 @@ public class QuestionaManagementController {
 						model.addAttribute("numOfRecord", ""+numOfRecord);
 						model.addAttribute("numOfPagin", ""+numOfPagin);
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 						model.addAttribute("replylust", Deletequestionlist);	
 					}else{
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
-							List<Questionmanagement> returenlist = QuestionmanagementService.deleteall(checkboxdata,login);
+							List<Questionmanagement> returenlist = QuestionmanagementService.deleteMultipleQuestion(checkboxdata,login);
 							model.addAttribute("message", msgSrc.getMessage("message.deletemulti.success", null,locale));
 							List<Questionmanagement> Deletequestionlist;
 							if(session.getValue("Admin")==null){	
-								Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2055,7 +2055,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2070,7 +2070,7 @@ public class QuestionaManagementController {
 							model.addAttribute("numOfRecord", ""+numOfRecord);
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 							if(returenlist !=null){
 								for(int i =0; i< returenlist.size();i++){
@@ -2096,12 +2096,12 @@ public class QuestionaManagementController {
 									model.addAttribute("numOfPagin",changepagin);
 									
 									Setting setting = userService.getSetting(UserID);
-									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 									
 									List<Questionmanagement> Deletequestionlist;
 									if(session.getValue("Admin")==null){	
-										Deletequestionlist = QuestionmanagementService.repliedList(page-1, UserID);
+										Deletequestionlist = QuestionmanagementService.getRepliedListByPageForUser(page-1, UserID);
 										for(int i=0;i < Deletequestionlist.size();i++){
 											if(Deletequestionlist.get(i).getQuestion().length() >= check){
 												String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2109,7 +2109,7 @@ public class QuestionaManagementController {
 											}
 										}
 									}else{
-										Deletequestionlist = QuestionmanagementService.getRepliedListForAdmin(page-1, UserID);
+										Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 										for(int i=0;i < Deletequestionlist.size();i++){
 											if(Deletequestionlist.get(i).getQuestion().length() >= check){
 												String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2128,7 +2128,7 @@ public class QuestionaManagementController {
 							//xu ly tim kiem
 							List<Questionmanagement> list;
 							if(session.getValue("Admin")!=null){
-								list = QuestionmanagementService.searchIdex(actionsubmit,"3");
+								list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"3");
 								for(int i=0;i < list.size();i++){
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
@@ -2136,7 +2136,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								list = QuestionmanagementService.searchIdexForAdmin(actionsubmit,"3",UserID);
+								list = QuestionmanagementService.searchIndexForUser(actionsubmit,"3",UserID);
 								for(int i=0;i < list.size();i++){
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
@@ -2151,7 +2151,7 @@ public class QuestionaManagementController {
 							model.addAttribute("numOfRecord", ""+numOfRecord);
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(3, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 							Users users = userService.getUserByUserID(UserID);
 							logger.info("Tài khoản "+users.getUserName()+" tìm kiếm "+ actionsubmit);
@@ -2188,7 +2188,7 @@ public class QuestionaManagementController {
 				session.setAttribute("Page",page );
 				List<Questionmanagement> Deletequestionlist;
 				if(session.getValue("Admin")==null){
-					Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2196,7 +2196,7 @@ public class QuestionaManagementController {
 						}
 					}
 				}else{
-					Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2219,7 +2219,7 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 				model.addAttribute("deletequestion", new Questionmanagement());
 				Users users = userService.getUserByUserID(UserID);				
@@ -2233,10 +2233,10 @@ public class QuestionaManagementController {
 				
 				session.setAttribute("Id", Id);
 				session.setAttribute("Page",page );
-				Questionmanagement delete = QuestionmanagementService.deletequestion(Id);
+				Questionmanagement delete = QuestionmanagementService.getDeletedQuestion(Id);
 				List<Questionmanagement> Deletequestionlist;
 				if(session.getValue("Admin")==null){
-					Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2244,7 +2244,7 @@ public class QuestionaManagementController {
 						}
 					}
 				}else{
-					Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2260,7 +2260,7 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 				model.addAttribute("fullname",userService.getFullnameByID(UserID));
 				//check is admin
@@ -2294,8 +2294,8 @@ public class QuestionaManagementController {
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagementDelete(1));
-			List<Questionmanagement> ListQuestion= QuestionmanagementService.deleteList(page-1, UserID);
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionDeleted(1));
+			List<Questionmanagement> ListQuestion= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 			model.addAttribute("deletequestionlist", ListQuestion);
 			model.addAttribute("deletequestion", new Questionmanagement());
 			model.addAttribute("fullname",userService.getFullnameByID(UserID));
@@ -2310,22 +2310,22 @@ public class QuestionaManagementController {
 				if(session.getAttribute("Id") !="0"){
 					int login = Integer.parseInt(session.getAttribute("login").toString());
 					//xu ly luu cau tra loi va gui mail
-					Questionmanagement question = QuestionmanagementService.getQuestionmanagementbyID(Id);
+					Questionmanagement question = QuestionmanagementService.getQuestionByID(Id);
 					if(question.getDeleteBy() != null){
 						// Xu ly thao tac song song
 						Users information = userService.getUserByUserID(UserID);
 						int author = information.getAuthorization();
 						if(UserID == question.getDeleteBy()){
 							// Processing restore question
-							int result = QuestionmanagementService.restore(Id);
+							int result = QuestionmanagementService.restoreQuestion(Id);
 							if(result>0){
 							
-								QuestionmanagementService.UpdateDelete(Id, login);
+								QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 								Users users = userService.getUserByUserID(UserID);
-								Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+								Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 								
 								logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
-								QuestionmanagementService.updatedelete(Id);
+								QuestionmanagementService.updateDeleteByAndDeleteDate(Id);
 								if(userquestion.getStatus() == 1){
 									
 									model.addAttribute("message",msgSrc.getMessage("message.restoretonotreplylist.success", null,locale));
@@ -2339,7 +2339,7 @@ public class QuestionaManagementController {
 								
 								List<Questionmanagement> Deletequestionlist;
 								if(session.getValue("Admin")==null){
-									Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+									Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 									for(int i=0;i < Deletequestionlist.size();i++){
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2347,7 +2347,7 @@ public class QuestionaManagementController {
 										}
 									}
 								}else{
-									Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+									Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 									for(int i=0;i < Deletequestionlist.size();i++){
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2363,7 +2363,7 @@ public class QuestionaManagementController {
 								model.addAttribute("numOfRecord", ""+numOfRecord);
 								model.addAttribute("numOfPagin", ""+numOfPagin);
 								model.addAttribute("curentOfPage",page);
-								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 								model.addAttribute("deletequestionlist", Deletequestionlist);
 							}
@@ -2377,18 +2377,18 @@ public class QuestionaManagementController {
 									model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" khôi phục");
 								}else{
 									// Processing restore question
-									int result = QuestionmanagementService.restore(Id);
+									int result = QuestionmanagementService.restoreQuestion(Id);
 									if(result>0){
 										
-										QuestionmanagementService.UpdateDelete(Id, login);
+										QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 										Users users = userService.getUserByUserID(UserID);
-										Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+										Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 										
 										logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 										model.addAttribute("message",msgSrc.getMessage("message.restore.success", null,locale));
 										List<Questionmanagement> Deletequestionlist;
 										if(session.getValue("Admin")==null){
-											Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+											Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 											for(int i=0;i < Deletequestionlist.size();i++){
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2396,7 +2396,7 @@ public class QuestionaManagementController {
 												}
 											}
 										}else{
-											Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+											Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 											for(int i=0;i < Deletequestionlist.size();i++){
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2415,18 +2415,18 @@ public class QuestionaManagementController {
 						
 					}else{
 						// Processing restore question
-						int result = QuestionmanagementService.restore(Id);
+						int result = QuestionmanagementService.restoreQuestion(Id);
 						if(result>0){
 							
-							QuestionmanagementService.UpdateDelete(Id, login);
+							QuestionmanagementService.updateDeleteByAndDeleteDate(Id, login);
 							Users users = userService.getUserByUserID(UserID);
-							Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
+							Questionmanagement userquestion = QuestionmanagementService.getQuestionByID(Id);
 							
 							logger.info("Tài khoản "+users.getUserName()+" đã khôi phục câu hỏi của người hỏi "+ userquestion.getQuestionBy());
 							model.addAttribute("message",msgSrc.getMessage("message.restore.success", null,locale));
 							List<Questionmanagement> Deletequestionlist;
 							if(session.getValue("Admin")==null){
-								Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+								Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2434,7 +2434,7 @@ public class QuestionaManagementController {
 									}
 								}
 							}else{
-								Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+								Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 								for(int i=0;i < Deletequestionlist.size();i++){
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2449,7 +2449,7 @@ public class QuestionaManagementController {
 				}					
 				List<Questionmanagement> Deletequestionlist;
 				if(session.getValue("Admin")==null){
-					Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2457,7 +2457,7 @@ public class QuestionaManagementController {
 						}
 					}
 				}else{
-					Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2473,7 +2473,7 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 				model.addAttribute("deletequestionlist", Deletequestionlist);
 			}else{
@@ -2487,12 +2487,12 @@ public class QuestionaManagementController {
 						model.addAttribute("numOfPagin",changepagin);
 						
 						Setting setting = userService.getSetting(UserID);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 						
 						List<Questionmanagement> Deletequestionlist;
 						if(session.getValue("Admin")==null){
-							Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+							Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 							for(int i=0;i < Deletequestionlist.size();i++){
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2500,7 +2500,7 @@ public class QuestionaManagementController {
 								}
 							}
 						}else{
-							Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+							Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 							for(int i=0;i < Deletequestionlist.size();i++){
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2518,10 +2518,10 @@ public class QuestionaManagementController {
 				}else{
 					if(actionsubmit.equals("restoreall")){
 						//xử lý khôi phục tất cả
-						List<Questionmanagement> returnlist = QuestionmanagementService.restoreall(checkboxdata, UserID);
+						List<Questionmanagement> returnlist = QuestionmanagementService.restoreMultipleQuestion(checkboxdata, UserID);
 						List<Questionmanagement> Deletequestionlist;
 						if(session.getValue("Admin")==null){
-							Deletequestionlist= QuestionmanagementService.deleteList(page-1, UserID);
+							Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForUser(page-1, UserID);
 							for(int i=0;i < Deletequestionlist.size();i++){
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2529,7 +2529,7 @@ public class QuestionaManagementController {
 								}
 							}
 						}else{
-							Deletequestionlist= QuestionmanagementService.getDeleteListForAdmin(page-1, UserID);
+							Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 							for(int i=0;i < Deletequestionlist.size();i++){
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
@@ -2545,7 +2545,7 @@ public class QuestionaManagementController {
 						model.addAttribute("numOfRecord", ""+numOfRecord);
 						model.addAttribute("numOfPagin", ""+numOfPagin);
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(4, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 						if(returnlist !=null){
 							for(int i =0; i< returnlist.size();i++){
@@ -2566,7 +2566,7 @@ public class QuestionaManagementController {
 					//xu ly tim kiem
 					List<Questionmanagement> list;
 					if(session.getValue("Admin")!=null){
-						list= QuestionmanagementService.searchIdex(actionsubmit,"4");
+						list= QuestionmanagementService.searchIndexForAdmin(actionsubmit,"4");
 						for(int i=0;i < list.size();i++){
 							if(list.get(i).getQuestion().length() >= check){
 								String abc = list.get(i).getQuestion().toString();
@@ -2574,7 +2574,7 @@ public class QuestionaManagementController {
 							}
 						}
 					}else{
-						list= QuestionmanagementService.searchIdexDeleteListForAdmin(actionsubmit,"4",UserID);
+						list= QuestionmanagementService.searchIndexDeleteListForUser(actionsubmit,"4",UserID);
 						for(int i=0;i < list.size();i++){
 							if(list.get(i).getQuestion().length() >= check){
 								String abc = list.get(i).getQuestion().toString();

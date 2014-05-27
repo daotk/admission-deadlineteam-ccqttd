@@ -58,11 +58,9 @@ public class UserController {
 	private Users_SERVICE userService;
 
 	@Autowired
-	private Questionmanagement_SERVICE QuestionmanagementService;
+	private Questionmanagement_SERVICE questionmanagementService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
-	
 	
 	private MessageSource msgSrc;
 	 @Autowired
@@ -70,14 +68,7 @@ public class UserController {
 	     this.msgSrc = msgSrc;
 	  }
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-
-	
-	/*
-	 * Implement when call login page
-	 */
+	 
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String login(HttpSession session, Model model,Locale locale) {
@@ -86,7 +77,7 @@ public class UserController {
 			return "login";
 		}else{
 			int UserID = Integer.parseInt(session.getAttribute("login").toString());
-			List<Questionmanagement> ListQuestion=  QuestionmanagementService.getQuestionmanagementbyPage(0,UserID);
+			List<Questionmanagement> ListQuestion=  questionmanagementService.getQuestionNotReplyByPageForUser(0,UserID);
 			model.addAttribute("listquestionmanagement",ListQuestion);
 			model.addAttribute("questionmanagements", new Questionmanagement());
 			return "redirect:/home";
@@ -180,9 +171,9 @@ public class UserController {
 				int UserID = Integer.parseInt(session.getAttribute("login").toString());
 				List<Questionmanagement> ListQuestion;
 				if(userService.checkIsAdmin(UserID)==true){
-					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPageForAdmin(0,  UserID);
+					ListQuestion= questionmanagementService.getQuestionNotReplyByPageForAdmin(0,  UserID);
 				}else{
-					ListQuestion= QuestionmanagementService.getQuestionmanagementbyPage(0,  UserID);;
+					ListQuestion= questionmanagementService.getQuestionNotReplyByPageForUser(0,  UserID);;
 				}			
 				for(int i=0;i < ListQuestion.size();i++){
 					if(ListQuestion.get(i).getQuestion().length() >= 47){
@@ -199,7 +190,7 @@ public class UserController {
 				attribute.addFlashAttribute("questionmanagements", new Questionmanagement());
 				//paging
 				attribute.addFlashAttribute("curentOfPage",1);
-				attribute.addFlashAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(1, UserID));
+				attribute.addFlashAttribute("noOfPages", questionmanagementService.totalPageQuestionAndDictionary(1, UserID));
 				attribute.addFlashAttribute("noOfDisplay", setting.getPaginDisplayNotRep());	
 				//check is admin
 				if(userService.checkIsAdmin(userService.getIdbyUsername(user.getUserName()))==true){
@@ -655,7 +646,7 @@ public class UserController {
 				
 				@RequestMapping(value = "/taoindex", method = RequestMethod.GET)
 				public String taoindex(Model model){
-					QuestionmanagementService.createIndex();
+					questionmanagementService.createIndex();
 					model.addAttribute("message", "Tạo index thành công. Tính năng truyền file index lên công cụ hiển thị tạm dừng");
 					return "create-index";
 				}
@@ -665,7 +656,7 @@ public class UserController {
 				//
 				public void checkBusyStatus(int Id,int UserID, HttpSession session){
 					if(session.getValue("BusyStatus") != null){
-						QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
+						questionmanagementService.resetBusyStatusQuestion(Id,UserID); 
 					}
 				}
 				

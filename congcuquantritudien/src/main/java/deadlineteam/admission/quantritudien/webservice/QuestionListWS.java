@@ -67,7 +67,7 @@ public class QuestionListWS {
 			int npage = Integer.parseInt(page);
 			int idUser = userService.getIdbyUsername(username);
 			// reset busy status when load question list
-			quesSer.updateBusyStatusAfter(0,idUser); // number 0 show nothing
+			quesSer.resetBusyStatusQuestion(0,idUser); // number 0 show nothing
 			List<Questionmanagement> quesTemp= quesSer.getListQuestionmanagementAndroid(npage);
 
 			for(int i = 0; i < quesTemp.size(); i++){
@@ -145,7 +145,7 @@ public class QuestionListWS {
 					result = "success";
 					
 					
-					Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+					Questionmanagement question = quesSer.getQuestionByID(idQues);
 					if(question.getAnswerBy() != null){
 						// Xu ly thao tac song song
 						Users information = userService.getUserByUserID(idUser);
@@ -159,9 +159,9 @@ public class QuestionListWS {
 								//model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 								
 							}else{
-								int execute = quesSer.updateAnswerbyId(idQues,body);
+								int execute = quesSer.updateAnswer(idQues,body);
 								if(execute>0){			
-									quesSer.UpdateAnwserBy(idQues, idUser);														
+									quesSer.updateAnwserByAndAnwserDate(idQues, idUser);														
 								}
 							}
 						}else{
@@ -172,10 +172,10 @@ public class QuestionListWS {
 						}
 						// ket thuc xu ly thao tac song song
 					}else{
-						int execute = quesSer.updateAnswerbyId(idQues,body);
+						int execute = quesSer.updateAnswer(idQues,body);
 						if(execute>0){
 
-							quesSer.UpdateAnwserBy(idQues, idUser);	
+							quesSer.updateAnwserByAndAnwserDate(idQues, idUser);	
 							result = "success";
 						}
 					}															
@@ -205,7 +205,7 @@ public class QuestionListWS {
 				int idUser = userService.getIdbyUsername(username);
 				int idQues = Integer.parseInt(IdQuestion);
 				body = AndroidUtil.restoreTags(body);
-				Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+				Questionmanagement question = quesSer.getQuestionByID(idQues);
 				if(question.getAnswerBy() != null){
 					// Xu ly thao tac song song
 					Users information = userService.getUserByUserID(idUser);
@@ -218,10 +218,10 @@ public class QuestionListWS {
 							result = "confict,"+otheruser.getID();
 							//model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 						}else{
-							int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+							int execute = quesSer.saveTemporaryQuestion(idQues,body);
 							if(execute>0){			
 								
-								quesSer.UpdateAnwserBy(idQues, idUser);
+								quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
 								result = "success";
 							}
 						}
@@ -231,9 +231,9 @@ public class QuestionListWS {
 					}
 				}else{
 					
-					int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+					int execute = quesSer.saveTemporaryQuestion(idQues,body);
 					if(execute>0){
-						quesSer.UpdateAnwserBy(idQues, idUser);
+						quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
 						result = "success";
 					}
 				}
@@ -256,7 +256,7 @@ public class QuestionListWS {
 						int idUser = userService.getIdbyUsername(username);
 						int idQues = Integer.parseInt(IdQuestion);
 						
-						Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+						Questionmanagement question = quesSer.getQuestionByID(idQues);
 						if(question.getDeleteBy() != null){
 							// Xu ly thao tac song song
 							Users information = userService.getUserByUserID(idUser);
@@ -269,9 +269,9 @@ public class QuestionListWS {
 									result = "confict,"+otheruser.getID();
 									//model.addAttribute("error", "Câu hỏi đã được "+otheruser.getFullName()+" trả lời");
 								}else{
-									int execute = quesSer.delete(idQues);
+									int execute = quesSer.deleteQuestion(idQues);
 									if(execute>0){			
-										quesSer.UpdateDelete(idQues, idUser);
+										quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 										result = "success";
 									}
 								}
@@ -282,9 +282,9 @@ public class QuestionListWS {
 							}
 						}else{
 							
-							int execute = quesSer.delete(idQues);
+							int execute = quesSer.deleteQuestion(idQues);
 							if(execute>0){
-								quesSer.UpdateDelete(idQues, idUser);
+								quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 								result = "success";
 							}
 						}
@@ -308,7 +308,7 @@ public class QuestionListWS {
 						int idQues = Integer.parseInt(IdQuestion);
 						
 						if(quesSer.checkQuestionIsBusy(idQues,idUser)==true){
-							Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+							Questionmanagement question = quesSer.getQuestionByID(idQues);
 							Users otheruser = userService.getUserByUserID(question.getBusyStatus());						
 							result = "busy,"+otheruser.getID();
 						}
@@ -333,7 +333,7 @@ public class QuestionListWS {
 						int idUser = userService.getIdbyUsername(username);
 						int idQues = Integer.parseInt(IdQuestion);
 						try {
-							quesSer.updateBusyStatus(idQues,idUser);
+							quesSer.updateBusyStatusQuestion(idQues,idUser);
 							result = "success";
 						} catch (Exception e) {
 							// TODO: handle exception

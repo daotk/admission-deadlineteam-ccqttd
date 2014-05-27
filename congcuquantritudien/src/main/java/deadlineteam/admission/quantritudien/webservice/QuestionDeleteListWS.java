@@ -157,18 +157,18 @@ public class QuestionDeleteListWS {
 
 
 				// restore question
-				Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+				Questionmanagement question = quesSer.getQuestionByID(idQues);
 				if(question.getDeleteBy() != null){
 					// Xu ly thao tac song song
 					Users information = userService.getUserByUserID(idUser);
 					int author = information.getAuthorization();
 					if(idUser == question.getDeleteBy()){
 						// Processing restore question
-						int execute = quesSer.restore(idQues);
+						int execute = quesSer.restoreQuestion(idQues);
 						if(execute>0){
-							quesSer.UpdateAnwserBy(idQues, idUser);
-							quesSer.UpdateDelete(idQues, idUser);
-							quesSer.updatedelete(idQues);
+							quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
+							quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
+							quesSer.updateDeleteByAndDeleteDate(idQues);
 							result = "success";
 						}
 					}else{
@@ -180,11 +180,11 @@ public class QuestionDeleteListWS {
 								result = "confict,"+otheruser.getID();
 							}else{
 								// Processing restore question
-								int execute = quesSer.restore(idQues);
+								int execute = quesSer.restoreQuestion(idQues);
 								if(execute>0){
-									quesSer.UpdateAnwserBy(idQues, idUser);
-									quesSer.UpdateDelete(idQues, idUser);
-									quesSer.updatedelete(idQues);
+									quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
+									quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
+									quesSer.updateDeleteByAndDeleteDate(idQues);
 									result = "success";
 								}
 							}
@@ -196,11 +196,11 @@ public class QuestionDeleteListWS {
 					
 				}else{
 					// Processing restore question
-					int execute = quesSer.restore(idQues);
+					int execute = quesSer.restoreQuestion(idQues);
 					if(execute>0){
-						quesSer.UpdateAnwserBy(idQues, idUser);
-						quesSer.UpdateDelete(idQues, idUser);
-						quesSer.updatedelete(idQues);
+						quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
+						quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
+						quesSer.updateDeleteByAndDeleteDate(idQues);
 						result = "success";
 					}
 				}

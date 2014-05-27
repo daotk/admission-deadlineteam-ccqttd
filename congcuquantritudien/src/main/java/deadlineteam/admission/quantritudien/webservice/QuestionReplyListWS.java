@@ -145,7 +145,7 @@ public class QuestionReplyListWS {
 				int idUser = userService.getIdbyUsername(username);
 				int idQues = Integer.parseInt(IdQuestion);
 
-				Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+				Questionmanagement question = quesSer.getQuestionByID(idQues);
 				if(question.getUpdateBy() != null){
 					// Xu ly thao tac song song
 					Users information = userService.getUserByUserID(idUser);
@@ -153,7 +153,7 @@ public class QuestionReplyListWS {
 					if(idUser == question.getUpdateBy()){
 
 						Dictionary newdic = new Dictionary();
-						Questionmanagement question1 = quesSer.repliedquestion(idQues);
+						Questionmanagement question1 = quesSer.getRepliedQuestion(idQues);
 					
 							newdic.setAnwser(question1.getAnswer());
 							newdic.setQuestion(question1.getQuestion());
@@ -178,7 +178,7 @@ public class QuestionReplyListWS {
 								//
 							
 								Dictionary newdic = new Dictionary();
-								Questionmanagement question1 = quesSer.repliedquestion(idQues);
+								Questionmanagement question1 = quesSer.getRepliedQuestion(idQues);
 							
 									newdic.setAnwser(question1.getAnswer());
 									newdic.setQuestion(question1.getQuestion());
@@ -204,7 +204,7 @@ public class QuestionReplyListWS {
 				}else{
 					//
 					Dictionary newdic = new Dictionary();
-					Questionmanagement question1 = quesSer.repliedquestion(idQues);
+					Questionmanagement question1 = quesSer.getRepliedQuestion(idQues);
 				
 						newdic.setAnwser(question1.getAnswer());
 						newdic.setQuestion(question1.getQuestion());
@@ -239,15 +239,15 @@ public class QuestionReplyListWS {
 					int idUser = userService.getIdbyUsername(username);
 					int idQues = Integer.parseInt(IdQuestion);
 				
-					Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+					Questionmanagement question = quesSer.getQuestionByID(idQues);
 					if(question.getDeleteBy() != null){
 						// Xu ly thao tac song song
 						Users information = userService.getUserByUserID(idUser);
 						int author = information.getAuthorization();
 						if(idUser == question.getDeleteBy()){
-							int execute = quesSer.deleterepliedquestion(idQues);
+							int execute = quesSer.deleteQuestion(idQues);
 							if(execute>0){
-								quesSer.UpdateDelete(idQues, idUser);
+								quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 								result = "success";
 
 							}
@@ -260,9 +260,9 @@ public class QuestionReplyListWS {
 									result = "confict,"+otheruser.getID();
 								}else{
 									// Processing restore question
-									int execute = quesSer.deleterepliedquestion(idQues);
+									int execute = quesSer.deleteQuestion(idQues);
 									if(execute>0){
-										quesSer.UpdateDelete(idQues, idUser);
+										quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 										result = "success";
 									}
 								}
@@ -274,9 +274,9 @@ public class QuestionReplyListWS {
 						
 					}else{
 						// Processing restore question
-						int execute = quesSer.deleterepliedquestion(idQues);
+						int execute = quesSer.deleteQuestion(idQues);
 						if(execute>0){
-							quesSer.UpdateDelete(idQues, idUser);
+							quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 							result = "success";
 						}
 					}

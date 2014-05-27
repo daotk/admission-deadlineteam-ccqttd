@@ -32,29 +32,31 @@ public class Questionmanagement_SERVICE_Implement implements
 	private Questionmanagement_DAO QuestionmanagementDAO;
 	@Autowired
 	private Dictionary_DAO Dictionary_DAO;
-
-	private int check = 47;
-	private int get = 44;
-
-	public List<Questionmanagement> getListQuestionmanagement() {
+	
+	/**
+	 * Get List Question Not Reply
+	 * @return
+	 */
+	public List<Questionmanagement> getListQuestionNotReply() {
 		return QuestionmanagementDAO.getListQuestionNotReply();
 	}
-
-	public Questionmanagement getQuestionmanagementbyID(int Id) {
+	
+	/**
+	 * Get Question By ID
+	 * @param Id
+	 * @return
+	 */
+	public Questionmanagement getQuestionByID(int Id) {
 		return QuestionmanagementDAO.getQuestionByID(Id);
 	}
 
-	@Override
-	public List<Questionmanagement> findpage1(String keyword) {
-		// TODO Auto-generated method stub
-		List<Questionmanagement> list = QuestionmanagementDAO
-				.getListQuestionNotReply();
-		List<Questionmanagement> newlisst = new ArrayList<Questionmanagement>();
-
-		return newlisst;
-	}
-
-	public List<Questionmanagement> getQuestionmanagementbyPage(int page,
+	/**
+	 * Get Question Not Reply By Page For User
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getQuestionNotReplyByPageForUser(int page,
 			int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
 				.getQuestionNotReplyForUser(UserID);
@@ -80,8 +82,13 @@ public class Questionmanagement_SERVICE_Implement implements
 
 	}
 
-	// for admin
-	public List<Questionmanagement> getQuestionmanagementbyPageForAdmin(
+	/**
+	 * Get Question Not Reply By Page For Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getQuestionNotReplyByPageForAdmin(
 			int page, int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
 				.getQuestionNotReplyForAdmin();
@@ -107,25 +114,37 @@ public class Questionmanagement_SERVICE_Implement implements
 
 	}
 
-	public int updateAnswerbyId(int Id, String Answer) {
+	/**
+	 * Update Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int updateAnswer(int Id, String Answer) {
 		return QuestionmanagementDAO.updateAnswer(Id, Answer);
 	}
 
-
-
-	public int delete(int Id) {
+	/**
+	 * Delete Question
+	 * @param Id
+	 * @return
+	 */
+	public int deleteQuestion(int Id) {
 		return QuestionmanagementDAO.deleteQuestion(Id);
 	}
 
-	// ------------------------Delete Page
-	/*
-	 * Author: Phu Ta Load delete question-list
-	 */
-	public Questionmanagement deletequestion(int Id) {
+
+	public Questionmanagement getDeletedQuestion(int Id) {
 		return QuestionmanagementDAO.getDeletedQuestion(Id);
 	}
-
-	public List<Questionmanagement> deleteList(int page, int UserID) {
+	
+	/**
+	 * Get All Deleted Question By Page for User
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getListDeletedQuestionByPageForUser(int page, int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO.getListDeletedForUser(UserID);
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
 		for (; list.size() > 0;) {
@@ -157,11 +176,13 @@ public class Questionmanagement_SERVICE_Implement implements
 
 	}
 
-	public int updatedelete(int ID) {
-		return QuestionmanagementDAO.updateDeleteByAndDeleteDate(ID);
-	}
-
-	public List<Questionmanagement> getDeleteListForAdmin(int page, int UserID) {
+	/**
+	 * Get All Deleted Question By Page for Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getListDeletedQuestionByPageForAdmin(int page, int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
 				.getListDeletedForAdmin();
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
@@ -193,22 +214,40 @@ public class Questionmanagement_SERVICE_Implement implements
 		return newlist;
 	}
 
-	/*
-	 * Author: Phu Ta delete question that is selected
+	/**
+	 * Update DeleteBy and DeleteDate
+	 * @param ID
+	 * @return
 	 */
-	public int restore(int Id) {
+	public int updateDeleteByAndDeleteDate(int ID) {
+		return QuestionmanagementDAO.updateDeleteByAndDeleteDate(ID);
+	}
+	
+	/**
+	 * Restore Question
+	 * @param Id
+	 * @return
+	 */
+	public int restoreQuestion(int Id) {
 		return QuestionmanagementDAO.restoreQuestion(Id);
 	}
 
-	// ----------------------- Save Page
-	/*
-	 * Author: Phu Ta Load save-question-list
+	/**
+	 * Get Save Question
+	 * @param Id
+	 * @return
 	 */
-	public Questionmanagement savequestion(int Id) {
+	public Questionmanagement getSaveQuestion(int Id) {
 		return QuestionmanagementDAO.getSaveQuestion(Id);
 	}
 
-	public List<Questionmanagement> savelist(int page, int UserID) {
+	/**
+	 * Get List Save Question By Page For User
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getSaveListByPageForUser(int page, int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
 				.getSaveListForUser(UserID);
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
@@ -240,7 +279,13 @@ public class Questionmanagement_SERVICE_Implement implements
 		return newlist;
 	}
 
-	public List<Questionmanagement> getSaveListForAdmin(int page, int UserID) {
+	/**
+	 * Get List Save Question By Page For Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getSaveListByPageForAdmin(int page, int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
 				.getSaveListForAdmin();
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
@@ -272,30 +317,34 @@ public class Questionmanagement_SERVICE_Implement implements
 		return newlist;
 	}
 
-
-	/*
-	 * Author: Phu Ta save save-question that is selected
+	/**
+	 * Update Question When Send Answer
+	 * @param Id
+	 * @param Answer
+	 * @return
 	 */
-	public int SendAnwser(int Id, String Answer) {
+	public int updateQuestionWhenSendAnwser(int Id, String Answer) {
 		return QuestionmanagementDAO.updateQuestionWhenSendAnwser(Id, Answer);
 	}
 
-	// SAve Temporary
-	public int SaveTemporaryAnswerbyId(int Id, String Answer) {
+	/**
+	 * Save Question
+	 * @param Id
+	 * @param Answer
+	 * @return
+	 */
+	public int saveTemporaryQuestion(int Id, String Answer) {
 		return QuestionmanagementDAO.saveTemporaryQuestion(Id, Answer);
 	}
 
-	// ------------------------------- replied page
-	/*
-	 * Author: Chau Le replied question-list page
+	/**
+	 * Get List Replied Question By Page For User
+	 * @param page
+	 * @param UserID
+	 * @return
 	 */
-
-	public int deleterepliedquestion(int ID) {
-		return QuestionmanagementDAO.deleteQuestion(ID);
-	}
-
 	@Override
-	public List<Questionmanagement> repliedList(int page, int UserID) {
+	public List<Questionmanagement> getRepliedListByPageForUser(int page, int UserID) {
 		// TODO Auto-generated method stub
 		List<Questionmanagement> list = QuestionmanagementDAO.repliedList(UserID);
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
@@ -327,8 +376,13 @@ public class Questionmanagement_SERVICE_Implement implements
 		return newlist;
 	}
 
-	// get reply list for admin
-	public List<Questionmanagement> getRepliedListForAdmin(int page, int UserID) {
+	/**
+	 * Get List Replied Question By Page For Administrator
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> getRepliedListByPageForAdmin(int page, int UserID) {
 		List<Questionmanagement> list = QuestionmanagementDAO
 				.getRepliedListForAdmin();
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
@@ -360,14 +414,24 @@ public class Questionmanagement_SERVICE_Implement implements
 		return newlist;
 	}
 
+	/**
+	 * Get Replied Question By ID
+	 * @param ID
+	 * @return
+	 */
 	@Override
-	public Questionmanagement repliedquestion(int ID) {
-		// TODO Auto-generated method stub
+	public Questionmanagement getRepliedQuestion(int ID) {
 		return QuestionmanagementDAO.getRepliedQuestion(ID);
 	}
-
+	
+	/**
+	 * Get Total Page Question and Dictionary By Status and User
+	 * @param status
+	 * @param UserID
+	 * @return
+	 */
 	@Override
-	public int totalPageQuestiomanagement(int status, int UserID) {
+	public int totalPageQuestionAndDictionary(int status, int UserID) {
 		int result = 0;
 		List<Questionmanagement> listquestion = QuestionmanagementDAO
 				.getListQuestionbyStatus(status);
@@ -477,8 +541,13 @@ public class Questionmanagement_SERVICE_Implement implements
 		return result;
 	}
 
+	/**
+	 * Get Total Page Question Delete
+	 * @param status
+	 * @return
+	 */
 	@Override
-	public int totalPageQuestiomanagementDelete(int status) {
+	public int totalPageQuestionDeleted(int status) {
 		int result;
 		List<Questionmanagement> listquestion = QuestionmanagementDAO
 				.getListQuestionByDeleteStatus(status);
@@ -491,15 +560,31 @@ public class Questionmanagement_SERVICE_Implement implements
 		return result;
 	}
 
+	/**
+	 * Create Index
+	 */
 	public void createIndex() {
 		QuestionmanagementDAO.createIndex();
 	}
 
-	public List<Questionmanagement> searchIdex(String keyword, String Status) {
+	/**
+	 * Search Index For Administrator
+	 * @param keyword
+	 * @param Status
+	 * @return
+	 */
+	public List<Questionmanagement> searchIndexForAdmin(String keyword, String Status) {
 		return QuestionmanagementDAO.searchIdex(keyword, Status);
 	}
 
-	public List<Questionmanagement> searchIdexForAdmin(String keyword,
+	/**
+	 * Search Index For User
+	 * @param keyword
+	 * @param Status
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> searchIndexForUser(String keyword,
 			String Status, int UserID) {
 		List<Questionmanagement> question = QuestionmanagementDAO.searchIdex(
 				keyword, Status);
@@ -515,7 +600,15 @@ public class Questionmanagement_SERVICE_Implement implements
 		return newlistquestion;
 	}
 
-	public List<Questionmanagement> searchIdexDeleteListForAdmin(
+
+	/**
+	 * Search Index Delete Question For User
+	 * @param keyword
+	 * @param Status
+	 * @param UserID
+	 * @return
+	 */
+	public List<Questionmanagement> searchIndexDeleteListForUser(
 			String keyword, String Status, int UserID) {
 		List<Questionmanagement> question = QuestionmanagementDAO.searchIdex(
 				keyword, Status);
@@ -531,14 +624,20 @@ public class Questionmanagement_SERVICE_Implement implements
 		return newlistquestion;
 	}
 
-	public List<Questionmanagement> restoreall(String listdelete, int userid) {
+	/**
+	 * Restore multiple Question
+	 * @param listdelete
+	 * @param userid
+	 * @return
+	 */
+	public List<Questionmanagement> restoreMultipleQuestion(String listdelete, int userid) {
 		List<Questionmanagement> returnlist = new ArrayList<Questionmanagement>();
 
 		String[] liststring = listdelete.split(",");
 		for (int i = 0; i < liststring.length; i++) {
 			int deleteid = Integer.parseInt(liststring[i].toString());
 			// xu ly luu cau tra loi va gui mail
-			Questionmanagement question = getQuestionmanagementbyID(deleteid);
+			Questionmanagement question = getQuestionByID(deleteid);
 			if (question.getDeleteBy() != null) {
 				// Xu ly thao tac song song
 				Users information = UserDAO.getUserByUserID(userid);
@@ -573,14 +672,20 @@ public class Questionmanagement_SERVICE_Implement implements
 		return returnlist;
 	}
 
-	public List<Questionmanagement> deleteall(String listdelete, int userid) {
+	/**
+	 * Delete Multiple Question
+	 * @param listdelete
+	 * @param userid
+	 * @return
+	 */
+	public List<Questionmanagement> deleteMultipleQuestion(String listdelete, int userid) {
 
 		List<Questionmanagement> returnlist = new ArrayList<Questionmanagement>();
 		String[] liststring = listdelete.split(",");
 		for (int i = 0; i < liststring.length; i++) {
 			int deleteid = Integer.parseInt(liststring[i].toString());
 			// xu ly luu cau tra loi va gui mail
-			Questionmanagement question = getQuestionmanagementbyID(deleteid);
+			Questionmanagement question = getQuestionByID(deleteid);
 			if (question.getDeleteBy() != null) {
 				// Xu ly thao tac song song
 				Users information = UserDAO.getUserByUserID(userid);
@@ -614,38 +719,88 @@ public class Questionmanagement_SERVICE_Implement implements
 		return returnlist;
 	}
 
+	
+	
 	// --------------------RESTful web service-----
+	
+	
+	/**
+	 * Add Question
+	 * @param question
+	 */
 	public void addQuestionRESTful(Questionmanagement question) {
 		QuestionmanagementDAO.addQuestion(question);
 	}
 
+	/**
+	 * Copy Question to Dictionary
+	 * @param Id
+	 * @param userid
+	 */
 	public void TransferToDictionary(int Id, int userid) {
 		QuestionmanagementDAO.copyQuestionToDictionary(Id, userid);
 	}
 
-	public void UpdateDelete(int Id, int userid) {
+	/**
+	 * Update DeleteBy And DeleteDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateDeleteByAndDeleteDate(int Id, int userid) {
 		QuestionmanagementDAO.updateDeleteByAndDeleteDate(Id, userid);
 	}
 
-	public void UpdateAnwserBy(int Id, int userid) {
+	/**
+	 * Update AnwserBy and AnwserDate
+	 * @param Id
+	 * @param userid
+	 */
+	public void updateAnwserByAndAnwserDate(int Id, int userid) {
 		QuestionmanagementDAO.updateAnwserByAndAnwserDate(Id, userid);
 	}
+	
+	/**
+	 * Get Setting
+	 * @param UserId
+	 * @return
+	 */
 	public Setting getSetting(int UserId) {
 		return QuestionmanagementDAO.getSetting(UserId);
 	}
 
-	public List<Questionmanagement> getListQuestionmanagementbyStatus(int status) {
+	/**
+	 * Get List Question by Status
+	 * @param status
+	 * @return
+	 */
+	public List<Questionmanagement> getListQuestionbyStatus(int status) {
 		return QuestionmanagementDAO.getListQuestionbyStatus(status);
 	}
 
-	public void updateBusyStatus(int Id, int UserId) {
+	/**
+	 * Update BusyStatus Question When Click Question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void updateBusyStatusQuestion(int Id, int UserId) {
 		QuestionmanagementDAO.updateBusyStatusQuestion(Id, UserId);
 	}
 
-	public void updateBusyStatusAfter(int Id, int UserId) {
+	/**
+	 * Reset BusyStatus Question When Click Question
+	 * @param Id
+	 * @param UserId
+	 */
+	public void resetBusyStatusQuestion(int Id, int UserId) {
 		QuestionmanagementDAO.resetBusyStatusQuestion(Id, UserId);
 	}
 
+	/**
+	 * Check Question Is Busy
+	 * @param Id
+	 * @param UserId
+	 * @return
+	 */
 	public boolean checkQuestionIsBusy(int Id, int UserId) {
 		Questionmanagement question = QuestionmanagementDAO
 				.getQuestionByID(Id);
@@ -656,12 +811,25 @@ public class Questionmanagement_SERVICE_Implement implements
 			return true;
 		}
 	}
+	
+	/**
+	 * Get UserID in Busy Status By ID Question
+	 * @param Id
+	 * @return
+	 */
 	public int geUserIDByIdQuestion(int Id) {
 		Questionmanagement question = QuestionmanagementDAO.getQuestionByID(Id);
 		int result = question.getBusyStatus();
 		return result;
 	}
-	public boolean checkSavaListByUserId(int UserId,int Id) {
+	
+	/**
+	 * Check UserID can use ID Question in Save List
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
+	public boolean checkSaveListByUserId(int UserId,int Id) {
 		try {
 			Questionmanagement question = QuestionmanagementDAO.getQuestionByID(Id);
 			if(UserSERVICE.checkIsAdmin(UserId)==true){
@@ -681,6 +849,12 @@ public class Questionmanagement_SERVICE_Implement implements
 		
 	}
 	
+	/**
+	 * Check UserID can use ID Question in Delete List
+	 * @param UserId
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkDeleteListByUserId(int UserId,int Id) {
 		try {
 			Questionmanagement question = QuestionmanagementDAO.getQuestionByID(Id);
@@ -701,7 +875,11 @@ public class Questionmanagement_SERVICE_Implement implements
 		
 	}
 	
-	
+	/**
+	 * Check ID Question in Not Reply List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionNotReply(int Id) {
 		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionbyStatus(1);
 		boolean result = false;
@@ -714,6 +892,12 @@ public class Questionmanagement_SERVICE_Implement implements
 		return result;
 	}
 	
+
+	/**
+	 * Check ID Question in Not Save List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionSave(int Id) {
 		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionbyStatus(2);
 		boolean result = false;
@@ -726,6 +910,11 @@ public class Questionmanagement_SERVICE_Implement implements
 		return result;
 	}
 	
+	/**
+	 * Check ID Question in Not Reply List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionReplied(int Id) {
 		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionbyStatus(3);
 		boolean result = false;
@@ -738,6 +927,11 @@ public class Questionmanagement_SERVICE_Implement implements
 		return result;
 	}
 	
+	/**
+	 * Check ID Question in Not Delete List
+	 * @param Id
+	 * @return
+	 */
 	public boolean checkIdQuestionDeleted(int Id) {
 		List<Questionmanagement> listquestion = QuestionmanagementDAO.getListQuestionByDeleteStatus(1);
 		boolean result = false;
@@ -751,6 +945,7 @@ public class Questionmanagement_SERVICE_Implement implements
 	}
 	
 
+	
 	// Khang android update 11/05
 		public List<Questionmanagement> getListQuestionmanagementAndroid(int page){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);

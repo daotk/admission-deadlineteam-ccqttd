@@ -380,7 +380,7 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
@@ -434,7 +434,7 @@ public class DictionaryController {
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			
 			model.addAttribute("curentOfPage", page);
@@ -525,7 +525,7 @@ public class DictionaryController {
 								
 								model.addAttribute("username", user);
 								model.addAttribute("curentOfPage",page);
-								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());	
 							}
 							
@@ -573,7 +573,7 @@ public class DictionaryController {
 					String user = userService.getFullnameByID(UserID);
 					model.addAttribute("username", user);
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 					
 				}									
@@ -617,7 +617,7 @@ public class DictionaryController {
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						
 						model.addAttribute("username", user);
@@ -642,7 +642,7 @@ public class DictionaryController {
 							model.addAttribute("numOfRecord",changeitems);
 							model.addAttribute("numOfPagin",changepagin);
 							Setting setting = userService.getSetting(UserID);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							
 							List<Dictionary> Avaiable;
@@ -671,7 +671,7 @@ public class DictionaryController {
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							
 							model.addAttribute("username", user);
@@ -720,7 +720,7 @@ public class DictionaryController {
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							if(returnlist !=null){
 								for(int i =0; i< returnlist.size();i++){
@@ -803,7 +803,7 @@ public class DictionaryController {
 													
 													model.addAttribute("username", user);
 													model.addAttribute("curentOfPage",page);
-													model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+													model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 													model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 													
 													model.addAttribute("Avaiable", Avaiable);
@@ -852,7 +852,7 @@ public class DictionaryController {
 								String user = userService.getFullnameByID(UserID);
 								model.addAttribute("username", user);
 								model.addAttribute("curentOfPage",page);
-								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 								model.addAttribute("mess", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 							}else{
@@ -875,7 +875,7 @@ public class DictionaryController {
 								String user = userService.getFullnameByID(UserID);
 								model.addAttribute("username", user);
 								model.addAttribute("curentOfPage",page);
-								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(5, UserID));
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 								Users users = userService.getUserByUserID(UserID);
 								
@@ -925,7 +925,7 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(8, userID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			
 			String user = userService.getFullnameByID(userID);
@@ -963,7 +963,7 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(8, userID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			Dictionary delete = DictionaryService.getDictionaryByID(Id);
 			model.addAttribute("diction", delete);
@@ -1034,7 +1034,7 @@ public class DictionaryController {
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(8, userID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 					String user = userService.getFullnameByID(userID);
 					model.addAttribute("username", user);
@@ -1066,7 +1066,7 @@ public class DictionaryController {
 						model.addAttribute("numOfRecord",changeitems);
 						model.addAttribute("numOfPagin",changepagin);
 						Setting setting = userService.getSetting(userID);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(8, userID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						
 						List<Dictionary> dele= DictionaryService.getAllListDeleteDictionary(0,userID);
@@ -1111,7 +1111,7 @@ public class DictionaryController {
 						model.addAttribute("numOfPagin", ""+numOfPagin);
 						
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(8, userID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						String user = userService.getFullnameByID(userID);
 						model.addAttribute("username", user);
@@ -1155,7 +1155,7 @@ public class DictionaryController {
 					model.addAttribute("numOfPagin", ""+numOfPagin);
 					
 					model.addAttribute("curentOfPage",page);
-					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(8, userID));
 					model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 					Users users = userService.getUserByUserID(userID);
 					
@@ -1202,7 +1202,7 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
@@ -1236,7 +1236,7 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			String user = userService.getFullnameByID(UserID);
 			Dictionary removequestion = DictionaryService.getDownDictionaryByID(Id);
@@ -1328,7 +1328,7 @@ public class DictionaryController {
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
@@ -1364,7 +1364,7 @@ public class DictionaryController {
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());		
 			}else{
 				if(actionsubmit.equals("delete")){
@@ -1393,7 +1393,7 @@ public class DictionaryController {
 						model.addAttribute("numOfPagin", ""+numOfPagin);
 						
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						String user = userService.getFullnameByID(UserID);
 						model.addAttribute("username", user);
@@ -1433,7 +1433,7 @@ public class DictionaryController {
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							String user = userService.getFullnameByID(UserID);
 							model.addAttribute("username", user);
@@ -1450,7 +1450,7 @@ public class DictionaryController {
 								model.addAttribute("numOfRecord",changeitems);
 								model.addAttribute("numOfPagin",changepagin);
 								Setting setting = userService.getSetting(UserID);
-								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 								
 								List<Dictionary> remove2= DictionaryService.getAllListDownDictionary(0, UserID);
@@ -1509,7 +1509,7 @@ public class DictionaryController {
 								model.addAttribute("numOfPagin", ""+numOfPagin);
 								
 								model.addAttribute("curentOfPage",page);
-								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 								model.addAttribute("mess", successCount +" câu hỏi đã xóa, " +failCount+" câu hỏi xóa thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 								model.addAttribute("removelist", remove2);
@@ -1569,7 +1569,7 @@ public class DictionaryController {
 														model.addAttribute("numOfPagin", ""+numOfPagin);
 														
 														model.addAttribute("curentOfPage",page);
-														model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+														model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 														model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 														String user = userService.getFullnameByID(UserID);
 														model.addAttribute("username", user);
@@ -1608,7 +1608,7 @@ public class DictionaryController {
 										model.addAttribute("numOfPagin", ""+numOfPagin);
 										
 										model.addAttribute("curentOfPage",page);
-										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 										model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 										model.addAttribute("mess", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 									}catch(Exception e){
@@ -1635,7 +1635,7 @@ public class DictionaryController {
 									model.addAttribute("numOfPagin", ""+numOfPagin);
 									
 									model.addAttribute("curentOfPage",page);
-									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
+									model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 									model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 									model.addAttribute("actionsubmit", actionsubmit);
 									Users users = userService.getUserByUserID(UserID);
@@ -1693,7 +1693,7 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			model.addAttribute("diction", new Dictionary());
 			String user = userService.getFullnameByID(UserID);
@@ -1730,7 +1730,7 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			
 			model.addAttribute("diction", recent);
@@ -1820,7 +1820,7 @@ public class DictionaryController {
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							model.addAttribute("diction", new Dictionary());
 							String user = userService.getFullnameByID(UserID);
@@ -1855,7 +1855,7 @@ public class DictionaryController {
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());					
 			}else{
 				if(actionsubmit.equals("change")){
@@ -1867,7 +1867,7 @@ public class DictionaryController {
 						model.addAttribute("numOfRecord",changeitems);
 						model.addAttribute("numOfPagin",changepagin);
 						Setting setting = userService.getSetting(UserID);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						
 						List<Dictionary> rece= DictionaryService.getAllListRecentDictionary(0, UserID);
@@ -1937,7 +1937,7 @@ public class DictionaryController {
 										model.addAttribute("numOfPagin", ""+numOfPagin);
 										
 										model.addAttribute("curentOfPage",page);
-										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 										model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 										model.addAttribute("diction", new Dictionary());
 										String user = userService.getFullnameByID(UserID);
@@ -1969,7 +1969,7 @@ public class DictionaryController {
 							model.addAttribute("numOfPagin", ""+numOfPagin);
 							
 							model.addAttribute("curentOfPage",page);
-							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 							model.addAttribute("mess", successCount +" câu hỏi đã hạ, " +failCount+" câu hỏi hạ thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 						model.addAttribute("message", msgSrc.getMessage("message.dictionary.down.success", null,locale)); 
@@ -1997,7 +1997,7 @@ public class DictionaryController {
 						model.addAttribute("numOfPagin", ""+numOfPagin);
 						
 						model.addAttribute("curentOfPage",page);
-						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
+						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						model.addAttribute("actionsubmit", actionsubmit);
 						Users users = userService.getUserByUserID(UserID);
@@ -2074,7 +2074,7 @@ public class DictionaryController {
 	
 	public void checkBusyStatus(int Id,int UserID, HttpSession session){
 		if(session.getValue("BusyStatus") != null){
-			QuestionmanagementService.updateBusyStatusAfter(Id,UserID); 
+			QuestionmanagementService.resetBusyStatusQuestion(Id,UserID); 
 		}
 	}
 	public boolean checkLogin(HttpSession session, Locale locale){

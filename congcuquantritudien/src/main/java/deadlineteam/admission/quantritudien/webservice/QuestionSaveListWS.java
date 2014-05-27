@@ -148,7 +148,7 @@ public class QuestionSaveListWS {
 				
 				try {
 
-					Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+					Questionmanagement question = quesSer.getQuestionByID(idQues);
 					if(question.getAnswerBy() != null){
 						// Xu ly thao tac song song
 						Users information = userService.getUserByUserID(idUser);
@@ -165,9 +165,9 @@ public class QuestionSaveListWS {
 							
 							result = "success";
 							
-							int execute = quesSer.SendAnwser(idQues,body);
+							int execute = quesSer.updateQuestionWhenSendAnwser(idQues,body);
 							if(execute>0){
-								quesSer.UpdateAnwserBy(idQues, idUser);	
+								quesSer.updateAnwserByAndAnwserDate(idQues, idUser);	
 							}	
 						}else{
 							if(author ==1){
@@ -189,9 +189,9 @@ public class QuestionSaveListWS {
 									
 									
 									result = "success";
-									int execute = quesSer.SendAnwser(idQues,body);
+									int execute = quesSer.updateQuestionWhenSendAnwser(idQues,body);
 									if(execute>0){
-										quesSer.UpdateAnwserBy(idQues, idUser);	
+										quesSer.updateAnwserByAndAnwserDate(idQues, idUser);	
 									}	
 								}
 							}else{
@@ -213,9 +213,9 @@ public class QuestionSaveListWS {
 						mailSender.send(mimeMessage);
 						
 						result = "success";
-						int execute = quesSer.SendAnwser(idQues,body);
+						int execute = quesSer.updateQuestionWhenSendAnwser(idQues,body);
 						if(execute>0){
-							quesSer.UpdateAnwserBy(idQues, idUser);	
+							quesSer.updateAnwserByAndAnwserDate(idQues, idUser);	
 						}	
 					}
 					
@@ -251,16 +251,16 @@ public class QuestionSaveListWS {
 				
 				//xu ly luu cau tra loi va gui mail
 
-				Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+				Questionmanagement question = quesSer.getQuestionByID(idQues);
 				if(question.getAnswerBy() != null){
 					// Xu ly thao tac song song
 					Users information = userService.getUserByUserID(idUser);
 					int author = information.getAuthorization();
 					if(idUser == question.getAnswerBy()){
-						int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+						int execute = quesSer.saveTemporaryQuestion(idQues,body);
 						if(execute>0){
 							result = "success";
-							quesSer.UpdateAnwserBy(idQues, idUser);
+							quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
 						}
 					
 					}else{
@@ -271,10 +271,10 @@ public class QuestionSaveListWS {
 								// null
 								result = "confict,"+otheruser.getID();
 							}else{
-								int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+								int execute = quesSer.saveTemporaryQuestion(idQues,body);
 								if(execute>0){
 									result = "success";
-									quesSer.UpdateAnwserBy(idQues, idUser);
+									quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
 								}
 							}
 						}else{
@@ -284,10 +284,10 @@ public class QuestionSaveListWS {
 					}
 					
 				}else{
-					int execute = quesSer.SaveTemporaryAnswerbyId(idQues,body);
+					int execute = quesSer.saveTemporaryQuestion(idQues,body);
 					if(execute>0){
 						result = "success";
-						quesSer.UpdateAnwserBy(idQues, idUser);
+						quesSer.updateAnwserByAndAnwserDate(idQues, idUser);
 					}
 				}
 
@@ -312,17 +312,17 @@ public class QuestionSaveListWS {
 						int idQues = Integer.parseInt(IdQuestion);
 						
 					
-							Questionmanagement question = quesSer.getQuestionmanagementbyID(idQues);
+							Questionmanagement question = quesSer.getQuestionByID(idQues);
 							if(question.getDeleteBy() != null){
 								// Xu ly thao tac song song
 								Users information = userService.getUserByUserID(idUser);
 								int author = information.getAuthorization();
 								if(idUser == question.getDeleteBy()){
-									int execute = quesSer.delete(idQues);
+									int execute = quesSer.deleteQuestion(idQues);
 									
 									if(execute>0){
 										result = "success";
-										quesSer.UpdateDelete(idQues, idUser);
+										quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 									}
 								}else{
 									if(author ==1){
@@ -332,11 +332,11 @@ public class QuestionSaveListWS {
 											// null
 											result = "confict,"+otheruser.getID();
 										}else{
-											int execute = quesSer.delete(idQues);
+											int execute = quesSer.deleteQuestion(idQues);
 											
 											if(execute>0){
 												result = "success";
-												quesSer.UpdateDelete(idQues, idUser);
+												quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 												
 											}
 										}
@@ -346,11 +346,11 @@ public class QuestionSaveListWS {
 									}
 								}
 							}else{
-								int execute = quesSer.delete(idQues);
+								int execute = quesSer.deleteQuestion(idQues);
 								
 								if(execute>0){
 									result = "success";
-									quesSer.UpdateDelete(idQues, idUser);
+									quesSer.updateDeleteByAndDeleteDate(idQues, idUser);
 								}
 							}	
 						}
