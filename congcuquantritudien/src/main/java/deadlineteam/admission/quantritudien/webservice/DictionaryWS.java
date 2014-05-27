@@ -253,7 +253,7 @@ public class DictionaryWS {
 								question = util.restoreTags(question);
 								
 								int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
-								int updatecreateby = DictionaryService.updateCreatebyWhenEdit(idQues, idUser);
+								int updatecreateby = DictionaryService.updateCreateByWhenEdit(idQues, idUser);
 								//int restart = DictionaryService.busystatus(idQues);
 								Users users = userService.getUserByUserID(idUser);
 								//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -275,7 +275,7 @@ public class DictionaryWS {
 									}else{
 										//
 										int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
-										int updatecreateby = DictionaryService.updateCreatebyWhenEdit(idQues, idUser);
+										int updatecreateby = DictionaryService.updateCreateByWhenEdit(idQues, idUser);
 									//	int restart = DictionaryService.busystatus(idQues);
 										Users users = userService.getUserByUserID(idUser);
 									//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -299,7 +299,7 @@ public class DictionaryWS {
 						}else{
 							//
 							int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
-							int updatecreateby = DictionaryService.updateCreatebyWhenEdit(idQues, idUser);
+							int updatecreateby = DictionaryService.updateCreateByWhenEdit(idQues, idUser);
 							//int restart = DictionaryService.busystatus(idQues);
 							
 							Users users = userService.getUserByUserID(idUser);

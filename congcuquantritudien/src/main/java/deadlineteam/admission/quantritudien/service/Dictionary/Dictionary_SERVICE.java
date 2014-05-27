@@ -6,28 +6,157 @@ import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Setting;
 
 public interface Dictionary_SERVICE {
-	public int AddDictionarybyID (int Id,int UserId);
-	public List<Dictionary> availablelist(int page, int UserID);
-	public List<Dictionary> availablelistadmin(int page , int UserID);
-	public List<Dictionary> recentlist(int page, int UserID);
+	
+	/**
+	 * Add Question to Dictionary
+	 * @param Id
+	 * @param UserId
+	 * @return
+	 */
+	public int addDictionaryFormQuestion (int Id,int UserId);
+	
+	/**
+	 * Update Create When Edit
+	 * @param Id
+	 * @param UserID
+	 * @return
+	 */
+	public int updateCreateByWhenEdit(int Id, int UserID);
+	
+	/**
+	 * Add Dictionary
+	 * @param dictionary
+	 */
+	public void AddDictionary(Dictionary dictionary);
+	
+	/**
+	 * Get List Available Dictionary By Page For User 
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getListAvailableDictionaryByPageForUser(int page, int UserID);
+	
+	/**
+	 * Get List Available Dictionary By Page For Administrator 
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getListAvailableDictionaryForAdmin(int page , int UserID);
+	
+	/**
+	 * Restore multiple Dictionary
+	 * @param checkbox
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> restoreMultipleDictionary(String checkbox, int UserID);
+	
+	/**
+	 * Delete multiple Dictionary
+	 * @param checkbox
+	 * @param UserId
+	 * @return
+	 */
+	public List<Dictionary> deleteMultipleDictionary(String checkbox, int UserId);
+
+	/**
+	 * Get List Recent Dictionary By Page
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getAllListRecentDictionary(int page, int UserID);
+	
+	/**
+	 * Get Recent Dictionary By ID
+	 * @param Id
+	 * @return
+	 */
 	public Dictionary getRecentDictionaryByID(int Id);
-	public List<Dictionary> deletelist(int page, int UserID);
-	public List<Dictionary> removelist(int page, int UserID);
-	public Dictionary getDownDictionaryByID(int Id);
+	
+	/**
+	 * Update DeleteBy And DeleteDate When Restore
+	 * @param Id
+	 * @return
+	 */
+	public int updateDeleteByAndDeleteDateWhenRestore(int Id);
+	
+	/**
+	 * Get All List Delete Dictionary 
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getAllListDeleteDictionary(int page, int UserID);
+	
+	/**
+	 * Get Dictionary By ID
+	 * @param ID
+	 * @return
+	 */
 	public Dictionary getDictionaryByID(int ID);
+	
+	/**
+	 * Update Dictionary When Upload
+	 * @param Id
+	 * @return
+	 */
 	public int updateDictionaryWhenUpload(int Id);
-	public int updateCreatebyWhenEdit(int Id, int UserID);
+	
+	/**
+	 * Update UpdateDate When Upload
+	 * @param Id
+	 * @param UserID
+	 * @return
+	 */
 	public int updateUpdateByWhenUpload(int Id, int UserID);
+	
+	/**
+	 * Update Dictionary When Down
+	 * @param Id
+	 * @return
+	 */
+	public int updateDictionaryWhenDown(int Id);
+	
+	/**
+	 *  Update Dictionary When Restore
+	 * @param Id
+	 * @return
+	 */
+	public int updateDictionaryWhenRestore(int Id);
+	
+	/**
+	 * Update Dictionary When Delete
+	 * @param Id
+	 * @return
+	 */
+	public int updateDictionaryWhenDelete(int Id);
+	
+	/**
+	 * Get All List Down Dictionary
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getAllListDownDictionary(int page, int UserID);
+	
+	
+	public Dictionary getDownDictionaryByID(int Id);
+	
+	
+	
+
 	public List<Dictionary> searchIdex(String keyword,String Status, int UserID);
 	public Dictionary getDictionaryByIDNotDelete(int Id);
-	public int updateDictionaryWhenDown(int Id);
-	public int updateDictionaryWhenRestore(int Id);
-	public int updateDictionaryWhenDelete(int Id);
+	
+	
+	
 	public int updateQuesionAndAnwserDictionary(int Id,String Anwser, String Question);
-	public int updateDeleteByAndDeleteDateWhenRestore(int Id);
-	public List<Dictionary> restorealldictionary(String checkbox, int login);
-	public List<Dictionary> deletealldictionary(String checkbox, int login);
-	public void AddDictionary(Dictionary dictionary);
+
+	
+	
 	public void updateUpdateByAndUpdateDateWhenDown(int Id, int userID);
 	public void updateDeleteByAndDeleteDateWhenDelete(int Id, int userID);
 	public Setting getSetting(int UserId);

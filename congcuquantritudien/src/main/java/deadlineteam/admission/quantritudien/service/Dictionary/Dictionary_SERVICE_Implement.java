@@ -30,12 +30,18 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 	private Users_SERVICE userservice;
 	
 	
-	public int AddDictionarybyID (int Id, int UserId){
-		Date date = new Date();
+	
+	/**
+	 * Add Question to Dictionary
+	 * @param Id
+	 * @param UserId
+	 * @return
+	 */
+	public int addDictionaryFormQuestion (int Id, int UserId){
 		Questionmanagement questionmanagement = QuestionmanagementDAO.getQuestionByIDToCopy(Id);
 		Dictionary dictionary = new Dictionary();
 		dictionary.setQuestion(questionmanagement.getQuestion());
-		dictionary.setCreateBy(2);
+		dictionary.setCreateBy(UserId);
 		dictionary.setAnwser(questionmanagement.getAnswer());
 		dictionary.setAnwserBy(questionmanagement.getAnswerBy());
 		dictionary.setCreateDate(null);
@@ -48,13 +54,32 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		DictionaryDAO.AddDictionary(dictionary);
 		return 1;
 	}
-	public int updateCreatebyWhenEdit(int Id, int UserID){
+	
+	/**
+	 * Update Create When Edit
+	 * @param Id
+	 * @param UserID
+	 * @return
+	 */
+	public int updateCreateByWhenEdit(int Id, int UserID){
 		return DictionaryDAO.updateCreatebyWhenEdit(Id, UserID);
 	}
+	
+	/**
+	 * Add Dictionary
+	 * @param dictionary
+	 */
 	public void AddDictionary(Dictionary dictionary){
 		 DictionaryDAO.AddDictionary(dictionary);
 	}
-	public List<Dictionary> availablelist(int page, int UserID) {
+	
+	/**
+	 * Get List Available Dictionary By Page For User 
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getListAvailableDictionaryByPageForUser(int page, int UserID) {
 		// TODO Auto-generated method stub
 		List<Dictionary> list=  DictionaryDAO.getAvailableListDictionaryForUser(UserID);
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
@@ -85,7 +110,9 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return newlist;
 		
 	}	
-	public List<Dictionary> availablelistadmin(int page, int UserID) {
+	
+	
+	public List<Dictionary> getListAvailableDictionaryForAdmin(int page, int UserID) {
 		// TODO Auto-generated method stub
 		List<Dictionary> list=  DictionaryDAO.getAvailableListForAdministrator();
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
@@ -116,32 +143,40 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return newlist;
 		
 	}	
-	
-	public Dictionary getAvailableDictionaryByID(int Id) {
-		// TODO Auto-generated method stub
-		return DictionaryDAO.getAvailableDictionaryByID(Id);
-		
-	}
-	public List<Dictionary> restorealldictionary(String checkbox, int login){
+
+	/**
+	 * Restore multiple Dictionary
+	 * @param checkbox
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> restoreMultipleDictionary(String checkbox, int UserID){
 		List<Dictionary> returnlist = new ArrayList<Dictionary>();
 		String[] liststring = checkbox.split(",");
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
 			Dictionary question = DictionaryDAO.getDictionaryByID(deleteid);
-			DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(deleteid, login);
+			DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(deleteid, UserID);
 			DictionaryDAO.updateDictionaryWhenRestore(deleteid);
 			DictionaryDAO.updateDeleteByAndDeleteDateWhenRestore(deleteid);
 			returnlist.add(question);
 		}
 		return returnlist;
 	}
-	public List<Dictionary> deletealldictionary(String checkbox, int login){
+	
+	/**
+	 * Delete multiple Dictionary
+	 * @param checkbox
+	 * @param UserId
+	 * @return
+	 */
+	public List<Dictionary> deleteMultipleDictionary(String checkbox, int UserId){
 		List<Dictionary> returnlist = new ArrayList<Dictionary>();
 		String[] liststring = checkbox.split(",");
 		for(int i=0;i<liststring.length;i++){
 			int deleteid = Integer.parseInt(liststring[i].toString());
 			Dictionary question = DictionaryDAO.getDictionaryByID(deleteid);
-			DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(deleteid, login);
+			DictionaryDAO.updateDeleteByAndDeleteDateWhenDelete(deleteid, UserId);
 			DictionaryDAO.updateDictionaryWhenDelete(deleteid);
 			
 			returnlist.add(question);
@@ -149,9 +184,14 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return returnlist;
 		
 	}
-	public List<Dictionary> recentlist(int page, int UserID) {
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * Get List Recent Dictionary By Page
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getAllListRecentDictionary(int page, int UserID) {		
 		List<Dictionary> list=  DictionaryDAO.getAllDictionaryRecent();
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
 		for(;list.size()>0;){
@@ -180,14 +220,29 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		}
 		return newlist;
 	}
+	
+	/**
+	 * Get Recent Dictionary By ID
+	 * @param Id
+	 * @return
+	 */
 	public Dictionary getRecentDictionaryByID(int Id) {
 		// TODO Auto-generated method stub
 		return DictionaryDAO.getRecentDictionaryByID(Id);
 	}
+	
+	
 	public int updateDeleteByAndDeleteDateWhenRestore(int Id){
 		return DictionaryDAO.updateDeleteByAndDeleteDateWhenRestore(Id);
 	}
-	public List<Dictionary> deletelist(int page, int UserID) {
+	
+	/**
+	 * Get All List Delete Dictionary 
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getAllListDeleteDictionary(int page, int UserID) {
 		// TODO Auto-generated method stub
 		
 		List<Dictionary> list=  DictionaryDAO.getAllDictionaryDeleted();
@@ -219,32 +274,72 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		return newlist;
 	}
 
+	/**
+	 * Get Dictionary By ID
+	 * @param ID
+	 * @return
+	 */
 	public Dictionary getDictionaryByID(int ID){
 		return DictionaryDAO.getDictionaryByID(ID);
 	}
+	
+	/**
+	 * Update Dictionary When Upload
+	 * @param Id
+	 * @return
+	 */
 	public int updateDictionaryWhenUpload(int Id){
-		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenUpload(Id);
 	}
+	
+	/**
+	 * Update UpdateDate When Upload
+	 * @param Id
+	 * @param UserID
+	 * @return
+	 */
 	public int updateUpdateByWhenUpload(int Id, int UserID){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateUpdateByWhenUpload(Id, UserID);
 	}
+	
+	/**
+	 * Update Dictionary When Down
+	 * @param Id
+	 * @return
+	 */
 	public int updateDictionaryWhenDown(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenDown(Id);
 	}
+	
+	/**
+	 *  Update Dictionary When Restore
+	 * @param Id
+	 * @return
+	 */
 	public int updateDictionaryWhenRestore(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenRestore(Id);
 	}
+	
+	/**
+	 * Update Dictionary When Delete
+	 * @param Id
+	 * @return
+	 */
 	public int updateDictionaryWhenDelete(int Id){
 		// TODO Auto-generated method stub
 		return DictionaryDAO.updateDictionaryWhenDelete(Id);
 	}
 
-	public List<Dictionary> removelist(int page, int UserID){
-		
+	/**
+	 * Get All List Down Dictionary
+	 * @param page
+	 * @param UserID
+	 * @return
+	 */
+	public List<Dictionary> getAllListDownDictionary(int page, int UserID){
 		List<Dictionary> list=  DictionaryDAO.getAllDictionaryDown();
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
 		for(;list.size()>0;){
@@ -273,6 +368,8 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 		}
 		return newlist;
 	}
+	
+	
 	public Dictionary getDownDictionaryByID(int Id){
 		return DictionaryDAO.getDownDictionaryByID(Id);
 	}

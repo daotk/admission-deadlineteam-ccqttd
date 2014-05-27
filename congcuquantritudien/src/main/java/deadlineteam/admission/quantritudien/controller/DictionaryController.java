@@ -132,7 +132,7 @@ public class DictionaryController {
 					int author = information.getAuthorization();
 					if(UserID == question.getCreateBy()){
 						int result = DictionaryService.updateQuesionAndAnwserDictionary(Id, diction.getAnwser(), diction.getQuestion());
-						int updatecreateby = DictionaryService.updateCreatebyWhenEdit(Id, UserID);
+						int updatecreateby = DictionaryService.updateCreateByWhenEdit(Id, UserID);
 						Users users = userService.getUserByUserID(UserID);
 						//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 						Dictionary userquestion = DictionaryService.getDictionaryByID(Id);
@@ -145,7 +145,7 @@ public class DictionaryController {
 						attribute.addFlashAttribute("message",  msgSrc.getMessage("message.dictionary.edit.success", null,locale));
 						List<Dictionary> Avaiable;
 						if(session.getValue("Admin")==null){	
-							Avaiable= DictionaryService.availablelist(page-1, UserID);			
+							Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 							for(int i=0;i < Avaiable.size();i++){
 								if(Avaiable.get(i).getQuestion().length() >= check){
 									String abc = Avaiable.get(i).getQuestion().toString();
@@ -153,7 +153,7 @@ public class DictionaryController {
 								}
 							}
 						}else{
-							Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+							Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 							for(int i=0;i < Avaiable.size();i++){
 								if(Avaiable.get(i).getQuestion().length() >= check){
 									String abc = Avaiable.get(i).getQuestion().toString();
@@ -174,7 +174,7 @@ public class DictionaryController {
 							}else{
 								//
 								int result = DictionaryService.updateQuesionAndAnwserDictionary(Id, diction.getAnwser(), diction.getQuestion());
-								int updatecreateby = DictionaryService.updateCreatebyWhenEdit(Id, UserID);
+								int updatecreateby = DictionaryService.updateCreateByWhenEdit(Id, UserID);
 								Users users = userService.getUserByUserID(UserID);
 							//	Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
 								Dictionary userquestion = DictionaryService.getDictionaryByID(Id);
@@ -187,7 +187,7 @@ public class DictionaryController {
 								logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 								List<Dictionary> Avaiable;
 								if(session.getValue("Admin")==null){	
-									Avaiable= DictionaryService.availablelist(page-1, UserID);			
+									Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 									for(int i=0;i < Avaiable.size();i++){
 										if(Avaiable.get(i).getQuestion().length() >= check){
 											String abc = Avaiable.get(i).getQuestion().toString();
@@ -195,7 +195,7 @@ public class DictionaryController {
 										}
 									}
 								}else{
-									Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+									Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 									for(int i=0;i < Avaiable.size();i++){
 										if(Avaiable.get(i).getQuestion().length() >= check){
 											String abc = Avaiable.get(i).getQuestion().toString();
@@ -217,7 +217,7 @@ public class DictionaryController {
 				}else{
 					//
 					int result = DictionaryService.updateQuesionAndAnwserDictionary(Id, diction.getAnwser(), diction.getQuestion());
-					int updatecreateby = DictionaryService.updateCreatebyWhenEdit(Id, UserID);
+					int updatecreateby = DictionaryService.updateCreateByWhenEdit(Id, UserID);
 					
 					Users users = userService.getUserByUserID(UserID);
 					//Questionmanagement userquestion = QuestionmanagementService.getQuestionmanagementbyID(Id);
@@ -231,7 +231,7 @@ public class DictionaryController {
 					logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 					List<Dictionary> Avaiable;
 					if(session.getValue("Admin")==null){	
-						Avaiable= DictionaryService.availablelist(page-1, UserID);			
+						Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 						for(int i=0;i < Avaiable.size();i++){
 							if(Avaiable.get(i).getQuestion().length() >= check){
 								String abc = Avaiable.get(i).getQuestion().toString();
@@ -239,7 +239,7 @@ public class DictionaryController {
 							}
 						}
 					}else{
-						Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+						Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 						for(int i=0;i < Avaiable.size();i++){
 							if(Avaiable.get(i).getQuestion().length() >= check){
 								String abc = Avaiable.get(i).getQuestion().toString();
@@ -254,7 +254,7 @@ public class DictionaryController {
 				
 			}
 		}
-		List<Dictionary> Avaiable= DictionaryService.availablelist(page-1,UserID);
+		List<Dictionary> Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1,UserID);
 		for(int i=0;i < Avaiable.size();i++){
 			if(Avaiable.get(i).getQuestion().length() >= check){
 				String abc = Avaiable.get(i).getQuestion().toString();
@@ -314,12 +314,12 @@ public class DictionaryController {
 				}
 				logger.info("Tài khoản " + users.getUserName() + " đã chỉnh sửa câu hỏi "+newquestion);
 				attribute.addFlashAttribute("message",   msgSrc.getMessage("message.dictionary.edit.success", null,locale));
-				List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
+				List<Dictionary> remove= DictionaryService.getAllListDownDictionary(page-1, UserID);
 				model.addAttribute("removelist", remove);
 				
 			}
 		}
-		List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
+		List<Dictionary> remove= DictionaryService.getAllListDownDictionary(page-1, UserID);
 		for(int i=0;i < remove.size();i++){
 			if(remove.get(i).getQuestion().length() >= check){
 				String abc = remove.get(i).getQuestion().toString();
@@ -352,7 +352,7 @@ public class DictionaryController {
 			
 			List<Dictionary> Avaiable;
 			if(session.getValue("Admin")==null){	
-				Avaiable= DictionaryService.availablelist(page-1, UserID);			
+				Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 				for(int i=0;i < Avaiable.size();i++){
 					if(Avaiable.get(i).getQuestion().length() >= check){
 						String abc = Avaiable.get(i).getQuestion().toString();
@@ -360,7 +360,7 @@ public class DictionaryController {
 					}
 				}
 			}else{
-				Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+				Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 				for(int i=0;i < Avaiable.size();i++){
 					if(Avaiable.get(i).getQuestion().length() >= check){
 						String abc = Avaiable.get(i).getQuestion().toString();
@@ -400,7 +400,7 @@ public class DictionaryController {
 			session.setAttribute("Page",page );	
 			List<Dictionary> Avaiable;
 			if(session.getValue("Admin")==null){	
-				Avaiable= DictionaryService.availablelist(page-1, UserID);			
+				Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 				for(int i=0;i < Avaiable.size();i++){
 					if(Avaiable.get(i).getQuestion().length() >= check){
 						String abc = Avaiable.get(i).getQuestion().toString();
@@ -408,7 +408,7 @@ public class DictionaryController {
 					}
 				}
 			}else{
-				Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+				Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 				for(int i=0;i < Avaiable.size();i++){
 					if(Avaiable.get(i).getQuestion().length() >= check){
 						String abc = Avaiable.get(i).getQuestion().toString();
@@ -498,7 +498,7 @@ public class DictionaryController {
 								model.addAttribute("username", user);
 								List<Dictionary> Avaiable;
 								if(session.getValue("Admin")==null){	
-									Avaiable= DictionaryService.availablelist(page-1, UserID);			
+									Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 									for(int i=0;i < Avaiable.size();i++){
 										if(Avaiable.get(i).getQuestion().length() >= check){
 											String abc = Avaiable.get(i).getQuestion().toString();
@@ -506,7 +506,7 @@ public class DictionaryController {
 										}
 									}
 								}else{
-									Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+									Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 									for(int i=0;i < Avaiable.size();i++){
 										if(Avaiable.get(i).getQuestion().length() >= check){
 											String abc = Avaiable.get(i).getQuestion().toString();
@@ -545,7 +545,7 @@ public class DictionaryController {
 					
 					List<Dictionary> Avaiable;
 					if(session.getValue("Admin")==null){	
-						Avaiable= DictionaryService.availablelist(page-1, UserID);			
+						Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 						for(int i=0;i < Avaiable.size();i++){
 							if(Avaiable.get(i).getQuestion().length() >= check){
 								String abc = Avaiable.get(i).getQuestion().toString();
@@ -553,7 +553,7 @@ public class DictionaryController {
 							}
 						}
 					}else{
-						Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+						Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 						for(int i=0;i < Avaiable.size();i++){
 							if(Avaiable.get(i).getQuestion().length() >= check){
 								String abc = Avaiable.get(i).getQuestion().toString();
@@ -589,7 +589,7 @@ public class DictionaryController {
 						DictionaryService.updateDeleteByAndDeleteDateWhenDelete(Id, userID);
 						List<Dictionary> Avaiable;
 						if(session.getValue("Admin")==null){	
-							Avaiable= DictionaryService.availablelist(page-1, UserID);			
+							Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 							for(int i=0;i < Avaiable.size();i++){
 								if(Avaiable.get(i).getQuestion().length() >= check){
 									String abc = Avaiable.get(i).getQuestion().toString();
@@ -597,7 +597,7 @@ public class DictionaryController {
 								}
 							}
 						}else{
-							Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+							Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 							for(int i=0;i < Avaiable.size();i++){
 								if(Avaiable.get(i).getQuestion().length() >= check){
 									String abc = Avaiable.get(i).getQuestion().toString();
@@ -647,7 +647,7 @@ public class DictionaryController {
 							
 							List<Dictionary> Avaiable;
 							if(session.getValue("Admin")==null){	
-								Avaiable= DictionaryService.availablelist(page-1, UserID);			
+								Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 								for(int i=0;i < Avaiable.size();i++){
 									if(Avaiable.get(i).getQuestion().length() >= check){
 										String abc = Avaiable.get(i).getQuestion().toString();
@@ -655,7 +655,7 @@ public class DictionaryController {
 									}
 								}
 							}else{
-								Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+								Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 								for(int i=0;i < Avaiable.size();i++){
 									if(Avaiable.get(i).getQuestion().length() >= check){
 										String abc = Avaiable.get(i).getQuestion().toString();
@@ -685,14 +685,14 @@ public class DictionaryController {
 						if(actionsubmit.equals("deleteall")){
 							int login = Integer.parseInt(session.getAttribute("login").toString());
 							String[] liststring = checkboxdata.split(",");
-							List<Dictionary> returnlist = DictionaryService.deletealldictionary(checkboxdata, login);
+							List<Dictionary> returnlist = DictionaryService.deleteMultipleDictionary(checkboxdata, login);
 							int SizeOfList = liststring.length;
 							int successCount = returnlist.size();
 							int failCount =  SizeOfList-successCount;
 							model.addAttribute("message", "Đã xóa.");
 							List<Dictionary> Avaiable;
 							if(session.getValue("Admin")==null){	
-								Avaiable= DictionaryService.availablelist(page-1, UserID);			
+								Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 								for(int i=0;i < Avaiable.size();i++){
 									if(Avaiable.get(i).getQuestion().length() >= check){
 										String abc = Avaiable.get(i).getQuestion().toString();
@@ -700,7 +700,7 @@ public class DictionaryController {
 									}
 								}
 							}else{
-								Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+								Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 								for(int i=0;i < Avaiable.size();i++){
 									if(Avaiable.get(i).getQuestion().length() >= check){
 										String abc = Avaiable.get(i).getQuestion().toString();
@@ -776,7 +776,7 @@ public class DictionaryController {
 													model.addAttribute("username", user);
 													List<Dictionary> Avaiable;
 													if(session.getValue("Admin")==null){	
-														Avaiable= DictionaryService.availablelist(page-1, UserID);			
+														Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 														for(int i=0;i < Avaiable.size();i++){
 															if(Avaiable.get(i).getQuestion().length() >= check){
 																String abc = Avaiable.get(i).getQuestion().toString();
@@ -784,7 +784,7 @@ public class DictionaryController {
 															}
 														}
 													}else{
-														Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+														Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 														for(int i=0;i < Avaiable.size();i++){
 															if(Avaiable.get(i).getQuestion().length() >= check){
 																String abc = Avaiable.get(i).getQuestion().toString();
@@ -824,7 +824,7 @@ public class DictionaryController {
 								}
 								List<Dictionary> Avaiable;
 								if(session.getValue("Admin")==null){	
-									Avaiable= DictionaryService.availablelist(page-1, UserID);			
+									Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1, UserID);			
 									for(int i=0;i < Avaiable.size();i++){
 										if(Avaiable.get(i).getQuestion().length() >= check){
 											String abc = Avaiable.get(i).getQuestion().toString();
@@ -832,7 +832,7 @@ public class DictionaryController {
 										}
 									}
 								}else{
-									Avaiable= DictionaryService.availablelistadmin(page-1, UserID);			
+									Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 									for(int i=0;i < Avaiable.size();i++){
 										if(Avaiable.get(i).getQuestion().length() >= check){
 											String abc = Avaiable.get(i).getQuestion().toString();
@@ -909,7 +909,7 @@ public class DictionaryController {
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
-			List<Dictionary> delete= DictionaryService.deletelist(page-1, userID);
+			List<Dictionary> delete= DictionaryService.getAllListDeleteDictionary(page-1, userID);
 			for(int i=0;i < delete.size();i++){
 				if(delete.get(i).getQuestion().length() >= check){
 					String abc = delete.get(i).getQuestion().toString();
@@ -943,7 +943,7 @@ public class DictionaryController {
 			if(DictionaryService.checkDictionaryDeleteByUserId(userID,Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
-			List<Dictionary> deletelist= DictionaryService.deletelist(page-1, userID);	
+			List<Dictionary> deletelist= DictionaryService.getAllListDeleteDictionary(page-1, userID);	
 			for(int i=0;i < deletelist.size();i++){
 				if(deletelist.get(i).getQuestion().length() >= check){
 					String abc = deletelist.get(i).getQuestion().toString();
@@ -998,7 +998,7 @@ public class DictionaryController {
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 			
-			List<Dictionary> deletelist= DictionaryService.deletelist(page, userID);
+			List<Dictionary> deletelist= DictionaryService.getAllListDeleteDictionary(page, userID);
 			for(int i=0;i < deletelist.size();i++){
 				if(deletelist.get(i).getQuestion().length() >= check){
 					String abc = deletelist.get(i).getQuestion().toString();
@@ -1018,7 +1018,7 @@ public class DictionaryController {
 				if(session.getAttribute("Id") !="0"){
 					// Processing restore question
 					int result = DictionaryService.updateDictionaryWhenRestore(Id);
-					List<Dictionary> dele= DictionaryService.deletelist(page-1,userID);
+					List<Dictionary> dele= DictionaryService.getAllListDeleteDictionary(page-1,userID);
 					for(int i=0;i < dele.size();i++){
 						if(dele.get(i).getQuestion().length() >= check){
 							String abc = dele.get(i).getQuestion().toString();
@@ -1069,7 +1069,7 @@ public class DictionaryController {
 						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(8, userID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						
-						List<Dictionary> dele= DictionaryService.deletelist(0,userID);
+						List<Dictionary> dele= DictionaryService.getAllListDeleteDictionary(0,userID);
 						for(int i=0;i < dele.size();i++){
 							if(dele.get(i).getQuestion().length() >= check){
 								String abc = dele.get(i).getQuestion().toString();
@@ -1089,13 +1089,13 @@ public class DictionaryController {
 				}else{
 					if(actionsubmit.equals("restoreall")){
 						//xử lý khôi phục tất cả
-						List<Dictionary> returnlist = DictionaryService.restorealldictionary(checkboxdata, userID);
+						List<Dictionary> returnlist = DictionaryService.restoreMultipleDictionary(checkboxdata, userID);
 						
 						String[] liststring = checkboxdata.split(",");
 						int SizeOfList = liststring.length;
 						int successCount = returnlist.size();
 						int failCount = SizeOfList - successCount;
-						List<Dictionary> dele= DictionaryService.deletelist(page-1,userID);
+						List<Dictionary> dele= DictionaryService.getAllListDeleteDictionary(page-1,userID);
 						for(int i=0;i < dele.size();i++){
 							if(dele.get(i).getQuestion().length() >= check){
 								String abc = dele.get(i).getQuestion().toString();
@@ -1184,7 +1184,7 @@ public class DictionaryController {
 		if(Id==0){
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
-			List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);
+			List<Dictionary> remove= DictionaryService.getAllListDownDictionary(page-1, UserID);
 			for(int i=0;i < remove.size();i++){
 				if(remove.get(i).getQuestion().length() >= check){
 					String abc = remove.get(i).getQuestion().toString();
@@ -1218,7 +1218,7 @@ public class DictionaryController {
 			if(DictionaryService.checkIdDictionaryDown(Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
-			List<Dictionary> remove= DictionaryService.removelist(page-1, UserID);	
+			List<Dictionary> remove= DictionaryService.getAllListDownDictionary(page-1, UserID);	
 			for(int i=0;i < remove.size();i++){
 				if(remove.get(i).getQuestion().length() >= check){
 					String abc = remove.get(i).getQuestion().toString();
@@ -1308,7 +1308,7 @@ public class DictionaryController {
 							int result = DictionaryService.updateDictionaryWhenUpload(Id);
 							int update = DictionaryService.updateUpdateByWhenUpload(Id, UserID);
 							if(result >0 && update >0){
-								List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
+								List<Dictionary> remove1= DictionaryService.getAllListDownDictionary(page-1,UserID);
 								for(int i=0;i < remove1.size();i++){
 									if(remove1.get(i).getQuestion().length() >= check){
 										String abc = remove1.get(i).getQuestion().toString();
@@ -1344,7 +1344,7 @@ public class DictionaryController {
 					}				
 				}
 				
-					List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
+					List<Dictionary> remove1= DictionaryService.getAllListDownDictionary(page-1,UserID);
 					for(int i=0;i < remove1.size();i++){
 						if(remove1.get(i).getQuestion().length() >= check){
 							String abc = remove1.get(i).getQuestion().toString();
@@ -1376,7 +1376,7 @@ public class DictionaryController {
 						// Processing restore question
 						int result = DictionaryService.updateDictionaryWhenDelete(Id);
 						DictionaryService.updateDeleteByAndDeleteDateWhenDelete(Id, userID);
-						List<Dictionary> remove1= DictionaryService.removelist(page-1, UserID);
+						List<Dictionary> remove1= DictionaryService.getAllListDownDictionary(page-1, UserID);
 						for(int i=0;i < remove1.size();i++){
 							if(remove1.get(i).getQuestion().length() >= check){
 								String abc = remove1.get(i).getQuestion().toString();
@@ -1416,7 +1416,7 @@ public class DictionaryController {
 						if(session.getAttribute("Id") !="0"){
 							// Processing restore question
 							int result = DictionaryService.updateQuesionAndAnwserDictionary(Id, diction.getAnwser(), diction.getQuestion());
-							List<Dictionary> remove2= DictionaryService.removelist(page-1, UserID);
+							List<Dictionary> remove2= DictionaryService.getAllListDownDictionary(page-1, UserID);
 							for(int i=0;i < remove2.size();i++){
 								if(remove2.get(i).getQuestion().length() >= check){
 									String abc = remove2.get(i).getQuestion().toString();
@@ -1453,7 +1453,7 @@ public class DictionaryController {
 								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(7, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 								
-								List<Dictionary> remove2= DictionaryService.removelist(0, UserID);
+								List<Dictionary> remove2= DictionaryService.getAllListDownDictionary(0, UserID);
 								for(int i=0;i < remove2.size();i++){
 									if(remove2.get(i).getQuestion().length() >= check){
 										String abc = remove2.get(i).getQuestion().toString();
@@ -1475,12 +1475,12 @@ public class DictionaryController {
 								int login = Integer.parseInt(session.getAttribute("login").toString());
 								String[] liststring = checkboxdata.split(",");
 								
-								List<Dictionary> returnlist = DictionaryService.deletealldictionary(checkboxdata, login);
+								List<Dictionary> returnlist = DictionaryService.deleteMultipleDictionary(checkboxdata, login);
 								int SizeOfList = liststring.length;
 								int successCount = returnlist.size();
 								int failCount = SizeOfList - successCount;
 								model.addAttribute("message",msgSrc.getMessage("message.dictionary.deleteall.success", null,locale));
-								List<Dictionary> remove2= DictionaryService.removelist(0, UserID);
+								List<Dictionary> remove2= DictionaryService.getAllListDownDictionary(0, UserID);
 								for(int i=0;i < remove2.size();i++){
 									if(remove2.get(i).getQuestion().length() >= check){
 										String abc = remove2.get(i).getQuestion().toString();
@@ -1549,7 +1549,7 @@ public class DictionaryController {
 														int result = DictionaryService.updateDictionaryWhenUpload(deleteid);
 														int update = DictionaryService.updateUpdateByWhenUpload(deleteid, UserID);
 														if(result >0 && update >0){
-															List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
+															List<Dictionary> remove1= DictionaryService.getAllListDownDictionary(page-1,UserID);
 															for(int i=0;i < remove1.size();i++){
 																if(remove1.get(i).getQuestion().length() >= check){
 																	String abc = remove1.get(i).getQuestion().toString();
@@ -1588,7 +1588,7 @@ public class DictionaryController {
 												
 										}
 										
-											List<Dictionary> remove1= DictionaryService.removelist(page-1,UserID);
+											List<Dictionary> remove1= DictionaryService.getAllListDownDictionary(page-1,UserID);
 											for(int i=0;i < remove1.size();i++){
 												if(remove1.get(i).getQuestion().length() >= check){
 													String abc = remove1.get(i).getQuestion().toString();
@@ -1676,7 +1676,7 @@ public class DictionaryController {
 			session.setAttribute("Id", "0");
 			session.setAttribute("Page",page );
 		
-			List<Dictionary> Recent= DictionaryService.recentlist(page-1, UserID);
+			List<Dictionary> Recent= DictionaryService.getAllListRecentDictionary(page-1, UserID);
 			for(int i=0;i < Recent.size();i++){
 				if(Recent.get(i).getQuestion().length() >= check){
 					String abc = Recent.get(i).getQuestion().toString();
@@ -1709,7 +1709,7 @@ public class DictionaryController {
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 
-			List<Dictionary> recentlist= DictionaryService.recentlist(page-1,  UserID);	
+			List<Dictionary> recentlist= DictionaryService.getAllListRecentDictionary(page-1,  UserID);	
 			for(int i=0;i < recentlist.size();i++){
 				if(recentlist.get(i).getQuestion().length() >= check){
 					String abc = recentlist.get(i).getQuestion().toString();
@@ -1763,7 +1763,7 @@ public class DictionaryController {
 			int page =Integer.parseInt(session.getAttribute("Page").toString());
 			//Load deleted-question list of page that is selected
 
-			List<Dictionary> recentlist= DictionaryService.recentlist(page-1, UserID);
+			List<Dictionary> recentlist= DictionaryService.getAllListRecentDictionary(page-1, UserID);
 			for(int i=0;i < recentlist.size();i++){
 				if(recentlist.get(i).getQuestion().length() >= check){
 					String abc = recentlist.get(i).getQuestion().toString();
@@ -1803,7 +1803,7 @@ public class DictionaryController {
 							// Processing restore question
 							int result = DictionaryService.updateDictionaryWhenDown(Id);
 							int update = DictionaryService.updateUpdateByWhenUpload(Id, UserID);
-							List<Dictionary> rece= DictionaryService.recentlist(page-1, UserID);
+							List<Dictionary> rece= DictionaryService.getAllListRecentDictionary(page-1, UserID);
 							for(int i=0;i < rece.size();i++){
 								if(rece.get(i).getQuestion().length() >= check){
 									String abc = rece.get(i).getQuestion().toString();
@@ -1838,7 +1838,7 @@ public class DictionaryController {
 					
 				}
 				
-				List<Dictionary> rece= DictionaryService.recentlist(page-1, UserID);
+				List<Dictionary> rece= DictionaryService.getAllListRecentDictionary(page-1, UserID);
 				for(int i=0;i < rece.size();i++){
 					if(rece.get(i).getQuestion().length() >= check){
 						String abc = rece.get(i).getQuestion().toString();
@@ -1870,7 +1870,7 @@ public class DictionaryController {
 						model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestiomanagement(6, UserID));
 						model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 						
-						List<Dictionary> rece= DictionaryService.recentlist(0, UserID);
+						List<Dictionary> rece= DictionaryService.getAllListRecentDictionary(0, UserID);
 						for(int i=0;i < rece.size();i++){
 							if(rece.get(i).getQuestion().length() >= check){
 								String abc = rece.get(i).getQuestion().toString();
@@ -1920,7 +1920,7 @@ public class DictionaryController {
 										// Processing restore question
 										int result = DictionaryService.updateDictionaryWhenDown(deleteid);
 										int update = DictionaryService.updateUpdateByWhenUpload(deleteid, UserID);
-										List<Dictionary> rece= DictionaryService.recentlist(page-1, UserID);
+										List<Dictionary> rece= DictionaryService.getAllListRecentDictionary(page-1, UserID);
 										for(int i=0;i < rece.size();i++){
 											if(rece.get(i).getQuestion().length() >= check){
 												String abc = rece.get(i).getQuestion().toString();
@@ -1952,7 +1952,7 @@ public class DictionaryController {
 									failCount++;
 								}
 							}
-							List<Dictionary> rece= DictionaryService.recentlist(page-1, UserID);
+							List<Dictionary> rece= DictionaryService.getAllListRecentDictionary(page-1, UserID);
 							for(int i=0;i < rece.size();i++){
 								if(rece.get(i).getQuestion().length() >= check){
 									String abc = rece.get(i).getQuestion().toString();
