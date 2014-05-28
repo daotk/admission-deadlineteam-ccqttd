@@ -147,7 +147,7 @@
 						<!-- select form --> 
 						<div style="padding: 5px;">
 						  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
-						  	<span id="restore_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();">Khôi phục</span>
+						  	<span id="restore_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/restore.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Khôi phục</span>
 					  		
 					  		<!-- configuration -->
 					  		<div id="container-pop">
