@@ -46,9 +46,15 @@
 		color: white;
 		height:100%;
     }
+    .menu1 {
+    	background-color:#2c406e;
+        width:70px;
+        float:left;  
+		height:100%;
+		cursor: pointer;
+    }
  
     .body {
-        margin:0px 0px 0px 180px;
         overflow: hidden;
     }
      
@@ -66,15 +72,32 @@
   		font-size: 7.5pt;
     }  
     </style>
+    
     <link href="template/default/css/styles.css" rel="stylesheet" />
+    <script src="template/default/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="template/default/js/default.min.js"></script>
+		
+	<SCRIPT>
+	$(document).ready(function(){
+		  var buttonmenu = $.cookie('button-menu');
+		  if(buttonmenu == 'menu'){
+			  $('#idmenu').show();
+	            $('#idmenu1').hide();
+		  }else{
+			  $('#idmenu1').show();
+	          $('#idmenu').hide();
+		  }
+		
+	});
+	</SCRIPT>
 </head>
 <body>
     <div class="page">
         <tiles:insertAttribute name="header" />
         <div class="content">
-            <tiles:insertAttribute name="menu" />
-            <tiles:insertAttribute name="body" />
+            <tiles:insertAttribute name="menu"/>
+             <tiles:insertAttribute name="menu1"/>
+            <tiles:insertAttribute name="body"/>
         </div>
         <tiles:insertAttribute name="footer" />
     </div>

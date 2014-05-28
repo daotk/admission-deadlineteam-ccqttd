@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="menu" id="menu12345">  
-	<div style="border-bottom: 1px solid #546181;background-color: #122144;">
+<div class="menu" id="idmenu" style="display: none;">  
+	<div  onclick="return hideMultiple();" style="border-bottom: 1px solid #546181;background-color: #122144;">
 		<div style="width: 100%;height: 90px ;background-image: url(images/logo2.png); vertical-align:middle"></div>
 	</div>
 	<div id="menus" class="menu">
@@ -22,5 +22,6 @@
 			</c:if>
 			<li><a href="trogiup"><img style="float: left; margin: 1px 5px 0 -10px;" src="template/default/images/Help.png"/>Trợ giúp</a></li>
 		</ul>
-	</div>	
+	</div>
+	
 </div>

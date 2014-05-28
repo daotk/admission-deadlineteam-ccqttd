@@ -130,7 +130,7 @@
         <div class="body">     		 
        		<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%;width: 100%">
-					<td style="background-color: #ffffff;width: 30%; height:100%" valign="top">
+					<td style="background-color: #ffffff;width: 30%;min-width:30%; height:100%" valign="top">
 						<div id="second-sidebar">
 							<!-- search form -->
 							<form id="quick-search" method="post" action="botudienhientai" class="timkiem">
