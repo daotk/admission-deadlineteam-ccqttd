@@ -656,7 +656,7 @@ public class QuestionaManagementController {
 								}
 							}else{
 							//xu ly tim kiem
-							List<Questionmanagement> list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"1");
+							List<Questionmanagement> list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"1",UserID);
 							for(int i=0;i < list.size();i++){
 								if(list.get(i).getQuestion().length() >= check){
 									String abc = list.get(i).getQuestion().toString();
@@ -1518,7 +1518,7 @@ public class QuestionaManagementController {
 							//xu ly tim kiem							
 							List<Questionmanagement> list;
 							if(session.getValue("Admin")!=null){
-								list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"2");
+								list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"2", UserID);
 								for(int i=0;i < list.size();i++){
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
@@ -2128,7 +2128,7 @@ public class QuestionaManagementController {
 							//xu ly tim kiem
 							List<Questionmanagement> list;
 							if(session.getValue("Admin")!=null){
-								list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"3");
+								list = QuestionmanagementService.searchIndexForAdmin(actionsubmit,"3", UserID);
 								for(int i=0;i < list.size();i++){
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
@@ -2566,7 +2566,7 @@ public class QuestionaManagementController {
 					//xu ly tim kiem
 					List<Questionmanagement> list;
 					if(session.getValue("Admin")!=null){
-						list= QuestionmanagementService.searchIndexForAdmin(actionsubmit,"4");
+						list= QuestionmanagementService.searchIndexForAdmin(actionsubmit,"4", UserID);
 						for(int i=0;i < list.size();i++){
 							if(list.get(i).getQuestion().length() >= check){
 								String abc = list.get(i).getQuestion().toString();

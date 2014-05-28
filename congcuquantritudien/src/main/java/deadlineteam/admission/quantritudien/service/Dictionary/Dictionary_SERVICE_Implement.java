@@ -440,12 +440,39 @@ public class Dictionary_SERVICE_Implement  implements Dictionary_SERVICE{
 				newlist.add(list.get(i));
 			}
 		}
+		
 		Users users = userservice.getUserByUserID(UserID);
 		if(users.getAuthorization() ==1){
-			return list;
+			List<Dictionary> settinglist = new ArrayList<Dictionary>();
+			 Setting settings = getSetting(UserID);
+			 int begin = 0;
+			 int end =settings.getRecordDictionary();
+			if(end > list.size()){
+				end = list.size();
+			}
+			int l = 0;
+			for(int k = begin; k < end; k++){
+				settinglist.add(l, list.get(k));
+				l++;
+			}
+			return settinglist;
 		}else{
-			return newlist;
+			List<Dictionary> settinglist = new ArrayList<Dictionary>();
+			 Setting settings = getSetting(UserID);
+			 int begin = 0;
+			 int end =settings.getRecordDictionary();
+			if(end > newlist.size()){
+				end = newlist.size();
+			}
+			int l = 0;
+			for(int k = begin; k < end; k++){
+				settinglist.add(l, newlist.get(k));
+				l++;
+			}
+			return settinglist;
+			
 		}
+		
 		
 	}
 	
