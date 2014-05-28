@@ -573,8 +573,38 @@ public class Questionmanagement_SERVICE_Implement implements
 	 * @param Status
 	 * @return
 	 */
-	public List<Questionmanagement> searchIndexForAdmin(String keyword, String Status) {
-		return QuestionmanagementDAO.searchIdex(keyword, Status);
+	public List<Questionmanagement> searchIndexForAdmin(String keyword, String Status, int UserID) {
+		 List<Questionmanagement> searchlist = QuestionmanagementDAO.searchIdex(keyword, Status);
+		 List<Questionmanagement> settinglist = new ArrayList<Questionmanagement>();
+		 Setting settings = getSetting(UserID);
+		 int begin ;
+		 int end ;
+		 if(Status == "1"){
+			 begin = 0;
+			 end = settings.getRecordNotRep();
+		 }else{
+			 if(Status == "2"){
+				 begin = 0;
+				 end = settings.getRecordTemp();
+			 }else{
+				 if(Status == "3"){
+					 begin = 0;
+					 end = settings.getRecordRepied();
+				 }else{
+					 begin = 0;
+					 end = settings.getRecordDelete();
+				 }
+			 }
+		 }
+		 if(end > searchlist.size()){
+				end = searchlist.size();
+			}
+			int l = 0;
+			for(int k = begin; k < end; k++){
+				settinglist.add(l, searchlist.get(k));
+				l++;
+			}
+		return settinglist;
 	}
 
 	/**

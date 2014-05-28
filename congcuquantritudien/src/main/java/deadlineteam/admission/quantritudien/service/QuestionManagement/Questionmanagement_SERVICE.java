@@ -177,7 +177,7 @@ public interface Questionmanagement_SERVICE{
 	 * @param Status
 	 * @return
 	 */
-	public List<Questionmanagement> searchIndexForAdmin(String keyword,String Status);
+	public List<Questionmanagement> searchIndexForAdmin(String keyword,String Status, int UserID);
 	
 	/**
 	 * Search Index For User
