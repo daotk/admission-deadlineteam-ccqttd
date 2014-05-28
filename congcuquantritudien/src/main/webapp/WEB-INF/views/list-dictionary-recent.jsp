@@ -155,7 +155,7 @@
 			       		 	<!-- select form -->
 							<div style="padding: 5px;">
 								<c:if test="${not empty Admin}">
-								  	<span id="select_all" style="cursor: pointer;">Chọn tất cả</span>
+								  	<span id="select_all" style="cursor: pointer;"><img src="images/selectall.jpg" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
 								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;" onclick="$('#loading').show();"><img src="images/down.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Hạ</span>
 						  		</c:if>
 						  		<!-- configuration -->

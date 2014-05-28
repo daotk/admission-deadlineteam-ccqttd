@@ -153,7 +153,7 @@
  							<!-- Select form -->
 					  		<div style="padding: 5px;">
 					  			<c:if test="${not empty Admin}">
-							  		<span id="select_all" style="cursor: pointer;"><!-- img src="images/checkbox.png" style="border: 0; margin-right: 4px; margin-top: -6px" /-->Chọn tất cả</span>
+							  		<span id="select_all" style="cursor: pointer;"><img src="images/selectall.jpg" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
 							  		<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>					  		
 						  			<span id="up_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/upload.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Đăng</span>	
 					  			</c:if>

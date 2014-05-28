@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="menu">  
+<div class="menu" id="menu12345">  
 	<div style="border-bottom: 1px solid #546181;background-color: #122144;">
 		<div style="width: 100%;height: 90px ;background-image: url(images/logo2.png); vertical-align:middle"></div>
 	</div>
