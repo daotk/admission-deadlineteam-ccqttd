@@ -100,6 +100,10 @@ public class QuestionaManagementController {
 						String abc = ListQuestion.get(i).getQuestion().toString();
 						ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
+					if(ListQuestion.get(i).getQuestionEmail().length() >= 25){
+						String abc = ListQuestion.get(i).getQuestionEmail().toString();
+						ListQuestion.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+					}
 				}
 				model.addAttribute("listquestionmanagement", ListQuestion);		
 				Setting setting = userService.getSetting(UserId);
@@ -131,6 +135,10 @@ public class QuestionaManagementController {
 							String abc = ListQuestion.get(i).getQuestion().toString();
 							ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(ListQuestion.get(i).getQuestionEmail().length() >= 25){
+							String abc = ListQuestion.get(i).getQuestionEmail().toString();
+							ListQuestion.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 					Setting setting = userService.getSetting(UserID);
 					int numOfRecord = setting.getRecordNotRep();
@@ -161,6 +169,10 @@ public class QuestionaManagementController {
 						if(ListQuestion.get(i).getQuestion().length() >= check){
 							String abc = ListQuestion.get(i).getQuestion().toString();
 							ListQuestion.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(ListQuestion.get(i).getQuestionEmail().length() >= 25){
+							String abc = ListQuestion.get(i).getQuestionEmail().toString();
+							ListQuestion.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 					model.addAttribute("questionmanagements", questionmanagement);
@@ -231,6 +243,10 @@ public class QuestionaManagementController {
 								String abc = ListQuestion1.get(i).getQuestion().toString();
 								ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
+							if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+								String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+								ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+							}
 						}
 						model.addAttribute("listquestionmanagement", ListQuestion1);
 					}else{
@@ -269,6 +285,11 @@ public class QuestionaManagementController {
 											if(ListQuestion1.get(i).getQuestion().length() >= check){
 												String abc = ListQuestion1.get(i).getQuestion().toString();
 												ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												
+											}
+											if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+												String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+												ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 											}
 										}
 										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -313,6 +334,10 @@ public class QuestionaManagementController {
 													if(ListQuestion1.get(i).getQuestion().length() >= check){
 														String abc = ListQuestion1.get(i).getQuestion().toString();
 														ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+													}
+													if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+														String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+														ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 													}
 												}
 												QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -360,6 +385,10 @@ public class QuestionaManagementController {
 											String abc = ListQuestion1.get(i).getQuestion().toString();
 											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+											String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+											ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									Setting setting = userService.getSetting(UserID);
@@ -388,6 +417,10 @@ public class QuestionaManagementController {
 					if(ListQuestion1.get(i).getQuestion().length() >= check){
 						String abc = ListQuestion1.get(i).getQuestion().toString();
 						ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+					}
+					if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+						String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+						ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 					}
 				}
 				QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -429,6 +462,10 @@ public class QuestionaManagementController {
 													String abc = ListQuestion1.get(i).getQuestion().toString();
 													ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
+												if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+													String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+													ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+												}
 											}
 											model.addAttribute("listquestionmanagement", ListQuestion1);
 											Setting setting = userService.getSetting(UserID);
@@ -460,6 +497,10 @@ public class QuestionaManagementController {
 											String abc = ListQuestion1.get(i).getQuestion().toString();
 											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+											String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+											ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
 									Setting setting = userService.getSetting(UserID);
@@ -485,6 +526,10 @@ public class QuestionaManagementController {
 						if(ListQuestion1.get(i).getQuestion().length() >= check){
 							String abc = ListQuestion1.get(i).getQuestion().toString();
 							ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+							String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+							ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 					model.addAttribute("listquestionmanagement", ListQuestion1);
@@ -534,6 +579,10 @@ public class QuestionaManagementController {
 													String abc = ListQuestion1.get(i).getQuestion().toString();
 													ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
+												if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+													String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+													ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+												}
 											}
 											model.addAttribute("listquestionmanagement", ListQuestion1);
 											Setting setting = userService.getSetting(UserID);
@@ -566,6 +615,10 @@ public class QuestionaManagementController {
 											String abc = ListQuestion1.get(i).getQuestion().toString();
 											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+											String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+											ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
 									
@@ -579,6 +632,10 @@ public class QuestionaManagementController {
 							if(ListQuestion1.get(i).getQuestion().length() >= check){
 								String abc = ListQuestion1.get(i).getQuestion().toString();
 								ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+							if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+								String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+								ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 							}
 						}
 						model.addAttribute("listquestionmanagement", ListQuestion1);
@@ -603,6 +660,10 @@ public class QuestionaManagementController {
 									String abc = ListQuestion1.get(i).getQuestion().toString();
 									ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
+								if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+									String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+									ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+								}
 							}
 							if(returnlist !=null){
 								for(int i =0; i< returnlist.size();i++){
@@ -614,7 +675,12 @@ public class QuestionaManagementController {
 										question = question + "...";
 									}
 									logger.info("Tài khoản "+users.getUserName()+" xóa câu hỏi " + question);
+									if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+										String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+										ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
+								
 							}
 							model.addAttribute("listquestionmanagement", ListQuestion1);
 							Setting setting = userService.getSetting(UserID);
@@ -646,6 +712,10 @@ public class QuestionaManagementController {
 											String abc = ListQuestion1.get(i).getQuestion().toString();
 											ListQuestion1.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(ListQuestion1.get(i).getQuestionEmail().length() >= 25){
+											String abc = ListQuestion1.get(i).getQuestionEmail().toString();
+											ListQuestion1.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 									model.addAttribute("listquestionmanagement", ListQuestion1);
 									Users users = userService.getUserByUserID(UserID);
@@ -661,6 +731,10 @@ public class QuestionaManagementController {
 								if(list.get(i).getQuestion().length() >= check){
 									String abc = list.get(i).getQuestion().toString();
 									list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+								if(list.get(i).getQuestionEmail().length() >= 25){
+									String abc = list.get(i).getQuestionEmail().toString();
+									list.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 								}
 							}
 							Users users = userService.getUserByUserID(UserID);
@@ -711,6 +785,10 @@ public class QuestionaManagementController {
 							String abc = savelist.get(i).getQuestion().toString();
 							savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(savelist.get(i).getQuestionEmail().length() >= 25){
+							String abc = savelist.get(i).getQuestionEmail().toString();
+							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					//admin
@@ -719,6 +797,10 @@ public class QuestionaManagementController {
 						if(savelist.get(i).getQuestion().length() >= check){
 							String abc = savelist.get(i).getQuestion().toString();
 							savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(savelist.get(i).getQuestionEmail().length() >= 25){
+							String abc = savelist.get(i).getQuestionEmail().toString();
+							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 					
@@ -762,6 +844,10 @@ public class QuestionaManagementController {
 							String abc = savelist.get(i).getQuestion().toString();
 							savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(savelist.get(i).getQuestionEmail().length() >= 25){
+							String abc = savelist.get(i).getQuestionEmail().toString();
+							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					//admin
@@ -770,6 +856,10 @@ public class QuestionaManagementController {
 						if(savelist.get(i).getQuestion().length() >= check){
 							String abc = savelist.get(i).getQuestion().toString();
 							savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(savelist.get(i).getQuestionEmail().length() >= 25){
+							String abc = savelist.get(i).getQuestionEmail().toString();
+							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 					
@@ -845,6 +935,10 @@ public class QuestionaManagementController {
 									String abc = savelist.get(i).getQuestion().toString();
 									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
+								if(savelist.get(i).getQuestionEmail().length() >= 25){
+									String abc = savelist.get(i).getQuestionEmail().toString();
+									savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+								}
 							}
 						}else{
 							//admin
@@ -853,6 +947,10 @@ public class QuestionaManagementController {
 								if(savelist.get(i).getQuestion().length() >= check){
 									String abc = savelist.get(i).getQuestion().toString();
 									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+								if(savelist.get(i).getQuestionEmail().length() >= 25){
+									String abc = savelist.get(i).getQuestionEmail().toString();
+									savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 								}
 							}
 							
@@ -899,6 +997,10 @@ public class QuestionaManagementController {
 													String abc = savelist.get(i).getQuestion().toString();
 													savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
+												if(savelist.get(i).getQuestionEmail().length() >= 25){
+													String abc = savelist.get(i).getQuestionEmail().toString();
+													savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+												}
 											}
 											QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 										}else{
@@ -908,6 +1010,10 @@ public class QuestionaManagementController {
 												if(savelist.get(i).getQuestion().length() >= check){
 													String abc = savelist.get(i).getQuestion().toString();
 													savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+												if(savelist.get(i).getQuestionEmail().length() >= 25){
+													String abc = savelist.get(i).getQuestionEmail().toString();
+													savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 												}
 											}
 											QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -957,6 +1063,10 @@ public class QuestionaManagementController {
 														if(savelist.get(i).getQuestion().length() >= check){
 															String abc = savelist.get(i).getQuestion().toString();
 															savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+														}
+														if(savelist.get(i).getQuestionEmail().length() >= 25){
+															String abc = savelist.get(i).getQuestionEmail().toString();
+															savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 														}
 													}
 													QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1011,6 +1121,10 @@ public class QuestionaManagementController {
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+											}
 										}
 										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									}else{
@@ -1020,6 +1134,10 @@ public class QuestionaManagementController {
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 											}
 										}
 										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1051,6 +1169,10 @@ public class QuestionaManagementController {
 								String abc = savelist.get(i).getQuestion().toString();
 								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
+							if(savelist.get(i).getQuestionEmail().length() >= 25){
+								String abc = savelist.get(i).getQuestionEmail().toString();
+								savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+							}
 						}
 						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 					}else{
@@ -1060,6 +1182,10 @@ public class QuestionaManagementController {
 							if(savelist.get(i).getQuestion().length() >= check){
 								String abc = savelist.get(i).getQuestion().toString();
 								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+							if(savelist.get(i).getQuestionEmail().length() >= 25){
+								String abc = savelist.get(i).getQuestionEmail().toString();
+								savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 							}
 						}
 						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1105,6 +1231,10 @@ public class QuestionaManagementController {
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+											}
 										}
 										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 									}else{
@@ -1114,6 +1244,10 @@ public class QuestionaManagementController {
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 											}
 										}
 										QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1149,6 +1283,10 @@ public class QuestionaManagementController {
 														String abc = savelist.get(i).getQuestion().toString();
 														savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 													}
+													if(savelist.get(i).getQuestionEmail().length() >= 25){
+														String abc = savelist.get(i).getQuestionEmail().toString();
+														savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+													}
 												}
 												
 												QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1159,6 +1297,10 @@ public class QuestionaManagementController {
 													if(savelist.get(i).getQuestion().length() >= check){
 														String abc = savelist.get(i).getQuestion().toString();
 														savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+													}
+													if(savelist.get(i).getQuestionEmail().length() >= 25){
+														String abc = savelist.get(i).getQuestionEmail().toString();
+														savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 													}
 												}
 												QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1199,6 +1341,10 @@ public class QuestionaManagementController {
 											String abc = savelist.get(i).getQuestion().toString();
 											savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(savelist.get(i).getQuestionEmail().length() >= 25){
+											String abc = savelist.get(i).getQuestionEmail().toString();
+											savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
 								}else{
@@ -1208,6 +1354,10 @@ public class QuestionaManagementController {
 										if(savelist.get(i).getQuestion().length() >= check){
 											String abc = savelist.get(i).getQuestion().toString();
 											savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+										if(savelist.get(i).getQuestionEmail().length() >= 25){
+											String abc = savelist.get(i).getQuestionEmail().toString();
+											savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 										}
 									}
 									QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1230,6 +1380,10 @@ public class QuestionaManagementController {
 								String abc = savelist.get(i).getQuestion().toString();
 								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
+							if(savelist.get(i).getQuestionEmail().length() >= 25){
+								String abc = savelist.get(i).getQuestionEmail().toString();
+								savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+							}
 						}
 						
 						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1240,6 +1394,10 @@ public class QuestionaManagementController {
 							if(savelist.get(i).getQuestion().length() >= check){
 								String abc = savelist.get(i).getQuestion().toString();
 								savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+							if(savelist.get(i).getQuestionEmail().length() >= 25){
+								String abc = savelist.get(i).getQuestionEmail().toString();
+								savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 							}
 						}
 						QuestionmanagementService.updateAnwserByAndAnwserDate(Id, login);
@@ -1288,6 +1446,10 @@ public class QuestionaManagementController {
 													String abc = savelist.get(i).getQuestion().toString();
 													savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
+												if(savelist.get(i).getQuestionEmail().length() >= 25){
+													String abc = savelist.get(i).getQuestionEmail().toString();
+													savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+												}
 											}
 										}else{
 											//admin
@@ -1296,6 +1458,10 @@ public class QuestionaManagementController {
 												if(savelist.get(i).getQuestion().length() >= check){
 													String abc = savelist.get(i).getQuestion().toString();
 													savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+												if(savelist.get(i).getQuestionEmail().length() >= 25){
+													String abc = savelist.get(i).getQuestionEmail().toString();
+													savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 												}
 											}
 											
@@ -1333,6 +1499,10 @@ public class QuestionaManagementController {
 															String abc = savelist.get(i).getQuestion().toString();
 															savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 														}
+														if(savelist.get(i).getQuestionEmail().length() >= 25){
+															String abc = savelist.get(i).getQuestionEmail().toString();
+															savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+														}
 													}
 												}else{
 													//admin
@@ -1341,6 +1511,10 @@ public class QuestionaManagementController {
 														if(savelist.get(i).getQuestion().length() >= check){
 															String abc = savelist.get(i).getQuestion().toString();
 															savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+														}
+														if(savelist.get(i).getQuestionEmail().length() >= 25){
+															String abc = savelist.get(i).getQuestionEmail().toString();
+															savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 														}
 													}
 													
@@ -1373,6 +1547,10 @@ public class QuestionaManagementController {
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+											}
 										}
 									}else{
 										//admin
@@ -1381,6 +1559,10 @@ public class QuestionaManagementController {
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 											}
 										}
 										
@@ -1401,6 +1583,10 @@ public class QuestionaManagementController {
 									String abc = savelist.get(i).getQuestion().toString();
 									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
+								if(savelist.get(i).getQuestionEmail().length() >= 25){
+									String abc = savelist.get(i).getQuestionEmail().toString();
+									savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+								}
 							}
 						}else{
 							//admin
@@ -1409,6 +1595,10 @@ public class QuestionaManagementController {
 								if(savelist.get(i).getQuestion().length() >= check){
 									String abc = savelist.get(i).getQuestion().toString();
 									savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+								if(savelist.get(i).getQuestionEmail().length() >= 25){
+									String abc = savelist.get(i).getQuestionEmail().toString();
+									savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 								}
 							}
 							
@@ -1437,6 +1627,10 @@ public class QuestionaManagementController {
 										String abc = savelist.get(i).getQuestion().toString();
 										savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
+									if(savelist.get(i).getQuestionEmail().length() >= 25){
+										String abc = savelist.get(i).getQuestionEmail().toString();
+										savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
 							}else{
 								//admin
@@ -1445,6 +1639,10 @@ public class QuestionaManagementController {
 									if(savelist.get(i).getQuestion().length() >= check){
 										String abc = savelist.get(i).getQuestion().toString();
 										savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+									if(savelist.get(i).getQuestionEmail().length() >= 25){
+										String abc = savelist.get(i).getQuestionEmail().toString();
+										savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 								}
 								
@@ -1457,6 +1655,10 @@ public class QuestionaManagementController {
 									if(question.length() > 50){
 										question.substring(0, 45);
 										question = question + "...";
+									}
+									if(savelist.get(i).getQuestionEmail().length() >= 25){
+										String abc = savelist.get(i).getQuestionEmail().toString();
+										savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 									logger.info("Tài khoản "+users.getUserName()+" xóa câu hỏi " + question);
 								}
@@ -1493,6 +1695,10 @@ public class QuestionaManagementController {
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+											}
 										}
 									}else{
 										//admin
@@ -1501,6 +1707,10 @@ public class QuestionaManagementController {
 											if(savelist.get(i).getQuestion().length() >= check){
 												String abc = savelist.get(i).getQuestion().toString();
 												savelist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+											}
+											if(savelist.get(i).getQuestionEmail().length() >= 25){
+												String abc = savelist.get(i).getQuestionEmail().toString();
+												savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 											}
 										}
 										
@@ -1524,6 +1734,10 @@ public class QuestionaManagementController {
 										String abc = list.get(i).getQuestion().toString();
 										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
+									if(list.get(i).getQuestionEmail().length() >= 25){
+										String abc = list.get(i).getQuestionEmail().toString();
+										list.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
 							}else{
 								list = QuestionmanagementService.searchIndexForUser(actionsubmit,"2",UserID);
@@ -1531,6 +1745,10 @@ public class QuestionaManagementController {
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
 										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+									if(list.get(i).getQuestionEmail().length() >= 25){
+										String abc = list.get(i).getQuestionEmail().toString();
+										list.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 								}
 							}
@@ -1587,6 +1805,10 @@ public class QuestionaManagementController {
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1594,6 +1816,10 @@ public class QuestionaManagementController {
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 				}
@@ -1637,6 +1863,10 @@ public class QuestionaManagementController {
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1644,6 +1874,10 @@ public class QuestionaManagementController {
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 				}
@@ -1729,6 +1963,10 @@ public class QuestionaManagementController {
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
 											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+											String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+											Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 								}else{
 									Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1736,6 +1974,10 @@ public class QuestionaManagementController {
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
 											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+										if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+											String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+											Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 										}
 									}
 								}
@@ -1776,6 +2018,10 @@ public class QuestionaManagementController {
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
 													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
+												if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+													String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+													Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+												}
 											}
 										}else{
 											Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1783,6 +2029,10 @@ public class QuestionaManagementController {
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
 													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+												if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+													String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+													Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 												}
 											}
 										}
@@ -1814,6 +2064,10 @@ public class QuestionaManagementController {
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
 							}else{
 								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1821,6 +2075,10 @@ public class QuestionaManagementController {
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 								}
 							}
@@ -1839,6 +2097,10 @@ public class QuestionaManagementController {
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1846,6 +2108,10 @@ public class QuestionaManagementController {
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 				}
@@ -1895,6 +2161,10 @@ public class QuestionaManagementController {
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
 											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+											String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+											Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 								}else{
 									Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1902,6 +2172,10 @@ public class QuestionaManagementController {
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
 											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+										if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+											String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+											Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 										}
 									}
 								}
@@ -1944,6 +2218,10 @@ public class QuestionaManagementController {
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
 													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
+												if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+													String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+													Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+												}
 											}
 										}else{
 											Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -1951,6 +2229,10 @@ public class QuestionaManagementController {
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
 													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+												if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+													String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+													Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 												}
 											}
 										}
@@ -1994,6 +2276,10 @@ public class QuestionaManagementController {
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
 							}else{
 								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -2001,6 +2287,10 @@ public class QuestionaManagementController {
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 								}
 							}
@@ -2020,6 +2310,10 @@ public class QuestionaManagementController {
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
 									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
+								if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+									String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+									Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+								}
 							}
 						}else{
 							Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -2027,6 +2321,10 @@ public class QuestionaManagementController {
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
 									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+								if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+									String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+									Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 								}
 							}
 						}
@@ -2053,6 +2351,10 @@ public class QuestionaManagementController {
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
 							}else{
 								Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -2060,6 +2362,10 @@ public class QuestionaManagementController {
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 								}
 							}
@@ -2107,6 +2413,10 @@ public class QuestionaManagementController {
 												String abc = Deletequestionlist.get(i).getQuestion().toString();
 												Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 											}
+											if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+												String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+												Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+											}
 										}
 									}else{
 										Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
@@ -2114,6 +2424,10 @@ public class QuestionaManagementController {
 											if(Deletequestionlist.get(i).getQuestion().length() >= check){
 												String abc = Deletequestionlist.get(i).getQuestion().toString();
 												Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+											}
+											if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+												String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+												Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 											}
 										}
 									}
@@ -2134,6 +2448,10 @@ public class QuestionaManagementController {
 										String abc = list.get(i).getQuestion().toString();
 										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
+									if(list.get(i).getQuestionEmail().length() >= 25){
+										String abc = list.get(i).getQuestionEmail().toString();
+										list.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
 							}else{
 								list = QuestionmanagementService.searchIndexForUser(actionsubmit,"3",UserID);
@@ -2141,6 +2459,10 @@ public class QuestionaManagementController {
 									if(list.get(i).getQuestion().length() >= check){
 										String abc = list.get(i).getQuestion().toString();
 										list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+									if(list.get(i).getQuestionEmail().length() >= 25){
+										String abc = list.get(i).getQuestionEmail().toString();
+										list.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 								}
 							}
@@ -2194,6 +2516,10 @@ public class QuestionaManagementController {
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2201,6 +2527,10 @@ public class QuestionaManagementController {
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 				}
@@ -2242,6 +2572,10 @@ public class QuestionaManagementController {
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2249,6 +2583,10 @@ public class QuestionaManagementController {
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 				}
@@ -2345,6 +2683,10 @@ public class QuestionaManagementController {
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
 											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 										}
+										if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+											String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+											Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+										}
 									}
 								}else{
 									Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2352,6 +2694,10 @@ public class QuestionaManagementController {
 										if(Deletequestionlist.get(i).getQuestion().length() >= check){
 											String abc = Deletequestionlist.get(i).getQuestion().toString();
 											Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+										}
+										if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+											String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+											Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 										}
 									}
 								}
@@ -2394,6 +2740,10 @@ public class QuestionaManagementController {
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
 													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 												}
+												if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+													String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+													Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+												}
 											}
 										}else{
 											Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2401,6 +2751,10 @@ public class QuestionaManagementController {
 												if(Deletequestionlist.get(i).getQuestion().length() >= check){
 													String abc = Deletequestionlist.get(i).getQuestion().toString();
 													Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+												}
+												if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+													String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+													Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 												}
 											}
 										}
@@ -2432,6 +2786,10 @@ public class QuestionaManagementController {
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+									}
 								}
 							}else{
 								Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2439,6 +2797,10 @@ public class QuestionaManagementController {
 									if(Deletequestionlist.get(i).getQuestion().length() >= check){
 										String abc = Deletequestionlist.get(i).getQuestion().toString();
 										Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+									}
+									if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+										String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+										Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 									}
 								}
 							}
@@ -2455,6 +2817,10 @@ public class QuestionaManagementController {
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+						}
 					}
 				}else{
 					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2462,6 +2828,10 @@ public class QuestionaManagementController {
 						if(Deletequestionlist.get(i).getQuestion().length() >= check){
 							String abc = Deletequestionlist.get(i).getQuestion().toString();
 							Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+						}
+						if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+							String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
 				}
@@ -2498,6 +2868,10 @@ public class QuestionaManagementController {
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
 									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
+								if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+									String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+									Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+								}
 							}
 						}else{
 							Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2505,6 +2879,10 @@ public class QuestionaManagementController {
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
 									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+								if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+									String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+									Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 								}
 							}
 						}
@@ -2527,6 +2905,10 @@ public class QuestionaManagementController {
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
 									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
 								}
+								if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+									String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+									Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+								}
 							}
 						}else{
 							Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
@@ -2534,6 +2916,10 @@ public class QuestionaManagementController {
 								if(Deletequestionlist.get(i).getQuestion().length() >= check){
 									String abc = Deletequestionlist.get(i).getQuestion().toString();
 									Deletequestionlist.get(i).setQuestion(abc.substring(0, get)+ ".....");
+								}
+								if(Deletequestionlist.get(i).getQuestionEmail().length() >= 25){
+									String abc = Deletequestionlist.get(i).getQuestionEmail().toString();
+									Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 								}
 							}
 						}
@@ -2572,6 +2958,10 @@ public class QuestionaManagementController {
 								String abc = list.get(i).getQuestion().toString();
 								list.get(i).setQuestion(abc.substring(0, get)+ ".....");
 							}
+							if(list.get(i).getQuestionEmail().length() >= 25){
+								String abc = list.get(i).getQuestionEmail().toString();
+								list.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
+							}
 						}
 					}else{
 						list= QuestionmanagementService.searchIndexDeleteListForUser(actionsubmit,"4",UserID);
@@ -2579,6 +2969,10 @@ public class QuestionaManagementController {
 							if(list.get(i).getQuestion().length() >= check){
 								String abc = list.get(i).getQuestion().toString();
 								list.get(i).setQuestion(abc.substring(0, get)+ ".....");
+							}
+							if(list.get(i).getQuestionEmail().length() >= 25){
+								String abc = list.get(i).getQuestionEmail().toString();
+								list.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 							}
 						}
 						
