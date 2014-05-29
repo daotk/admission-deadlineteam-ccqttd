@@ -179,7 +179,7 @@
 						<!-- end configuration pop-up -->
 						
 						<!-- load list of question -->   	
-						<div style="height: 81%;">
+						<div style="height: 81%;overflow:auto ; overflow-x: hidden;">
 							<div class="list-question-content">
 								<c:if test="${not empty savequestionlist}">
 									<c:forEach var="Questionmanagement" items="${savequestionlist}" >

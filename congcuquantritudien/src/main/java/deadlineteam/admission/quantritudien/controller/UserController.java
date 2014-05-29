@@ -247,7 +247,7 @@ public class UserController {
 					userService.addUser(user);
 					List<Users> temp = userService.getAllUsers();
 					int size = temp.size() -1;
-					model.addAttribute("error","Bạn đã đăng ký thành công");
+					model.addAttribute("message","Bạn đã đăng ký thành công");
 					logger.info("Tài khoản "+ user.getUserName()+" đã được tạo");
 					
 					Setting settings = new Setting();
@@ -265,7 +265,7 @@ public class UserController {
 					settings.setUserID(Integer.parseInt(temp.get(size).getID().toString()));
 					userService.addSettingUser(settings);
 				}else{
-					model.addAttribute("message","Email không hợp lệ");
+					model.addAttribute("error","Email không hợp lệ");
 				}
 				
 				

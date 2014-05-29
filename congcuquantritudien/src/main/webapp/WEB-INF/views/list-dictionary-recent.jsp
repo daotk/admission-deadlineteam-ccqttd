@@ -194,7 +194,7 @@
 						    <!-- end configuration pop-up -->
 					    	
 					    	<!-- load list of question -->
-							<div class="list-question-content" style="height: 86%">
+							<div class="list-question-content" style="height: 86%; overflow:auto ; overflow-x: hidden;">
 								<c:if test="${not empty Recentlist}">
 									<c:forEach var="Questionmanagement" items="${Recentlist}" >
 										<div style="width: 100%;">

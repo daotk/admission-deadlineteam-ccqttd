@@ -183,7 +183,7 @@
 					    <!-- end configuration pop-up -->
 					        	
 					   	<!-- load list of question -->
-					   	<div style="height: 81%;">
+					   	<div style="height: 81%;overflow:auto ; overflow-x: hidden;">
 							<div class="list-question-content">
 								<c:forEach var="Questionmanagement" items="${replylust}" >
 									<div class="check"><input id="${Questionmanagement.ID}" name="check_${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>

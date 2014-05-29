@@ -189,7 +189,7 @@
 						    <!-- end configuration pop-up -->
 						    
        		 				<!-- load list of question -->
-       		 				<div class="list-question-content" style="height: 86%;">
+       		 				<div class="list-question-content" style="height: 86%; ; overflow:auto ; overflow-x: hidden;">
 								<c:if test="${not empty deletelist}">
 									<c:forEach var="Questionmanagement" items="${deletelist}" >
 										<div style="width: 100%;">
