@@ -252,7 +252,10 @@ public class QuestionaManagementController {
 					}else{
 						String email = session.getAttribute("email").toString();
 						String title = "Trả lời câu hỏi tuyển sinh";
-						String body = questionmanagement.getAnswer();
+						String header = "Hello guy" + "\n";
+						String footer = "\n " + "Trung tâm Thông tin trường ĐH Văn Lang "+"\n"+ " Điện thoại: 08. 38374596";
+						String body = questionmanagement.getAnswer()  + footer;
+						body = header + body;
 						MimeMessage mimeMessage = mailSender.createMimeMessage();
 						try {
 							
@@ -266,7 +269,7 @@ public class QuestionaManagementController {
 									 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 									 message.setTo(email);
 									 message.setSubject(title);
-									 
+									
 									 message.setText(body, true);
 									// sends the e-mail
 									mailSender.send(mimeMessage);
@@ -961,8 +964,11 @@ public class QuestionaManagementController {
 						model.addAttribute("anwser",questionmanagement.getAnswer());
 						String email = session.getAttribute("email").toString();
 						String title = "Trả lời câu hỏi tuyển sinh";
-						String body = questionmanagement.getAnswer();
+						String header = "Hello guy" + "\n";
+						String footer = "\n " + "Trung tâm Thông tin trường ĐH Văn Lang " + "\n " + "Điện thoại: 08. 38374596";
 						
+						String body = questionmanagement.getAnswer() + footer;
+						 body = header + body;
 						MimeMessage mimeMessage = mailSender.createMimeMessage();
 						
 						try {
