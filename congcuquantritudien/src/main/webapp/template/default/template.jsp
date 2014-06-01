@@ -48,7 +48,7 @@
     }
     .menu1 {
     	background-color:#2c406e;
-        width:70px;
+        width:20px;
         float:left;  
 		height:100%;
 		cursor: pointer;
@@ -77,19 +77,7 @@
     <script src="template/default/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="template/default/js/default.min.js"></script>
 		
-	<SCRIPT>
-	$(document).ready(function(){
-		  var buttonmenu = $.cookie('button-menu');
-		  if(buttonmenu == 'menu'){
-			  $('#idmenu').show();
-	            $('#idmenu1').hide();
-		  }else{
-			  $('#idmenu1').show();
-	          $('#idmenu').hide();
-		  }
-		
-	});
-	</SCRIPT>
+
 </head>
 <body>
     <div class="page">
