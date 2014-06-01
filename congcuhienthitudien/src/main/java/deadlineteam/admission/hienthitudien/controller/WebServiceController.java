@@ -1,6 +1,7 @@
 package deadlineteam.admission.hienthitudien.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import deadlineteam.admission.hienthitudien.service.DictionaryService;
 import deadlineteam.admission.hienthitudien.domain.Dictionary;
+
 
 @Controller
 @RequestMapping("api")
@@ -40,6 +42,13 @@ public class WebServiceController {
 			message = "fail";	
 		}
 		return message;
+	}
+	
+	@RequestMapping(value="question", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Dictionary> savequestion() {
+		List<Dictionary> listDictionary = dictionaryService.getalldictionary(1, 10);
+		return listDictionary;
 	}
 	
 	private boolean checkinput(Dictionary dictionary){

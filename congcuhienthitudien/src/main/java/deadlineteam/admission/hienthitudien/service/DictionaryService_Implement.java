@@ -117,7 +117,7 @@ public class DictionaryService_Implement implements DictionaryService {
 		}
 		
 		List<Dictionary> shortlist = new ArrayList<Dictionary>();
-         int setting = 1;
+         int setting = numAndroid;
          int begin = 0;
          int end =  page*setting + setting;
          if(end > sortlist.size()){
