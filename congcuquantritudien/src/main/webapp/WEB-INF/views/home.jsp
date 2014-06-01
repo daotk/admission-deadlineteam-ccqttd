@@ -140,7 +140,7 @@
         	<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%; width: 100%;">
         			<!-- List question is received -->
-					<td style="background-color: #ffffff; width: 350px;min-width:30%; height:100%;" valign="top">	
+					<td style="background-color: #ffffff; width: 350px; height:100%;" valign="top">	
 						<!-- search form -->			
 						<form id="quick-search" method="post" action="home" class="timkiem">
 					   		<fieldset class="search-bar">

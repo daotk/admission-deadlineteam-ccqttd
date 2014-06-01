@@ -287,7 +287,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Questionmanagement> repliedList(int UserID){
+	public List<Questionmanagement> getRepliedListForUser(int UserID){
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(
 	                "from Questionmanagement where Status = 3 AND DeleteStatus = 0 and AnswerBy ="+UserID);
 		
@@ -305,6 +305,7 @@ public class Questionmanagement_DAO_Implement implements Questionmanagement_DAO{
 		
 	         return (List<Questionmanagement>) q.list();	
 	}
+	
 	
 	/**
 	 * Get Reply Question

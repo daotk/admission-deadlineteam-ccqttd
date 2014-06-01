@@ -53,17 +53,18 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 		List<Users> users = getAllUsers();
 		int count=0;
 		for(int i=0; i<users.size();i++){
-			if(users.get(i).getStatus().equals(0)){
+			
 			if(users.get(i).getUserName().equals(username)){
 				count= count+1;
+				if(users.get(i).getStatus().equals(1)){
+					return "notallow";
+				}else{
 				if(users.get(i).getPassword().equals(password)){
 					count= count+1;
 					break;
 					}
 				}
-			}else{
-				return "notallow";
-			}
+			}	
 		}
 		if(count==2){
 		return "Right";
@@ -124,8 +125,8 @@ public class Users_SERVICE_Implement implements Users_SERVICE {
 	public int updateSettingDelete(int UserId, int Record, int Pagin){
 		return usersDAO.updateSettingDelete(UserId, Record, Pagin);
 	}
-	public int updateSettingDictionary(int UserId, int Authorization){
-		return usersDAO.updateAuthorizationUser(UserId, Authorization);
+	public int updateSettingDictionary(int UserId, int Authorization,String Fullname,int Status){
+		return usersDAO.updateAuthorizationUser(UserId, Authorization,Fullname,Status);
 	}
 	public int updateSettingDictionary(int UserId, int Record, int Pagin){
 		return usersDAO.updateSettingDictionary(UserId, Record, Pagin);

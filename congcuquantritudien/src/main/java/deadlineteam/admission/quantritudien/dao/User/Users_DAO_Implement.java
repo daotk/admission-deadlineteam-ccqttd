@@ -194,10 +194,12 @@ public class Users_DAO_Implement implements Users_DAO {
 	 * @param Authorization {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int updateAuthorizationUser(int UserId, int Authorization){
-		String sqlstring = "update Users set Authorization = :authorization where ID = "+UserId;
+	public int updateAuthorizationUser(int UserId, int Authorization, String Fullname,int Status){
+		String sqlstring = "update Users set Authorization = :authorization , FullName = :fullname , Status =:status where ID = "+UserId;
 		 Query q = (Query) sessionFactory.getCurrentSession().createQuery(sqlstring);
 		 q.setParameter("authorization", Authorization);
+		 q.setParameter("fullname", Fullname);
+		 q.setParameter("status", Status);
 		 int result= q.executeUpdate();
 		return result;
 	}

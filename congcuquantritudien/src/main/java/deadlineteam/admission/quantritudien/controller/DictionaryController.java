@@ -253,6 +253,8 @@ public class DictionaryController {
 				
 				
 			}
+		}else{
+			
 		}
 		List<Dictionary> Avaiable= DictionaryService.getListAvailableDictionaryByPageForUser(page-1,UserID);
 		for(int i=0;i < Avaiable.size();i++){
@@ -318,6 +320,8 @@ public class DictionaryController {
 				model.addAttribute("removelist", remove);
 				
 			}
+		}else{
+			
 		}
 		List<Dictionary> remove= DictionaryService.getAllListDownDictionary(page-1, UserID);
 		for(int i=0;i < remove.size();i++){
@@ -2039,6 +2043,9 @@ public class DictionaryController {
 			@ModelAttribute("createQaA") Dictionary dictionary,
 			Model model,
 			HttpSession session, BindingResult result, Locale locale) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+		if(actionsubmit.equals("cancel")){
+			return "redirect:/home";
+		}else{
 		int userID = Integer.parseInt(session.getAttribute("login").toString());// get ID	
 		DictionaryValidator validator = new DictionaryValidator();
 		validator.validate(dictionary, result);	     
@@ -2067,9 +2074,11 @@ public class DictionaryController {
 				logger.info("Tài khoản " + users.getUserName() + " đã tạo câu hỏi " +newquestion);
 				model.addAttribute("message",msgSrc.getMessage("message.dictionary.create.success", null,locale)); 
 				
-			}
-        	return "create-dictionary";
-        }		
+				}
+        	}
+        	return "create-dictionary";	
+		}
+        	
 	}
 	
 	public void checkBusyStatus(int Id,int UserID, HttpSession session){

@@ -37,7 +37,7 @@ import deadlineteam.admission.quantritudien.util.*;
  * Handles requests for the application home page.
  */
 @Controller
-public class QuestionaManagementController {
+public class QuestionManagementController {
 	@Autowired
 	private Users_SERVICE userService;
 
@@ -54,7 +54,7 @@ public class QuestionaManagementController {
 	private int check = 47;
 	private int get = 44;
 
-	private static final Logger logger = LoggerFactory.getLogger(QuestionaManagementController.class);
+	private static final Logger logger = LoggerFactory.getLogger(QuestionManagementController.class);
 	
 	private MessageSource msgSrc;
 	 @Autowired
@@ -121,6 +121,7 @@ public class QuestionaManagementController {
 				return "home";
 			}else{
 				if(QuestionmanagementService.checkIdQuestionNotReply(Id)==true){
+					
 				if(QuestionmanagementService.checkQuestionIsBusy(Id,UserID)==true){
 					model.addAttribute("warning","Hiện tại tài khoản "+userService.getFullnameByID(QuestionmanagementService.geUserIDByIdQuestion(Id))+ " đang làm việc với câu hỏi này.");
 					//check is admin
@@ -195,7 +196,8 @@ public class QuestionaManagementController {
 					return "home";
 					}
 				}else {
-					return "redirect:/notalow";
+					attributes.addFlashAttribute("warning", "Đã có người trả lời câu hỏi này.");
+					return "redirect:/home";
 				}
 				
 			}
@@ -780,7 +782,7 @@ public class QuestionaManagementController {
 				session.setAttribute("Id",0);
 				session.setAttribute("Page",page );
 				List<Questionmanagement> savelist;
-				if(session.getValue("Admin")==null){	
+				if(session.getValue("Admin")==null){
 					//user nomal
 					savelist= QuestionmanagementService.getSaveListByPageForUser(page-1, UserID);
 					for(int i=0;i < savelist.size();i++){
@@ -793,6 +795,8 @@ public class QuestionaManagementController {
 							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for User
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(2, UserID));
 				}else{
 					//admin
 					savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
@@ -806,7 +810,8 @@ public class QuestionaManagementController {
 							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
-					
+					//paging for admin
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
 				}
 				
 				Setting setting = userService.getSetting(UserID);
@@ -820,7 +825,7 @@ public class QuestionaManagementController {
 				
 				model.addAttribute("fullname",userService.getFullnameByID(UserID));
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
+				
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayTemp());
 				model.addAttribute("savequestionlist", savelist);
 				model.addAttribute("questionmanagements", new Questionmanagement());
@@ -852,6 +857,8 @@ public class QuestionaManagementController {
 							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for User
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(2, UserID));
 				}else{
 					//admin
 					savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
@@ -865,7 +872,8 @@ public class QuestionaManagementController {
 							savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
-					
+					//paging for admin
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(2, UserID));
 				}
 				Setting setting = userService.getSetting(UserID);
 				
@@ -943,6 +951,8 @@ public class QuestionaManagementController {
 									savelist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 								}
 							}
+							//Paging for User
+							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(2, UserID));
 						}else{
 							//admin
 							savelist= QuestionmanagementService.getSaveListByPageForAdmin(page-1,UserID);
@@ -1816,6 +1826,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for User
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(3, UserID));
 				}else{
 					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
@@ -1828,6 +1840,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for admin
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 				}
 								
 				model.addAttribute("replylust", Deletequestionlist);
@@ -1841,7 +1855,6 @@ public class QuestionaManagementController {
 				
 				model.addAttribute("fullname",userService.getFullnameByID(UserID));
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayReplied());
 				model.addAttribute("questionmanagements", new Questionmanagement());
 				//check is admin
@@ -1874,6 +1887,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for User
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(3, UserID));
 				}else{
 					Deletequestionlist = QuestionmanagementService.getRepliedListByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
@@ -1886,6 +1901,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for admin
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(3, UserID));
 				}
 				Users username = userService.getUserByUserID(login);
 				model.addAttribute("username",username.getFullName());
@@ -2527,6 +2544,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for User
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(4, UserID));
 				}else{
 					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
@@ -2539,6 +2558,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for admin
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 				}
 				
 				model.addAttribute("deletequestionlist", Deletequestionlist);
@@ -2555,7 +2576,6 @@ public class QuestionaManagementController {
 				model.addAttribute("numOfRecord", ""+numOfRecord);
 				model.addAttribute("numOfPagin", ""+numOfPagin);
 				model.addAttribute("curentOfPage",page);
-				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 				model.addAttribute("noOfDisplay", setting.getPaginDisplayDelete());
 				model.addAttribute("deletequestion", new Questionmanagement());
 				Users users = userService.getUserByUserID(UserID);				
@@ -2583,6 +2603,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for User
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(4, UserID));
 				}else{
 					Deletequestionlist= QuestionmanagementService.getListDeletedQuestionByPageForAdmin(page-1, UserID);
 					for(int i=0;i < Deletequestionlist.size();i++){
@@ -2595,6 +2617,8 @@ public class QuestionaManagementController {
 							Deletequestionlist.get(i).setQuestionEmail(abc.substring(0, 20)+ ".....");
 						}
 					}
+					//Paging for admin
+					model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(4, UserID));
 				}
 				Setting setting = userService.getSetting(UserID);
 				

@@ -131,7 +131,7 @@
         <div class="body">
         	<table style="height: 100%;width: 100%">
         		<tr style="height: 100%;width: 100%">
-					<td style="background-color: #ffffff;width: 350px; min-width:30%;height:100%" valign="top">
+					<td style="background-color: #ffffff;width: 350px;height:100%" valign="top">
 						<!-- search form -->			
 						<form id="quick-search" method="post" action="dsdaxoa" class="timkiem">
 					   		<fieldset class="search-bar">

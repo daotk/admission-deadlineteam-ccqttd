@@ -110,5 +110,5 @@ public interface Users_DAO {
 	 * @param Authorization {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int updateAuthorizationUser(int UserId, int Authorization);
+	public int updateAuthorizationUser(int UserId, int Authorization, String Fullname,int Status);
 }

@@ -152,12 +152,19 @@ public interface Questionmanagement_SERVICE{
 	public Questionmanagement getRepliedQuestion(int ID);
 	
 	/**
-	 * Get Total Page Question and Dictionary By Status and User
+	 * Get Total Page Question and Dictionary By Status and Admin
 	 * @param status
 	 * @param UserID
 	 * @return
 	 */
 	public int totalPageQuestionAndDictionary(int status, int UserID);
+	/**
+	 * Get Total Page Question and Dictionary By Status and User
+	 * @param status
+	 * @param UserID
+	 * @return
+	 */
+	public int totalPageQuestionAndDictionaryForUser(int status, int UserID);
 	
 	/**
 	 * Get Total Page Question Delete

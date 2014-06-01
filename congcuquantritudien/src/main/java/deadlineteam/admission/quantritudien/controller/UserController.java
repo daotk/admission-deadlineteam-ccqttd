@@ -441,7 +441,7 @@ public class UserController {
 					model.addAttribute("userName", getUser.getUserName());
 					model.addAttribute("email", getUser.getEmail());
 					model.addAttribute("authorization", getUser.getAuthorization());
-					//session.setAttribute("fullName",getUser.get(0).getFullName());
+					model.addAttribute("status", getUser.getStatus());
 				}
 				Users users = userService.getUserByUserID(UserID);
 				logger.info("Tài khoản "+ users.getUserName() +" vào trang cấu hình người dùng");
@@ -459,6 +459,8 @@ public class UserController {
 		public String cauhinhpost( 	
 				@RequestParam String actionsubmit ,
 				@RequestParam(value = "authorization", required = false, defaultValue= "-1") String authorization, 
+				@RequestParam(value = "fullname", required = false, defaultValue= "-1") String fullname,
+				@RequestParam(value = "status", required = false, defaultValue= "-1") String status, 
 				@ModelAttribute("listUser2") Users user,
 				Model model,
 				HttpSession session,Locale locale) {		
@@ -466,10 +468,11 @@ public class UserController {
 				if(actionsubmit.equals("change")){
 					if(authorization.equals("1") || authorization.equals("0") ){
 						int num = Integer.parseInt(authorization);
+						int istatus = Integer.parseInt(status);
 						int Id = Integer.parseInt(session.getAttribute("Id").toString());
 						//userService.UpdateSetting(UserID, numOfRecord, numOfPagin);
 						int login = Integer.parseInt(session.getAttribute("login").toString());
-						userService.updateSettingDictionary(Id, num);
+						userService.updateSettingDictionary(Id, num,fullname,istatus);
 						
 						List<Users> listUser= userService.getAllUsers();
 						model.addAttribute("listUser", listUser);
@@ -478,7 +481,7 @@ public class UserController {
 						model.addAttribute("userName", getUser.getUserName());
 						model.addAttribute("email", getUser.getEmail());
 						model.addAttribute("authorization", getUser.getAuthorization());
-						
+						model.addAttribute("status", getUser.getStatus());
 					
 						
 						Users test = new Users();
@@ -501,7 +504,7 @@ public class UserController {
 						model.addAttribute("userName", getUser.getUserName());
 						model.addAttribute("email", getUser.getEmail());
 						model.addAttribute("authorization", getUser.getAuthorization());
-						
+						model.addAttribute("status", getUser.getStatus());
 					
 						
 						Users test = new Users();

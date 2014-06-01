@@ -138,7 +138,7 @@ public interface Questionmanagement_DAO {
 	 * @param UserID
 	 * @return
 	 */
-	public List<Questionmanagement> repliedList(int UserID);
+	public List<Questionmanagement> getRepliedListForUser(int UserID);
 
 	/**
 	 * Get List Replied Question For Administrator

@@ -105,7 +105,7 @@
  								<label style="width: 100%; font-size: 10pt; float: left; margin-left: 5px;">Tên</label>
  							</td>
  							<td>
- 								<input style="width: 100%; height: 30px; float: right;" type="text" value="${fullName}"  disabled></input>		
+ 								<input name="fullname" style="width: 100%; height: 30px; float: right;" type="text" value="${fullName}"></input>		
  							</td>
  						</tr>
 			    		<tr>
@@ -131,8 +131,14 @@
  							<td>
  								<input  id="edit1" maxlength="1" style="width: 100%; height: 30px; float: right;" type="text" name="authorization" value="${authorization}" placeholder="${authorization}" onkeydown="return isNumber(event);"></input>
 							</td>
- 						</tr>
+ 						</tr> 						
  						<tr>
+ 							<td>Ẩn</td>
+ 							<td>
+ 								<input  id="edit1" maxlength="1" style="width: 100%; height: 30px; float: right;" type="text" name="status" value="${status}" onkeydown="return isNumber(event);"></input>
+							</td>
+ 						</tr>
+ 						 <tr>
  							<td></td>
  							<td>
  								<b style="font: bold 10pt 'Segoe UI WPC','Segoe UI',Tahoma,'Microsoft Sans Serif',Verdana,sans-serif; float: left;">${message}</b>

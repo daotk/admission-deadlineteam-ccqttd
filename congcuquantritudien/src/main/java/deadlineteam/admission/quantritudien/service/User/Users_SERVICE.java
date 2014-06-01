@@ -138,7 +138,7 @@ public interface Users_SERVICE {
 	 * @param Authorization {@link Integer}
 	 * @return {@link Integer}
 	 */
-	public int updateSettingDictionary(int UserId, int Authorization);
+	public int updateSettingDictionary(int UserId, int Authorization,String Fullname,int Status);
 	
 	/**
 	 * Update Setting Dictionary List

@@ -346,7 +346,7 @@ public class Questionmanagement_SERVICE_Implement implements
 	@Override
 	public List<Questionmanagement> getRepliedListByPageForUser(int page, int UserID) {
 		// TODO Auto-generated method stub
-		List<Questionmanagement> list = QuestionmanagementDAO.repliedList(UserID);
+		List<Questionmanagement> list = QuestionmanagementDAO.getRepliedListForUser(UserID);
 		List<Questionmanagement> shortlist = new ArrayList<Questionmanagement>();
 		for (; list.size() > 0;) {
 			Date max = list.get(0).getAnwserDate();
@@ -425,7 +425,7 @@ public class Questionmanagement_SERVICE_Implement implements
 	}
 	
 	/**
-	 * Get Total Page Question and Dictionary By Status and User
+	 * Get Total Page Question and Dictionary By Status For Admin
 	 * @param status
 	 * @param UserID
 	 * @return
@@ -541,6 +541,51 @@ public class Questionmanagement_SERVICE_Implement implements
 		return result;
 	}
 
+	
+	/**
+	 * Get Total Page Question and Dictionary By Status For User
+	 * @param status
+	 * @param UserID
+	 * @return
+	 */
+	@Override
+	public int totalPageQuestionAndDictionaryForUser(int status, int UserID) {
+		int result = 0;
+		Setting settings = getSetting(UserID);
+			if (status == 2) {
+				List<Questionmanagement> listquestion = QuestionmanagementDAO.getSaveListForUser(UserID);
+				int totalRecord = listquestion.size();
+				if (totalRecord % settings.getRecordTemp() == 0) {
+					result = totalRecord / settings.getRecordTemp();
+				} else {
+					result = (totalRecord / settings.getRecordTemp()) + 1;
+				}
+			} else {
+				if (status == 3) {
+					List<Questionmanagement> listquestion = QuestionmanagementDAO.getRepliedListForUser(UserID);
+					int totalRecord = listquestion.size();
+					if (totalRecord % settings.getRecordRepied() == 0) {
+						result = totalRecord / settings.getRecordRepied();
+					} else {
+						result = (totalRecord / settings.getRecordRepied()) + 1;
+					}
+				} else {
+					if (status == 4) {
+						List<Questionmanagement> listdelete = QuestionmanagementDAO.getListDeletedForUser(UserID);
+						int totalRecord = listdelete.size();
+						if (totalRecord % settings.getRecordDelete() == 0) {
+							result = totalRecord / settings.getRecordDelete();
+						} else {
+							result = (totalRecord / settings.getRecordDelete()) + 1;
+						}
+					} 
+				}
+			}
+		return result;
+	}
+
+
+	
 	/**
 	 * Get Total Page Question Delete
 	 * @param status
@@ -1219,7 +1264,7 @@ public class Questionmanagement_SERVICE_Implement implements
 		public List<Questionmanagement> getReplyListForUserAndroid(int page, int UserID){
 			//return QuestionmanagementDAO.getListQuestionmanagementbyStatus(status);
 			
-			List<Questionmanagement> list = QuestionmanagementDAO.repliedList(UserID); // so 0 la do ham co san chu khong co tac dung gi =.=' 
+			List<Questionmanagement> list = QuestionmanagementDAO.getRepliedListForUser(UserID); // so 0 la do ham co san chu khong co tac dung gi =.=' 
 			List<Questionmanagement> sortlist = new ArrayList<Questionmanagement>();
 			for(;list.size()>0;){
 				Date max = list.get(0).getAnwserDate();
