@@ -76,15 +76,29 @@
     <link href="template/default/css/styles.css" rel="stylesheet" />
     <script src="template/default/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="template/default/js/default.min.js"></script>
-		
+	<SCRIPT>
+		$(document).ready(function(){
+			  var buttonmenu = $.cookie('idmenu');
+			  if(buttonmenu == 'hide'){
+				  $('#idmenu').hide();
+		          $('#button1').hide();
+		          $('#button2').show();
+			  }else{
+				  $('#idmenu').show();
+		          $('#button1').show();
+		          $('#button2').hide(); 
+			  }
+			
+		});
+	</SCRIPT>	
 
 </head>
 <body>
     <div class="page">
         <tiles:insertAttribute name="header" />
         <div class="content">
+            <tiles:insertAttribute name="menu1"/>
             <tiles:insertAttribute name="menu"/>
-             <tiles:insertAttribute name="menu1"/>
             <tiles:insertAttribute name="body"/>
         </div>
         <tiles:insertAttribute name="footer" />
