@@ -739,7 +739,7 @@ public class DictionaryController {
 									logger.info("Tài khoản "+usersquestion.getUserName()+" xóa câu hỏi " + question);
 								}
 							}
-							model.addAttribute("mess", successCount +" câu hỏi đã xóa, " +failCount+" câu hỏi xóa thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
+							model.addAttribute("message", successCount +" câu hỏi đã xóa, " +failCount+" câu hỏi xóa thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 								
 							
 							model.addAttribute("username", user);
@@ -858,7 +858,7 @@ public class DictionaryController {
 								model.addAttribute("curentOfPage",page);
 								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
-								model.addAttribute("mess", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
+								model.addAttribute("message", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 							}else{
 								// Tim kiem
 								List<Dictionary> avaiable= DictionaryService.searchIdex(actionsubmit, "1", UserID);
@@ -1134,8 +1134,8 @@ public class DictionaryController {
 								logger.info("Tài khoản "+usersquestion.getUserName()+" khôi phục câu hỏi " + question);
 							}
 						}
-						model.addAttribute("mess", successCount +" câu hỏi đã khôi phục, " +failCount+" câu hỏi khôi phục thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
-						model.addAttribute("message","Khôi phục tất cả thành công.");
+						model.addAttribute("message", successCount +" câu hỏi đã khôi phục, " +failCount+" câu hỏi khôi phục thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
+						//model.addAttribute("message","Khôi phục tất cả thành công.");
 					}else{
 						
 				// Tim kiem
@@ -1515,7 +1515,7 @@ public class DictionaryController {
 								model.addAttribute("curentOfPage",page);
 								model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 								model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
-								model.addAttribute("mess", successCount +" câu hỏi đã xóa, " +failCount+" câu hỏi xóa thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
+								model.addAttribute("message", successCount +" câu hỏi đã xóa, " +failCount+" câu hỏi xóa thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 								model.addAttribute("removelist", remove2);
 								String user = userService.getFullnameByID(UserID);
 								model.addAttribute("username", user);
@@ -1614,7 +1614,7 @@ public class DictionaryController {
 										model.addAttribute("curentOfPage",page);
 										model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(7, UserID));
 										model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
-										model.addAttribute("mess", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
+										model.addAttribute("message", successCount +" câu hỏi đã đăng, " +failCount+" câu hỏi đăng thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
 									}catch(Exception e){
 										model.addAttribute("error",msgSrc.getMessage("message.dictionary.up.fail", null,locale));
 									}
@@ -1975,8 +1975,8 @@ public class DictionaryController {
 							model.addAttribute("curentOfPage",page);
 							model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(6, UserID));
 							model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
-							model.addAttribute("mess", successCount +" câu hỏi đã hạ, " +failCount+" câu hỏi hạ thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
-						model.addAttribute("message", msgSrc.getMessage("message.dictionary.down.success", null,locale)); 
+							model.addAttribute("message", successCount +" câu hỏi đã hạ, " +failCount+" câu hỏi hạ thất bại "+ "trong tổng số " + SizeOfList + " câu hỏi" );
+							//model.addAttribute("message", msgSrc.getMessage("message.dictionary.down.success", null,locale)); 
 						}catch(Exception e){
 							model.addAttribute("error",msgSrc.getMessage("message.dictionary.down.fail", null,locale)); 
 						}

@@ -155,7 +155,7 @@
 			       		 	<!-- select form -->
 							<div style="padding: 5px;">
 								<c:if test="${not empty Admin}">
-								  	<span id="select_all" style="cursor: pointer;"><img src="images/selectall.jpg" style="border: 0; margin-right: 4px; margin-top: -6px" />Chọn tất cả</span>
+								    	<input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả</input>
 								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;" onclick="$('#loading').show();"><img src="images/down.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Hạ</span>
 						  		</c:if>
 						  		<!-- configuration -->
@@ -229,7 +229,6 @@
 				
 					<!-- Detail -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">	
-					<div>${mess}</div>
 						<form:form method="post" action="botudienhientai?page=${curentOfPage}" commandName="diction">
 						<c:if test="${not empty error}">
 								<script type="text/javascript">
