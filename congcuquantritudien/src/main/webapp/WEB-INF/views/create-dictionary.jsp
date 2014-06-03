@@ -108,7 +108,6 @@
 									});
 			        			</script>
 		        			</c:if>	
-      	</div>
     </tiles:putAttribute>
 </tiles:insertDefinition>
 </body>

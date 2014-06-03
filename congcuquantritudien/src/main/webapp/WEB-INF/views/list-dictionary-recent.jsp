@@ -39,7 +39,7 @@
 	<!--For Loading -->
 	<script>
 	$(window).bind("load", function() {
-		$('#loading').fadeOut(2000);
+		$('#loading').fadeOut(1000);
 	});
 	</script>
 <script>
@@ -130,7 +130,7 @@
         <div class="body">     		 
        		<table style="height: 100%;width: 100%;border-collapse: collapse;">
         		<tr style="height: 100%;width: 100%">
-					<td style="background-color: #ffffff;width: 30%; height:100%" valign="top">
+					<td style="background-color: #ffffff;width: 350px; height:100%" valign="top">
 						<div id="second-sidebar">
 							<!-- search form -->
 							<form id="quick-search" method="post" action="botudienhientai" class="timkiem">
@@ -194,7 +194,7 @@
 						    <!-- end configuration pop-up -->
 					    	
 					    	<!-- load list of question -->
-							<div class="list-question-content" style="height: 86%; overflow:auto ; overflow-x: hidden;">
+							<div class="list-question-content" style="height: 71%; overflow:auto ; overflow-x: hidden;">
 								<c:if test="${not empty Recentlist}">
 									<c:forEach var="Questionmanagement" items="${Recentlist}" >
 										<div style="width: 100%;">

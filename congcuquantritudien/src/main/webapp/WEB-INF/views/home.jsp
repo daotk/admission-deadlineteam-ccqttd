@@ -73,7 +73,7 @@
 	<!--For Loading -->
 	<script>
 	$(window).bind("load", function() {
-		$('#loading').fadeOut(2000);
+		$('#loading').fadeOut(1000);
 	});
 	</script>
 	<!-- Info Paging -->

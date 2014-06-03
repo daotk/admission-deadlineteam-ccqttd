@@ -974,7 +974,7 @@ public class QuestionManagementController {
 						model.addAttribute("anwser",questionmanagement.getAnswer());
 						String email = session.getAttribute("email").toString();
 						String title = "Trả lời câu hỏi tuyển sinh";
-						String header = "Hello guy" + "\n";
+						String header = "";
 						String footer = "\n " + "Trung tâm Thông tin trường ĐH Văn Lang " + "\n " + "Điện thoại: 08. 38374596";
 						
 						String body = questionmanagement.getAnswer() + footer;
