@@ -28,8 +28,6 @@
     <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap-paginator.js"></script>
-		
-	<script type="text/javascript" src="js/jquery.msgbox.i18n.js"></script>
 	<script type="text/javascript" src="js/jquery.msgbox.js"></script>	
 		
 	<!-- Control Check box -->
@@ -161,11 +159,11 @@
 									<table>
 										<tr>
 											<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-											<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+											<td><input id="edit1" maxlength="1" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
 										</tr>
 						    			<tr>
 						    				<td><label style="width: 160px; display: inline; padding-right: 10px;">Số trang hiển thị:</label></td>
-						    				<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+						    				<td><input id="edit1" maxlength="1" style="width: 220px; height: 30px;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
 						    			</tr>
 										<tr>
 											<td></td>

@@ -241,7 +241,9 @@ public class DictionaryWS {
 						// get id from username
 						int idUser = userService.getIdbyUsername(username);
 						int idQues = Integer.parseInt(IdQuestion);
-
+						answer = util.restoreTags(answer);
+						question = util.restoreTags(question);
+						
 						Dictionary ques = DictionaryService.getDictionaryByID(idQues);
 						if(ques.getCreateBy() != null){
 							// Xu ly thao tac song song
@@ -249,8 +251,7 @@ public class DictionaryWS {
 							int author = information.getAuthorization();
 							if(idUser == ques.getCreateBy()){
 								
-								answer = util.restoreTags(answer);
-								question = util.restoreTags(question);
+								
 								
 								int execute = DictionaryService.updateQuesionAndAnwserDictionary(idQues, answer, question);
 								int updatecreateby = DictionaryService.updateCreateByWhenEdit(idQues, idUser);

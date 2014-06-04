@@ -174,11 +174,11 @@
 					  			<table>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-					  					<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
+					  					<td><input id="edit1" maxlength="1" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" onkeydown="return isNumber(event);"></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
-					  					<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
+					  					<td><input id="edit1" maxlength="1" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" onkeydown="return isNumber(event);"></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td></td>
@@ -192,33 +192,35 @@
 							<!-- end configuration pop-up -->      		 			
 				
 							<!-- load list of question -->
-							<div class="list-question-content" style="height: 71%; overflow:auto ; overflow-x: hidden;">
-								<c:if test="${not empty removelist}">
-									<c:forEach var="Questionmanagement" items="${removelist}" >
-										<div style="width: 100%;">
-											<div class="check"><input id="${Questionmanagement.ID}" name="${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
-											<a href="${pageContext.request.contextPath}/botudiendaha?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
-												<div class="list-question" id="div_${Questionmanagement.ID}" >
-													<div class="row1">
-															
-														<div class="list-date">
-															<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />
+							<div style="height: 80%; overflow:auto ; overflow-x: hidden;">
+								<div class="list-question-content" >
+									<c:if test="${not empty removelist}">
+										<c:forEach var="Questionmanagement" items="${removelist}" >
+											<div style="width: 100%;">
+												<div class="check"><input id="${Questionmanagement.ID}" name="${Questionmanagement.ID}" type="checkbox" value="${Questionmanagement.ID}" AUTOCOMPLETE=OFF /></div>
+												<a href="${pageContext.request.contextPath}/botudiendaha?topic=${Questionmanagement.ID}&page=${curentOfPage}" style ="text-decoration: none;">
+													<div class="list-question" id="div_${Questionmanagement.ID}" >
+														<div class="row1">
+																
+															<div class="list-date">
+																<fmt:formatDate value="${Questionmanagement.createDate}"  pattern="dd/MM/yyyy HH:mm" />
+															</div>
+														</div>						
+														<div class="row3">
+															<c:set var="title" value="${Questionmanagement.question}"/>
+															${fn:substring(title,0, 55)}
 														</div>
-													</div>						
-													<div class="row3">
-														<c:set var="title" value="${Questionmanagement.question}"/>
-														${fn:substring(title,0, 55)}
 													</div>
-												</div>
-											</a>
-										</div>
-									</c:forEach>
-								</c:if>
+												</a>
+											</div>
+										</c:forEach>
+									</c:if>
+								</div>
 							</div>
 							<!-- end load list of question -->
 					
 							<!-- Paging -->
-							<div id="paginator"></div>
+							<div id="paginator"  style="clear: both;"></div>
 							<!-- end paging -->         	
                 		</div>		
 					</td>
@@ -237,7 +239,7 @@
 									});
 								</script>
 							</c:if>	
-							</div>
+
 							<c:if test="${not empty message}">
 								<script type="text/javascript">
 									var mess = '${message}';

@@ -43,6 +43,7 @@ import deadlineteam.admission.quantritudien.validator.DictionaryValidator;
 @Controller
 @RequestMapping("android")
 public class CreateQuestionWS {
+	AndroidUtil util;
 	
 	@Autowired
 	private Users_SERVICE userService;
@@ -74,7 +75,9 @@ public class CreateQuestionWS {
 			
 			if(login.equals("success")){
 				int idUser = userService.getIdbyUsername(username);
-	
+				anwser = util.restoreTags(anwser);
+				question = util.restoreTags(question);
+				
 					Dictionary dictionary = new Dictionary();
 				
 					dictionary.setQuestion(question);

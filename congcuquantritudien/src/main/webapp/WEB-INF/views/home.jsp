@@ -176,11 +176,11 @@
 					  			<table>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 10px;">Số mục hiển thị:</label></td>
-					  					<td><input id="edit1" maxlength="5" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" ></input></td>
+					  					<td><input id="edit1" maxlength="1" style="width: 220px; height: 30px;" type="text" name="change-items" value="${numOfRecord}" placeholder="${numOfRecord}" ></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td><label style="width: 160px; display: inline; padding-right: 6px;">Số trang hiển thị:</label></td>
-					  					<td><input id="edit1" maxlength ="5" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" ></input></td>
+					  					<td><input id="edit1" maxlength ="1" style="width: 220px; height: 30px; display: inline;" type="text" name="change-pagin" value="${numOfPagin}" placeholder="${numOfPagin}" ></input></td>
 					  				</tr>
 					  				<tr>
 					  					<td></td>
