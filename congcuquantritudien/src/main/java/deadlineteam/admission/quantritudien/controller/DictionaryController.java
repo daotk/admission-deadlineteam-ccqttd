@@ -363,6 +363,7 @@ public class DictionaryController {
 						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 			}else{
 				Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 				for(int i=0;i < Avaiable.size();i++){
@@ -371,6 +372,7 @@ public class DictionaryController {
 						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(5, UserID));
 			}
 			model.addAttribute("Avaiable", Avaiable);	
 			model.addAttribute("diction", new Dictionary());
@@ -384,7 +386,6 @@ public class DictionaryController {
 			model.addAttribute("numOfPagin", ""+numOfPagin);
 			
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
@@ -411,6 +412,7 @@ public class DictionaryController {
 						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 			}else{
 				Avaiable= DictionaryService.getListAvailableDictionaryForAdmin(page-1, UserID);			
 				for(int i=0;i < Avaiable.size();i++){
@@ -419,6 +421,7 @@ public class DictionaryController {
 						Avaiable.get(i).setQuestion(abc.substring(0, get)+ ".....");
 					}
 				}
+				model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionaryForUser(5, UserID));
 			}
 			
 			model.addAttribute("Avaiable", Avaiable);				
@@ -438,7 +441,6 @@ public class DictionaryController {
 			String user = userService.getFullnameByID(UserID);
 			model.addAttribute("username", user);
 			model.addAttribute("curentOfPage",page);
-			model.addAttribute("noOfPages", QuestionmanagementService.totalPageQuestionAndDictionary(5, UserID));
 			model.addAttribute("noOfDisplay", setting.getPaginDisplayDictionary());
 			
 			model.addAttribute("curentOfPage", page);

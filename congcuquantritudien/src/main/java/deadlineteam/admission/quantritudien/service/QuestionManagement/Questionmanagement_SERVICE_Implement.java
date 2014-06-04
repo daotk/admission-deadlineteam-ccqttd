@@ -578,7 +578,21 @@ public class Questionmanagement_SERVICE_Implement implements
 						} else {
 							result = (totalRecord / settings.getRecordDelete()) + 1;
 						}
-					} 
+					}else{
+						if (status == 5) {
+							List<Dictionary> list = Dictionary_DAO.getAvailableListDictionaryForUser(UserID);
+							int totaldictionary = list.size();
+
+							if (totaldictionary
+									% settings.getRecordDictionary() == 0) {
+								result = totaldictionary
+										/ settings.getRecordDictionary();
+							} else {
+								result = totaldictionary
+										/ settings.getRecordDictionary() + 1;
+							}
+						}
+					}
 				}
 			}
 		return result;
