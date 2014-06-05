@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
-import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionmanagement_SERVICE;
+import deadlineteam.admission.quantritudien.service.Question.Questionmanagement_SERVICE;
 
 
 @Controller

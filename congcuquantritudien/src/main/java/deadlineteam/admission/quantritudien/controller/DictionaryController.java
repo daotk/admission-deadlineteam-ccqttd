@@ -43,14 +43,14 @@ import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 
 
 import deadlineteam.admission.quantritudien.bean.DictionaryBean;
+import deadlineteam.admission.quantritudien.bean.DictionaryRestful;
 import deadlineteam.admission.quantritudien.bean.UsersBean;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
-import deadlineteam.admission.quantritudien.domain.DictionaryRestful;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Setting;
 import deadlineteam.admission.quantritudien.domain.Users;
 import deadlineteam.admission.quantritudien.service.Dictionary.Dictionary_SERVICE;
-import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionmanagement_SERVICE;
+import deadlineteam.admission.quantritudien.service.Question.Questionmanagement_SERVICE;
 import deadlineteam.admission.quantritudien.service.User.Users_SERVICE;
 import deadlineteam.admission.quantritudien.validator.ChangePassValidator;
 import deadlineteam.admission.quantritudien.validator.DictionaryValidator;

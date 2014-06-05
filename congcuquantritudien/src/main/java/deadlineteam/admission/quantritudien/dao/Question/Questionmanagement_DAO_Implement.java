@@ -1,5 +1,5 @@
 
-package deadlineteam.admission.quantritudien.dao.QuestionManagement;
+package deadlineteam.admission.quantritudien.dao.Question;
 
 import java.util.Date;
 import java.util.List;

@@ -29,18 +29,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import deadlineteam.admission.quantritudien.bean.DictionaryRestful;
 import deadlineteam.admission.quantritudien.controller.DictionaryController;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
-import deadlineteam.admission.quantritudien.domain.DictionaryRestful;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Users;
 import deadlineteam.admission.quantritudien.entities.DictionaryEntity;
 import deadlineteam.admission.quantritudien.entities.QuestionmanagementEntity;
 import deadlineteam.admission.quantritudien.entities.DictionaryListEntity;
 import deadlineteam.admission.quantritudien.service.Dictionary.Dictionary_SERVICE;
-import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionmanagement_SERVICE;
+import deadlineteam.admission.quantritudien.service.Question.Questionmanagement_SERVICE;
 import deadlineteam.admission.quantritudien.service.User.Users_SERVICE;
 import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
+import deadlineteam.admission.quantritudien.util.AndroidUtil;
 
 
 @Controller

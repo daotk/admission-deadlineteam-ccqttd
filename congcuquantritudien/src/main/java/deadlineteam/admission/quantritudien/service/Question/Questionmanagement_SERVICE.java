@@ -1,4 +1,4 @@
-package deadlineteam.admission.quantritudien.service.QuestionManagement;
+package deadlineteam.admission.quantritudien.service.Question;
 
 import java.util.List;
 

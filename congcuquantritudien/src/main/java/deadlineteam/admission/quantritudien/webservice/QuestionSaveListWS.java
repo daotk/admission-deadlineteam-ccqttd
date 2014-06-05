@@ -29,9 +29,10 @@ import deadlineteam.admission.quantritudien.domain.Questionmanagement;
 import deadlineteam.admission.quantritudien.domain.Users;
 import deadlineteam.admission.quantritudien.entities.QuestionmanagementEntity;
 import deadlineteam.admission.quantritudien.entities.QuestionmanagementListEntity;
-import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionmanagement_SERVICE;
+import deadlineteam.admission.quantritudien.service.Question.Questionmanagement_SERVICE;
 import deadlineteam.admission.quantritudien.service.User.Users_SERVICE;
 import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
+import deadlineteam.admission.quantritudien.util.AndroidUtil;
 
 
 @Controller

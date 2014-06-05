@@ -1,4 +1,4 @@
-package deadlineteam.admission.quantritudien.service.QuestionManagement;
+package deadlineteam.admission.quantritudien.service.Question;
 
 import deadlineteam.admission.quantritudien.dao.Dictionary.Dictionary_DAO;
 
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import deadlineteam.admission.quantritudien.dao.QuestionManagement.Questionmanagement_DAO;
+import deadlineteam.admission.quantritudien.dao.Question.Questionmanagement_DAO;
 import deadlineteam.admission.quantritudien.dao.User.Users_DAO;
 import deadlineteam.admission.quantritudien.domain.Dictionary;
 import deadlineteam.admission.quantritudien.domain.Questionmanagement;

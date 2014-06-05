@@ -1,4 +1,4 @@
-package deadlineteam.admission.quantritudien.domain;
+package deadlineteam.admission.quantritudien.bean;
 
 
 import java.util.Date;

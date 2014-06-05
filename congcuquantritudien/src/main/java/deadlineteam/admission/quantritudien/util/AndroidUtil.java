@@ -1,4 +1,4 @@
-package deadlineteam.admission.quantritudien.webservice;
+package deadlineteam.admission.quantritudien.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -7,9 +7,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import deadlineteam.admission.quantritudien.service.QuestionManagement.Questionmanagement_SERVICE;
+import deadlineteam.admission.quantritudien.service.Question.Questionmanagement_SERVICE;
 import deadlineteam.admission.quantritudien.service.User.Users_SERVICE;
-import deadlineteam.admission.quantritudien.util.AeSimpleMD5;
 
 public class AndroidUtil {
 	// This fuctions restore all special characters
