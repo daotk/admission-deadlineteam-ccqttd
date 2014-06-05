@@ -149,10 +149,10 @@
 		       		 
 			       		 	<!-- select form -->
 							<div style="padding: 5px;">
-								<c:if test="${not empty Admin}">
-								    	<input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả</input>
-								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;" onclick="$('#loading').show();"><img src="images/down.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Hạ</span>
-						  		</c:if>
+								
+								    <c:if test="${not empty Admin}"><input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả </input></c:if>
+								  	<span id="down_all"  style="cursor: pointer;padding-left: 10px;" onclick="$('#loading').show();"><c:if test="${not empty Admin}"><img src="images/down.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Hạ </c:if></span>
+						  	
 						  		<!-- configuration -->
 						  		<div id="container-pop">
 									<a class="popup-link-1" style="text-decoration: none;">

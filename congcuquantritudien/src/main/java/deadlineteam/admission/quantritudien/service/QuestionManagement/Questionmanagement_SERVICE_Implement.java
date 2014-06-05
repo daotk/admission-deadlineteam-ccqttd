@@ -583,13 +583,10 @@ public class Questionmanagement_SERVICE_Implement implements
 							List<Dictionary> list = Dictionary_DAO.getAvailableListDictionaryForUser(UserID);
 							int totaldictionary = list.size();
 
-							if (totaldictionary
-									% settings.getRecordDictionary() == 0) {
-								result = totaldictionary
-										/ settings.getRecordDictionary();
+							if (totaldictionary	% settings.getRecordDictionary() == 0) {
+								result = totaldictionary/ settings.getRecordDictionary();
 							} else {
-								result = totaldictionary
-										/ settings.getRecordDictionary() + 1;
+								result = totaldictionary/ settings.getRecordDictionary() + 1;
 							}
 						}
 					}

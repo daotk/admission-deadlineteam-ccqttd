@@ -149,8 +149,8 @@
        		 				
        		 				<!-- select form -->
 							<div style="padding: 5px;">
-									  	<input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả</input>
-									<span id="restore_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/restore.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Khôi phục</span> 		
+									<c:if test="${not empty Admin}"><input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả</input></c:if>
+									<span id="restore_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><c:if test="${not empty Admin}"><img src="images/restore.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Khôi phục</c:if></span> 		
 						  		<!-- configuration -->
 						  		<div id="container-pop">
 									<a class="popup-link-1" style="text-decoration: none;">

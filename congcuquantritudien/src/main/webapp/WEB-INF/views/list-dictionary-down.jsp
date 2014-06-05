@@ -151,11 +151,10 @@
  							
  							<!-- Select form -->
 					  		<div style="padding: 5px;">
-					  			<c:if test="${not empty Admin}">
-							  		  	<input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả</input>
-							  		<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>					  		
-						  			<span id="up_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/upload.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Đăng</span>	
-					  			</c:if>
+					  			
+							  		<c:if test="${not empty Admin}"><input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả</input></c:if>
+							  		<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><c:if test="${not empty Admin}"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</c:if></span>					  		
+						  			<span id="up_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><c:if test="${not empty Admin}"><img src="images/upload.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Đăng </c:if></span>		
 						  		<!-- configuration -->
 						  		<div id="container-pop">
 									<a class="popup-link-1" style="text-decoration: none;">
