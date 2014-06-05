@@ -26,6 +26,7 @@ import deadlineteam.admission.hienthitudien.domain.Questionmanagement;
 import deadlineteam.admission.hienthitudien.entities.DictionaryEntity;
 import deadlineteam.admission.hienthitudien.entities.DictionaryListEntity;
 import deadlineteam.admission.hienthitudien.service.DictionaryService;
+import deadlineteam.admission.hienthitudien.util.AndroidUtil;
 
 
 

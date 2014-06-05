@@ -1,4 +1,4 @@
-package deadlineteam.admission.hienthitudien.webservice;
+package deadlineteam.admission.hienthitudien.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
