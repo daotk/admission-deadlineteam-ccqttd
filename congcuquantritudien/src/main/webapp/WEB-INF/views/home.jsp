@@ -156,7 +156,7 @@
 					  	<!-- Select form -->
 					  	<div style="padding: 5px;">
 						  	<input id="select_all" type="checkbox" style="cursor: pointer;">Chọn tất cả</input>
-						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;"  onclick="$('#loading').show();"><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>
+						  	<span id="delete_all"  style="cursor: pointer;padding-left: 10px;" ><img src="images/recycle.png" style="border: 0; margin-right: 4px; margin-top: -6px" />Xóa</span>
 					  		
 					  		<!-- configuration -->
 					  		<div id="container-pop">

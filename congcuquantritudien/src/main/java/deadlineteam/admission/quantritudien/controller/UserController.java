@@ -78,6 +78,24 @@ public class UserController {
 	 
 
 	 
+	 @RequestMapping(value="/mobile", method=RequestMethod.GET)
+	 public String mobileget() {
+		 return "mobile";
+	 }
+	 
+	 @RequestMapping(value="/mobile", method=RequestMethod.POST)
+	 public String mobilepost(	@RequestParam String actionmobile,RedirectAttributes attributes  ) {
+		 if(actionmobile.equals("ok")){
+			 return "mobile";
+		 }else{
+			 attributes.addFlashAttribute("isredirect", "ok");
+			 return "redirect:/";
+		 }
+		
+	 }
+	 
+	 
+	 
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String login(HttpSession session, Model model,Locale locale) {

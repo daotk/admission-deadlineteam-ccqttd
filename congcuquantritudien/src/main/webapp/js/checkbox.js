@@ -23,11 +23,11 @@ $(document).ready(function(){
 	            }
 	        });
 	        if(checked!=""){
-	        	 var result =confirm("bạn có muốn xóa câu hỏi?");
+	        	 var result =confirm("bạn có muốn xóa câu hỏi?"); onsubmit="$('#loading').show();"
 	        	 if(result == true){
 	   					 var url = window.location.pathname.split( '/' )[2]; 
 						 if(url==""){url="home";}
-				        var form = $('<form action="'+url+'" method="post">' +
+				        var form = $('<form action="'+url+'" method="post" onsubmit="$("#loading").show();">' +
 				        		'<input type="hidden" name="checkboxdata" value="'+checked+'" />' +
 				        		'<input type="hidden" name="actionsubmit" value="deleteall" />' +
 				        		'</form>');
