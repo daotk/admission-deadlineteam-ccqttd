@@ -221,29 +221,38 @@
 				
 					<!-- Detail -->
 					<td style="background-color:#f5f3f3; width: auto; height: 100%" valign="top">	
-					<div>${mess}</div>
+					<c:if test="${not empty error}">
+							<script type="text/javascript">
+								var mess = '${error}';
+								$.msgbox({
+									type: 'error',
+									content: mess,
+									title: 'Thất bại'
+								});
+							</script>
+						</c:if>	
+						<c:if test="${not empty warning}">
+							<script type="text/javascript">
+								var mess = '${warning}';
+								$.msgbox({
+									type: 'warning',
+									content: mess,
+									title: 'Cảnh báo'
+								});
+							</script>
+						</c:if>	
+						<c:if test="${not empty message}">
+							<script type="text/javascript">
+								var mess = '${message}';
+			        				$.msgbox({
+									type: 'success',
+									content: mess,
+									title: 'Thành công'
+								});
+		        			</script>
+	        			</c:if>	
 						<form:form method="post" action="botudiendaxoa?page=${curentOfPage}" commandName="diction">
-							<c:if test="${not empty error}">
-								<script type="text/javascript">
-									var mess = '${error}';
-									$.msgbox({
-										type: 'error',
-										content: mess,
-										title: 'Thất bại'
-									});
-								</script>
-							</c:if>	
-							</div>
-							<c:if test="${not empty message}">
-								<script type="text/javascript">
-									var mess = '${message}';
-				        				$.msgbox({
-										type: 'success',
-										content: mess,
-										title: 'Thành công'
-									});
-			        			</script>
-		        			</c:if>	
+	
 							<c:if test="${not empty diction.question}">
 								<div id="questionarea">
 									

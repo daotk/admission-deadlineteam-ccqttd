@@ -398,7 +398,6 @@ public class DictionaryController {
 			
 			if(DictionaryService.checkIdDictionaryAvaiable(Id)==true){
 				
-			
 			if(DictionaryService.checkDictionaryByUserId(UserID,Id)==true){
 				
 			session.setAttribute("Id", Id);
@@ -447,10 +446,13 @@ public class DictionaryController {
 
 			return "list-dictionary";
 			}else{
-				return "redirect:/notalow";
+				//
+				attributes.addFlashAttribute("warning", "Bạn không có quyền xem câu này. Xin chọn câu khác");
+				return "redirect:/botudien";
 			}
 			}else{
-				return "redirect:/notalow";
+				attributes.addFlashAttribute("warning", "Bạn không có quyền xem câu này. Xin chọn câu khác");
+				return "redirect:/botudien";
 			}
 		}
 	}
@@ -942,7 +944,6 @@ public class DictionaryController {
 			
 		}else{
 			if(DictionaryService.checkIdDictionaryDeleted(Id)==true){
-			if(DictionaryService.checkDictionaryDeleteByUserId(userID,Id)==true){
 			session.setAttribute("Id", Id);
 			session.setAttribute("Page",page );	
 			List<Dictionary> deletelist= DictionaryService.getAllListDeleteDictionary(page-1, userID);	
@@ -978,14 +979,13 @@ public class DictionaryController {
 			model.addAttribute("curentOfPage", page);
 			return "list-dictionary-delete";
 			}else{
-				return "redirect:/notalow";
+				attributes.addFlashAttribute("warning", "Bạn không có quyền xem câu này. Xin chọn câu khác");
+				return "redirect:/botudiendaxoa";
 			}
-			}else{
-				return "redirect:/notalow";
 			}
 		}
 	}
-}
+
 
 	@RequestMapping(value = "/botudiendaxoa", method = RequestMethod.POST)
 	public String botudiendaxoapost( 	
@@ -1254,7 +1254,8 @@ public class DictionaryController {
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-down";
 		}else{
-			return "redirect:/notalow";
+			attributes.addFlashAttribute("warning", "Bạn không có quyền xem câu này. Xin chọn câu khác");
+			return "redirect:/botudiendaha";
 		}
 		}
 	}
@@ -1746,7 +1747,8 @@ public class DictionaryController {
 			model.addAttribute("username", newusername.getFullName().toString());
 			return "list-dictionary-recent";
 		}else{
-			return "redirect:/notalow";
+			attributes.addFlashAttribute("warning", "Bạn không có quyền xem câu này. Xin chọn câu khác");
+			return "redirect:/botudienhientai";
 		}
 		}
 	}
