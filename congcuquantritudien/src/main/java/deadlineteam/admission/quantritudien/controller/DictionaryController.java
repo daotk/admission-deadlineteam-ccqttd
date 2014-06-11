@@ -2075,6 +2075,7 @@ public class DictionaryController {
 				model.addAttribute("message",msgSrc.getMessage("message.dictionary.create.success", null,locale)); 
 				
 				}
+        	model.addAttribute("createQaA",new Dictionary());
         	}
         	return "create-dictionary";	
 		}
