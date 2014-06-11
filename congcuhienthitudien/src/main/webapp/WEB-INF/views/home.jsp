@@ -96,31 +96,30 @@ $(document).ready(function() {
 					<!-- search and setting -->					
 					<div id="tfheader" style="width: 100%;display: block; margin-top: 3%;">
 						<!-- Search -->
-						<div id="search" style="width: 95%; height:100%;float: left;">
+						<div id="search" style="width: 100%; height:100%;display: inline;">
 							<form id="tfnewsearch" method="post" action="./">
-								<label>
-									<span style="margin-left: 3%;">Tìm kiếm: </span>
+								<label >
+								<div style="width:100%; float: left;">
+									<span style="margin-left: 3%; margin-top:5px; width: 10%; float:left;">Tìm kiếm: </span>
 									<c:if test="${empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 80%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 68%; float:left;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
 									</c:if>
 						 			<c:if test="${not empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 70%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
+										<input name="actionsubmit" style="font-size:10pt; width:68%; float:left;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
 									</c:if>
-									<button class="button" type="submit"  style=" margin-left: 15px; margin-bottom: 10px;">Tìm kiếm</button>
+									<button class="button" type="submit"  style=" margin-bottom: 10px; margin-left: 5px; width: 10%; height: 30px; float:left;">Tìm kiếm</button>
+									<div id="container-pop" style="width: 5%; float:left;">
+										<a class="popup-link-1" style="text-decoration: none;">
+											<img src="images/setting.png" style=" margin-left: 5px; margin-bottom: 10px;" />
+										</a>
+									</div> <!-- end configuration -->
+								</div>
 								</label>
 								
 							</form>
 						</div>
-						<!-- End search -->						
+						<!-- End search -->
 						
-						<!-- configuration -->
-					  	<div id="container-pop" style="float: left;">
-							<a class="popup-link-1" style="text-decoration: none;">
-								<img src="images/setting.png" style="border: 0; float: left; margin-right: 2px;" />
-							</a>
-						</div>
-						<!-- end configuration -->
-				  	
 					  	<!-- configuration pop-up -->
 					  	<div class="popup-box" id="popup-box-1">
 					  		<div class="close"><img src="images/close1.png" style="border: 0; margin-right: 5px; margin-top: 5px" /></div>
