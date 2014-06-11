@@ -96,12 +96,12 @@ $(document).ready(function() {
 					<!-- search and setting -->					
 					<div id="tfheader" style="width: 100%;display: block; margin-top: 3%;">
 						<!-- Search -->
-						<div id="search" style="width: 90%; height:100%;float: left;">
+						<div id="search" style="width: 95%; height:100%;float: left;">
 							<form id="tfnewsearch" method="post" action="./">
 								<label>
 									<span style="margin-left: 3%;">Tìm kiếm: </span>
 									<c:if test="${empty curentkeyword}">
-										<input name="actionsubmit" style="font-size:10pt; width: 70%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
+										<input name="actionsubmit" style="font-size:10pt; width: 80%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm"> 
 									</c:if>
 						 			<c:if test="${not empty curentkeyword}">
 										<input name="actionsubmit" style="font-size:10pt; width: 70%;" type="search" class="search-term" placeholder="Nhập từ khóa cần tìm kiếm" value ="${curentkeyword}"> 
